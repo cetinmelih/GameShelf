@@ -202,13 +202,15 @@
 
   <!-- Sola Kaydırılmış Fragman Cebi & Lightbox Modal Player (Stacking Context Dışında, En Üst Katmanda) -->
   <div class="gs-trailer-backdrop" id="trailerBackdrop"></div>
-  <div class="gs-trailer-pocket" id="trailerPocket" title="Sesi duymak için üzerine gelin, büyütmek için tıklayın">
+  <div class="gs-trailer-pocket" id="trailerPocket" title="Sesi duymak için üzerine gelin, tam ekran fragman için tıklayın">
     <button type="button" class="gs-trailer-close" id="trailerCloseBtn" aria-label="Fragmanı Küçült">
       <i class="fa fa-times"></i>
     </button>
-    <video id="trailerVideo" autoplay muted loop playsinline preload="metadata"></video>
+    <div class="gs-trailer-click-shield" id="trailerClickShield"></div>
+    <iframe id="trailerIframe" allow="autoplay; encrypted-media; picture-in-picture" allowfullscreen style="display:none;"></iframe>
+    <video id="trailerVideo" autoplay muted loop playsinline preload="metadata" style="display:none;"></video>
     <div class="gs-trailer-badge" id="trailerBadge">
-      <span><i class="fa fa-volume-mute me-1" id="trailerAudioIcon"></i><span id="trailerStatusText">Fragman</span></span>
+      <span><i class="fa fa-volume-mute me-1" id="trailerAudioIcon"></i><span id="trailerStatusText">Resmi Fragman</span></span>
       <span><i class="fa fa-expand-alt"></i></span>
     </div>
   </div>
@@ -564,7 +566,7 @@
       // 1. Oyun değiştirici barını doldur (Ana oyunlar + DLC + Edition test erişimi)
       const allGames = await GameShelfService.getAllGames();
       const switcherEl = document.getElementById("gameSwitcherList");
-      switcherEl.innerHTML = allGames.map((g) => {
+      switcherEl.innerHTML = allGames.slice(0, 14).map((g) => {
         const badge = g.entryType === "dlc" ? " (DLC)" : g.entryType === "edition" ? " (Edition)" : "";
         return `
           <a href="details.html?id=${g.id}" class="text-decoration-none gs-switch-pill ${g.id === currentGameId ? "active" : ""}">
@@ -602,6 +604,12 @@
       }
 
       const coverImg = document.getElementById("gameCoverImg");
+      coverImg.crossOrigin = "anonymous";
+      coverImg.onerror = () => {
+        if (game.fallbackCover && !coverImg.src.endsWith(game.fallbackCover)) {
+          coverImg.src = game.fallbackCover;
+        }
+      };
       coverImg.src = game.coverImage;
       document.getElementById("gameTitle").textContent = game.title;
 
@@ -656,7 +664,7 @@
       }
 
       // 3. Kapak görselinden dinamik renk paletini çıkar ve uygula
-      const palette = await PaletteExtractor.extractFromImageElement(coverImg);
+      const palette = await PaletteExtractor.extractFromImageElement(coverImg, game.themePalette);
       PaletteExtractor.applyPaletteToDocument(palette);
       document.getElementById("activePaletteCode").textContent = palette.primary.hex;
 
@@ -667,17 +675,36 @@
       const prevBtn = document.getElementById("heroPrevBtn");
       const nextBtn = document.getElementById("heroNextBtn");
 
-      const slideImages = (game.media || [])
+      const slideItems = (game.media || [])
         .filter((m) => m.type === "image" && m.src)
-        .map((m) => m.src);
-      if (!slideImages.length && game.heroImage) {
-        slideImages.push(game.heroImage);
+        .map((m) => ({
+          src: m.src,
+          fallback: m.fallbackSrc || game.fallbackHero || game.heroImage
+        }));
+      if (!slideItems.length && game.heroImage) {
+        slideItems.push({
+          src: game.heroImage,
+          fallback: game.fallbackHero || game.heroImage
+        });
       }
 
-      heroBgLayer.innerHTML = slideImages.map((src, idx) => `
+      heroBgLayer.innerHTML = slideItems.map((item, idx) => `
         <div class="gs-hero-slide ${idx === 0 ? "is-current" : ""}"
-             style="background-image: url('${src}');"></div>
+             data-slide-slot="${idx}"
+             style="background-image: url('${item.src}');"></div>
       `).join("");
+
+      // Görselleri önceden kontrol et; çevrimdışı veya erişilemeyen görsel olursa yerel yedeğe geç
+      slideItems.forEach((item, idx) => {
+        if (!item.fallback || item.fallback === item.src) return;
+        const probe = new Image();
+        probe.onerror = () => {
+          const slotEl = heroBgLayer.querySelector(`[data-slide-slot="${idx}"]`);
+          if (slotEl) slotEl.style.backgroundImage = `url('${item.fallback}')`;
+        };
+        probe.src = item.src;
+      });
+      const slideImages = slideItems.map((i) => i.src);
 
       if (slideImages.length > 1) {
         heroDotsEl.innerHTML = slideImages.map((_, idx) => `
@@ -813,18 +840,52 @@
         ticking = true;
       }, { passive: true });
 
-      // 6. Sola Kaydırılmış Fragman Cebi & Debug Edilmiş Lightbox Video Player
+      // 6. Sola Kaydırılmış Resmi Oyun Fragmanı Cebi & Lightbox Video Player
       const trailerPocket = document.getElementById("trailerPocket");
+      const trailerIframe = document.getElementById("trailerIframe");
       const trailerVideo = document.getElementById("trailerVideo");
       const trailerCloseBtn = document.getElementById("trailerCloseBtn");
       const trailerBackdrop = document.getElementById("trailerBackdrop");
       const trailerAudioIcon = document.getElementById("trailerAudioIcon");
       const trailerStatusText = document.getElementById("trailerStatusText");
 
-      trailerVideo.src = game.trailerVideo || "assets/videos/trailer-preview.webm";
-      trailerVideo.muted = true;
-      trailerVideo.controls = false;
-      trailerVideo.play().catch(() => {});
+      const ytId = game.trailerYoutubeId || null;
+
+      function buildYoutubeEmbedUrl(videoId, { muted = true, controls = false } = {}) {
+        const params = new URLSearchParams({
+          autoplay: "1",
+          mute: muted ? "1" : "0",
+          loop: "1",
+          playlist: videoId,
+          controls: controls ? "1" : "0",
+          modestbranding: "1",
+          rel: "0",
+          playsinline: "1",
+          enablejsapi: "1"
+        });
+        return `https://www.youtube.com/embed/${videoId}?${params.toString()}`;
+      }
+
+      function sendYoutubeCommand(func, args = []) {
+        if (!ytId || !trailerIframe.contentWindow) return;
+        trailerIframe.contentWindow.postMessage(
+          JSON.stringify({ event: "command", func, args }),
+          "*"
+        );
+      }
+
+      if (ytId) {
+        trailerIframe.style.display = "block";
+        trailerVideo.style.display = "none";
+        trailerIframe.src = buildYoutubeEmbedUrl(ytId, { muted: true, controls: false });
+      } else {
+        trailerVideo.style.display = "block";
+        trailerIframe.style.display = "none";
+        trailerVideo.src = game.trailerVideo || "assets/videos/trailer-preview.webm";
+        trailerVideo.muted = true;
+        trailerVideo.controls = false;
+        trailerVideo.play().catch(() => {});
+      }
 
       function syncTrailerPocketPosition() {
         if (trailerPocket.classList.contains("is-expanded")) return;
@@ -837,7 +898,6 @@
         const scrollTop = window.scrollY || document.documentElement.scrollTop;
         const pocketHeight = trailerPocket.offsetHeight || 126;
         const topPos = rect.top + scrollTop + rect.height - pocketHeight - 22;
-        // Çizimdeki gibi sola kaydırılmış konum
         const rightOffset = Math.max(195, Math.round(window.innerWidth * 0.175));
         trailerPocket.style.top = `${topPos}px`;
         trailerPocket.style.right = `${rightOffset}px`;
@@ -850,15 +910,21 @@
       function setPocketAudioUI(isUnmuted, blockedByBrowser = false) {
         if (blockedByBrowser) {
           trailerAudioIcon.className = "fa fa-volume-off me-1";
-          trailerStatusText.textContent = "Sesi açmak için tıkla";
+          trailerStatusText.textContent = "Büyütmek için tıkla";
           return;
         }
         trailerAudioIcon.className = isUnmuted ? "fa fa-volume-up me-1" : "fa fa-volume-mute me-1";
-        trailerStatusText.textContent = isUnmuted ? "Ses Açık • Büyüt" : "Fragman";
+        trailerStatusText.textContent = isUnmuted ? "Ses Açık • Büyüt" : "Resmi Fragman";
       }
 
       trailerPocket.addEventListener("mouseenter", async () => {
         if (trailerPocket.classList.contains("is-expanded")) return;
+        if (ytId) {
+          sendYoutubeCommand("unMute");
+          sendYoutubeCommand("setVolume", [65]);
+          setPocketAudioUI(true, false);
+          return;
+        }
         try {
           trailerVideo.muted = false;
           trailerVideo.volume = 0.65;
@@ -873,6 +939,11 @@
 
       trailerPocket.addEventListener("mouseleave", () => {
         if (trailerPocket.classList.contains("is-expanded")) return;
+        if (ytId) {
+          sendYoutubeCommand("mute");
+          setPocketAudioUI(false, false);
+          return;
+        }
         trailerVideo.muted = true;
         setPocketAudioUI(false, false);
       });
@@ -880,6 +951,10 @@
       function expandTrailerModal() {
         trailerPocket.classList.add("is-expanded");
         trailerBackdrop.classList.add("active");
+        if (ytId) {
+          trailerIframe.src = buildYoutubeEmbedUrl(ytId, { muted: false, controls: true });
+          return;
+        }
         trailerVideo.controls = true;
         trailerVideo.muted = false;
         trailerVideo.volume = 0.85;
@@ -891,11 +966,15 @@
       function collapseTrailerModal() {
         trailerPocket.classList.remove("is-expanded");
         trailerBackdrop.classList.remove("active");
+        setPocketAudioUI(false, false);
+        syncTrailerPocketPosition();
+        if (ytId) {
+          trailerIframe.src = buildYoutubeEmbedUrl(ytId, { muted: true, controls: false });
+          return;
+        }
         trailerVideo.controls = false;
         trailerVideo.muted = true;
-        setPocketAudioUI(false, false);
         trailerVideo.play().catch(() => {});
-        syncTrailerPocketPosition();
       }
 
       trailerPocket.addEventListener("click", (e) => {
@@ -1002,7 +1081,7 @@
         }
         document.getElementById("editionsCoversRow").innerHTML = editions.map((ed) => `
           <a href="details.html?id=${ed.id}" class="gs-addon-cover-card" title="${ed.title}">
-            <img src="${ed.coverImage}" alt="${ed.title}" />
+            <img src="${ed.coverImage}" onerror="if(this.dataset.fb && this.src!==this.dataset.fb){this.src=this.dataset.fb;}" data-fb="${ed.fallbackCover || ed.coverImage}" alt="${ed.title}" />
             <div class="gs-addon-hover-label">
               <span class="badge bg-dark border border-secondary mb-1 align-self-start" style="font-size:0.62rem;">Sürüm</span>
               <div class="text-white fw-semibold" style="font-size:0.75rem;line-height:1.25;">${ed.title}</div>
@@ -1020,7 +1099,7 @@
         }
         document.getElementById("dlcsCoversRow").innerHTML = dlcs.map((dlc) => `
           <a href="details.html?id=${dlc.id}" class="gs-addon-cover-card" title="${dlc.title}">
-            <img src="${dlc.coverImage}" alt="${dlc.title}" />
+            <img src="${dlc.coverImage}" onerror="if(this.dataset.fb && this.src!==this.dataset.fb){this.src=this.dataset.fb;}" data-fb="${dlc.fallbackCover || dlc.coverImage}" alt="${dlc.title}" />
             <div class="gs-addon-hover-label">
               <span class="badge mb-1 align-self-start" style="background:var(--gs-accent);color:var(--gs-accent-contrast);font-size:0.62rem;">DLC</span>
               <div class="text-white fw-semibold" style="font-size:0.75rem;line-height:1.25;">${dlc.title}</div>
@@ -1044,7 +1123,7 @@
         document.getElementById("similarGamesTrack").innerHTML = similarGames.map((sg) => `
           <a href="details.html?id=${sg.id}" class="gs-showcase-card">
             <div class="gs-showcase-thumb">
-              <img src="${sg.heroImage || sg.coverImage}" alt="${sg.title}" />
+              <img src="${sg.heroImage || sg.coverImage}" onerror="if(this.dataset.fb && this.src!==this.dataset.fb){this.src=this.dataset.fb;}" data-fb="${sg.fallbackHero || sg.fallbackCover || sg.coverImage}" alt="${sg.title}" />
               <span class="gs-showcase-pill">${(sg.genres || [])[0] || "Oyun"}</span>
             </div>
             <div class="gs-showcase-footer">
@@ -1118,13 +1197,18 @@
         });
       });
 
-      // 10. Künye ve Harici Referanslar
+      // 10. Künye ve Teknik Bilgiler (API'den Gelen Gerçek Geliştirici, Yayıncı, Tür & Çıkış Tarihi)
       const roleLabels = { director: "Yönetmen", composer: "Besteci", voice_actor: "Seslendirme" };
       const creditRows = [];
-      if (devs) creditRows.push(["Geliştirici", devs]);
+      const devDisplay = devs || game.studio || null;
+      if (devDisplay && !/^steam kataloğu$/i.test(devDisplay)) {
+        creditRows.push(["Geliştirici", devDisplay]);
+      }
       const pubs = companies.filter((c) => c.role === "publisher").map((c) => c.name).join(", ");
       if (pubs) creditRows.push(["Yayıncı", pubs]);
       if (game.releaseDate) creditRows.push(["Çıkış Tarihi", game.releaseDate]);
+      if (game.genres?.length) creditRows.push(["Türler", game.genres.join(", ")]);
+      if (game.platforms?.length) creditRows.push(["Platformlar", game.platforms.join(", ")]);
       if (game.perspective) creditRows.push(["Bakış Açısı", game.perspective]);
       if (game.modes?.length) creditRows.push(["Modlar", game.modes.join(", ")]);
 
@@ -1134,10 +1218,15 @@
         creditRows.push([label, val]);
       });
 
-      document.getElementById("creditsMetaList").innerHTML = creditRows.map(([k, v]) => `
-        <dt class="col-5 text-secondary fw-normal mb-2">${k}</dt>
-        <dd class="col-7 text-light mb-2">${v}</dd>
-      `).join("");
+      const creditsListEl = document.getElementById("creditsMetaList");
+      if (creditRows.length > 0) {
+        creditsListEl.innerHTML = creditRows.map(([k, v]) => `
+          <dt class="col-5 text-secondary fw-normal mb-2">${k}</dt>
+          <dd class="col-7 text-light mb-2">${v}</dd>
+        `).join("");
+      } else {
+        creditsListEl.innerHTML = `<dd class="col-12 text-secondary mb-0">Bu yapım için ek künye kaydı bulunmuyor.</dd>`;
+      }
 
 
 

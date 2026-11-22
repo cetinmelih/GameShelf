@@ -25,7 +25,6 @@
       </button>
       <div class="collapse navbar-collapse" id="gsMainNav">
         <ul class="navbar-nav ms-auto align-items-lg-center gap-lg-1">
-          <!-- Ana Sayfa + Sayfa İçi Sekmeler -->
           <li class="nav-item dropdown">
             <a class="nav-link dropdown-toggle active" href="index.html">Ana Sayfa</a>
             <ul class="dropdown-menu">
@@ -37,7 +36,6 @@
             </ul>
           </li>
 
-          <!-- Keşfet + Katalog & Detay Sekmeleri -->
           <li class="nav-item dropdown">
             <a class="nav-link dropdown-toggle" href="browse.html">Keşfet</a>
             <ul class="dropdown-menu">
@@ -51,7 +49,6 @@
             </ul>
           </li>
 
-          <!-- Koleksiyonum + Profil & Raf Sekmeleri -->
           <li class="nav-item dropdown">
             <a class="nav-link dropdown-toggle" href="profile.html">Koleksiyonum</a>
             <ul class="dropdown-menu">
@@ -64,7 +61,6 @@
             </ul>
           </li>
 
-          <!-- Kurumsal -->
           <li class="nav-item dropdown">
             <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown">Kurumsal</a>
             <ul class="dropdown-menu">
@@ -84,7 +80,7 @@
     </div>
   </nav>
 
-  <!-- SADE & MODERN ÜST BAŞLIK + HIZLI ARAMA -->
+  <!-- SADE & MODERN ÜST BAŞLIK + CANLI TAHMİNLİ ARAMA -->
   <header class="gs-home-minimal-header">
     <div class="container text-center">
       <h1 class="gs-home-hero-title mb-2">
@@ -95,11 +91,15 @@
       </p>
 
       <div class="d-flex flex-column flex-sm-row align-items-center justify-content-center gap-2">
-        <form id="homeSearchForm" class="gs-home-search-bar">
-          <i class="fa fa-search text-secondary"></i>
-          <input type="text" id="homeSearchInput" placeholder="Oyun, stüdyo veya tür ara..." />
-          <button type="submit" class="btn btn-sm gs-btn-primary rounded-pill px-3">Ara</button>
-        </form>
+        <div class="gs-search-autocomplete-wrap" id="homeSearchWrap">
+          <form id="homeSearchForm" class="gs-home-search-bar" autocomplete="off">
+            <i class="fa fa-search text-secondary" id="homeSearchIcon"></i>
+            <input type="text" id="homeSearchInput" placeholder="Oyun, stüdyo veya tür yazmaya başla..." aria-label="Oyun ara" />
+            <button type="submit" class="btn btn-sm gs-btn-primary rounded-pill px-3">Ara</button>
+          </form>
+          <!-- Yazdıkça Açılan Anlık Tahmin Listesi -->
+          <div class="gs-search-suggestions" id="homeSearchSuggestions" role="listbox"></div>
+        </div>
         <div class="d-flex gap-2">
           <a href="browse.html" class="btn btn-sm gs-btn-outline rounded-pill px-3 py-2">Katalog</a>
           <a href="profile.html?tab=games" class="btn btn-sm gs-btn-outline rounded-pill px-3 py-2">Oyun Rafım</a>
@@ -189,6 +189,9 @@
   <script src="js/services/gameShelfService.js"></script>
   <script>
     (async function initHomePage() {
+      let cachedCatalogGames = [];
+      let lastRenderedSignature = "";
+
       function escapeHtml(str) {
         if (!str) return "";
         return String(str)
@@ -198,12 +201,23 @@
           .replace(/"/g, "&quot;");
       }
 
+      // Görsel yüklendiğinde yatay kalmış bir yedek görselse (width > height) orantısını koru
+      window.gsHandleCoverLoad = function (img) {
+        if (img && img.naturalWidth > 0 && img.naturalHeight > 0) {
+          if (img.naturalWidth > img.naturalHeight * 1.05) {
+            img.classList.add("gs-cover-is-landscape");
+          } else {
+            img.classList.remove("gs-cover-is-landscape");
+          }
+        }
+      };
+
       function renderStars(score) {
         if (score === null || score === undefined) return "";
         const full = Math.floor(score);
         const half = score - full >= 0.5 ? 1 : 0;
         const empty = 5 - full - half;
-        let html = '<span class="gs-stars" style="font-size:0.7rem;">';
+        let html = '<span class="gs-stars" style="font-size:0.74rem;">';
         for (let i = 0; i < full; i++) html += '<i class="fas fa-star"></i>';
         if (half) html += '<i class="fas fa-star-half-alt"></i>';
         for (let i = 0; i < empty; i++) html += '<i class="far fa-star"></i>';
@@ -211,46 +225,62 @@
         return html;
       }
 
-      function buildPopularTrack(games) {
-        // Duplicate twice for seamless -50% loop
-        const loopList = [...games, ...games];
-        return loopList
-          .map(
-            (g) => `
-            <a href="details.html?id=${g.id}" class="gs-back-cover-card" title="${escapeHtml(g.title)}">
-              <img src="${g.coverImage}" alt="${escapeHtml(g.title)}" />
+      function renderCoverCardHtml(g, isFront) {
+        const cardClass = isFront ? "gs-front-cover-card" : "gs-back-cover-card";
+        const inShelf = Boolean(g.collectionStatus);
+        const isFav = Boolean(g.isFavorite);
+        const subInfo = g.studio || (g.genres && g.genres[0]) || "";
+
+        return `
+          <div class="${cardClass}" data-game-card="${g.id}">
+            <div class="gs-strip-quick-actions ${inShelf || isFav ? "has-active" : ""}">
+              <button type="button"
+                      class="gs-strip-action-btn ${inShelf ? "is-active" : ""}"
+                      data-strip-shelf="${g.id}"
+                      title="${inShelf ? "Rafımda Ekli" : "Rafıma Ekle"}">
+                <i class="fa ${inShelf ? "fa-check" : "fa-plus"}"></i>
+              </button>
+              <button type="button"
+                      class="gs-strip-action-btn ${isFav ? "is-active" : ""}"
+                      data-strip-fav="${g.id}"
+                      title="${isFav ? "Favorilerden Çıkar" : "Favorilere Ekle"}">
+                <i class="${isFav ? "fas" : "far"} fa-heart"></i>
+              </button>
+            </div>
+
+            <a href="details.html?id=${g.id}" class="gs-cover-card-link" title="${escapeHtml(g.title)}">
+              <img src="${g.coverImage}"
+                   onload="window.gsHandleCoverLoad(this)"
+                   onerror="if(this.dataset.fb && this.src!==this.dataset.fb){this.src=this.dataset.fb;}"
+                   data-fb="${g.fallbackCover || g.coverImage}"
+                   alt="${escapeHtml(g.title)}" />
               <div class="gs-cover-pill-top">
-                <span class="gs-cover-chip">${g.releaseYear || ""}</span>
-                ${g.communityAverage ? `<span class="gs-cover-chip"><i class="fa fa-star text-warning me-1"></i>${g.communityAverage}</span>` : ""}
+                <span class="gs-cover-chip ${isFront ? "gs-cover-chip--new" : ""}">${g.releaseYear || (isFront ? "Yeni" : "")}</span>
+                ${
+                  isFront && g.metacritic
+                    ? `<span class="gs-cover-chip">${g.metacritic}</span>`
+                    : g.communityAverage
+                    ? `<span class="gs-cover-chip"><i class="fa fa-star text-warning me-1"></i>${g.communityAverage}</span>`
+                    : ""
+                }
               </div>
               <div class="gs-cover-overlay-info">
+                ${isFront && subInfo ? `<div class="small text-secondary mb-1" style="font-size:0.68rem;">${escapeHtml(subInfo)}</div>` : ""}
                 <div class="gs-cover-overlay-title">${escapeHtml(g.title)}</div>
               </div>
             </a>
-          `
-          )
-          .join("");
+          </div>
+        `;
+      }
+
+      function buildPopularTrack(games) {
+        const loopList = [...games, ...games];
+        return loopList.map((g) => renderCoverCardHtml(g, false)).join("");
       }
 
       function buildNewReleasesTrack(games) {
         const loopList = [...games, ...games];
-        return loopList
-          .map(
-            (g) => `
-            <a href="details.html?id=${g.id}" class="gs-front-cover-card" title="${escapeHtml(g.title)}">
-              <img src="${g.coverImage}" alt="${escapeHtml(g.title)}" />
-              <div class="gs-cover-pill-top">
-                <span class="gs-cover-chip gs-cover-chip--new">${g.releaseYear || "Yeni"}</span>
-                ${g.metacritic ? `<span class="gs-cover-chip">${g.metacritic}</span>` : ""}
-              </div>
-              <div class="gs-cover-overlay-info">
-                <div class="small text-secondary mb-1" style="font-size:0.68rem;">${escapeHtml(g.studio || "")}</div>
-                <div class="gs-cover-overlay-title">${escapeHtml(g.title)}</div>
-              </div>
-            </a>
-          `
-          )
-          .join("");
+        return loopList.map((g) => renderCoverCardHtml(g, true)).join("");
       }
 
       function buildReviewsTrack(reviews) {
@@ -259,56 +289,78 @@
           .map((rev) => {
             const gTitle = rev.game ? rev.game.title : "Oyun";
             const gCover = rev.game ? rev.game.coverImage : "assets/images/logo.png";
+            const gCoverFb = rev.game ? (rev.game.fallbackCover || rev.game.coverImage) : "assets/images/logo.png";
             const gHref = rev.game ? `details.html?id=${rev.game.id}#reviewsSection` : "browse.html";
             const netVotes = (rev.upvotes || 0) - (rev.downvotes || 0);
+            const upActive = rev.userVote === "up" ? "is-upvoted" : "";
+            const downActive = rev.userVote === "down" ? "is-downvoted" : "";
+
             return `
-              <a href="${gHref}" class="gs-review-stream-card">
-                <div class="gs-review-stream-thumb">
-                  <img src="${gCover}" alt="${escapeHtml(gTitle)}" />
-                </div>
+              <article class="gs-review-stream-card">
+                <a href="${gHref}" class="gs-review-stream-thumb" title="${escapeHtml(gTitle)}">
+                  <img src="${gCover}"
+                       onload="window.gsHandleCoverLoad(this)"
+                       onerror="if(this.dataset.fb && this.src!==this.dataset.fb){this.src=this.dataset.fb;}"
+                       data-fb="${gCoverFb}"
+                       alt="${escapeHtml(gTitle)}" />
+                </a>
                 <div class="gs-review-stream-body">
                   <div>
                     <div class="d-flex justify-content-between align-items-center gap-2">
-                      <span class="fw-semibold text-white text-truncate" style="font-size:0.78rem;">${escapeHtml(gTitle)}</span>
-                      <span class="gs-upvote-pill flex-shrink-0"><i class="fa fa-arrow-up"></i>${netVotes}</span>
+                      <a href="${gHref}" class="gs-review-stream-title-link">${escapeHtml(gTitle)}</a>
+                      <div class="gs-stream-vote-group flex-shrink-0">
+                        <button type="button" class="gs-stream-vote-btn ${upActive}" data-stream-vote="${rev.id}" data-dir="up" title="Beğen (Upvote)">
+                          <i class="fa fa-arrow-up"></i><span>${netVotes}</span>
+                        </button>
+                        <button type="button" class="gs-stream-vote-btn ${downActive}" data-stream-vote="${rev.id}" data-dir="down" title="Beğenme (Downvote)">
+                          <i class="fa fa-arrow-down"></i>
+                        </button>
+                      </div>
                     </div>
                     <p class="gs-review-stream-excerpt">${escapeHtml(rev.content || rev.title || "")}</p>
                   </div>
                   <div class="d-flex justify-content-between align-items-center gap-2">
-                    <span class="text-secondary text-truncate" style="font-size:0.69rem;">
-                      ${escapeHtml(rev.authorName)} • ${escapeHtml(rev.createdAt)}
+                    <span class="text-secondary text-truncate" style="font-size:0.73rem;">
+                      <strong class="text-light fw-medium">${escapeHtml(rev.authorName)}</strong> • ${escapeHtml(rev.createdAt)}
                     </span>
                     ${rev.rating !== null ? renderStars(rev.rating) : ""}
                   </div>
                 </div>
-              </a>
+              </article>
             `;
           })
           .join("");
       }
 
-      async function renderHome() {
-        const { games, reviews, news } = await GameShelfService.getCatalogData();
+      async function renderHome(forceRefresh = false) {
+        const { games, reviews, news } = await GameShelfService.getCatalogData({ forceRefresh });
+        cachedCatalogGames = games;
 
-        // 1. Top Strip (3D Back): En Popüler Oyunlar (sorted by community plays)
-        const popularGames = [...games].sort(
-          (a, b) => (b.communityStats?.plays || 0) - (a.communityStats?.plays || 0)
-        );
+        const signature = `${games.length}_${games.map((g) => `${g.id}:${g.collectionStatus}:${g.isFavorite}`).join(",")}_${reviews.map((r) => `${r.id}:${r.upvotes}:${r.downvotes}`).join(",")}`;
+        if (!forceRefresh && signature === lastRenderedSignature) {
+          return;
+        }
+        lastRenderedSignature = signature;
+
+        // 1. Üst Şerit: En Popüler Oyunlar
+        const popularGames = [...games]
+          .sort((a, b) => (b.communityStats?.plays || 0) - (a.communityStats?.plays || 0))
+          .slice(0, 18);
         document.getElementById("trackPopularGames").innerHTML = buildPopularTrack(popularGames);
 
-        // 2. Middle Strip (3D Front Spotlight): Yeni Oyunlar (sorted newest releaseDate first)
-        const newestGames = [...games].sort((a, b) =>
-          String(b.releaseDate || "").localeCompare(String(a.releaseDate || ""))
-        );
+        // 2. Orta Şerit (3D Ön Plan): Yeni Oyunlar
+        const newestGames = [...games]
+          .sort((a, b) => String(b.releaseDate || "").localeCompare(String(a.releaseDate || "")))
+          .slice(0, 18);
         document.getElementById("trackNewGames").innerHTML = buildNewReleasesTrack(newestGames);
 
-        // 3. Bottom Strip (3D Back): Son Zamanlarda En Çok Upvote Alan İncelemeler
+        // 3. Alt Şerit: Son Zamanlarda En Çok Upvote Alan İncelemeler
         const topUpvotedReviews = [...reviews].sort(
-          (a, b) => (b.upvotes || 0) - (a.upvotes || 0)
+          (a, b) => (b.upvotes - b.downvotes) - (a.upvotes - a.downvotes)
         );
         document.getElementById("trackTopReviews").innerHTML = buildReviewsTrack(topUpvotedReviews);
 
-        // 4. Clean News Grid below
+        // 4. Editör Seçkisi & Haberler
         const newsGrid = document.getElementById("homeNewsGrid");
         newsGrid.innerHTML = news
           .slice(0, 4)
@@ -316,7 +368,7 @@
             (item, idx) => `
             <div class="col-md-6 col-lg-3">
               <article class="gs-news-card">
-                <img src="${item.image}" alt="${escapeHtml(item.title)}" />
+                <img src="${item.image}" onerror="if(this.dataset.fb && this.src!==this.dataset.fb){this.src=this.dataset.fb;}" data-fb="${item.fallbackImage || item.image}" alt="${escapeHtml(item.title)}" />
                 <div class="p-3 d-flex flex-column flex-grow-1">
                   <div class="d-flex justify-content-between align-items-center gap-1 mb-1">
                     <span class="gs-badge-accent" style="font-size:0.65rem; padding:0.12rem 0.48rem;">${escapeHtml(item.category)}</span>
@@ -331,42 +383,255 @@
           `
           )
           .join("");
-
-        // News modal bindings
-        const artBackdrop = document.getElementById("homeArticleBackdrop");
-        const artOverlay = document.getElementById("homeArticleOverlay");
-        function closeArt() {
-          artBackdrop.classList.remove("active");
-          artOverlay.classList.remove("active");
-          artOverlay.setAttribute("aria-hidden", "true");
-        }
-        document.getElementById("closeHomeArticleBtn").addEventListener("click", closeArt);
-        artBackdrop.addEventListener("click", closeArt);
-
-        newsGrid.addEventListener("click", (e) => {
-          const btn = e.target.closest("[data-open-news]");
-          if (!btn) return;
-          const article = news[Number(btn.dataset.openNews)];
-          if (!article) return;
-          document.getElementById("homeArticleTag").textContent = article.category;
-          document.getElementById("homeArticleTitle").textContent = article.title;
-          document.getElementById("homeArticleMeta").textContent = `${article.source} • ${article.date} • ${article.readTime}`;
-          document.getElementById("homeArticleImg").src = article.image;
-          document.getElementById("homeArticleBody").textContent = article.content || article.excerpt;
-          artBackdrop.classList.add("active");
-          artOverlay.classList.add("active");
-          artOverlay.setAttribute("aria-hidden", "false");
-        });
       }
 
-      // Hero search submits directly to browse.html?q=...
+      // 3D Şerit Üzerindeki Etkileşimler (Rafıma Ekle, Favoriye Ekle, İnceleme Upvote/Downvote)
+      document.querySelector(".gs-stream-stage-wrap").addEventListener("click", async (e) => {
+        const shelfBtn = e.target.closest("[data-strip-shelf]");
+        if (shelfBtn) {
+          e.preventDefault();
+          e.stopPropagation();
+          const gid = Number(shelfBtn.dataset.stripShelf);
+          const existing = await GameShelfService.getCollectionEntry(gid);
+          if (existing) {
+            await GameShelfService.removeCollectionEntry(gid);
+          } else {
+            await GameShelfService.saveCollectionEntry(gid, {
+              status: "backlog",
+              favorite: false,
+              visibility: "public",
+              notes: null
+            });
+          }
+          await renderHome();
+          return;
+        }
+
+        const favBtn = e.target.closest("[data-strip-fav]");
+        if (favBtn) {
+          e.preventDefault();
+          e.stopPropagation();
+          const gid = Number(favBtn.dataset.stripFav);
+          const existing = await GameShelfService.getCollectionEntry(gid);
+          if (existing) {
+            await GameShelfService.saveCollectionEntry(gid, {
+              ...existing,
+              favorite: !existing.favorite
+            });
+          } else {
+            await GameShelfService.saveCollectionEntry(gid, {
+              status: "playing",
+              favorite: true,
+              visibility: "public",
+              notes: null
+            });
+          }
+          await renderHome();
+          return;
+        }
+
+        const voteBtn = e.target.closest("[data-stream-vote]");
+        if (voteBtn) {
+          e.preventDefault();
+          e.stopPropagation();
+          const revId = Number(voteBtn.dataset.streamVote);
+          const dir = voteBtn.dataset.dir;
+          GameShelfService.toggleReviewVote(revId, dir);
+          await renderHome();
+        }
+      });
+
+      // Yazdıkça Çalışan Tahmin / Otomatik Tamamlama Algoritması
+      const searchInput = document.getElementById("homeSearchInput");
+      const suggestionsBox = document.getElementById("homeSearchSuggestions");
+      const searchIcon = document.getElementById("homeSearchIcon");
+      let suggestTimer = null;
+      let highlightedIdx = -1;
+
+      function scoreMatch(game, query) {
+        const title = String(game.title || "").toLowerCase();
+        const q = query.toLowerCase();
+        let score = 0;
+        if (title === q) score += 120;
+        else if (title.startsWith(q)) score += 85;
+        else if (title.includes(` ${q}`)) score += 65;
+        else if (title.includes(q)) score += 45;
+        else if (
+          (game.studio && game.studio.toLowerCase().includes(q)) ||
+          (game.genres || []).some((g) => g.toLowerCase().includes(q))
+        ) {
+          score += 25;
+        }
+        // Popülerlik bonusu
+        score += Math.min(20, Math.log10((game.communityStats?.plays || 1) + 1) * 4);
+        return score;
+      }
+
+      function renderSuggestions(query, liveMatches = []) {
+        const q = query.trim();
+        if (q.length < 1) {
+          suggestionsBox.classList.remove("is-open");
+          suggestionsBox.innerHTML = "";
+          highlightedIdx = -1;
+          return;
+        }
+
+        const poolMap = new Map();
+        [...cachedCatalogGames, ...liveMatches].forEach((g) => {
+          if (g && g.id) poolMap.set(g.id, g);
+        });
+
+        const ranked = Array.from(poolMap.values())
+          .map((g) => ({ game: g, score: scoreMatch(g, q) }))
+          .filter((item) => item.score > 20)
+          .sort((a, b) => b.score - a.score)
+          .slice(0, 7)
+          .map((item) => item.game);
+
+        if (ranked.length === 0) {
+          suggestionsBox.innerHTML = `
+            <div class="px-3 py-2 small text-secondary d-flex justify-content-between align-items-center">
+              <span>"${escapeHtml(q)}" için eşleşme aranıyor...</span>
+              <a href="browse.html?q=${encodeURIComponent(q)}" class="text-decoration-none" style="color:var(--gs-accent);">Katalogda Ara →</a>
+            </div>
+          `;
+          suggestionsBox.classList.add("is-open");
+          highlightedIdx = -1;
+          return;
+        }
+
+        highlightedIdx = -1;
+        suggestionsBox.innerHTML =
+          ranked
+            .map(
+              (g, idx) => `
+              <a href="details.html?id=${g.id}" class="gs-suggestion-item" data-suggestion-idx="${idx}" role="option">
+                <img src="${g.coverImage}"
+                     onerror="if(this.dataset.fb && this.src!==this.dataset.fb){this.src=this.dataset.fb;}"
+                     data-fb="${g.fallbackCover || g.coverImage}"
+                     alt="${escapeHtml(g.title)}"
+                     class="gs-suggestion-poster" />
+                <div class="flex-grow-1 min-w-0">
+                  <div class="fw-semibold text-white text-truncate" style="font-size:0.84rem;">${escapeHtml(g.title)}</div>
+                  <div class="text-secondary text-truncate" style="font-size:0.72rem;">
+                    ${[g.releaseYear, g.studio, (g.genres || []).slice(0, 2).join(", ")].filter(Boolean).join(" • ")}
+                  </div>
+                </div>
+                ${
+                  g.metacritic
+                    ? `<span class="gs-cover-chip flex-shrink-0">${g.metacritic}</span>`
+                    : g.communityAverage
+                    ? `<span class="gs-cover-chip flex-shrink-0"><i class="fa fa-star text-warning me-1"></i>${g.communityAverage}</span>`
+                    : ""
+                }
+              </a>
+            `
+            )
+            .join("") +
+          `<div class="border-top border-secondary border-opacity-25 mt-1 pt-1 px-2 d-flex justify-content-between align-items-center">
+            <span class="text-secondary" style="font-size:0.7rem;">Yön tuşları ile seç veya tıkla</span>
+            <a href="browse.html?q=${encodeURIComponent(q)}" class="small text-decoration-none fw-medium" style="color:var(--gs-accent); font-size:0.74rem;">Tüm sonuçları gör →</a>
+          </div>`;
+        suggestionsBox.classList.add("is-open");
+      }
+
+      searchInput.addEventListener("input", () => {
+        const val = searchInput.value;
+        // 1) Anında yerel/önbellekteki oyunlardan tahmin göster
+        renderSuggestions(val);
+
+        // 2) 260ms sonra arka planda API'den yeni tahminleri çekip listeyi güncelle
+        clearTimeout(suggestTimer);
+        if (val.trim().length >= 2) {
+          suggestTimer = setTimeout(async () => {
+            searchIcon.className = "fa fa-spinner fa-spin text-info";
+            const apiResults = await GameShelfService.searchLiveGames(val.trim());
+            searchIcon.className = "fa fa-search text-secondary";
+            if (searchInput.value.trim() === val.trim()) {
+              renderSuggestions(val, apiResults);
+            }
+          }, 260);
+        }
+      });
+
+      searchInput.addEventListener("focus", () => {
+        if (searchInput.value.trim().length >= 1) {
+          renderSuggestions(searchInput.value);
+        }
+      });
+
+      // Klavye yön tuşları desteği
+      searchInput.addEventListener("keydown", (e) => {
+        const items = Array.from(suggestionsBox.querySelectorAll(".gs-suggestion-item"));
+        if (!items.length || !suggestionsBox.classList.contains("is-open")) return;
+
+        if (e.key === "ArrowDown") {
+          e.preventDefault();
+          highlightedIdx = (highlightedIdx + 1) % items.length;
+          items.forEach((el, i) => el.classList.toggle("is-highlighted", i === highlightedIdx));
+        } else if (e.key === "ArrowUp") {
+          e.preventDefault();
+          highlightedIdx = (highlightedIdx - 1 + items.length) % items.length;
+          items.forEach((el, i) => el.classList.toggle("is-highlighted", i === highlightedIdx));
+        } else if (e.key === "Enter" && highlightedIdx >= 0 && items[highlightedIdx]) {
+          e.preventDefault();
+          window.location.href = items[highlightedIdx].href;
+        } else if (e.key === "Escape") {
+          suggestionsBox.classList.remove("is-open");
+        }
+      });
+
+      document.addEventListener("click", (e) => {
+        if (!e.target.closest("#homeSearchWrap")) {
+          suggestionsBox.classList.remove("is-open");
+        }
+      });
+
       document.getElementById("homeSearchForm").addEventListener("submit", (e) => {
         e.preventDefault();
-        const q = document.getElementById("homeSearchInput").value.trim();
+        const q = searchInput.value.trim();
         window.location.href = q ? `browse.html?q=${encodeURIComponent(q)}` : "browse.html";
       });
 
+      // Haber okuma modalı
+      const artBackdrop = document.getElementById("homeArticleBackdrop");
+      const artOverlay = document.getElementById("homeArticleOverlay");
+      function closeArt() {
+        artBackdrop.classList.remove("active");
+        artOverlay.classList.remove("active");
+        artOverlay.setAttribute("aria-hidden", "true");
+      }
+      document.getElementById("closeHomeArticleBtn").addEventListener("click", closeArt);
+      artBackdrop.addEventListener("click", closeArt);
+
+      document.getElementById("homeNewsGrid").addEventListener("click", async (e) => {
+        const btn = e.target.closest("[data-open-news]");
+        if (!btn) return;
+        const { news } = await GameShelfService.getCatalogData();
+        const article = news[Number(btn.dataset.openNews)];
+        if (!article) return;
+        document.getElementById("homeArticleTag").textContent = article.category;
+        document.getElementById("homeArticleTitle").textContent = article.title;
+        document.getElementById("homeArticleMeta").textContent = `${article.source} • ${article.date} • ${article.readTime}`;
+        document.getElementById("homeArticleImg").src = article.image;
+        document.getElementById("homeArticleBody").textContent = article.content || article.excerpt;
+        artBackdrop.classList.add("active");
+        artOverlay.classList.add("active");
+        artOverlay.setAttribute("aria-hidden", "false");
+      });
+
+      // İlk yükleme + Otomatik arka plan senkronizasyonu (yeni oyun geldiğinde veya başka sekmede güncellendiğinde)
       await renderHome();
+
+      window.addEventListener("storage", () => {
+        renderHome();
+      });
+
+      setInterval(() => {
+        if (!document.hidden) {
+          renderHome(true);
+        }
+      }, 60000);
     })();
   </script>
 </body>

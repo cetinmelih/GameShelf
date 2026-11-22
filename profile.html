@@ -500,7 +500,7 @@
             (item) => `
             <div class="gs-shelf-poster-tile">
               <a href="details.html?id=${item.game.id}" class="gs-tile-link" title="${escapeHtml(item.game.title)}">
-                <img src="${item.game.coverImage}" alt="${escapeHtml(item.game.title)}" loading="lazy" />
+                <img src="${item.game.coverImage}" onerror="if(this.dataset.fb && this.src!==this.dataset.fb){this.src=this.dataset.fb;}" data-fb="${item.game.fallbackCover || item.game.coverImage}" alt="${escapeHtml(item.game.title)}" loading="lazy" />
               </a>
               <button type="button" class="gs-tile-quick-btn" data-quick-edit="${item.game.id}" title="Durumu Düzenle">
                 <i class="fa fa-pen"></i>
@@ -525,7 +525,7 @@
           .map(
             (item) => `
             <a href="details.html?id=${item.game.id}" class="gs-fav-poster-card" title="${escapeHtml(item.game.title)}">
-              <img src="${item.game.coverImage}" alt="${escapeHtml(item.game.title)}" />
+              <img src="${item.game.coverImage}" onerror="if(this.dataset.fb && this.src!==this.dataset.fb){this.src=this.dataset.fb;}" data-fb="${item.game.fallbackCover || item.game.coverImage}" alt="${escapeHtml(item.game.title)}" />
             </a>
           `
           )
@@ -555,7 +555,7 @@
             return `
               <a href="details.html?id=${item.game.id}" class="gs-recent-poster-item" title="${escapeHtml(item.game.title)}">
                 <div class="gs-recent-poster-frame">
-                  <img src="${item.game.coverImage}" alt="${escapeHtml(item.game.title)}" />
+                  <img src="${item.game.coverImage}" onerror="if(this.dataset.fb && this.src!==this.dataset.fb){this.src=this.dataset.fb;}" data-fb="${item.game.fallbackCover || item.game.coverImage}" alt="${escapeHtml(item.game.title)}" />
                 </div>
                 <div class="gs-recent-poster-foot">
                   <span>${escapeHtml(String(leftInfo))}</span>
@@ -702,7 +702,7 @@
               <div class="d-flex align-items-center justify-content-between gap-3 p-2 rounded-3" style="background: var(--gs-surface-elevated); border: 1px solid var(--gs-border);">
                 <div class="d-flex align-items-center gap-3 min-w-0">
                   <a href="details.html?id=${pt.game.id}">
-                    <img src="${pt.game.coverImage}" alt="${escapeHtml(pt.game.title)}" style="width:40px; height:54px; object-fit:cover; border-radius:7px;" />
+                    <img src="${pt.game.coverImage}" onerror="if(this.dataset.fb && this.src!==this.dataset.fb){this.src=this.dataset.fb;}" data-fb="${pt.game.fallbackCover || pt.game.coverImage}" alt="${escapeHtml(pt.game.title)}" style="width:40px; height:54px; object-fit:cover; border-radius:7px;" />
                   </a>
                   <div class="min-w-0">
                     <a href="details.html?id=${pt.game.id}" class="fw-semibold text-white text-decoration-none d-block text-truncate" style="font-size:0.9rem;">${escapeHtml(pt.game.title)}</a>

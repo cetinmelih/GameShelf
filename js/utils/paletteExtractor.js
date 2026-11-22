@@ -62,12 +62,17 @@ const PaletteExtractor = (() => {
     };
   }
 
-  function extractFromImageElement(imgEl) {
+  function extractFromImageElement(imgEl, customFallbackRgb = null) {
     return new Promise((resolve) => {
-      const fallback = {
-        primary: normalizeForDarkUI({ r: 231, g: 94, b: 141 }),
-        secondary: normalizeForDarkUI({ r: 108, g: 142, b: 235 })
-      };
+      const fallback = customFallbackRgb && customFallbackRgb.primary
+        ? {
+            primary: normalizeForDarkUI(customFallbackRgb.primary),
+            secondary: normalizeForDarkUI(customFallbackRgb.secondary || customFallbackRgb.primary)
+          }
+        : {
+            primary: normalizeForDarkUI({ r: 231, g: 94, b: 141 }),
+            secondary: normalizeForDarkUI({ r: 108, g: 142, b: 235 })
+          };
 
       const process = () => {
         try {

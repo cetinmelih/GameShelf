@@ -89,16 +89,29 @@
     <section class="gs-card">
       <div class="d-flex flex-wrap justify-content-between align-items-center gap-3 mb-3">
         <div>
-          <h1 class="h4 fw-bold text-white mb-1">Oyun Kataloğu</h1>
+          <div class="d-flex flex-wrap align-items-center gap-2 mb-1">
+            <h1 class="h4 fw-bold text-white mb-0">Oyun Kataloğu</h1>
+            <span id="liveApiStatusPill" class="text-secondary small" style="font-size:0.76rem;">
+              Katalog Güncel
+            </span>
+          </div>
           <p class="small text-secondary mb-0">
-            Ana oyunlar, genişleme paketleri (DLC) ve özel sürümler arasında filtreleme yap ve rafına ekle.
+            Canlı oyun veritabanından binlerce yapımı ara, filtrele, detaylarını incele ve tek tıkla rafına ekle.
           </p>
         </div>
 
-        <!-- Canlı Arama Kutusu -->
-        <div class="gs-shelf-search-box" style="min-width: 270px;">
-          <i class="fa fa-search"></i>
-          <input type="text" id="catalogSearchInput" class="gs-input" placeholder="Oyun adı, stüdyo veya tema ara..." />
+        <div class="d-flex flex-wrap align-items-center gap-2">
+          <!-- Canlı Arama Kutusu -->
+          <div class="gs-shelf-search-box" style="min-width: 260px;">
+            <i class="fa fa-search"></i>
+            <input type="text" id="catalogSearchInput" class="gs-input" placeholder="API'de herhangi bir oyun ara..." />
+          </div>
+          <button type="button" class="btn btn-sm gs-btn-outline" id="openApiConfigBtn" title="API Kaynağı & RAWG Anahtarı">
+            <i class="fa fa-plug me-1"></i>API Ayarları
+          </button>
+          <button type="button" class="btn btn-sm gs-btn-outline" id="refreshLiveFeedBtn" title="Canlı API akışını yenile">
+            <i class="fa fa-sync-alt"></i>
+          </button>
         </div>
       </div>
 
@@ -158,6 +171,40 @@
     <!-- Katalog Izgarası -->
     <section id="catalogGamesGrid" class="gs-catalog-grid"></section>
   </main>
+
+  <!-- Canlı API Sağlayıcı Ayarları Modalı -->
+  <div class="gs-journal-backdrop" id="apiConfigBackdrop"></div>
+  <section class="gs-journal-overlay" id="apiConfigOverlay" aria-hidden="true" style="max-width: 540px;">
+    <div class="d-flex justify-content-between align-items-center mb-3 pb-2 border-bottom border-secondary border-opacity-25">
+      <div>
+        <h2 class="h6 fw-bold text-white mb-0">Canlı Oyun API Yapılandırması</h2>
+        <div class="small text-secondary">Oyun kapakları, ekran görüntüleri ve künye verilerinin kaynağı</div>
+      </div>
+      <button type="button" class="btn btn-sm gs-btn-outline" id="closeApiConfigBtn"><i class="fa fa-times"></i></button>
+    </div>
+
+    <div class="p-3 rounded-3 mb-3" style="background: rgba(255,255,255,0.03); border: 1px solid var(--gs-border);">
+      <div class="small fw-semibold text-white mb-1"><i class="fab fa-steam me-1 text-info"></i>1. Varsayılan Mod: Steam Canlı API (Anahtarsız)</div>
+      <div class="small text-secondary">
+        Herhangi bir API anahtarı gerektirmeden Steam mağazasından gerçek oyun kapaklarını (<code>600x900</code>), hero arka planlarını ve canlı arama sonuçlarını otomatik çeker.
+      </div>
+    </div>
+
+    <div class="mb-3">
+      <label class="form-label small fw-semibold text-white" for="rawgApiKeyInput">
+        2. İsteğe Bağlı: RAWG.io Tam Veritabanı API Anahtarı
+      </label>
+      <input type="text" id="rawgApiKeyInput" class="form-control form-control-sm gs-input" placeholder="Örn: a1b2c3d4e5f6... (Boş bırakılırsa Steam Canlı API kullanılır)" />
+      <div class="form-text text-secondary" style="font-size: 0.74rem;">
+        Ücretsiz RAWG anahtarı girerseniz tüm oyunlar için sinopsis, stüdyo, ekran görüntüleri ve fragmanlar doğrudan RAWG API'den çekilir.
+      </div>
+    </div>
+
+    <div class="d-flex justify-content-end gap-2">
+      <button type="button" class="btn btn-sm gs-btn-outline" id="clearRawgKeyBtn">Varsayılana Dön</button>
+      <button type="button" class="btn btn-sm gs-btn-primary" id="saveRawgKeyBtn">Kaydet ve Yenile</button>
+    </div>
+  </section>
 
   <!-- Alt Bilgi -->
   <footer class="border-top border-secondary border-opacity-10 py-4 mt-5">
@@ -319,7 +366,7 @@
             return `
               <article class="gs-catalog-card">
                 <a href="details.html?id=${g.id}" class="gs-catalog-poster-wrap">
-                  <img src="${g.coverImage}" alt="${escapeHtml(g.title)}" loading="lazy" />
+                  <img src="${g.coverImage}" onerror="if(this.dataset.fb && this.src!==this.dataset.fb){this.src=this.dataset.fb;}" data-fb="${g.fallbackCover || g.coverImage}" alt="${escapeHtml(g.title)}" loading="lazy" />
                   <div class="gs-catalog-top-badges">
                     <span class="gs-catalog-type-pill">${typeLabel}</span>
                     ${g.metacritic ? `<span class="gs-catalog-mc-pill" title="Metacritic">${g.metacritic}</span>` : ""}
@@ -350,9 +397,16 @@
           .join("");
       }
 
-      async function reloadData() {
-        const data = await GameShelfService.getCatalogData();
+      function updateApiStatusBadge(apiInfo) {
+        const pill = document.getElementById("liveApiStatusPill");
+        if (!pill || !apiInfo) return;
+        pill.textContent = `${apiInfo.providerLabel} • ${allGames.length} yapım`;
+      }
+
+      async function reloadData(forceRefresh = false) {
+        const data = await GameShelfService.getCatalogData({ forceRefresh });
         allGames = data.games;
+        updateApiStatusBadge(data.apiInfo);
         updateTypeCounts(allGames);
         buildGenreChips(allGames);
         renderCatalog();
@@ -365,10 +419,69 @@
         t.classList.toggle("active", t.dataset.type === state.type);
       });
 
+      // Canlı API arama (420ms debounce)
+      let liveSearchTimer = null;
+      async function triggerLiveSearch(q) {
+        const clean = (q || "").trim();
+        if (clean.length < 2) return;
+        const pill = document.getElementById("liveApiStatusPill");
+        if (pill) {
+          pill.innerHTML = `<i class="fa fa-spinner fa-spin me-1"></i>Aranıyor...`;
+        }
+        await GameShelfService.searchLiveGames(clean);
+        const refreshed = await GameShelfService.getCatalogData();
+        allGames = refreshed.games;
+        updateApiStatusBadge(refreshed.apiInfo);
+        updateTypeCounts(allGames);
+        buildGenreChips(allGames);
+        renderCatalog();
+      }
+
       // Events
       searchInput.addEventListener("input", (e) => {
         state.query = e.target.value;
         renderCatalog();
+        clearTimeout(liveSearchTimer);
+        if (state.query.trim().length >= 2) {
+          liveSearchTimer = setTimeout(() => triggerLiveSearch(state.query), 420);
+        }
+      });
+
+      // API Yapılandırma Modalı
+      const apiBackdrop = document.getElementById("apiConfigBackdrop");
+      const apiOverlay = document.getElementById("apiConfigOverlay");
+      const rawgInput = document.getElementById("rawgApiKeyInput");
+
+      function closeApiModal() {
+        apiBackdrop.classList.remove("active");
+        apiOverlay.classList.remove("active");
+        apiOverlay.setAttribute("aria-hidden", "true");
+      }
+
+      document.getElementById("openApiConfigBtn").addEventListener("click", () => {
+        rawgInput.value = GameShelfService.getRawgApiKey();
+        apiBackdrop.classList.add("active");
+        apiOverlay.classList.add("active");
+        apiOverlay.setAttribute("aria-hidden", "false");
+      });
+      document.getElementById("closeApiConfigBtn").addEventListener("click", closeApiModal);
+      apiBackdrop.addEventListener("click", closeApiModal);
+
+      document.getElementById("saveRawgKeyBtn").addEventListener("click", async () => {
+        GameShelfService.setRawgApiKey(rawgInput.value);
+        closeApiModal();
+        await reloadData(true);
+      });
+
+      document.getElementById("clearRawgKeyBtn").addEventListener("click", async () => {
+        rawgInput.value = "";
+        GameShelfService.setRawgApiKey("");
+        closeApiModal();
+        await reloadData(true);
+      });
+
+      document.getElementById("refreshLiveFeedBtn").addEventListener("click", async () => {
+        await reloadData(true);
       });
 
       document.getElementById("catalogTypeTabs").addEventListener("click", (e) => {
@@ -449,6 +562,14 @@
       });
 
       await reloadData();
+      if (state.query.trim().length >= 2) {
+        await triggerLiveSearch(state.query);
+      }
+      setInterval(() => {
+        if (!document.hidden && !state.query.trim()) {
+          reloadData(true);
+        }
+      }, 60000);
     })();
   </script>
 </body>

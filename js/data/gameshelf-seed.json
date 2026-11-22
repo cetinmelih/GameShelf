@@ -99,8 +99,8 @@
       "parentGameId": null,
       "title": "Cyberpunk 2077",
       "description": "Güç, gösteriş ve vücut modifikasyonu çılgınlığına kapılmış megalopol Night City'de geçen açık dünya aksiyon-macera RPG deneyimi. Efsanevi bir paralı asker olarak kendi siber donanımını ve oyun tarzını inşa et.",
-      "coverImage": "assets/images/games/cp2077-cover.jpg",
-      "heroImage": "assets/images/games/cp2077-hero.jpg",
+      "coverImage": "https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/1091500/library_600x900.jpg",
+      "heroImage": "https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/1091500/library_hero.jpg",
       "trailerVideo": "assets/videos/trailer-preview.webm",
       "releaseDate": "2020-12-10",
       "genres": [
@@ -168,21 +168,21 @@
       "media": [
         {
           "type": "image",
-          "thumb": "assets/images/games/cp2077-hero.jpg",
-          "src": "assets/images/games/cp2077-hero.jpg",
-          "caption": "Night City / Dogtown"
+          "src": "https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/1091500/library_hero.jpg",
+          "fallbackSrc": "assets/images/games/cp2077-hero.jpg",
+          "caption": "Night City — V"
         },
         {
           "type": "image",
-          "thumb": "assets/images/games/cp-scene-2.jpg",
-          "src": "assets/images/games/cp-scene-2.jpg",
-          "caption": "Dogtown Bölgesi"
+          "src": "https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/1091500/page_bg_generated_v6b.jpg",
+          "fallbackSrc": "assets/images/games/cp-scene-2.jpg",
+          "caption": "Night City Silüeti"
         },
         {
           "type": "image",
-          "thumb": "assets/images/games/cp-scene-3.jpg",
-          "src": "assets/images/games/cp-scene-3.jpg",
-          "caption": "Watson Neon Hattı"
+          "src": "https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/1091500/capsule_616x353.jpg",
+          "fallbackSrc": "assets/images/games/cp-scene-3.jpg",
+          "caption": "Watson & Siber Donanım"
         }
       ],
       "externalRefs": {
@@ -253,7 +253,22 @@
           "image": "assets/images/games/cp2077-hero.jpg",
           "excerpt": "Yağmurlu gecelerde asfalt yansımaları ve iç mekân küresel aydınlatma farklarını kare kare analiz ettik."
         }
-      ]
+      ],
+      "fallbackCover": "assets/images/games/cp2077-cover.jpg",
+      "fallbackHero": "assets/images/games/cp2077-hero.jpg",
+      "trailerYoutubeId": "8X2kIfS6fb8",
+      "themePalette": {
+        "primary": {
+          "r": 243,
+          "g": 218,
+          "b": 42
+        },
+        "secondary": {
+          "r": 0,
+          "g": 216,
+          "b": 246
+        }
+      }
     },
     {
       "id": 2,
@@ -261,8 +276,8 @@
       "parentGameId": null,
       "title": "Alan Wake 2",
       "description": "Karanlık Yer'de hapsolmuş bir yazar ile küçük bir kasabadaki ritüel cinayetleri araştıran FBI ajanı Saga Anderson'ın iç içe geçen psikolojik hayatta kalma korku hikâyesi.",
-      "coverImage": "assets/images/games/alanwake2-cover.jpg",
-      "heroImage": "assets/images/games/alanwake2-hero.jpg",
+      "coverImage": "https://upload.wikimedia.org/wikipedia/en/e/ed/Alan_Wake_2_box_art.jpg",
+      "heroImage": "https://cdn2.unrealengine.com/egs-alanwake2-remedyentertainment-g1a-01-1920x1080-2322a8668992.jpg",
       "trailerVideo": "assets/videos/trailer-preview.webm",
       "releaseDate": "2023-10-27",
       "genres": [
@@ -322,21 +337,21 @@
       "media": [
         {
           "type": "image",
-          "thumb": "assets/images/games/alanwake2-hero.jpg",
-          "src": "assets/images/games/alanwake2-hero.jpg",
-          "caption": "Cauldron Lake"
+          "src": "https://cdn2.unrealengine.com/egs-alanwake2-remedyentertainment-g1a-01-1920x1080-2322a8668992.jpg",
+          "fallbackSrc": "assets/images/games/alanwake2-hero.jpg",
+          "caption": "Bright Falls & Karanlık Yer"
         },
         {
           "type": "image",
-          "thumb": "assets/images/games/aw-scene-2.jpg",
-          "src": "assets/images/games/aw-scene-2.jpg",
-          "caption": "Night Springs"
+          "src": "https://cdn2.unrealengine.com/egs-alanwake2-remedyentertainment-g1a-02-1920x1080-4e43b5511099.jpg",
+          "fallbackSrc": "assets/images/games/aw-scene-2.jpg",
+          "caption": "Saga Anderson — Cauldron Lake"
         },
         {
           "type": "image",
-          "thumb": "assets/images/games/aw-scene-3.jpg",
-          "src": "assets/images/games/aw-scene-3.jpg",
-          "caption": "The Lake House"
+          "src": "https://cdn2.unrealengine.com/egs-alanwake2-remedyentertainment-g1a-03-1920x1080-835f8740e5c2.jpg",
+          "fallbackSrc": "assets/images/games/aw-scene-3.jpg",
+          "caption": "Alan Wake — New York Kabusu"
         }
       ],
       "externalRefs": {
@@ -397,7 +412,22 @@
           "image": "assets/images/games/alanwake2-hero.jpg",
           "excerpt": "Her bölüm sonunda çalan özgün parçaların hikâye ritmine etkisini değerlendirdik."
         }
-      ]
+      ],
+      "fallbackCover": "assets/images/games/alanwake2-cover.jpg",
+      "fallbackHero": "assets/images/games/alanwake2-hero.jpg",
+      "trailerYoutubeId": "dlQ3FeNu5Yw",
+      "themePalette": {
+        "primary": {
+          "r": 225,
+          "g": 65,
+          "b": 78
+        },
+        "secondary": {
+          "r": 56,
+          "g": 168,
+          "b": 178
+        }
+      }
     },
     {
       "id": 3,
@@ -405,8 +435,8 @@
       "parentGameId": null,
       "title": "Elden Ring",
       "description": "Hidetaka Miyazaki ve George R. R. Martin iş birliğiyle yaratılan Lands Between'de geçen, özgür keşfi ve zorlu boss savaşlarını birleştiren karanlık fantezi aksiyon RPG.",
-      "coverImage": "assets/images/games/eldenring-cover.jpg",
-      "heroImage": "assets/images/games/eldenring-hero.jpg",
+      "coverImage": "https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/1245620/library_600x900.jpg",
+      "heroImage": "https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/1245620/library_hero.jpg",
       "trailerVideo": "assets/videos/trailer-preview.webm",
       "releaseDate": "2022-02-25",
       "genres": [
@@ -471,15 +501,21 @@
       "media": [
         {
           "type": "image",
-          "thumb": "assets/images/games/eldenring-hero.jpg",
-          "src": "assets/images/games/eldenring-hero.jpg",
-          "caption": "Lands Between"
+          "src": "https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/1245620/library_hero.jpg",
+          "fallbackSrc": "assets/images/games/eldenring-hero.jpg",
+          "caption": "Lands Between — Erdtree"
         },
         {
           "type": "image",
-          "thumb": "assets/images/games/er-scene-2.jpg",
-          "src": "assets/images/games/er-scene-2.jpg",
-          "caption": "Shadow Realm"
+          "src": "https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/1245620/page_bg_generated_v6b.jpg",
+          "fallbackSrc": "assets/images/games/er-scene-2.jpg",
+          "caption": "Altın Düzen Harabeleri"
+        },
+        {
+          "type": "image",
+          "src": "https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/1245620/capsule_616x353.jpg",
+          "fallbackSrc": "assets/images/games/eldenring-hero.jpg",
+          "caption": "Tarnished Yolculuğu"
         }
       ],
       "externalRefs": {
@@ -530,7 +566,22 @@
           "image": "assets/images/games/eldenring-hero.jpg",
           "excerpt": "Ufuktaki silüetlerin ve yükselen altın ağaçların oyuncuyu doğal biçimde nasıl yönlendirdiğini inceledik."
         }
-      ]
+      ],
+      "fallbackCover": "assets/images/games/eldenring-cover.jpg",
+      "fallbackHero": "assets/images/games/eldenring-hero.jpg",
+      "trailerYoutubeId": "E3Huy2cdih0",
+      "themePalette": {
+        "primary": {
+          "r": 218,
+          "g": 175,
+          "b": 76
+        },
+        "secondary": {
+          "r": 94,
+          "g": 146,
+          "b": 138
+        }
+      }
     },
     {
       "id": 4,
@@ -538,8 +589,8 @@
       "parentGameId": 1,
       "title": "Cyberpunk 2077: Phantom Liberty",
       "description": "Night City'nin en tehlikeli bölgesi Dogtown'da geçen casusluk ve gerilim dolu büyük hikâye genişleme paketi. Yeni Siber donanımlar, dallanan görevler ve yüksek riskli kararlarla hayatta kalmaya çalışın.",
-      "coverImage": "assets/images/games/cp2077-pl-cover.jpg",
-      "heroImage": "assets/images/games/cp2077-pl-hero.jpg",
+      "coverImage": "https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/2138330/library_600x900.jpg",
+      "heroImage": "https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/2138330/library_hero.jpg",
       "trailerVideo": "assets/videos/trailer-preview.webm",
       "releaseDate": "2023-09-26",
       "genres": [
@@ -594,21 +645,21 @@
       "media": [
         {
           "type": "image",
-          "thumb": "assets/images/games/cp2077-pl-hero.jpg",
-          "src": "assets/images/games/cp2077-pl-hero.jpg",
-          "caption": "Night City / Dogtown"
+          "src": "https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/2138330/library_hero.jpg",
+          "fallbackSrc": "assets/images/games/cp2077-pl-hero.jpg",
+          "caption": "Dogtown — Solomon Reed"
         },
         {
           "type": "image",
-          "thumb": "assets/images/games/cp-scene-2.jpg",
-          "src": "assets/images/games/cp-scene-2.jpg",
-          "caption": "Dogtown Bölgesi"
+          "src": "https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/2138330/page_bg_generated_v6b.jpg",
+          "fallbackSrc": "assets/images/games/cp-scene-2.jpg",
+          "caption": "NUSA Casusluk Operasyonu"
         },
         {
           "type": "image",
-          "thumb": "assets/images/games/cp-scene-3.jpg",
-          "src": "assets/images/games/cp-scene-3.jpg",
-          "caption": "Watson Neon Hattı"
+          "src": "https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/2138330/capsule_616x353.jpg",
+          "fallbackSrc": "assets/images/games/cp-scene-3.jpg",
+          "caption": "Songbird & Blackwall"
         }
       ],
       "externalRefs": {
@@ -649,7 +700,22 @@
           "image": "assets/images/games/cp2077-pl-hero.jpg",
           "excerpt": "Dogtown sokaklarında düşen tedarik kapsüllerinden elde edilebilen nadir siber donanımları listeledik."
         }
-      ]
+      ],
+      "fallbackCover": "assets/images/games/cp2077-pl-cover.jpg",
+      "fallbackHero": "assets/images/games/cp2077-pl-hero.jpg",
+      "trailerYoutubeId": "PbVKBoDuhZ0",
+      "themePalette": {
+        "primary": {
+          "r": 236,
+          "g": 72,
+          "b": 66
+        },
+        "secondary": {
+          "r": 242,
+          "g": 184,
+          "b": 64
+        }
+      }
     },
     {
       "id": 5,
@@ -657,8 +723,8 @@
       "parentGameId": 1,
       "title": "Cyberpunk 2077: Ultimate Edition",
       "description": "Ana oyun Cyberpunk 2077 ile casusluk gerilimi genişleme paketi Phantom Liberty'yi ve 2.0+ büyük sistem güncellemelerini tek pakette birleştiren eksiksiz sürüm.",
-      "coverImage": "assets/images/games/cp2077-ult-cover.jpg",
-      "heroImage": "assets/images/games/cp2077-ult-hero.jpg",
+      "coverImage": "https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/1091500/library_600x900.jpg",
+      "heroImage": "https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/2138330/library_hero.jpg",
       "trailerVideo": "assets/videos/trailer-preview.webm",
       "releaseDate": "2023-12-05",
       "genres": [
@@ -713,21 +779,21 @@
       "media": [
         {
           "type": "image",
-          "thumb": "assets/images/games/cp2077-ult-hero.jpg",
-          "src": "assets/images/games/cp2077-ult-hero.jpg",
-          "caption": "Night City / Dogtown"
+          "src": "https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/2138330/library_hero.jpg",
+          "fallbackSrc": "assets/images/games/cp2077-ult-hero.jpg",
+          "caption": "Ultimate Edition — Night City & Dogtown"
         },
         {
           "type": "image",
-          "thumb": "assets/images/games/cp-scene-2.jpg",
-          "src": "assets/images/games/cp-scene-2.jpg",
-          "caption": "Dogtown Bölgesi"
+          "src": "https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/1091500/library_hero.jpg",
+          "fallbackSrc": "assets/images/games/cp2077-hero.jpg",
+          "caption": "2.0 Güncellemesi & Phantom Liberty"
         },
         {
           "type": "image",
-          "thumb": "assets/images/games/cp-scene-3.jpg",
-          "src": "assets/images/games/cp-scene-3.jpg",
-          "caption": "Watson Neon Hattı"
+          "src": "https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/1091500/page_bg_generated_v6b.jpg",
+          "fallbackSrc": "assets/images/games/cp-scene-2.jpg",
+          "caption": "Tam Sürüm Deneyimi"
         }
       ],
       "externalRefs": {
@@ -757,7 +823,22 @@
           44
         ]
       },
-      "gameBlogs": []
+      "gameBlogs": [],
+      "fallbackCover": "assets/images/games/cp2077-ult-cover.jpg",
+      "fallbackHero": "assets/images/games/cp2077-ult-hero.jpg",
+      "trailerYoutubeId": "Ugb80d5lxEM",
+      "themePalette": {
+        "primary": {
+          "r": 245,
+          "g": 196,
+          "b": 48
+        },
+        "secondary": {
+          "r": 232,
+          "g": 68,
+          "b": 92
+        }
+      }
     },
     {
       "id": 6,
@@ -765,8 +846,8 @@
       "parentGameId": 2,
       "title": "Alan Wake 2: Night Springs",
       "description": "Karanlık Yer'deki gizemli televizyon dizisi Night Springs'in üç farklı alternatif gerçeklik bölümünü oynanabilir kılan hikâye genişleme paketi.",
-      "coverImage": "assets/images/games/aw2-ns-cover.jpg",
-      "heroImage": "assets/images/games/aw2-ns-hero.jpg",
+      "coverImage": "https://cdn2.unrealengine.com/egs-alanwake2nightsprings-remedyentertainment-s2-1200x1600-016b134243e2.jpg",
+      "heroImage": "https://cdn2.unrealengine.com/egs-alanwake2nightsprings-remedyentertainment-g1a-00-1920x1080-a7d5c62739e2.jpg",
       "trailerVideo": "assets/videos/trailer-preview.webm",
       "releaseDate": "2024-06-08",
       "genres": [
@@ -819,21 +900,15 @@
       "media": [
         {
           "type": "image",
-          "thumb": "assets/images/games/aw2-ns-hero.jpg",
-          "src": "assets/images/games/aw2-ns-hero.jpg",
-          "caption": "Cauldron Lake"
+          "src": "https://cdn2.unrealengine.com/egs-alanwake2nightsprings-remedyentertainment-g1a-00-1920x1080-a7d5c62739e2.jpg",
+          "fallbackSrc": "assets/images/games/aw2-ns-hero.jpg",
+          "caption": "Night Springs — 3 Alternatif Bölüm"
         },
         {
           "type": "image",
-          "thumb": "assets/images/games/aw-scene-2.jpg",
-          "src": "assets/images/games/aw-scene-2.jpg",
-          "caption": "Night Springs"
-        },
-        {
-          "type": "image",
-          "thumb": "assets/images/games/aw-scene-3.jpg",
-          "src": "assets/images/games/aw-scene-3.jpg",
-          "caption": "The Lake House"
+          "src": "https://cdn2.unrealengine.com/egs-alanwake2-remedyentertainment-g1a-02-1920x1080-4e43b5511099.jpg",
+          "fallbackSrc": "assets/images/games/aw-scene-2.jpg",
+          "caption": "Time Breaker & North Star"
         }
       ],
       "externalRefs": {
@@ -863,7 +938,22 @@
           18
         ]
       },
-      "gameBlogs": []
+      "gameBlogs": [],
+      "fallbackCover": "assets/images/games/aw2-ns-cover.jpg",
+      "fallbackHero": "assets/images/games/aw2-ns-hero.jpg",
+      "trailerYoutubeId": "dlQ3FeNu5Yw",
+      "themePalette": {
+        "primary": {
+          "r": 168,
+          "g": 85,
+          "b": 247
+        },
+        "secondary": {
+          "r": 236,
+          "g": 72,
+          "b": 153
+        }
+      }
     },
     {
       "id": 7,
@@ -871,8 +961,8 @@
       "parentGameId": 2,
       "title": "Alan Wake 2: The Lake House",
       "description": "Cauldron Lake kıyısındaki gizli Federal Bureau of Control araştırma tesisinde yaşanan felaketi konu alan karanlık hikâye genişleme paketi.",
-      "coverImage": "assets/images/games/aw2-lh-cover.jpg",
-      "heroImage": "assets/images/games/aw2-lh-hero.jpg",
+      "coverImage": "https://cdn2.unrealengine.com/egs-alanwake2thelakehouse-remedyentertainment-s2-1200x1600-f24b7f82669a.jpg",
+      "heroImage": "https://cdn2.unrealengine.com/egs-alanwake2thelakehouse-remedyentertainment-g1a-00-1920x1080-8e8f1c7b887a.jpg",
       "trailerVideo": "assets/videos/trailer-preview.webm",
       "releaseDate": "2024-10-22",
       "genres": [
@@ -923,21 +1013,15 @@
       "media": [
         {
           "type": "image",
-          "thumb": "assets/images/games/aw2-lh-hero.jpg",
-          "src": "assets/images/games/aw2-lh-hero.jpg",
-          "caption": "Cauldron Lake"
+          "src": "https://cdn2.unrealengine.com/egs-alanwake2thelakehouse-remedyentertainment-g1a-00-1920x1080-8e8f1c7b887a.jpg",
+          "fallbackSrc": "assets/images/games/aw2-lh-hero.jpg",
+          "caption": "FBC Cauldron Lake Araştırma Tesisi"
         },
         {
           "type": "image",
-          "thumb": "assets/images/games/aw-scene-2.jpg",
-          "src": "assets/images/games/aw-scene-2.jpg",
-          "caption": "Night Springs"
-        },
-        {
-          "type": "image",
-          "thumb": "assets/images/games/aw-scene-3.jpg",
-          "src": "assets/images/games/aw-scene-3.jpg",
-          "caption": "The Lake House"
+          "src": "https://cdn2.unrealengine.com/egs-alanwake2-remedyentertainment-g1a-01-1920x1080-2322a8668992.jpg",
+          "fallbackSrc": "assets/images/games/aw-scene-3.jpg",
+          "caption": "Ajan Kiran Estevez"
         }
       ],
       "externalRefs": {
@@ -967,7 +1051,22 @@
           20
         ]
       },
-      "gameBlogs": []
+      "gameBlogs": [],
+      "fallbackCover": "assets/images/games/aw2-lh-cover.jpg",
+      "fallbackHero": "assets/images/games/aw2-lh-hero.jpg",
+      "trailerYoutubeId": "dlQ3FeNu5Yw",
+      "themePalette": {
+        "primary": {
+          "r": 56,
+          "g": 189,
+          "b": 248
+        },
+        "secondary": {
+          "r": 239,
+          "g": 68,
+          "b": 68
+        }
+      }
     },
     {
       "id": 8,
@@ -975,8 +1074,8 @@
       "parentGameId": 2,
       "title": "Alan Wake 2: Deluxe Edition",
       "description": "Ana oyun ile birlikte Night Springs ve The Lake House genişleme paketlerini içeren tam sürüm paketi.",
-      "coverImage": "assets/images/games/aw2-dlx-cover.jpg",
-      "heroImage": "assets/images/games/aw2-dlx-hero.jpg",
+      "coverImage": "https://upload.wikimedia.org/wikipedia/en/e/ed/Alan_Wake_2_box_art.jpg",
+      "heroImage": "https://cdn2.unrealengine.com/egs-alanwake2-remedyentertainment-g1a-02-1920x1080-4e43b5511099.jpg",
       "trailerVideo": "assets/videos/trailer-preview.webm",
       "releaseDate": "2023-10-27",
       "genres": [
@@ -1027,21 +1126,15 @@
       "media": [
         {
           "type": "image",
-          "thumb": "assets/images/games/aw2-dlx-hero.jpg",
-          "src": "assets/images/games/aw2-dlx-hero.jpg",
-          "caption": "Cauldron Lake"
+          "src": "https://cdn2.unrealengine.com/egs-alanwake2-remedyentertainment-g1a-02-1920x1080-4e43b5511099.jpg",
+          "fallbackSrc": "assets/images/games/aw2-dlx-hero.jpg",
+          "caption": "Deluxe Edition — Expansion Pass Dahil"
         },
         {
           "type": "image",
-          "thumb": "assets/images/games/aw-scene-2.jpg",
-          "src": "assets/images/games/aw-scene-2.jpg",
-          "caption": "Night Springs"
-        },
-        {
-          "type": "image",
-          "thumb": "assets/images/games/aw-scene-3.jpg",
-          "src": "assets/images/games/aw-scene-3.jpg",
-          "caption": "The Lake House"
+          "src": "https://cdn2.unrealengine.com/egs-alanwake2-remedyentertainment-g1a-01-1920x1080-2322a8668992.jpg",
+          "fallbackSrc": "assets/images/games/alanwake2-hero.jpg",
+          "caption": "Bright Falls & Karanlık Yer"
         }
       ],
       "externalRefs": {
@@ -1071,7 +1164,22 @@
           38
         ]
       },
-      "gameBlogs": []
+      "gameBlogs": [],
+      "fallbackCover": "assets/images/games/aw2-dlx-cover.jpg",
+      "fallbackHero": "assets/images/games/aw2-dlx-hero.jpg",
+      "trailerYoutubeId": "dlQ3FeNu5Yw",
+      "themePalette": {
+        "primary": {
+          "r": 217,
+          "g": 70,
+          "b": 82
+        },
+        "secondary": {
+          "r": 99,
+          "g": 102,
+          "b": 241
+        }
+      }
     },
     {
       "id": 9,
@@ -1079,8 +1187,8 @@
       "parentGameId": 3,
       "title": "Elden Ring: Shadow of the Erdtree",
       "description": "Gölge Diyarı'na adım atın ve Miquella'nın izini sürerek Marika'nın geçmişindeki karanlık sırları açığa çıkarın. Yeni silah sınıfları, zindanlar ve acımasız boss karşılaşmaları sizi bekliyor.",
-      "coverImage": "assets/images/games/er-sote-cover.jpg",
-      "heroImage": "assets/images/games/er-sote-hero.jpg",
+      "coverImage": "https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/2778580/library_600x900.jpg",
+      "heroImage": "https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/2778580/library_hero.jpg",
       "trailerVideo": "assets/videos/trailer-preview.webm",
       "releaseDate": "2024-06-21",
       "genres": [
@@ -1135,15 +1243,21 @@
       "media": [
         {
           "type": "image",
-          "thumb": "assets/images/games/er-sote-hero.jpg",
-          "src": "assets/images/games/er-sote-hero.jpg",
-          "caption": "Lands Between"
+          "src": "https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/2778580/library_hero.jpg",
+          "fallbackSrc": "assets/images/games/er-sote-hero.jpg",
+          "caption": "Gölge Diyarı — Messmer the Impaler"
         },
         {
           "type": "image",
-          "thumb": "assets/images/games/er-scene-2.jpg",
-          "src": "assets/images/games/er-scene-2.jpg",
-          "caption": "Shadow Realm"
+          "src": "https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/2778580/page_bg_generated_v6b.jpg",
+          "fallbackSrc": "assets/images/games/er-scene-2.jpg",
+          "caption": "Scadutree Gölgesi"
+        },
+        {
+          "type": "image",
+          "src": "https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/2778580/capsule_616x353.jpg",
+          "fallbackSrc": "assets/images/games/eldenring-hero.jpg",
+          "caption": "Miquella'nın İzinde"
         }
       ],
       "externalRefs": {
@@ -1184,7 +1298,22 @@
           "image": "assets/images/games/er-sote-hero.jpg",
           "excerpt": "Gölge Diyarı'ndaki boss savaşlarında hayatta kalmak için Scadutree kutsamalarının seviyesini nasıl optimize edeceğinizi anlattık."
         }
-      ]
+      ],
+      "fallbackCover": "assets/images/games/er-sote-cover.jpg",
+      "fallbackHero": "assets/images/games/er-sote-hero.jpg",
+      "trailerYoutubeId": "qLZenOn7WUo",
+      "themePalette": {
+        "primary": {
+          "r": 212,
+          "g": 158,
+          "b": 68
+        },
+        "secondary": {
+          "r": 124,
+          "g": 98,
+          "b": 168
+        }
+      }
     },
     {
       "id": 10,
@@ -1192,8 +1321,8 @@
       "parentGameId": 3,
       "title": "Elden Ring: Shadow of the Erdtree Edition",
       "description": "Elden Ring ana oyunu ile Shadow of the Erdtree genişleme paketini bir arada sunan özel tam sürüm paketi.",
-      "coverImage": "assets/images/games/er-sote-ed-cover.jpg",
-      "heroImage": "assets/images/games/er-sote-ed-hero.jpg",
+      "coverImage": "https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/2778580/library_600x900.jpg",
+      "heroImage": "https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/1245620/library_hero.jpg",
       "trailerVideo": "assets/videos/trailer-preview.webm",
       "releaseDate": "2024-06-21",
       "genres": [
@@ -1246,15 +1375,15 @@
       "media": [
         {
           "type": "image",
-          "thumb": "assets/images/games/er-sote-ed-hero.jpg",
-          "src": "assets/images/games/er-sote-ed-hero.jpg",
-          "caption": "Lands Between"
+          "src": "https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/1245620/library_hero.jpg",
+          "fallbackSrc": "assets/images/games/er-sote-ed-hero.jpg",
+          "caption": "Ana Oyun + Shadow of the Erdtree"
         },
         {
           "type": "image",
-          "thumb": "assets/images/games/er-scene-2.jpg",
-          "src": "assets/images/games/er-scene-2.jpg",
-          "caption": "Shadow Realm"
+          "src": "https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/2778580/library_hero.jpg",
+          "fallbackSrc": "assets/images/games/er-sote-hero.jpg",
+          "caption": "Gölge Diyarı Genişleme Paketi"
         }
       ],
       "externalRefs": {
@@ -1284,7 +1413,22 @@
           74
         ]
       },
-      "gameBlogs": []
+      "gameBlogs": [],
+      "fallbackCover": "assets/images/games/er-sote-ed-cover.jpg",
+      "fallbackHero": "assets/images/games/er-sote-ed-hero.jpg",
+      "trailerYoutubeId": "qLZenOn7WUo",
+      "themePalette": {
+        "primary": {
+          "r": 226,
+          "g": 172,
+          "b": 74
+        },
+        "secondary": {
+          "r": 148,
+          "g": 112,
+          "b": 76
+        }
+      }
     },
     {
       "id": 11,
@@ -1292,8 +1436,8 @@
       "parentGameId": null,
       "title": "Sekiro: Shadows Die Twice",
       "description": "1500'lerin sonu Sengoku dönemi Japonya'sında tek kollu bir shinobi olarak genç efendinizi kurtarmak için kılıç ustalığı, gizlilik ve protez araçlarınızı kullandığınız aksiyon-macera oyunu.",
-      "coverImage": "assets/images/games/sekiro-cover.jpg",
-      "heroImage": "assets/images/games/sekiro-hero.jpg",
+      "coverImage": "https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/814380/library_600x900.jpg",
+      "heroImage": "https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/814380/library_hero.jpg",
       "trailerVideo": "assets/videos/trailer-preview.webm",
       "releaseDate": "2019-03-22",
       "genres": [
@@ -1349,15 +1493,21 @@
       "media": [
         {
           "type": "image",
-          "thumb": "assets/images/games/sekiro-hero.jpg",
-          "src": "assets/images/games/sekiro-hero.jpg",
-          "caption": "Ashina Kalesi"
+          "src": "https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/814380/library_hero.jpg",
+          "fallbackSrc": "assets/images/games/sekiro-hero.jpg",
+          "caption": "Ashina Kalesi — Tek Kollu Kurt"
         },
         {
           "type": "image",
-          "thumb": "assets/images/games/sek-scene-2.jpg",
-          "src": "assets/images/games/sek-scene-2.jpg",
-          "caption": "Sengoku Dolunayı"
+          "src": "https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/814380/page_bg_generated_v6b.jpg",
+          "fallbackSrc": "assets/images/games/sek-scene-2.jpg",
+          "caption": "Sengoku Dönemi Çatışması"
+        },
+        {
+          "type": "image",
+          "src": "https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/814380/capsule_616x353.jpg",
+          "fallbackSrc": "assets/images/games/sekiro-hero.jpg",
+          "caption": "Kılıç ve Protez Sanatı"
         }
       ],
       "externalRefs": {
@@ -1398,7 +1548,22 @@
           "image": "assets/images/games/sekiro-hero.jpg",
           "excerpt": "Savunma ile saldırıyı aynı ritimde birleştiren kılıç çarpışma mekaniklerinin tasarım inceliklerini ele aldık."
         }
-      ]
+      ],
+      "fallbackCover": "assets/images/games/sekiro-cover.jpg",
+      "fallbackHero": "assets/images/games/sekiro-hero.jpg",
+      "trailerYoutubeId": "rXMX4YJ7Lks",
+      "themePalette": {
+        "primary": {
+          "r": 234,
+          "g": 114,
+          "b": 54
+        },
+        "secondary": {
+          "r": 100,
+          "g": 132,
+          "b": 156
+        }
+      }
     }
   ],
   "gameCompanies": [
@@ -1803,8 +1968,9 @@
       "source": "GameShelf Editör",
       "date": "20 Kasım 2026",
       "readTime": "4 dk okuma",
-      "image": "assets/images/games/eldenring-hero.jpg",
-      "excerpt": "Topluluk verilerine göre 2026 sonbahar döneminde en çok koleksiyona eklenen ve tamamlanan açık dünya RPG oyunları belli oldu."
+      "image": "https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/1245620/library_hero.jpg",
+      "excerpt": "Topluluk verilerine göre 2026 sonbahar döneminde en çok koleksiyona eklenen ve tamamlanan açık dünya RPG oyunları belli oldu.",
+      "fallbackImage": "assets/images/games/eldenring-hero.jpg"
     },
     {
       "id": "news-2",
@@ -1813,8 +1979,9 @@
       "source": "Oyun Kültürü Blogu",
       "date": "17 Kasım 2026",
       "readTime": "7 dk okuma",
-      "image": "assets/images/games/cp2077-pl-hero.jpg",
-      "excerpt": "Phantom Liberty ve Shadow of the Erdtree gibi tek başına bir oyun ölçeğindeki genişleme paketlerinin sektör standartlarını nasıl yükselttiğini inceliyoruz."
+      "image": "https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/2138330/library_hero.jpg",
+      "excerpt": "Phantom Liberty ve Shadow of the Erdtree gibi tek başına bir oyun ölçeğindeki genişleme paketlerinin sektör standartlarını nasıl yükselttiğini inceliyoruz.",
+      "fallbackImage": "assets/images/games/cp2077-pl-hero.jpg"
     },
     {
       "id": "news-3",
@@ -1823,8 +1990,9 @@
       "source": "Keşif Bülteni",
       "date": "13 Kasım 2026",
       "readTime": "5 dk okuma",
-      "image": "assets/images/games/alanwake2-hero.jpg",
-      "excerpt": "Atmosferik anlatımı ve yenilikçi mekanikleriyle dikkat çeken bağımsız yapımları tek listede bir araya getirdik."
+      "image": "https://cdn2.unrealengine.com/egs-alanwake2-remedyentertainment-g1a-01-1920x1080-2322a8668992.jpg",
+      "excerpt": "Atmosferik anlatımı ve yenilikçi mekanikleriyle dikkat çeken bağımsız yapımları tek listede bir araya getirdik.",
+      "fallbackImage": "assets/images/games/alanwake2-hero.jpg"
     },
     {
       "id": "news-4",
@@ -1833,8 +2001,9 @@
       "source": "GameShelf İstatistik",
       "date": "08 Kasım 2026",
       "readTime": "5 dk okuma",
-      "image": "assets/images/games/sekiro-hero.jpg",
-      "excerpt": "Oynayış sürelerini ve hedeflerini kaydeden oyuncuların yarım bıraktıkları oyunlara dönme oranının %42 daha yüksek olduğu görüldü."
+      "image": "https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/814380/library_hero.jpg",
+      "excerpt": "Oynayış sürelerini ve hedeflerini kaydeden oyuncuların yarım bıraktıkları oyunlara dönme oranının %42 daha yüksek olduğu görüldü.",
+      "fallbackImage": "assets/images/games/sekiro-hero.jpg"
     },
     {
       "id": "news-5",
@@ -1843,8 +2012,9 @@
       "source": "Geliştirici Günlüğü",
       "date": "03 Kasım 2026",
       "readTime": "6 dk okuma",
-      "image": "assets/images/games/cp2077-hero.jpg",
-      "excerpt": "Gerçek zamanlı ışın izleme ve mekansal ses motorlarının gerilim ve keşif hissini nasıl dönüştürdüğüne göz atıyoruz."
+      "image": "https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/1091500/library_hero.jpg",
+      "excerpt": "Gerçek zamanlı ışın izleme ve mekansal ses motorlarının gerilim ve keşif hissini nasıl dönüştürdüğüne göz atıyoruz.",
+      "fallbackImage": "assets/images/games/cp2077-hero.jpg"
     }
   ]
 }
