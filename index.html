@@ -1,287 +1,401 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="tr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>GameShelf — Kişisel Oyun Günlüğü ve Keşif Platformu</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="vendor/bootstrap/css/bootstrap.min.css" />
+  <link rel="stylesheet" href="assets/css/fontawesome.css" />
+  <link rel="stylesheet" href="css/gameshelf.css" />
+</head>
+<body class="gs-body">
 
-  <head>
+  <!-- Üst Navigasyon (Tüm Sayfalarla Birebir Uyumlu) -->
+  <nav class="navbar navbar-expand-lg gs-navbar">
+    <div class="container">
+      <a class="navbar-brand d-flex align-items-center gap-2 text-white fw-bold" href="index.html">
+        <img src="assets/images/logo.png" alt="GameShelf" style="height: 32px;" />
+        <span>GameShelf</span>
+      </a>
+      <button class="navbar-toggler border-secondary" type="button" data-bs-toggle="collapse" data-bs-target="#gsMainNav">
+        <i class="fa fa-bars text-white"></i>
+      </button>
+      <div class="collapse navbar-collapse" id="gsMainNav">
+        <ul class="navbar-nav ms-auto align-items-lg-center gap-lg-1">
+          <li class="nav-item"><a class="nav-link active" href="index.html">Ana Sayfa</a></li>
 
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown">Keşfet</a>
+            <ul class="dropdown-menu">
+              <li><a class="dropdown-item" href="browse.html">Oyun Kataloğu</a></li>
+              <li><a class="dropdown-item" href="details.html?id=1">Oyun Detay Örneği</a></li>
+              <li><a class="dropdown-item" href="statistics.html">Platform İstatistikleri</a></li>
+            </ul>
+          </li>
 
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown">Koleksiyonum</a>
+            <ul class="dropdown-menu">
+              <li><a class="dropdown-item" href="profile.html?tab=games">Oyun Rafım (Kapaklar)</a></li>
+              <li><a class="dropdown-item" href="profile.html">Profilim & İstatistikler</a></li>
+            </ul>
+          </li>
 
-    <title>Cyborg - Awesome HTML5 Template</title>
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown">Kurumsal</a>
+            <ul class="dropdown-menu">
+              <li><a class="dropdown-item" href="about.html">Hakkımızda</a></li>
+              <li><a class="dropdown-item" href="mission-vision.html">Misyon & Vizyon</a></li>
+              <li><a class="dropdown-item" href="announcements.html">Duyurular</a></li>
+            </ul>
+          </li>
 
-    <!-- Bootstrap core CSS -->
-    <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
-
-
-    <!-- Additional CSS Files -->
-    <link rel="stylesheet" href="assets/css/fontawesome.css">
-    <link rel="stylesheet" href="assets/css/templatemo-cyborg-gaming.css">
-    <link rel="stylesheet" href="assets/css/owl.css">
-    <link rel="stylesheet" href="assets/css/animate.css">
-    <link rel="stylesheet"href="https://unpkg.com/swiper@7/swiper-bundle.min.css"/>
-<!--
-
-TemplateMo 579 Cyborg Gaming
-
-https://templatemo.com/tm-579-cyborg-gaming
-
--->
-  </head>
-
-<body>
-
-  <!-- ***** Preloader Start ***** -->
-  <div id="js-preloader" class="js-preloader">
-    <div class="preloader-inner">
-      <span class="dot"></span>
-      <div class="dots">
-        <span></span>
-        <span></span>
-        <span></span>
+          <li class="nav-item"><a class="nav-link" href="contact.html">İletişim</a></li>
+          <li class="nav-item ms-lg-2">
+            <a class="btn btn-sm gs-btn-outline" href="admin/index.html"><i class="fa fa-sliders me-1"></i> Yönetim</a>
+          </li>
+        </ul>
       </div>
     </div>
-  </div>
-  <!-- ***** Preloader End ***** -->
+  </nav>
 
-  <!-- ***** Header Area Start ***** -->
-  <header class="header-area header-sticky">
+  <!-- HERO + KAYAN OYUN KAPAKLARI VİTRİNİ -->
+  <header class="gs-home-hero">
     <div class="container">
-        <div class="row">
-            <div class="col-12">
-                <nav class="main-nav">
-                    <!-- ***** Logo Start ***** -->
-                    <a href="index.html" class="logo">
-                        <img src="assets/images/logo.png" alt="">
-                    </a>
-                    <!-- ***** Logo End ***** -->
-                    <!-- ***** Search End ***** -->
-                    <div class="search-input">
-                      <form id="search" action="#">
-                        <input type="text" placeholder="Type Something" id='searchText' name="searchKeyword" onkeypress="handle" />
-                        <i class="fa fa-search"></i>
-                      </form>
-                    </div>
-                    <!-- ***** Search End ***** -->
-                    <!-- ***** Menu Start ***** -->
-                    <ul class="nav">
-                        <li><a href="index.html" class="active">Home</a></li>
-                        <li><a href="browse.html">Browse</a></li>
-                        <li><a href="details.html">Details</a></li>
-                        <li><a href="streams.html">Streams</a></li>
-                        <li><a href="profile.html">Profile <img src="assets/images/profile-header.jpg" alt=""></a></li>
-                    </ul>   
-                    <a class='menu-trigger'>
-                        <span>Menu</span>
-                    </a>
-                    <!-- ***** Menu End ***** -->
-                </nav>
-            </div>
+      <div class="row align-items-center g-4">
+        <!-- Sol Kolon: Başlık, Arama & Aksiyonlar -->
+        <div class="col-lg-6">
+          <span class="gs-badge-accent mb-3 d-inline-block">
+            <i class="fa fa-gamepad me-1"></i>Kişisel Oyun Arşivi & Topluluk
+          </span>
+          <h1 class="gs-home-hero-title mb-3">
+            Oynadığın her dünyayı <span>rafına</span> kaydet.
+          </h1>
+          <p class="text-secondary mb-4" style="font-size: 0.96rem; line-height: 1.7; max-width: 520px;">
+            Bitirdiğin oyunları puanla, oynayış sürelerini ve farklı sonlarını günlüğüne işle, topluluk incelemelerini keşfet.
+          </p>
+
+          <!-- Hızlı Katalog Arama Çubuğu -->
+          <form id="homeSearchForm" class="gs-home-search-bar mb-4">
+            <i class="fa fa-search text-secondary"></i>
+            <input type="text" id="homeSearchInput" placeholder="Oyun, stüdyo veya tür ara (örn. Elden Ring, Soulslike)..." />
+            <button type="submit" class="btn btn-sm gs-btn-primary">Ara</button>
+          </form>
+
+          <div class="d-flex flex-wrap align-items-center gap-2">
+            <a href="browse.html" class="btn gs-btn-primary">
+              <i class="fa fa-compass me-2"></i>Kataloğu Keşfet
+            </a>
+            <a href="profile.html" class="btn gs-btn-outline">
+              <i class="fa fa-layer-group me-2"></i>Oyun Günlüğüm
+            </a>
+          </div>
         </div>
+
+        <!-- Sağ Kolon: Çift Sıralı Sürekli Kayan Oyun Kapakları (Sliding Covers) -->
+        <div class="col-lg-6">
+          <div class="d-flex justify-content-between align-items-center mb-2 px-1">
+            <span class="small text-secondary"><i class="fa fa-film me-1" style="color:var(--gs-accent);"></i>Katalogdan Kayan Kapaklar</span>
+            <button type="button" class="btn btn-sm btn-link text-secondary text-decoration-none p-0" id="toggleMarqueeBtn" style="font-size: 0.76rem;">
+              <i class="fa fa-pause me-1"></i>Duraklat
+            </button>
+          </div>
+          <div class="gs-marquee-showcase" id="homeMarqueeShowcase" aria-label="Kayan Oyun Kapakları">
+            <div class="gs-marquee-row gs-marquee-track-left" id="marqueeRowTop"></div>
+            <div class="gs-marquee-row gs-marquee-track-right" id="marqueeRowBottom"></div>
+          </div>
+        </div>
+      </div>
     </div>
   </header>
-  <!-- ***** Header Area End ***** -->
 
-  <div class="container">
-    <div class="row">
-      <div class="col-lg-12">
-        <div class="page-content">
+  <!-- ANA İÇERİK -->
+  <main class="container py-4">
 
-          <!-- ***** Banner Start ***** -->
-          <div class="main-banner">
-            <div class="row">
-              <div class="col-lg-7">
-                <div class="header-text">
-                  <h6>Welcome To Cyborg</h6>
-                  <h4><em>Browse</em> Our Popular Games Here</h4>
-                  <div class="main-button">
-                    <a href="browse.html">Browse Now</a>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-          <!-- ***** Banner End ***** -->
-
-          <!-- ***** Most Popular Start ***** -->
-          <div class="most-popular">
-            <div class="row">
-              <div class="col-lg-12">
-                <div class="heading-section">
-                  <h4><em>Most Popular</em> Right Now</h4>
-                </div>
-                <div class="row">
-                  <div class="col-lg-3 col-sm-6">
-                    <div class="item">
-                      <img src="assets/images/games/cp2077-ult-cover.jpg" alt="">
-                      <h4>Fortnite<br><span>Sandbox</span></h4>
-                      <ul>
-                        <li><i class="fa fa-star"></i> 4.8</li>
-                        <li><i class="fa fa-download"></i> 2.3M</li>
-                      </ul>
-                    </div>
-                  </div>
-                  <div class="col-lg-3 col-sm-6">
-                    <div class="item">
-                      <img src="assets/images/games/sekiro-cover.jpg" alt="">
-                      <h4>PubG<br><span>Battle S</span></h4>
-                      <ul>
-                        <li><i class="fa fa-star"></i> 4.8</li>
-                        <li><i class="fa fa-download"></i> 2.3M</li>
-                      </ul>
-                    </div>
-                  </div>
-                  <div class="col-lg-3 col-sm-6">
-                    <div class="item">
-                      <img src="assets/images/games/eldenring-cover.jpg" alt="">
-                      <h4>Dota2<br><span>Steam-X</span></h4>
-                      <ul>
-                        <li><i class="fa fa-star"></i> 4.8</li>
-                        <li><i class="fa fa-download"></i> 2.3M</li>
-                      </ul>
-                    </div>
-                  </div>
-                  <div class="col-lg-3 col-sm-6">
-                    <div class="item">
-                      <img src="assets/images/games/aw2-lh-cover.jpg" alt="">
-                      <h4>CS-GO<br><span>Legendary</span></h4>
-                      <ul>
-                        <li><i class="fa fa-star"></i> 4.8</li>
-                        <li><i class="fa fa-download"></i> 2.3M</li>
-                      </ul>
-                    </div>
-                  </div>
-                  <div class="col-lg-6">
-                    <div class="item">
-                      <div class="row">
-                        <div class="col-lg-6 col-sm-6">
-                          <div class="item inner-item">
-                            <img src="assets/images/games/aw2-dlx-cover.jpg" alt="">
-                            <h4>Mini Craft<br><span>Legendary</span></h4>
-                            <ul>
-                              <li><i class="fa fa-star"></i> 4.8</li>
-                              <li><i class="fa fa-download"></i> 2.3M</li>
-                            </ul>
-                          </div>
-                        </div>
-                        <div class="col-lg-6 col-sm-6">
-                          <div class="item">
-                            <img src="assets/images/games/er-sote-ed-cover.jpg" alt="">
-                            <h4>Eagles Fly<br><span>Matrix Games</span></h4>
-                            <ul>
-                              <li><i class="fa fa-star"></i> 4.8</li>
-                              <li><i class="fa fa-download"></i> 2.3M</li>
-                            </ul>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                  <div class="col-lg-3 col-sm-6">
-                    <div class="item">
-                      <img src="assets/images/popular-07.jpg" alt="">
-                      <h4>Warface<br><span>Max 3D</span></h4>
-                      <ul>
-                        <li><i class="fa fa-star"></i> 4.8</li>
-                        <li><i class="fa fa-download"></i> 2.3M</li>
-                      </ul>
-                    </div>
-                  </div>
-                  <div class="col-lg-3 col-sm-6">
-                    <div class="item">
-                      <img src="assets/images/popular-08.jpg" alt="">
-                      <h4>Warcraft<br><span>Legend</span></h4>
-                      <ul>
-                        <li><i class="fa fa-star"></i> 4.8</li>
-                        <li><i class="fa fa-download"></i> 2.3M</li>
-                      </ul>
-                    </div>
-                  </div>
-                  <div class="col-lg-12">
-                    <div class="main-button">
-                      <a href="browse.html">Discover Popular</a>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-          <!-- ***** Most Popular End ***** -->
-
-          <!-- ***** Gaming Library Start ***** -->
-          <div class="gaming-library">
-            <div class="col-lg-12">
-              <div class="heading-section">
-                <h4><em>Your Gaming</em> Library</h4>
-              </div>
-              <div class="item">
-                <ul>
-                  <li><img src="assets/images/games/cp2077-pl-cover.jpg" alt="" class="templatemo-item"></li>
-                  <li><h4>Dota 2</h4><span>Sandbox</span></li>
-                  <li><h4>Date Added</h4><span>24/08/2036</span></li>
-                  <li><h4>Hours Played</h4><span>634 H 22 Mins</span></li>
-                  <li><h4>Currently</h4><span>Downloaded</span></li>
-                  <li><div class="main-border-button border-no-active"><a href="#">Donwloaded</a></div></li>
-                </ul>
-              </div>
-              <div class="item">
-                <ul>
-                  <li><img src="assets/images/games/aw2-ns-cover.jpg" alt="" class="templatemo-item"></li>
-                  <li><h4>Fortnite</h4><span>Sandbox</span></li>
-                  <li><h4>Date Added</h4><span>22/06/2036</span></li>
-                  <li><h4>Hours Played</h4><span>740 H 52 Mins</span></li>
-                  <li><h4>Currently</h4><span>Downloaded</span></li>
-                  <li><div class="main-border-button"><a href="#">Donwload</a></div></li>
-                </ul>
-              </div>
-              <div class="item last-item">
-                <ul>
-                  <li><img src="assets/images/games/er-sote-cover.jpg" alt="" class="templatemo-item"></li>
-                  <li><h4>CS-GO</h4><span>Sandbox</span></li>
-                  <li><h4>Date Added</h4><span>21/04/2036</span></li>
-                  <li><h4>Hours Played</h4><span>892 H 14 Mins</span></li>
-                  <li><h4>Currently</h4><span>Downloaded</span></li>
-                  <li><div class="main-border-button border-no-active"><a href="#">Donwloaded</a></div></li>
-                </ul>
-              </div>
-            </div>
-            <div class="col-lg-12">
-              <div class="main-button">
-                <a href="profile.html">View Your Library</a>
-              </div>
-            </div>
-          </div>
-          <!-- ***** Gaming Library End ***** -->
+    <!-- 1. Öne Çıkan Ana Oyunlar -->
+    <section class="gs-card">
+      <div class="d-flex flex-wrap justify-content-between align-items-center gap-2 mb-3">
+        <div>
+          <h2 class="gs-section-title mb-0">Öne Çıkan Yapımlar</h2>
+          <div class="small text-secondary mt-1">Topluluk puanı yüksek ana oyunlar ve doğrudan rafına ekleme kısayolu</div>
         </div>
+        <a href="browse.html" class="btn btn-sm gs-btn-outline">
+          Tüm Katalog (<span id="homeTotalCatalogCount">11</span>) <i class="fa fa-arrow-right ms-1"></i>
+        </a>
+      </div>
+      <div id="homeFeaturedGamesGrid" class="gs-catalog-grid"></div>
+    </section>
+
+    <!-- 2. Son Topluluk İncelemeleri & Güncel Haberler -->
+    <div class="row g-4">
+      <!-- Son Topluluk İncelemeleri -->
+      <div class="col-lg-6">
+        <section class="gs-card h-100 mb-0">
+          <div class="d-flex justify-content-between align-items-center mb-3">
+            <div>
+              <h2 class="gs-section-title mb-0">Son Topluluk İncelemeleri</h2>
+              <div class="small text-secondary mt-1">Oyuncuların güncel değerlendirmeleri</div>
+            </div>
+            <a href="details.html?id=1#reviewsSection" class="small text-decoration-none" style="color: var(--gs-accent);">Tümünü Gör</a>
+          </div>
+          <div id="homeRecentReviewsList" class="d-flex flex-column gap-3"></div>
+        </section>
+      </div>
+
+      <!-- Oyun Dünyasından Haberler & Bloglar -->
+      <div class="col-lg-6">
+        <section class="gs-card h-100 mb-0">
+          <div class="d-flex justify-content-between align-items-center mb-3">
+            <div>
+              <h2 class="gs-section-title mb-0">Editör Seçkisi & Haberler</h2>
+              <div class="small text-secondary mt-1">Oyun dünyasından dosya konuları ve güncellemeler</div>
+            </div>
+          </div>
+          <div id="homeNewsGrid" class="row g-3"></div>
+        </section>
       </div>
     </div>
-  </div>
-  
-  <footer>
-    <div class="container">
-      <div class="row">
-        <div class="col-lg-12">
-          <p>Copyright © 2036 <a href="#">Cyborg Gaming</a> Company. All rights reserved. 
-          
-          <br>Design: <a href="https://templatemo.com" target="_blank" title="free CSS templates">TemplateMo</a>  Distributed By <a href="https://themewagon.com" target="_blank" >ThemeWagon</a></p>
-        </div>
+  </main>
+
+  <!-- Haber / Makale Okuma Modalı -->
+  <div class="gs-journal-backdrop" id="homeArticleBackdrop"></div>
+  <section class="gs-journal-overlay" id="homeArticleOverlay" aria-hidden="true" style="max-width: 660px;">
+    <div class="d-flex justify-content-between align-items-start gap-3 mb-3 pb-2 border-bottom border-secondary border-opacity-25">
+      <div>
+        <span class="gs-badge-accent mb-2 d-inline-block" id="homeArticleTag">Haber</span>
+        <h2 class="h5 fw-bold text-white mb-1" id="homeArticleTitle">Başlık</h2>
+        <div class="small text-secondary" id="homeArticleMeta"></div>
+      </div>
+      <button type="button" class="btn btn-sm gs-btn-outline" id="closeHomeArticleBtn">
+        <i class="fa fa-times"></i>
+      </button>
+    </div>
+    <img id="homeArticleImg" src="" alt="" class="w-100 rounded-3 mb-3" style="max-height: 230px; object-fit: cover;" />
+    <p class="text-light small mb-0" style="line-height: 1.75;" id="homeArticleBody"></p>
+  </section>
+
+  <!-- Alt Bilgi -->
+  <footer class="border-top border-secondary border-opacity-10 py-4 mt-5">
+    <div class="container d-flex flex-wrap justify-content-between align-items-center gap-2 small text-secondary">
+      <div>© 2026 <strong class="text-white">GameShelf</strong> — Kişisel Oyun Günlüğü ve Topluluk Platformu</div>
+      <div class="d-flex gap-3">
+        <a href="browse.html" class="text-secondary text-decoration-none">Oyun Kataloğu</a>
+        <a href="details.html?id=1" class="text-secondary text-decoration-none">Oyun Detayı</a>
+        <a href="profile.html" class="text-secondary text-decoration-none">Profilim</a>
       </div>
     </div>
   </footer>
 
-
-  <!-- Scripts -->
-  <!-- Bootstrap core JavaScript -->
-  <script src="vendor/jquery/jquery.min.js"></script>
   <script src="vendor/bootstrap/js/bootstrap.min.js"></script>
+  <script src="js/services/gameShelfService.js"></script>
+  <script>
+    (async function initHomePage() {
+      const STATUS_LABELS = {
+        playing: "Playing",
+        completed: "Completed",
+        backlog: "Backlog",
+        dropped: "Dropped"
+      };
 
-  <script src="assets/js/isotope.min.js"></script>
-  <script src="assets/js/owl-carousel.js"></script>
-  <script src="assets/js/tabs.js"></script>
-  <script src="assets/js/popup.js"></script>
-  <script src="assets/js/custom.js"></script>
+      function escapeHtml(str) {
+        if (!str) return "";
+        return String(str)
+          .replace(/&/g, "&amp;")
+          .replace(/</g, "&lt;")
+          .replace(/>/g, "&gt;")
+          .replace(/"/g, "&quot;");
+      }
 
+      function renderStars(score) {
+        if (score === null || score === undefined) return "";
+        const full = Math.floor(score);
+        const half = score - full >= 0.5 ? 1 : 0;
+        const empty = 5 - full - half;
+        let html = '<span class="gs-stars">';
+        for (let i = 0; i < full; i++) html += '<i class="fas fa-star"></i>';
+        if (half) html += '<i class="fas fa-star-half-alt"></i>';
+        for (let i = 0; i < empty; i++) html += '<i class="far fa-star"></i>';
+        html += "</span>";
+        return html;
+      }
 
-  </body>
+      function buildMarqueeCards(gamesList) {
+        // Duplicate list twice for seamless -50% infinite loop
+        const doubled = [...gamesList, ...gamesList];
+        return doubled
+          .map(
+            (g) => `
+            <a href="details.html?id=${g.id}" class="gs-marquee-cover-card" title="${escapeHtml(g.title)}">
+              <img src="${g.coverImage}" alt="${escapeHtml(g.title)}" />
+              <div class="gs-marquee-cover-caption">${escapeHtml(g.title)}</div>
+            </a>
+          `
+          )
+          .join("");
+      }
 
+      async function renderHome() {
+        const { games, reviews, news } = await GameShelfService.getCatalogData();
+        document.getElementById("homeTotalCatalogCount").textContent = games.length;
+
+        // 1. Sliding Game Covers (Dual opposing rows)
+        const topGames = games.slice(0, 6);
+        const bottomGames = [...games.slice(5), ...games.slice(0, 5)];
+        document.getElementById("marqueeRowTop").innerHTML = buildMarqueeCards(topGames);
+        document.getElementById("marqueeRowBottom").innerHTML = buildMarqueeCards(bottomGames);
+
+        // 2. Featured Base Games
+        const featured = games.filter((g) => g.entryType === "base");
+        const featuredGrid = document.getElementById("homeFeaturedGamesGrid");
+        featuredGrid.innerHTML = featured
+          .map((g) => {
+            const genresHtml = (g.genres || [])
+              .slice(0, 2)
+              .map((gen) => `<span class="gs-badge-neutral" style="font-size:0.68rem; padding:0.14rem 0.52rem;">${escapeHtml(gen)}</span>`)
+              .join("");
+            const actionBtn = g.collectionStatus
+              ? `<a href="profile.html" class="btn btn-sm gs-btn-outline w-100 mt-auto"><i class="fa fa-check me-1 text-success"></i>Rafta: ${STATUS_LABELS[g.collectionStatus] || g.collectionStatus}</a>`
+              : `<button type="button" class="btn btn-sm gs-btn-primary w-100 mt-auto" data-quick-backlog="${g.id}"><i class="fa fa-plus me-1"></i>Backlog'a Ekle</button>`;
+
+            return `
+              <article class="gs-catalog-card">
+                <a href="details.html?id=${g.id}" class="gs-catalog-poster-wrap">
+                  <img src="${g.coverImage}" alt="${escapeHtml(g.title)}" />
+                  <div class="gs-catalog-top-badges">
+                    <span class="gs-catalog-type-pill">${g.releaseYear || ""}</span>
+                    ${g.metacritic ? `<span class="gs-catalog-mc-pill">${g.metacritic}</span>` : ""}
+                  </div>
+                </a>
+                <div class="gs-catalog-body">
+                  <div class="d-flex justify-content-between align-items-center gap-1 mb-1">
+                    <span class="small text-secondary text-truncate">${escapeHtml(g.studio || "")}</span>
+                    ${g.communityAverage ? `<span class="small fw-semibold" style="color:var(--gs-accent);"><i class="fa fa-star me-1"></i>${g.communityAverage}</span>` : ""}
+                  </div>
+                  <a href="details.html?id=${g.id}" class="gs-catalog-title mb-2">${escapeHtml(g.title)}</a>
+                  <div class="d-flex flex-wrap gap-1 mb-3">${genresHtml}</div>
+                  ${actionBtn}
+                </div>
+              </article>
+            `;
+          })
+          .join("");
+
+        // 3. Recent Community Reviews
+        const reviewsList = document.getElementById("homeRecentReviewsList");
+        reviewsList.innerHTML = reviews
+          .slice(0, 3)
+          .map((rev) => {
+            const gTitle = rev.game ? rev.game.title : "Oyun";
+            const gLink = rev.game ? `details.html?id=${rev.game.id}` : "#";
+            return `
+              <article class="gs-review-card">
+                <div class="d-flex justify-content-between align-items-center gap-2 mb-2">
+                  <div class="d-flex align-items-center gap-2">
+                    <img src="${rev.authorAvatar || "assets/images/avatar-01.jpg"}" alt="" style="width:32px; height:32px; border-radius:50%; object-fit:cover;" />
+                    <div>
+                      <div class="fw-semibold text-white" style="font-size:0.84rem;">${escapeHtml(rev.authorName)}</div>
+                      <a href="${gLink}" class="small text-decoration-none" style="color:var(--gs-accent); font-size:0.75rem;">${escapeHtml(gTitle)}</a>
+                    </div>
+                  </div>
+                  <div class="text-end">
+                    ${rev.rating !== null ? renderStars(rev.rating) : ""}
+                    <div class="text-secondary" style="font-size:0.7rem;">${escapeHtml(rev.createdAt)}</div>
+                  </div>
+                </div>
+                ${rev.title ? `<div class="fw-semibold text-white small mb-1">${escapeHtml(rev.title)}</div>` : ""}
+                <p class="small text-secondary mb-0" style="line-height:1.55;">${escapeHtml(rev.content || "")}</p>
+              </article>
+            `;
+          })
+          .join("");
+
+        // 4. News / Editor Picks
+        const newsGrid = document.getElementById("homeNewsGrid");
+        newsGrid.innerHTML = news
+          .slice(0, 4)
+          .map(
+            (item, idx) => `
+            <div class="col-sm-6">
+              <article class="gs-news-card">
+                <img src="${item.image}" alt="${escapeHtml(item.title)}" />
+                <div class="p-3 d-flex flex-column flex-grow-1">
+                  <div class="d-flex justify-content-between align-items-center gap-1 mb-1">
+                    <span class="gs-badge-accent" style="font-size:0.66rem; padding:0.14rem 0.5rem;">${escapeHtml(item.category)}</span>
+                    <span class="text-secondary" style="font-size:0.7rem;">${escapeHtml(item.readTime || "")}</span>
+                  </div>
+                  <h3 class="h6 fw-semibold text-white mb-2" style="font-size:0.88rem; line-height:1.4;">${escapeHtml(item.title)}</h3>
+                  <p class="small text-secondary mb-3 flex-grow-1" style="font-size:0.78rem; line-height:1.5;">${escapeHtml(item.excerpt || "")}</p>
+                  <button type="button" class="btn btn-sm gs-btn-outline w-100" data-open-news="${idx}">Devamını Oku</button>
+                </div>
+              </article>
+            </div>
+          `
+          )
+          .join("");
+
+        // News modal bindings
+        const artBackdrop = document.getElementById("homeArticleBackdrop");
+        const artOverlay = document.getElementById("homeArticleOverlay");
+        function closeArt() {
+          artBackdrop.classList.remove("active");
+          artOverlay.classList.remove("active");
+          artOverlay.setAttribute("aria-hidden", "true");
+        }
+        document.getElementById("closeHomeArticleBtn").addEventListener("click", closeArt);
+        artBackdrop.addEventListener("click", closeArt);
+
+        newsGrid.addEventListener("click", (e) => {
+          const btn = e.target.closest("[data-open-news]");
+          if (!btn) return;
+          const article = news[Number(btn.dataset.openNews)];
+          if (!article) return;
+          document.getElementById("homeArticleTag").textContent = article.category;
+          document.getElementById("homeArticleTitle").textContent = article.title;
+          document.getElementById("homeArticleMeta").textContent = `${article.source} • ${article.date} • ${article.readTime}`;
+          document.getElementById("homeArticleImg").src = article.image;
+          document.getElementById("homeArticleBody").textContent = article.content || article.excerpt;
+          artBackdrop.classList.add("active");
+          artOverlay.classList.add("active");
+          artOverlay.setAttribute("aria-hidden", "false");
+        });
+      }
+
+      // Quick add to backlog from featured card
+      document.getElementById("homeFeaturedGamesGrid").addEventListener("click", async (e) => {
+        const btn = e.target.closest("[data-quick-backlog]");
+        if (!btn) return;
+        const gameId = Number(btn.dataset.quickBacklog);
+        await GameShelfService.saveCollectionEntry(gameId, {
+          status: "backlog",
+          favorite: false,
+          visibility: "public",
+          notes: null
+        });
+        await renderHome();
+      });
+
+      // Pause / Resume Sliding Covers
+      const marqueeShowcase = document.getElementById("homeMarqueeShowcase");
+      const toggleMarqueeBtn = document.getElementById("toggleMarqueeBtn");
+      toggleMarqueeBtn.addEventListener("click", () => {
+        const paused = marqueeShowcase.classList.toggle("is-paused");
+        toggleMarqueeBtn.innerHTML = paused
+          ? '<i class="fa fa-play me-1"></i>Devam Et'
+          : '<i class="fa fa-pause me-1"></i>Duraklat';
+      });
+
+      // Hero search submits directly to browse.html?q=...
+      document.getElementById("homeSearchForm").addEventListener("submit", (e) => {
+        e.preventDefault();
+        const q = document.getElementById("homeSearchInput").value.trim();
+        window.location.href = q ? `browse.html?q=${encodeURIComponent(q)}` : "browse.html";
+      });
+
+      await renderHome();
+    })();
+  </script>
+</body>
 </html>

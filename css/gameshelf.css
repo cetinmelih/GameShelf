@@ -1780,3 +1780,304 @@ body.gs-body {
 .gs-personal-rating-bar.has-val {
   background: var(--gs-accent);
 }
+
+/* ==========================================================================
+   ANA SAYFA (index.html) & KAYAN OYUN KAPAKLARI (MARQUEE WALL)
+   ========================================================================== */
+.gs-home-hero {
+  position: relative;
+  padding: 3rem 0 2.4rem;
+  border-bottom: 1px solid var(--gs-border);
+  overflow: hidden;
+  background:
+    radial-gradient(circle at 18% 20%, rgba(var(--gs-accent-rgb), 0.16), transparent 46%),
+    radial-gradient(circle at 82% 75%, rgba(var(--gs-secondary-rgb), 0.14), transparent 50%),
+    var(--gs-bg);
+}
+
+.gs-home-hero-title {
+  font-size: clamp(1.9rem, 3.8vw, 3rem);
+  font-weight: 700;
+  letter-spacing: -0.025em;
+  line-height: 1.12;
+  color: #fff;
+}
+
+.gs-home-hero-title span {
+  color: var(--gs-accent);
+}
+
+.gs-home-search-bar {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  background: rgba(19, 23, 34, 0.9);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: 14px;
+  padding: 0.42rem 0.45rem 0.42rem 1rem;
+  max-width: 540px;
+  box-shadow: 0 14px 34px rgba(0, 0, 0, 0.45);
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.gs-home-search-bar:focus-within {
+  border-color: var(--gs-accent);
+  box-shadow: 0 14px 36px rgba(0, 0, 0, 0.55), 0 0 0 3px rgba(var(--gs-accent-rgb), 0.16);
+}
+
+.gs-home-search-bar input {
+  flex: 1;
+  background: transparent;
+  border: none;
+  color: #fff;
+  font-size: 0.9rem;
+  outline: none;
+}
+
+.gs-home-search-bar input::placeholder {
+  color: var(--gs-text-muted);
+}
+
+/* Kayan Oyun Kapakları Duvarı (Dual-Row Infinite Marquee) */
+.gs-marquee-showcase {
+  position: relative;
+  overflow: hidden;
+  padding: 0.6rem 0;
+  mask-image: linear-gradient(90deg, transparent 0%, #000 7%, #000 93%, transparent 100%);
+  -webkit-mask-image: linear-gradient(90deg, transparent 0%, #000 7%, #000 93%, transparent 100%);
+}
+
+.gs-marquee-row {
+  display: flex;
+  width: max-content;
+  gap: 0.9rem;
+  margin-bottom: 0.9rem;
+}
+
+.gs-marquee-row:last-child {
+  margin-bottom: 0;
+}
+
+.gs-marquee-track-left {
+  animation: gsMarqueeLeft 38s linear infinite;
+}
+
+.gs-marquee-track-right {
+  animation: gsMarqueeRight 42s linear infinite;
+}
+
+.gs-marquee-showcase:hover .gs-marquee-row,
+.gs-marquee-showcase.is-paused .gs-marquee-row {
+  animation-play-state: paused;
+}
+
+@keyframes gsMarqueeLeft {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(-50%);
+  }
+}
+
+@keyframes gsMarqueeRight {
+  0% {
+    transform: translateX(-50%);
+  }
+  100% {
+    transform: translateX(0);
+  }
+}
+
+.gs-marquee-cover-card {
+  position: relative;
+  flex: 0 0 132px;
+  aspect-ratio: 3 / 4;
+  border-radius: 13px;
+  overflow: hidden;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  background: var(--gs-surface-elevated);
+  box-shadow: 0 10px 24px rgba(0, 0, 0, 0.48);
+  display: block;
+  text-decoration: none;
+  transition: transform 0.25s cubic-bezier(0.22, 1, 0.36, 1), border-color 0.22s ease, box-shadow 0.22s ease;
+}
+
+.gs-marquee-cover-card:hover {
+  transform: translateY(-5px) scale(1.04);
+  border-color: var(--gs-accent);
+  box-shadow: 0 16px 34px rgba(0, 0, 0, 0.72), 0 0 20px rgba(var(--gs-accent-rgb), 0.34);
+  z-index: 3;
+}
+
+.gs-marquee-cover-card img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.gs-marquee-cover-caption {
+  position: absolute;
+  inset: auto 0 0 0;
+  padding: 1.5rem 0.55rem 0.48rem;
+  background: linear-gradient(180deg, transparent 0%, rgba(11, 13, 18, 0.94) 100%);
+  color: #fff;
+  font-size: 0.72rem;
+  font-weight: 600;
+  line-height: 1.25;
+  opacity: 0;
+  transition: opacity 0.2s ease;
+}
+
+.gs-marquee-cover-card:hover .gs-marquee-cover-caption {
+  opacity: 1;
+}
+
+/* ==========================================================================
+   OYUN KATALOĞU / KEŞFET SAYFASI (browse.html)
+   ========================================================================== */
+.gs-catalog-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(225px, 1fr));
+  gap: 1.15rem;
+}
+
+.gs-catalog-card {
+  display: flex;
+  flex-direction: column;
+  background: var(--gs-surface);
+  border: 1px solid var(--gs-border);
+  border-radius: 16px;
+  overflow: hidden;
+  transition: transform 0.22s ease, border-color 0.22s ease, box-shadow 0.22s ease;
+}
+
+.gs-catalog-card:hover {
+  transform: translateY(-4px);
+  border-color: rgba(var(--gs-accent-rgb), 0.55);
+  box-shadow: 0 16px 34px rgba(0, 0, 0, 0.55);
+}
+
+.gs-catalog-poster-wrap {
+  position: relative;
+  aspect-ratio: 3 / 4;
+  overflow: hidden;
+  background: var(--gs-surface-elevated);
+  display: block;
+}
+
+.gs-catalog-poster-wrap img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  transition: transform 0.35s ease;
+}
+
+.gs-catalog-card:hover .gs-catalog-poster-wrap img {
+  transform: scale(1.04);
+}
+
+.gs-catalog-top-badges {
+  position: absolute;
+  top: 0.6rem;
+  left: 0.6rem;
+  right: 0.6rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 0.35rem;
+  pointer-events: none;
+}
+
+.gs-catalog-type-pill {
+  background: rgba(11, 13, 18, 0.82);
+  backdrop-filter: blur(6px);
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  color: #f8fafc;
+  font-size: 0.68rem;
+  font-weight: 600;
+  padding: 0.18rem 0.55rem;
+  border-radius: 999px;
+}
+
+.gs-catalog-mc-pill {
+  background: rgba(16, 185, 129, 0.92);
+  color: #052e16;
+  font-size: 0.72rem;
+  font-weight: 700;
+  padding: 0.16rem 0.48rem;
+  border-radius: 7px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
+}
+
+.gs-catalog-body {
+  padding: 0.9rem;
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+}
+
+.gs-catalog-title {
+  color: #fff;
+  font-weight: 600;
+  font-size: 0.96rem;
+  line-height: 1.3;
+  text-decoration: none;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  transition: color 0.2s ease;
+}
+
+.gs-catalog-title:hover {
+  color: var(--gs-accent);
+}
+
+.gs-genre-chip {
+  background: rgba(255, 255, 255, 0.035);
+  color: var(--gs-text-muted);
+  border: 1px solid var(--gs-border);
+  border-radius: 999px;
+  padding: 0.28rem 0.75rem;
+  font-size: 0.78rem;
+  cursor: pointer;
+  transition: all 0.18s ease;
+}
+
+.gs-genre-chip:hover {
+  border-color: rgba(var(--gs-accent-rgb), 0.45);
+  color: #fff;
+}
+
+.gs-genre-chip.active {
+  background: rgba(var(--gs-accent-rgb), 0.18);
+  border-color: var(--gs-accent);
+  color: var(--gs-accent);
+  font-weight: 500;
+}
+
+/* Haber & Blog Kartları */
+.gs-news-card {
+  display: flex;
+  flex-direction: column;
+  background: var(--gs-surface-elevated);
+  border: 1px solid var(--gs-border);
+  border-radius: 14px;
+  overflow: hidden;
+  height: 100%;
+  transition: transform 0.2s ease, border-color 0.2s ease;
+}
+
+.gs-news-card:hover {
+  transform: translateY(-3px);
+  border-color: rgba(var(--gs-accent-rgb), 0.45);
+}
+
+.gs-news-card img {
+  width: 100%;
+  height: 148px;
+  object-fit: cover;
+}

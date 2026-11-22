@@ -18,7 +18,12 @@ const GameShelfService = (() => {
     if (seedCache) return seedCache;
     const response = await fetch("js/data/gameshelf-seed.json");
     if (!response.ok) throw new Error("gameshelf-seed.json yüklenemedi.");
-    seedCache = await response.json();
+    const data = await response.json();
+    data.games = (data.games || []).map((g) => ({
+      ...g,
+      releaseYear: g.releaseYear || (g.releaseDate ? Number(String(g.releaseDate).slice(0, 4)) : null)
+    }));
+    seedCache = data;
     return seedCache;
   }
 
@@ -381,6 +386,70 @@ const GameShelfService = (() => {
     writeStore(STORAGE_KEYS.REVIEWS, reviews);
   }
 
+  async function getCatalogData() {
+    const seed = await loadSeed();
+    const userRatings = readStore(STORAGE_KEYS.RATINGS, []);
+    const collections = readStore(STORAGE_KEYS.COLLECTIONS, []).filter(
+      (c) => c.userId === seed.currentUser.id
+    );
+
+    const games = seed.games.map((game) => {
+      const devRel = seed.gameCompanies.find(
+        (gc) => gc.gameId === game.id && gc.role === "developer"
+      );
+      const studio = devRel
+        ? seed.companies.find((c) => c.id === devRel.companyId)?.name || null
+        : null;
+
+      const seedRatings = seed.ratings.filter((r) => r.gameId === game.id);
+      const uRating = userRatings.find(
+        (r) => r.gameId === game.id && r.userId === seed.currentUser.id
+      );
+      const allRatings = uRating ? [...seedRatings, uRating] : seedRatings;
+      const communityAverage =
+        allRatings.length > 0
+          ? Number(
+              (
+                allRatings.reduce((sum, r) => sum + Number(r.score), 0) /
+                allRatings.length
+              ).toFixed(2)
+            )
+          : null;
+
+      const colEntry = collections.find((c) => c.gameId === game.id) || null;
+      const parentGame = game.parentGameId
+        ? seed.games.find((g) => g.id === game.parentGameId) || null
+        : null;
+
+      return {
+        ...game,
+        studio,
+        metacritic: game.externalRefs?.metacritic ?? null,
+        communityAverage,
+        ratingCount: allRatings.length,
+        userScore: uRating ? Number(uRating.score) : null,
+        collectionStatus: colEntry ? colEntry.status : null,
+        isFavorite: colEntry ? Boolean(colEntry.favorite) : false,
+        parentGameTitle: parentGame ? parentGame.title : null
+      };
+    });
+
+    const userReviews = readStore(STORAGE_KEYS.REVIEWS, []);
+    const allReviews = [...userReviews, ...seed.reviews]
+      .map((rev) => {
+        const game = seed.games.find((g) => g.id === rev.gameId) || null;
+        return { ...rev, game };
+      })
+      .sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
+
+    return {
+      games,
+      reviews: allReviews,
+      news: seed.latestNewsBlogs || [],
+      currentUser: seed.currentUser
+    };
+  }
+
   return {
     getAllGames,
     getGameDetails,
@@ -395,6 +464,7 @@ const GameShelfService = (() => {
     createReview,
     toggleReviewVote,
     getUserProfileData,
-    deleteUserReview
+    deleteUserReview,
+    getCatalogData
   };
 })();
