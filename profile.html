@@ -1,0 +1,878 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>GameShelf — Profilim & Oyun Rafı</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="vendor/bootstrap/css/bootstrap.min.css" />
+  <link rel="stylesheet" href="assets/css/fontawesome.css" />
+  <link rel="stylesheet" href="css/gameshelf.css" />
+</head>
+<body class="gs-body">
+
+  <!-- Üst Navigasyon (details.html ile Birebir Uyumlu) -->
+  <nav class="navbar navbar-expand-lg gs-navbar">
+    <div class="container">
+      <a class="navbar-brand d-flex align-items-center gap-2 text-white fw-bold" href="index.html">
+        <img src="assets/images/logo.png" alt="GameShelf" style="height: 32px;" />
+        <span>GameShelf</span>
+      </a>
+      <button class="navbar-toggler border-secondary" type="button" data-bs-toggle="collapse" data-bs-target="#gsMainNav">
+        <i class="fa fa-bars text-white"></i>
+      </button>
+      <div class="collapse navbar-collapse" id="gsMainNav">
+        <ul class="navbar-nav ms-auto align-items-lg-center gap-lg-1">
+          <li class="nav-item"><a class="nav-link" href="index.html">Ana Sayfa</a></li>
+
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown">Keşfet</a>
+            <ul class="dropdown-menu">
+              <li><a class="dropdown-item" href="browse.html">Oyun Kataloğu</a></li>
+              <li><a class="dropdown-item" href="details.html?id=1">Oyun Detay Örneği</a></li>
+              <li><a class="dropdown-item" href="statistics.html">Platform İstatistikleri</a></li>
+            </ul>
+          </li>
+
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle active" href="#" role="button" data-bs-toggle="dropdown">Koleksiyonum</a>
+            <ul class="dropdown-menu">
+              <li><a class="dropdown-item" href="profile.html?tab=games">Oyun Rafım (Kapaklar)</a></li>
+              <li><a class="dropdown-item active" href="profile.html">Profilim & İstatistikler</a></li>
+            </ul>
+          </li>
+
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown">Kurumsal</a>
+            <ul class="dropdown-menu">
+              <li><a class="dropdown-item" href="about.html">Hakkımızda</a></li>
+              <li><a class="dropdown-item" href="mission-vision.html">Misyon & Vizyon</a></li>
+              <li><a class="dropdown-item" href="announcements.html">Duyurular</a></li>
+            </ul>
+          </li>
+
+          <li class="nav-item"><a class="nav-link" href="contact.html">İletişim</a></li>
+          <li class="nav-item ms-lg-2">
+            <a class="btn btn-sm gs-btn-outline" href="admin/index.html"><i class="fa fa-sliders me-1"></i> Yönetim</a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+
+  <!-- PROFİL ÜST ALANI & ALT SEKME BARı -->
+  <header class="gs-profile-hero">
+    <div class="gs-profile-hero-backdrop" id="profileHeroBackdrop"></div>
+    <div class="container">
+      <div class="row align-items-center g-3 gs-profile-top-row">
+        <div class="col-auto">
+          <div class="gs-profile-avatar-wrap">
+            <img id="profileAvatarImg" src="assets/images/profile.jpg" alt="Profil Fotoğrafı" class="gs-profile-avatar" />
+            <span class="gs-profile-online-dot" title="Çevrimiçi"></span>
+          </div>
+        </div>
+
+        <div class="col">
+          <div class="d-flex flex-wrap align-items-center gap-2 mb-1">
+            <h1 class="h4 fw-bold text-white mb-0" id="profileDisplayName">Kaan Yılmaz</h1>
+            <span class="gs-badge-neutral" id="profileHandleBadge">@kaan_dev</span>
+          </div>
+          <p class="text-secondary small mb-2" style="max-width: 560px;">
+            Hikaye odaklı RPG, aksiyon-macera ve zorlu boss savaşlarının kişisel oyun günlüğü.
+          </p>
+          <div class="d-flex flex-wrap gap-2">
+            <a href="browse.html" class="btn btn-sm gs-btn-primary">
+              <i class="fa fa-plus me-1"></i>Oyun Ekle
+            </a>
+            <button type="button" class="btn btn-sm gs-btn-outline" id="seedDemoShelfBtn" title="Rafı örnek oyunlarla doldur">
+              <i class="fa fa-magic me-1"></i>Örnek Raf Doldur
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Alt Sekmeler: Profil / Oyun Rafı (Games) / Günlük Geçmişi / İncelemeler -->
+      <nav class="gs-profile-subnav" id="profileSubNav" aria-label="Profil Sekmeleri">
+        <button type="button" class="gs-profile-nav-btn active" data-view="overview">
+          <i class="fa fa-user"></i> Profil
+        </button>
+        <button type="button" class="gs-profile-nav-btn" data-view="games">
+          <i class="fa fa-th"></i> Oyun Rafı <span class="gs-profile-nav-pill" id="navGamesCount">0</span>
+        </button>
+        <button type="button" class="gs-profile-nav-btn" data-view="journal">
+          <i class="fa fa-history"></i> Günlük Geçmişi <span class="gs-profile-nav-pill" id="navJournalCount">0</span>
+        </button>
+        <button type="button" class="gs-profile-nav-btn" data-view="reviews">
+          <i class="fa fa-comment-alt"></i> İncelemeler <span class="gs-profile-nav-pill" id="navReviewsCount">0</span>
+        </button>
+      </nav>
+    </div>
+  </header>
+
+  <!-- ANA İÇERİK -->
+  <main class="container py-4">
+
+    <!-- ====================================================================
+         1. SEKME: PROFİL ÖZETİ (OVERVIEW)
+         ==================================================================== -->
+    <section id="viewOverview">
+      <div class="row g-4">
+        <!-- Sol Kenar Sütunu: Hakkımda, Kişisel Puan Grafiği & Kütüphane Dağılımı -->
+        <div class="col-lg-3">
+          <div class="gs-card">
+            <h2 class="gs-section-title">Hakkımda</h2>
+            <p class="small text-secondary mb-0" style="line-height: 1.65;">
+              Bitirdiğim oyunları not alıyor, farklı sonları ve oynayış sürelerini arşivliyorum.
+            </p>
+          </div>
+
+          <div class="gs-card">
+            <div class="d-flex justify-content-between align-items-center mb-1">
+              <h2 class="gs-section-title mb-0">Kişisel Puanlar</h2>
+              <span class="small fw-semibold" style="color: var(--gs-accent);" id="sidebarAvgRating">—</span>
+            </div>
+            <div class="gs-personal-rating-bars" id="personalRatingHistogram"></div>
+            <div class="d-flex justify-content-between text-secondary mt-1" style="font-size: 0.68rem;">
+              <span>0.5★</span>
+              <span>2.5★</span>
+              <span>5.0★</span>
+            </div>
+          </div>
+
+          <div class="gs-card mb-0">
+            <h2 class="gs-section-title">Durum Dağılımı</h2>
+            <div id="statusDistributionBody" class="small text-secondary">
+              Henüz rafında oyun yok.
+            </div>
+          </div>
+        </div>
+
+        <!-- Sağ Ana Sütun: Favori Vitrin, 3 Büyük Odak Sayaç, Son Oynananlar & Son İncelemeler -->
+        <div class="col-lg-9">
+          <!-- Favori Oyunlarım Vitrini (5'li Kapak Rafı) -->
+          <div class="gs-card">
+            <div class="d-flex justify-content-between align-items-center mb-3">
+              <h2 class="gs-section-title mb-0">Favori Oyunlarım</h2>
+              <button type="button" class="btn btn-sm btn-link text-secondary text-decoration-none p-0" data-jump-view="games" data-jump-filter="favorites">
+                Tümünü Gör <i class="fa fa-arrow-right ms-1"></i>
+              </button>
+            </div>
+            <div id="overviewFavoritesGrid" class="gs-fav-shelf-grid"></div>
+          </div>
+
+          <!-- 3 Büyük Odak İstatistik Sayacı -->
+          <div class="gs-profile-metric-band">
+            <div class="row text-center g-3">
+              <div class="col-4 border-end border-secondary border-opacity-10">
+                <div class="gs-metric-big-num" id="bigMetricShelfTotal">000</div>
+                <div class="gs-metric-big-label">Raftaki Oyun</div>
+              </div>
+              <div class="col-4 border-end border-secondary border-opacity-10">
+                <div class="gs-metric-big-num" id="bigMetricCompleted">000</div>
+                <div class="gs-metric-big-label">Tamamlanan</div>
+              </div>
+              <div class="col-4">
+                <div class="gs-metric-big-num" id="bigMetricHours">0 sa</div>
+                <div class="gs-metric-big-label">Toplam Oynama Süresi</div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Son Eklenen / Oynanan Oyunlar -->
+          <div class="gs-card">
+            <div class="d-flex justify-content-between align-items-center mb-3">
+              <h2 class="gs-section-title mb-0">Son Oynanan & Eklenenler</h2>
+              <button type="button" class="btn btn-sm btn-link text-secondary text-decoration-none p-0" data-jump-view="games" data-jump-filter="all">
+                Oyun Rafına Git <i class="fa fa-arrow-right ms-1"></i>
+              </button>
+            </div>
+            <div id="overviewRecentGrid" class="gs-recent-shelf-grid"></div>
+          </div>
+
+          <!-- Son İncelemelerim -->
+          <div class="gs-card mb-0">
+            <div class="d-flex justify-content-between align-items-center mb-3">
+              <h2 class="gs-section-title mb-0">Son İncelemelerim</h2>
+              <button type="button" class="btn btn-sm btn-link text-secondary text-decoration-none p-0" data-jump-view="reviews">
+                Tüm İncelemeler <i class="fa fa-arrow-right ms-1"></i>
+              </button>
+            </div>
+            <div id="overviewReviewsList" class="d-flex flex-column gap-3"></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ====================================================================
+         2. SEKME: OYUN RAFI (GAMES) — SADECE KAPAKLARDAN OLUŞAN SIRALI RAF
+         ==================================================================== -->
+    <section id="viewGames" style="display: none;">
+      <div class="gs-card mb-0">
+        <!-- Üst Bilgi & Koleksiyon İçi Arama -->
+        <div class="d-flex flex-wrap justify-content-between align-items-center gap-2 mb-3">
+          <div class="small text-secondary">
+            <strong class="text-white" id="shelfVisibleCount">0</strong> oyun gösteriliyor
+          </div>
+          <div class="gs-shelf-search-box">
+            <i class="fa fa-search"></i>
+            <input type="text" id="shelfSearchInput" class="gs-input" placeholder="Raf içinde ara..." />
+          </div>
+        </div>
+
+        <!-- Filtre Sekmeleri & Sıralama -->
+        <div class="gs-shelf-toolbar">
+          <div class="gs-shelf-tabs" id="shelfStatusTabs" role="tablist">
+            <button type="button" class="gs-shelf-tab active" data-filter="all">
+              Tümü <span class="gs-tab-count" id="cntAll">0</span>
+            </button>
+            <button type="button" class="gs-shelf-tab" data-filter="playing">
+              Playing <span class="gs-tab-count" id="cntPlaying">0</span>
+            </button>
+            <button type="button" class="gs-shelf-tab" data-filter="completed">
+              Completed <span class="gs-tab-count" id="cntCompleted">0</span>
+            </button>
+            <button type="button" class="gs-shelf-tab" data-filter="backlog">
+              Backlog <span class="gs-tab-count" id="cntBacklog">0</span>
+            </button>
+            <button type="button" class="gs-shelf-tab" data-filter="dropped">
+              Dropped <span class="gs-tab-count" id="cntDropped">0</span>
+            </button>
+            <button type="button" class="gs-shelf-tab" data-filter="favorites">
+              <i class="fa fa-heart text-danger"></i> Favoriler <span class="gs-tab-count" id="cntFavorites">0</span>
+            </button>
+          </div>
+
+          <div class="d-flex align-items-center gap-2">
+            <span class="small text-secondary">Sırala:</span>
+            <select id="shelfSortSelect" class="gs-select form-select-sm" style="width: auto; font-size: 0.8rem;">
+              <option value="recent">Eklenme Sırası</option>
+              <option value="rating">Senin Puanın</option>
+              <option value="hours">Oynama Süresi</option>
+              <option value="title">İsme Göre (A-Z)</option>
+              <option value="year">Çıkış Yılı</option>
+            </select>
+          </div>
+        </div>
+
+        <!-- Sadece Kapakların Sıralandığı Saf Raf Izgarası -->
+        <div id="coverOnlyShelfGrid" class="gs-cover-only-shelf"></div>
+      </div>
+    </section>
+
+    <!-- ====================================================================
+         3. SEKME: GÜNLÜK GEÇMİŞİ (JOURNAL / PLAYTHROUGHS)
+         ==================================================================== -->
+    <section id="viewJournal" style="display: none;">
+      <div class="gs-card mb-0">
+        <div class="d-flex justify-content-between align-items-center mb-3">
+          <div>
+            <h2 class="gs-section-title mb-0">Oynayış Geçmişi (Playthroughs)</h2>
+            <div class="small text-secondary mt-1">Tüm oyunlara ait kayıtlı oturum ve bitiriş tarihlerin</div>
+          </div>
+        </div>
+        <div id="journalHistoryList" class="d-flex flex-column gap-2"></div>
+      </div>
+    </section>
+
+    <!-- ====================================================================
+         4. SEKME: İNCELEMELERİM (REVIEWS)
+         ==================================================================== -->
+    <section id="viewReviews" style="display: none;">
+      <div class="gs-card mb-0">
+        <div class="d-flex justify-content-between align-items-center mb-3">
+          <div>
+            <h2 class="gs-section-title mb-0">Tüm İncelemelerim</h2>
+            <div class="small text-secondary mt-1">Oyun detay sayfalarından paylaştığın yazılı değerlendirmeler</div>
+          </div>
+        </div>
+        <div id="allReviewsList" class="d-flex flex-column gap-3"></div>
+      </div>
+    </section>
+  </main>
+
+  <!-- Hızlı Düzenleme Modalı (Kapak Üzerindeki Kalem İkonundan Açılır) -->
+  <div class="gs-journal-backdrop" id="quickEditBackdrop"></div>
+  <section class="gs-journal-overlay" id="quickEditOverlay" aria-hidden="true" style="max-width: 460px;">
+    <div class="d-flex justify-content-between align-items-center mb-3 pb-2 border-bottom border-secondary border-opacity-25">
+      <h2 class="gs-section-title mb-0" id="quickEditGameTitle">Günlük Kaydını Düzenle</h2>
+      <button type="button" class="btn btn-sm gs-btn-outline" id="closeQuickEditBtn">
+        <i class="fa fa-times"></i>
+      </button>
+    </div>
+    <form id="quickEditForm" class="d-flex flex-column gap-3">
+      <input type="hidden" id="quickEditGameId" />
+      <div class="row g-2">
+        <div class="col-7">
+          <label class="form-label text-secondary small mb-1">Durum</label>
+          <select id="quickEditStatus" class="gs-select">
+            <option value="backlog">📚 Backlog / Want to Play</option>
+            <option value="playing">🎮 Playing</option>
+            <option value="completed">🏆 Completed</option>
+            <option value="dropped">⛔ Dropped</option>
+          </select>
+        </div>
+        <div class="col-5">
+          <label class="form-label text-secondary small mb-1">Görünürlük</label>
+          <select id="quickEditVisibility" class="gs-select">
+            <option value="public">Herkese Açık</option>
+            <option value="private">Gizli</option>
+          </select>
+        </div>
+      </div>
+      <div class="form-check form-switch">
+        <input class="form-check-input" type="checkbox" id="quickEditFavorite" />
+        <label class="form-check-label small text-light" for="quickEditFavorite">Favori oyunlarıma ekle</label>
+      </div>
+      <div>
+        <label class="form-label text-secondary small mb-1">Kişisel Not</label>
+        <textarea id="quickEditNotes" rows="3" class="gs-textarea" placeholder="Kısa notun..."></textarea>
+      </div>
+      <div class="d-flex justify-content-between align-items-center pt-1">
+        <button type="button" id="quickDeleteEntryBtn" class="btn btn-sm gs-btn-outline text-danger">
+          <i class="fa fa-trash me-1"></i>Raftan Kaldır
+        </button>
+        <div class="d-flex gap-2">
+          <a id="quickGoDetailsLink" href="details.html?id=1" class="btn btn-sm gs-btn-outline">Detay Sayfası</a>
+          <button type="submit" class="btn btn-sm gs-btn-primary">Kaydet</button>
+        </div>
+      </div>
+    </form>
+  </section>
+
+  <!-- Alt Bilgi -->
+  <footer class="border-top border-secondary border-opacity-10 py-4 mt-5">
+    <div class="container d-flex flex-wrap justify-content-between align-items-center gap-2 small text-secondary">
+      <div>© 2026 <strong class="text-white">GameShelf</strong> — Kişisel Oyun Günlüğü ve Topluluk Platformu</div>
+      <div class="d-flex gap-3">
+        <a href="index.html" class="text-secondary text-decoration-none">Ana Sayfa</a>
+        <a href="browse.html" class="text-secondary text-decoration-none">Oyun Kataloğu</a>
+        <a href="details.html?id=1" class="text-secondary text-decoration-none">Oyun Detayı</a>
+      </div>
+    </div>
+  </footer>
+
+  <script src="vendor/bootstrap/js/bootstrap.min.js"></script>
+  <script src="js/services/gameShelfService.js"></script>
+  <script>
+    (async function initProfilePage() {
+      const urlParams = new URLSearchParams(window.location.search);
+      let activeView = ["overview", "games", "journal", "reviews"].includes(urlParams.get("tab"))
+        ? urlParams.get("tab")
+        : "overview";
+      let currentFilter = "all";
+      let currentSort = "recent";
+      let searchQuery = "";
+      let cachedProfile = null;
+
+      const STATUS_META = {
+        playing: { label: "Playing", badgeClass: "gs-status-playing", color: "#38bdf8" },
+        completed: { label: "Completed", badgeClass: "gs-status-completed", color: "#34d399" },
+        backlog: { label: "Backlog", badgeClass: "gs-status-backlog", color: "#a78bfa" },
+        dropped: { label: "Dropped", badgeClass: "gs-status-dropped", color: "#f87171" }
+      };
+
+      function escapeHtml(str) {
+        if (!str) return "";
+        return String(str)
+          .replace(/&/g, "&amp;")
+          .replace(/</g, "&lt;")
+          .replace(/>/g, "&gt;")
+          .replace(/"/g, "&quot;");
+      }
+
+      function renderStars(score) {
+        if (score === null || score === undefined) return "";
+        const full = Math.floor(score);
+        const half = score - full >= 0.5 ? 1 : 0;
+        const empty = 5 - full - half;
+        let html = '<span class="gs-stars">';
+        for (let i = 0; i < full; i++) html += '<i class="fas fa-star"></i>';
+        if (half) html += '<i class="fas fa-star-half-alt"></i>';
+        for (let i = 0; i < empty; i++) html += '<i class="far fa-star"></i>';
+        html += "</span>";
+        return html;
+      }
+
+      function pad3(num) {
+        return String(num).padStart(3, "0");
+      }
+
+      function switchProfileView(viewName) {
+        activeView = viewName;
+        document.querySelectorAll("#profileSubNav .gs-profile-nav-btn").forEach((btn) => {
+          btn.classList.toggle("active", btn.dataset.view === viewName);
+        });
+        document.getElementById("viewOverview").style.display = viewName === "overview" ? "" : "none";
+        document.getElementById("viewGames").style.display = viewName === "games" ? "" : "none";
+        document.getElementById("viewJournal").style.display = viewName === "journal" ? "" : "none";
+        document.getElementById("viewReviews").style.display = viewName === "reviews" ? "" : "none";
+      }
+
+      function setShelfFilter(filterName) {
+        currentFilter = filterName;
+        document.querySelectorAll("#shelfStatusTabs .gs-shelf-tab").forEach((t) => {
+          t.classList.toggle("active", t.dataset.filter === filterName);
+        });
+        if (cachedProfile) renderCoverOnlyShelf(cachedProfile.entries);
+      }
+
+      function getFilteredSortedEntries(entries) {
+        let list = [...entries];
+        if (currentFilter === "favorites") {
+          list = list.filter((e) => e.favorite);
+        } else if (currentFilter !== "all") {
+          list = list.filter((e) => e.status === currentFilter);
+        }
+
+        if (searchQuery.trim()) {
+          const q = searchQuery.trim().toLowerCase();
+          list = list.filter((e) => e.game.title.toLowerCase().includes(q));
+        }
+
+        if (currentSort === "hours") {
+          list.sort((a, b) => (b.totalHours || -1) - (a.totalHours || -1));
+        } else if (currentSort === "rating") {
+          list.sort((a, b) => (b.userScore || -1) - (a.userScore || -1));
+        } else if (currentSort === "title") {
+          list.sort((a, b) => a.game.title.localeCompare(b.game.title, "tr"));
+        } else if (currentSort === "year") {
+          list.sort((a, b) => (b.game.releaseYear || 0) - (a.game.releaseYear || 0));
+        } else {
+          list.sort((a, b) => b.id - a.id);
+        }
+        return list;
+      }
+
+      // 1. PURE COVER-ONLY SHELF (GAMES TAB)
+      function renderCoverOnlyShelf(entries) {
+        const grid = document.getElementById("coverOnlyShelfGrid");
+        const filtered = getFilteredSortedEntries(entries);
+        document.getElementById("shelfVisibleCount").textContent = filtered.length;
+
+        if (filtered.length === 0) {
+          const isTotallyEmpty = entries.length === 0;
+          grid.style.display = "block";
+          grid.innerHTML = `
+            <div class="gs-empty-shelf text-center py-5 px-3">
+              <div class="mb-2" style="font-size: 2rem; color: var(--gs-accent);"><i class="fa fa-layer-group"></i></div>
+              <h3 class="h6 text-white mb-1">${isTotallyEmpty ? "Oyun rafın henüz boş" : "Eşleşen oyun bulunamadı"}</h3>
+              <p class="small text-secondary mb-3">
+                ${isTotallyEmpty
+                  ? "Oyun detay sayfalarından koleksiyonuna oyun ekleyebilir veya üstteki 'Örnek Raf Doldur' butonunu kullanabilirsin."
+                  : "Farklı bir sekme veya arama terimi deneyebilirsin."}
+              </p>
+              <a href="browse.html" class="btn btn-sm gs-btn-primary">Oyun Kataloğuna Git</a>
+            </div>
+          `;
+          return;
+        }
+
+        grid.style.display = "grid";
+        grid.innerHTML = filtered
+          .map(
+            (item) => `
+            <div class="gs-shelf-poster-tile">
+              <a href="details.html?id=${item.game.id}" class="gs-tile-link" title="${escapeHtml(item.game.title)}">
+                <img src="${item.game.coverImage}" alt="${escapeHtml(item.game.title)}" loading="lazy" />
+              </a>
+              <button type="button" class="gs-tile-quick-btn" data-quick-edit="${item.game.id}" title="Durumu Düzenle">
+                <i class="fa fa-pen"></i>
+              </button>
+            </div>
+          `
+          )
+          .join("");
+      }
+
+      // 2. OVERVIEW: FAVORITE 5-POSTER SHELF
+      function renderOverviewFavorites(entries) {
+        const grid = document.getElementById("overviewFavoritesGrid");
+        const favs = entries.filter((e) => e.favorite).slice(0, 5);
+        if (favs.length === 0) {
+          grid.style.display = "block";
+          grid.innerHTML = '<div class="small text-secondary">Henüz favori oyun seçilmedi. Oyun detay sayfasından kalp simgesine basarak favorilerine ekleyebilirsin.</div>';
+          return;
+        }
+        grid.style.display = "grid";
+        grid.innerHTML = favs
+          .map(
+            (item) => `
+            <a href="details.html?id=${item.game.id}" class="gs-fav-poster-card" title="${escapeHtml(item.game.title)}">
+              <img src="${item.game.coverImage}" alt="${escapeHtml(item.game.title)}" />
+            </a>
+          `
+          )
+          .join("");
+      }
+
+      // 3. OVERVIEW: RECENTLY PLAYED / ADDED SHELF
+      function renderOverviewRecent(entries) {
+        const grid = document.getElementById("overviewRecentGrid");
+        const recent = entries.slice(0, 5);
+        if (recent.length === 0) {
+          grid.style.display = "block";
+          grid.innerHTML = '<div class="small text-secondary">Henüz rafında kayıt bulunmuyor.</div>';
+          return;
+        }
+        grid.style.display = "grid";
+        grid.innerHTML = recent
+          .map((item) => {
+            const leftInfo =
+              item.totalHours !== null
+                ? `${item.totalHours} sa`
+                : item.game.releaseYear || "";
+            const rightStars =
+              item.userScore !== null
+                ? renderStars(item.userScore)
+                : `<span class="opacity-50">${(STATUS_META[item.status] || STATUS_META.backlog).label}</span>`;
+            return `
+              <a href="details.html?id=${item.game.id}" class="gs-recent-poster-item" title="${escapeHtml(item.game.title)}">
+                <div class="gs-recent-poster-frame">
+                  <img src="${item.game.coverImage}" alt="${escapeHtml(item.game.title)}" />
+                </div>
+                <div class="gs-recent-poster-foot">
+                  <span>${escapeHtml(String(leftInfo))}</span>
+                  <span>${rightStars}</span>
+                </div>
+              </a>
+            `;
+          })
+          .join("");
+      }
+
+      // 4. SIDEBAR: PERSONAL RATING HISTOGRAM (0.5 to 5.0)
+      function renderPersonalHistogram(ratedGames, avgUserRating) {
+        const box = document.getElementById("personalRatingHistogram");
+        document.getElementById("sidebarAvgRating").textContent =
+          avgUserRating !== null ? `${avgUserRating} ★` : "—";
+
+        const steps = [0.5, 1, 1.5, 2, 2.5, 3, 3.5, 4, 4.5, 5];
+        const counts = steps.map((s) => ratedGames.filter((r) => Number(r.score) === s).length);
+        const maxCount = Math.max(...counts, 1);
+
+        box.innerHTML = steps
+          .map((step, idx) => {
+            const c = counts[idx];
+            const pct = c > 0 ? Math.max(18, Math.round((c / maxCount) * 100)) : 8;
+            return `
+              <div class="gs-personal-rating-col" title="${step} ★ (${c} oyun)">
+                <div class="gs-personal-rating-bar ${c > 0 ? "has-val" : ""}" style="height: ${pct}%;"></div>
+              </div>
+            `;
+          })
+          .join("");
+      }
+
+      // 5. SIDEBAR: STATUS DISTRIBUTION
+      function renderDistribution(statusCounts) {
+        const box = document.getElementById("statusDistributionBody");
+        const total = statusCounts.all;
+        if (total === 0) {
+          box.innerHTML = '<div class="small text-secondary">Henüz rafında oyun bulunmuyor.</div>';
+          return;
+        }
+
+        const rows = [
+          { label: "Playing", count: statusCounts.playing, color: "#38bdf8" },
+          { label: "Completed", count: statusCounts.completed, color: "#34d399" },
+          { label: "Backlog", count: statusCounts.backlog, color: "#a78bfa" },
+          { label: "Dropped", count: statusCounts.dropped, color: "#f87171" }
+        ];
+
+        const barHtml = rows
+          .filter((r) => r.count > 0)
+          .map((r) => `<div style="width:${((r.count / total) * 100).toFixed(1)}%; background:${r.color}; height:100%;"></div>`)
+          .join("");
+
+        const legendHtml = rows
+          .map(
+            (r) => `
+            <div class="d-flex justify-content-between align-items-center py-1">
+              <span class="d-flex align-items-center gap-2">
+                <span style="width:8px; height:8px; border-radius:50%; background:${r.color}; display:inline-block;"></span>
+                <span class="text-light">${r.label}</span>
+              </span>
+              <span class="text-secondary">${r.count}</span>
+            </div>
+          `
+          )
+          .join("");
+
+        box.innerHTML = `
+          <div class="d-flex rounded-pill overflow-hidden mb-2" style="height: 8px; background: rgba(255,255,255,0.06);">
+            ${barHtml}
+          </div>
+          ${legendHtml}
+        `;
+      }
+
+      // 6. REVIEWS RENDERER (USED IN OVERVIEW & REVIEWS TAB)
+      function buildReviewCardsHtml(reviews) {
+        if (reviews.length === 0) {
+          return '<div class="small text-secondary">Henüz yazılı inceleme paylaşmadın.</div>';
+        }
+        return reviews
+          .map((rev) => {
+            const gameTitle = rev.game ? rev.game.title : "Oyun";
+            const gameLink = rev.game ? `details.html?id=${rev.game.id}` : "#";
+            const gameCover = rev.game ? rev.game.coverImage : "assets/images/logo.png";
+            return `
+              <article class="gs-review-card">
+                <div class="d-flex justify-content-between align-items-start gap-2 mb-2">
+                  <div class="d-flex align-items-center gap-3">
+                    <a href="${gameLink}">
+                      <img src="${gameCover}" alt="${escapeHtml(gameTitle)}" style="width:46px; height:62px; object-fit:cover; border-radius:8px;" />
+                    </a>
+                    <div>
+                      <a href="${gameLink}" class="fw-semibold text-white text-decoration-none" style="font-size:0.95rem;">${escapeHtml(gameTitle)}</a>
+                      <div class="d-flex flex-wrap align-items-center gap-2 mt-1">
+                        ${rev.rating !== null ? renderStars(rev.rating) : ""}
+                        <span class="text-secondary" style="font-size:0.74rem;">${escapeHtml(rev.createdAt)}</span>
+                      </div>
+                    </div>
+                  </div>
+                  <button type="button" class="btn btn-sm gs-btn-outline text-danger py-1 px-2" data-del-review="${rev.id}" title="İncelemeyi Sil">
+                    <i class="fa fa-trash"></i>
+                  </button>
+                </div>
+                ${rev.title ? `<h3 class="h6 fw-semibold text-white mb-1">${escapeHtml(rev.title)}</h3>` : ""}
+                ${rev.content ? `<p class="small text-light mb-0" style="line-height:1.6;">${escapeHtml(rev.content)}</p>` : ""}
+              </article>
+            `;
+          })
+          .join("");
+      }
+
+      // 7. JOURNAL HISTORY (PLAYTHROUGHS TAB)
+      function renderJournalHistory(entries) {
+        const list = document.getElementById("journalHistoryList");
+        const allPts = [];
+        entries.forEach((entry) => {
+          entry.playthroughs.forEach((pt) => {
+            allPts.push({ ...pt, game: entry.game, status: entry.status });
+          });
+        });
+        allPts.sort((a, b) => b.id - a.id);
+        document.getElementById("navJournalCount").textContent = allPts.length;
+
+        if (allPts.length === 0) {
+          list.innerHTML = '<div class="small text-secondary">Henüz kayıtlı oynayış oturumu (playthrough) bulunmuyor.</div>';
+          return;
+        }
+
+        list.innerHTML = allPts
+          .map((pt) => {
+            const st = STATUS_META[pt.status] || STATUS_META.playing;
+            const dateRange =
+              pt.startedAt && pt.completedAt
+                ? `${pt.startedAt} → ${pt.completedAt}`
+                : pt.completedAt
+                ? `Bitiş: ${pt.completedAt}`
+                : pt.startedAt
+                ? `Başlangıç: ${pt.startedAt}`
+                : "Tarih belirtilmedi";
+            return `
+              <div class="d-flex align-items-center justify-content-between gap-3 p-2 rounded-3" style="background: var(--gs-surface-elevated); border: 1px solid var(--gs-border);">
+                <div class="d-flex align-items-center gap-3 min-w-0">
+                  <a href="details.html?id=${pt.game.id}">
+                    <img src="${pt.game.coverImage}" alt="${escapeHtml(pt.game.title)}" style="width:40px; height:54px; object-fit:cover; border-radius:7px;" />
+                  </a>
+                  <div class="min-w-0">
+                    <a href="details.html?id=${pt.game.id}" class="fw-semibold text-white text-decoration-none d-block text-truncate" style="font-size:0.9rem;">${escapeHtml(pt.game.title)}</a>
+                    <div class="small text-secondary">${escapeHtml(dateRange)}${pt.notes ? ` • ${escapeHtml(pt.notes)}` : ""}</div>
+                  </div>
+                </div>
+                <div class="d-flex align-items-center gap-2 flex-shrink-0">
+                  ${pt.playtime !== null ? `<span class="gs-badge-neutral">${pt.playtime} sa</span>` : ""}
+                  <span class="gs-status-pill ${st.badgeClass}">${st.label}</span>
+                </div>
+              </div>
+            `;
+          })
+          .join("");
+      }
+
+      async function refreshProfile() {
+        cachedProfile = await GameShelfService.getUserProfileData();
+        const { user, entries, reviews, ratedGames, statusCounts, totalHoursAll, avgUserRating } = cachedProfile;
+
+        document.getElementById("profileDisplayName").textContent = user.displayName;
+        document.getElementById("profileHandleBadge").textContent = `@${user.username}`;
+        document.getElementById("profileAvatarImg").src = user.avatar;
+
+        const heroEntry = entries.find((e) => e.favorite) || entries[0];
+        if (heroEntry && heroEntry.game.heroImage) {
+          document.getElementById("profileHeroBackdrop").style.backgroundImage = `url('${heroEntry.game.heroImage}')`;
+        }
+
+        // Big Focus Metrics
+        document.getElementById("bigMetricShelfTotal").textContent = pad3(statusCounts.all);
+        document.getElementById("bigMetricCompleted").textContent = pad3(statusCounts.completed);
+        document.getElementById("bigMetricHours").textContent = `${totalHoursAll} sa`;
+
+        // Nav & Filter Tab Counts
+        document.getElementById("navGamesCount").textContent = statusCounts.all;
+        document.getElementById("navReviewsCount").textContent = reviews.length;
+        document.getElementById("cntAll").textContent = statusCounts.all;
+        document.getElementById("cntPlaying").textContent = statusCounts.playing;
+        document.getElementById("cntCompleted").textContent = statusCounts.completed;
+        document.getElementById("cntBacklog").textContent = statusCounts.backlog;
+        document.getElementById("cntDropped").textContent = statusCounts.dropped;
+        document.getElementById("cntFavorites").textContent = statusCounts.favorites;
+
+        // Render all sections
+        renderOverviewFavorites(entries);
+        renderOverviewRecent(entries);
+        renderPersonalHistogram(ratedGames, avgUserRating);
+        renderDistribution(statusCounts);
+        renderCoverOnlyShelf(entries);
+        renderJournalHistory(entries);
+
+        document.getElementById("overviewReviewsList").innerHTML = buildReviewCardsHtml(reviews.slice(0, 3));
+        document.getElementById("allReviewsList").innerHTML = buildReviewCardsHtml(reviews);
+      }
+
+      // Sub-navigation events
+      document.getElementById("profileSubNav").addEventListener("click", (e) => {
+        const btn = e.target.closest("[data-view]");
+        if (!btn) return;
+        switchProfileView(btn.dataset.view);
+      });
+
+      document.querySelectorAll("[data-jump-view]").forEach((btn) => {
+        btn.addEventListener("click", () => {
+          switchProfileView(btn.dataset.jumpView);
+          if (btn.dataset.jumpFilter) {
+            setShelfFilter(btn.dataset.jumpFilter);
+          }
+        });
+      });
+
+      // Shelf filter, sort & search
+      document.getElementById("shelfStatusTabs").addEventListener("click", (e) => {
+        const tab = e.target.closest("[data-filter]");
+        if (!tab) return;
+        setShelfFilter(tab.dataset.filter);
+      });
+
+      document.getElementById("shelfSortSelect").addEventListener("change", (e) => {
+        currentSort = e.target.value;
+        if (cachedProfile) renderCoverOnlyShelf(cachedProfile.entries);
+      });
+
+      document.getElementById("shelfSearchInput").addEventListener("input", (e) => {
+        searchQuery = e.target.value;
+        if (cachedProfile) renderCoverOnlyShelf(cachedProfile.entries);
+      });
+
+      // Quick Edit Modal
+      const quickBackdrop = document.getElementById("quickEditBackdrop");
+      const quickOverlay = document.getElementById("quickEditOverlay");
+
+      function openQuickEdit(gameId) {
+        if (!cachedProfile) return;
+        const entry = cachedProfile.entries.find((e) => e.game.id === Number(gameId));
+        if (!entry) return;
+
+        document.getElementById("quickEditGameId").value = entry.game.id;
+        document.getElementById("quickEditGameTitle").textContent = entry.game.title;
+        document.getElementById("quickEditStatus").value = entry.status;
+        document.getElementById("quickEditVisibility").value = entry.visibility || "public";
+        document.getElementById("quickEditFavorite").checked = Boolean(entry.favorite);
+        document.getElementById("quickEditNotes").value = entry.notes || "";
+        document.getElementById("quickGoDetailsLink").href = `details.html?id=${entry.game.id}`;
+
+        quickBackdrop.classList.add("active");
+        quickOverlay.classList.add("active");
+        quickOverlay.setAttribute("aria-hidden", "false");
+      }
+
+      function closeQuickEdit() {
+        quickBackdrop.classList.remove("active");
+        quickOverlay.classList.remove("active");
+        quickOverlay.setAttribute("aria-hidden", "true");
+      }
+
+      document.getElementById("closeQuickEditBtn").addEventListener("click", closeQuickEdit);
+      quickBackdrop.addEventListener("click", closeQuickEdit);
+
+      document.getElementById("coverOnlyShelfGrid").addEventListener("click", (e) => {
+        const btn = e.target.closest("[data-quick-edit]");
+        if (!btn) return;
+        e.preventDefault();
+        openQuickEdit(btn.dataset.quickEdit);
+      });
+
+      document.getElementById("quickEditForm").addEventListener("submit", async (e) => {
+        e.preventDefault();
+        const gameId = Number(document.getElementById("quickEditGameId").value);
+        await GameShelfService.saveCollectionEntry(gameId, {
+          status: document.getElementById("quickEditStatus").value,
+          visibility: document.getElementById("quickEditVisibility").value,
+          favorite: document.getElementById("quickEditFavorite").checked,
+          notes: document.getElementById("quickEditNotes").value
+        });
+        closeQuickEdit();
+        await refreshProfile();
+      });
+
+      document.getElementById("quickDeleteEntryBtn").addEventListener("click", async () => {
+        const gameId = Number(document.getElementById("quickEditGameId").value);
+        await GameShelfService.removeCollectionEntry(gameId);
+        closeQuickEdit();
+        await refreshProfile();
+      });
+
+      // Review deletion handler
+      document.addEventListener("click", async (e) => {
+        const delBtn = e.target.closest("[data-del-review]");
+        if (!delBtn) return;
+        await GameShelfService.deleteUserReview(delBtn.dataset.delReview);
+        await refreshProfile();
+      });
+
+      // Sample Demo Shelf Seeder (populates shelf with rich examples across games)
+      document.getElementById("seedDemoShelfBtn").addEventListener("click", async () => {
+        const samples = [
+          { id: 1, status: "completed", fav: true, rating: 5, hours: 84, start: "2026-09-10", end: "2026-10-14", note: "2.0 güncellemesi sonrası Netrunner build ile bitirildi." },
+          { id: 11, status: "completed", fav: true, rating: 4.5, hours: 65, start: "2026-08-01", end: "2026-08-29", note: "Sword Saint Isshin dövüşü efsaneydi." },
+          { id: 3, status: "completed", fav: true, rating: 5, hours: 112, start: "2026-05-12", end: "2026-07-04", note: "Tüm ana bosslar tamamlandı." },
+          { id: 2, status: "playing", fav: true, rating: 4.5, hours: 18.5, start: "2026-11-05", end: null, note: "Saga Anderson bölümlerinde ilerliyorum." },
+          { id: 4, status: "completed", fav: true, rating: 4.5, hours: 32, start: "2026-10-16", end: "2026-10-28", note: "Dogtown atmosferi muazzam." },
+          { id: 10, status: "playing", fav: false, rating: 4.5, hours: 24, start: "2026-11-10", end: null, note: "Shadow of the Erdtree keşfi devam ediyor." },
+          { id: 7, status: "backlog", fav: false, rating: null, hours: null, start: null, end: null, note: "Alan Wake 2 ana hikaye sonrası oynanacak." },
+          { id: 8, status: "backlog", fav: false, rating: null, hours: null, start: null, end: null, note: "Lake House genişleme paketi." }
+        ];
+
+        for (const s of samples) {
+          await GameShelfService.saveCollectionEntry(s.id, {
+            status: s.status,
+            favorite: s.fav,
+            visibility: "public",
+            notes: s.note
+          });
+          const existing = await GameShelfService.getCollectionEntry(s.id);
+          if (existing && existing.playthroughs.length === 0 && s.hours !== null) {
+            await GameShelfService.addPlaythrough(s.id, {
+              startedAt: s.start,
+              completedAt: s.end,
+              playtime: s.hours,
+              notes: s.note
+            });
+          }
+          if (s.rating !== null) {
+            await GameShelfService.setUserRating(s.id, s.rating);
+          }
+        }
+
+        await refreshProfile();
+      });
+
+      switchProfileView(activeView);
+      await refreshProfile();
+    })();
+  </script>
+</body>
+</html>

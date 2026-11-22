@@ -1,0 +1,1850 @@
+{
+  "currentUser": {
+    "id": 1,
+    "username": "kaan_dev",
+    "displayName": "Kaan Yılmaz",
+    "avatar": "assets/images/profile.jpg"
+  },
+  "companies": [
+    {
+      "id": 1,
+      "name": "CD Projekt Red"
+    },
+    {
+      "id": 2,
+      "name": "Remedy Entertainment"
+    },
+    {
+      "id": 3,
+      "name": "Epic Games Publishing"
+    },
+    {
+      "id": 4,
+      "name": "FromSoftware"
+    },
+    {
+      "id": 5,
+      "name": "Bandai Namco Entertainment"
+    },
+    {
+      "id": 6,
+      "name": "Activision"
+    },
+    {
+      "id": 7,
+      "name": "LocalThunk"
+    }
+  ],
+  "people": [
+    {
+      "id": 101,
+      "name": "Paweł Sasko",
+      "biography": "Quest Director & Narrative Designer."
+    },
+    {
+      "id": 102,
+      "name": "Marcin Przybyłowicz",
+      "biography": "Video game composer."
+    },
+    {
+      "id": 103,
+      "name": "Keanu Reeves",
+      "biography": "Actor and voice performer."
+    },
+    {
+      "id": 201,
+      "name": "Sam Lake",
+      "biography": "Creative Director and writer at Remedy."
+    },
+    {
+      "id": 202,
+      "name": "Petri Alanko",
+      "biography": "Composer for psychological thrillers."
+    },
+    {
+      "id": 203,
+      "name": "Matthew Porretta",
+      "biography": "Voice actor."
+    },
+    {
+      "id": 301,
+      "name": "Hidetaka Miyazaki",
+      "biography": "Game director and president of FromSoftware."
+    },
+    {
+      "id": 302,
+      "name": "Yuka Kitamura",
+      "biography": "Composer."
+    },
+    {
+      "id": 104,
+      "name": "Adam Badowski",
+      "biography": "Game Director at CD Projekt Red."
+    },
+    {
+      "id": 401,
+      "name": "Hidetaka Miyazaki",
+      "biography": "Director of Sekiro: Shadows Die Twice."
+    },
+    {
+      "id": 402,
+      "name": "Yuka Kitamura",
+      "biography": "Lead Composer."
+    }
+  ],
+  "games": [
+    {
+      "id": 1,
+      "entryType": "base",
+      "parentGameId": null,
+      "title": "Cyberpunk 2077",
+      "description": "Güç, gösteriş ve vücut modifikasyonu çılgınlığına kapılmış megalopol Night City'de geçen açık dünya aksiyon-macera RPG deneyimi. Efsanevi bir paralı asker olarak kendi siber donanımını ve oyun tarzını inşa et.",
+      "coverImage": "assets/images/games/cp2077-cover.jpg",
+      "heroImage": "assets/images/games/cp2077-hero.jpg",
+      "trailerVideo": "assets/videos/trailer-preview.webm",
+      "releaseDate": "2020-12-10",
+      "genres": [
+        "RPG",
+        "Action",
+        "Sci-Fi",
+        "Open World"
+      ],
+      "themes": [
+        "Cyberpunk",
+        "Dystopian",
+        "Transhumanism"
+      ],
+      "platforms": [
+        "PC",
+        "PS5",
+        "PS4",
+        "Xbox Series X|S",
+        "Xbox One"
+      ],
+      "modes": [
+        "Single-player"
+      ],
+      "perspective": "First-Person",
+      "languages": [
+        "Türkçe",
+        "English",
+        "Deutsch",
+        "日本語"
+      ],
+      "stores": [
+        {
+          "name": "Steam",
+          "icon": "fab fa-steam",
+          "url": "https://store.steampowered.com/app/1091500/Cyberpunk_2077/"
+        },
+        {
+          "name": "PlayStation",
+          "icon": "fab fa-playstation",
+          "url": "https://store.playstation.com"
+        },
+        {
+          "name": "Xbox",
+          "icon": "fab fa-xbox",
+          "url": "https://www.xbox.com"
+        },
+        {
+          "name": "GOG / Epic",
+          "icon": "fas fa-store",
+          "url": "https://www.gog.com"
+        }
+      ],
+      "dlcIds": [
+        4
+      ],
+      "editionIds": [
+        5
+      ],
+      "similarGameIds": [
+        2,
+        3,
+        11,
+        4
+      ],
+      "media": [
+        {
+          "type": "image",
+          "thumb": "assets/images/games/cp2077-hero.jpg",
+          "src": "assets/images/games/cp2077-hero.jpg",
+          "caption": "Night City / Dogtown"
+        },
+        {
+          "type": "image",
+          "thumb": "assets/images/games/cp-scene-2.jpg",
+          "src": "assets/images/games/cp-scene-2.jpg",
+          "caption": "Dogtown Bölgesi"
+        },
+        {
+          "type": "image",
+          "thumb": "assets/images/games/cp-scene-3.jpg",
+          "src": "assets/images/games/cp-scene-3.jpg",
+          "caption": "Watson Neon Hattı"
+        }
+      ],
+      "externalRefs": {
+        "steam": "https://store.steampowered.com/app/1091500/Cyberpunk_2077/",
+        "hltbHours": 27,
+        "metacritic": 86
+      },
+      "communityStats": {
+        "plays": 18420,
+        "playing": 3290,
+        "backlogs": 9140,
+        "favorites": 6420,
+        "lists": 2840,
+        "mainStoryHours": 27,
+        "mainExtraHours": 62,
+        "completionistHours": 104,
+        "ratingBins": [
+          2,
+          1,
+          2,
+          4,
+          8,
+          16,
+          32,
+          68,
+          118,
+          94
+        ]
+      },
+      "gameBlogs": [
+        {
+          "id": "b-cp-1",
+          "title": "2.1 Güncellemesi Sonrası En İyi Netrunner & Sandevistan Dizilimleri",
+          "author": "Kaan Yılmaz",
+          "date": "14 Kasım 2026",
+          "readTime": "6 dk okuma",
+          "tag": "Rehber",
+          "image": "assets/images/games/cp2077-hero.jpg",
+          "excerpt": "Yenilenen siber donanım kapasitesiyle birlikte hem gizlilik odaklı hack kombinasyonlarını hem de yakın dövüş refleks yapılarını adım adım inceliyoruz."
+        },
+        {
+          "id": "b-cp-2",
+          "title": "Night City'nin Mimari Katmanları: Dikey Şehir Tasarımı Nasıl Çalışıyor?",
+          "author": "Ece Demir",
+          "date": "02 Kasım 2026",
+          "readTime": "8 dk okuma",
+          "tag": "Analiz",
+          "image": "assets/images/games/cp2077-hero.jpg",
+          "excerpt": "Megabuilding yapılarından neon sokak aralarına kadar Night City'nin oyuncu yönlendirmesini harita işaretleri olmadan nasıl başardığına yakından bakıyoruz."
+        },
+        {
+          "id": "b-cp-3",
+          "title": "Yan Görevlerde Saklı Hikâyeler: Kaçırmamanız Gereken 10 Kontrat",
+          "author": "Mert Kaya",
+          "date": "24 Ekim 2026",
+          "readTime": "5 dk okuma",
+          "tag": "Liste",
+          "image": "assets/images/games/cp2077-hero.jpg",
+          "excerpt": "Ana senaryonun gölgesinde kalan ama Night City'nin ruhunu en iyi yansıtan yan görev zincirlerini derledik."
+        },
+        {
+          "id": "b-cp-4",
+          "title": "Ray Tracing Overdrive ve Path Tracing Görsel Karşılaştırması",
+          "author": "Selin Arslan",
+          "date": "11 Ekim 2026",
+          "readTime": "4 dk okuma",
+          "tag": "Teknik",
+          "image": "assets/images/games/cp2077-hero.jpg",
+          "excerpt": "Yağmurlu gecelerde asfalt yansımaları ve iç mekân küresel aydınlatma farklarını kare kare analiz ettik."
+        }
+      ]
+    },
+    {
+      "id": 2,
+      "entryType": "base",
+      "parentGameId": null,
+      "title": "Alan Wake 2",
+      "description": "Karanlık Yer'de hapsolmuş bir yazar ile küçük bir kasabadaki ritüel cinayetleri araştıran FBI ajanı Saga Anderson'ın iç içe geçen psikolojik hayatta kalma korku hikâyesi.",
+      "coverImage": "assets/images/games/alanwake2-cover.jpg",
+      "heroImage": "assets/images/games/alanwake2-hero.jpg",
+      "trailerVideo": "assets/videos/trailer-preview.webm",
+      "releaseDate": "2023-10-27",
+      "genres": [
+        "Survival Horror",
+        "Action",
+        "Thriller"
+      ],
+      "themes": [
+        "Psychological",
+        "Supernatural",
+        "Mystery"
+      ],
+      "platforms": [
+        "PC",
+        "PS5",
+        "Xbox Series X|S"
+      ],
+      "modes": [
+        "Single-player"
+      ],
+      "perspective": "Third-Person",
+      "languages": [
+        "Türkçe",
+        "English",
+        "Français",
+        "Español"
+      ],
+      "stores": [
+        {
+          "name": "Epic Games",
+          "icon": "fas fa-store",
+          "url": "https://store.epicgames.com"
+        },
+        {
+          "name": "PlayStation",
+          "icon": "fab fa-playstation",
+          "url": "https://store.playstation.com"
+        },
+        {
+          "name": "Xbox",
+          "icon": "fab fa-xbox",
+          "url": "https://www.xbox.com"
+        }
+      ],
+      "dlcIds": [
+        6,
+        7
+      ],
+      "editionIds": [
+        8
+      ],
+      "similarGameIds": [
+        1,
+        3,
+        11
+      ],
+      "media": [
+        {
+          "type": "image",
+          "thumb": "assets/images/games/alanwake2-hero.jpg",
+          "src": "assets/images/games/alanwake2-hero.jpg",
+          "caption": "Cauldron Lake"
+        },
+        {
+          "type": "image",
+          "thumb": "assets/images/games/aw-scene-2.jpg",
+          "src": "assets/images/games/aw-scene-2.jpg",
+          "caption": "Night Springs"
+        },
+        {
+          "type": "image",
+          "thumb": "assets/images/games/aw-scene-3.jpg",
+          "src": "assets/images/games/aw-scene-3.jpg",
+          "caption": "The Lake House"
+        }
+      ],
+      "externalRefs": {
+        "steam": null,
+        "hltbHours": 19,
+        "metacritic": 89
+      },
+      "communityStats": {
+        "plays": 5190,
+        "playing": 980,
+        "backlogs": 4870,
+        "favorites": 2410,
+        "lists": 960,
+        "mainStoryHours": 19,
+        "mainExtraHours": 25,
+        "completionistHours": 34,
+        "ratingBins": [
+          0,
+          1,
+          0,
+          1,
+          3,
+          6,
+          15,
+          34,
+          62,
+          51
+        ]
+      },
+      "gameBlogs": [
+        {
+          "id": "b-aw-1",
+          "title": "Zihin Odası (Mind Place) Mekaniği Dedektiflik Hissini Nasıl Değiştirdi?",
+          "author": "Selin Arslan",
+          "date": "16 Kasım 2026",
+          "readTime": "5 dk okuma",
+          "tag": "Tasarım",
+          "image": "assets/images/games/alanwake2-hero.jpg",
+          "excerpt": "İpuçlarını panoya yerleştirmenin pasif ara sahneler yerine oyuncuyu hikâyenin aktif bir parçasına nasıl dönüştürdüğünü inceledik."
+        },
+        {
+          "id": "b-aw-2",
+          "title": "Remedy Connected Universe: Control ile Alan Wake 2 Bağlantıları",
+          "author": "Kaan Yılmaz",
+          "date": "04 Kasım 2026",
+          "readTime": "7 dk okuma",
+          "tag": "Lore",
+          "image": "assets/images/games/alanwake2-hero.jpg",
+          "excerpt": "Federal Bureau of Control belgeleri ve Cauldron Lake gözlem istasyonundaki gizli göndermeleri bir araya getirdik."
+        },
+        {
+          "id": "b-aw-3",
+          "title": "Ses Tasarımı ve Bölüm Sonu Şarkılarının Anlatıdaki Rolü",
+          "author": "Ece Demir",
+          "date": "21 Ekim 2026",
+          "readTime": "4 dk okuma",
+          "tag": "Müzik",
+          "image": "assets/images/games/alanwake2-hero.jpg",
+          "excerpt": "Her bölüm sonunda çalan özgün parçaların hikâye ritmine etkisini değerlendirdik."
+        }
+      ]
+    },
+    {
+      "id": 3,
+      "entryType": "base",
+      "parentGameId": null,
+      "title": "Elden Ring",
+      "description": "Hidetaka Miyazaki ve George R. R. Martin iş birliğiyle yaratılan Lands Between'de geçen, özgür keşfi ve zorlu boss savaşlarını birleştiren karanlık fantezi aksiyon RPG.",
+      "coverImage": "assets/images/games/eldenring-cover.jpg",
+      "heroImage": "assets/images/games/eldenring-hero.jpg",
+      "trailerVideo": "assets/videos/trailer-preview.webm",
+      "releaseDate": "2022-02-25",
+      "genres": [
+        "Action RPG",
+        "Soulslike",
+        "Open World"
+      ],
+      "themes": [
+        "Dark Fantasy",
+        "Exploration",
+        "Mythology"
+      ],
+      "platforms": [
+        "PC",
+        "PS5",
+        "PS4",
+        "Xbox Series X|S",
+        "Xbox One"
+      ],
+      "modes": [
+        "Single-player",
+        "Online Co-op",
+        "PvP"
+      ],
+      "perspective": "Third-Person",
+      "languages": [
+        "English",
+        "日本語",
+        "Français",
+        "Deutsch",
+        "Español"
+      ],
+      "stores": [
+        {
+          "name": "Steam",
+          "icon": "fab fa-steam",
+          "url": "https://store.steampowered.com/app/1245620/ELDEN_RING/"
+        },
+        {
+          "name": "PlayStation",
+          "icon": "fab fa-playstation",
+          "url": "https://store.playstation.com"
+        },
+        {
+          "name": "Xbox",
+          "icon": "fab fa-xbox",
+          "url": "https://www.xbox.com"
+        }
+      ],
+      "dlcIds": [
+        9
+      ],
+      "editionIds": [
+        10
+      ],
+      "similarGameIds": [
+        11,
+        1,
+        2,
+        9
+      ],
+      "media": [
+        {
+          "type": "image",
+          "thumb": "assets/images/games/eldenring-hero.jpg",
+          "src": "assets/images/games/eldenring-hero.jpg",
+          "caption": "Lands Between"
+        },
+        {
+          "type": "image",
+          "thumb": "assets/images/games/er-scene-2.jpg",
+          "src": "assets/images/games/er-scene-2.jpg",
+          "caption": "Shadow Realm"
+        }
+      ],
+      "externalRefs": {
+        "steam": "https://store.steampowered.com/app/1245620/ELDEN_RING/",
+        "hltbHours": 59,
+        "metacritic": 96
+      },
+      "communityStats": {
+        "plays": 24600,
+        "playing": 4120,
+        "backlogs": 7850,
+        "favorites": 9840,
+        "lists": 4310,
+        "mainStoryHours": 59,
+        "mainExtraHours": 101,
+        "completionistHours": 134,
+        "ratingBins": [
+          1,
+          0,
+          0,
+          1,
+          2,
+          4,
+          10,
+          26,
+          78,
+          128
+        ]
+      },
+      "gameBlogs": [
+        {
+          "id": "b-er-1",
+          "title": "Shadow of the Erdtree Öncesi Mutlaka Tamamlanması Gereken Görevler",
+          "author": "Mert Kaya",
+          "date": "18 Kasım 2026",
+          "readTime": "6 dk okuma",
+          "tag": "Rehber",
+          "image": "assets/images/games/eldenring-hero.jpg",
+          "excerpt": "Gölge Diyarı'na adım atmadan önce karakter seviyenizi ve silah yükseltmelerinizi ideal noktaya taşıyacak rota önerisi."
+        },
+        {
+          "id": "b-er-2",
+          "title": "Lands Between Harita Okuma Sanatı: İşaretsiz Keşif Felsefesi",
+          "author": "Ece Demir",
+          "date": "07 Kasım 2026",
+          "readTime": "7 dk okuma",
+          "tag": "Analiz",
+          "image": "assets/images/games/eldenring-hero.jpg",
+          "excerpt": "Ufuktaki silüetlerin ve yükselen altın ağaçların oyuncuyu doğal biçimde nasıl yönlendirdiğini inceledik."
+        }
+      ]
+    },
+    {
+      "id": 4,
+      "entryType": "dlc",
+      "parentGameId": 1,
+      "title": "Cyberpunk 2077: Phantom Liberty",
+      "description": "Night City'nin en tehlikeli bölgesi Dogtown'da geçen casusluk ve gerilim dolu büyük hikâye genişleme paketi. Yeni Siber donanımlar, dallanan görevler ve yüksek riskli kararlarla hayatta kalmaya çalışın.",
+      "coverImage": "assets/images/games/cp2077-pl-cover.jpg",
+      "heroImage": "assets/images/games/cp2077-pl-hero.jpg",
+      "trailerVideo": "assets/videos/trailer-preview.webm",
+      "releaseDate": "2023-09-26",
+      "genres": [
+        "RPG",
+        "Action",
+        "Sci-Fi"
+      ],
+      "themes": [
+        "Cyberpunk",
+        "Espionage",
+        "Thriller"
+      ],
+      "platforms": [
+        "PC",
+        "PS5",
+        "Xbox Series X|S"
+      ],
+      "modes": [
+        "Single-player"
+      ],
+      "perspective": "First-Person",
+      "languages": [
+        "Türkçe",
+        "English",
+        "Deutsch",
+        "日本語"
+      ],
+      "stores": [
+        {
+          "name": "Steam",
+          "icon": "fab fa-steam",
+          "url": "https://store.steampowered.com"
+        },
+        {
+          "name": "PlayStation",
+          "icon": "fab fa-playstation",
+          "url": "https://store.playstation.com"
+        },
+        {
+          "name": "Xbox",
+          "icon": "fab fa-xbox",
+          "url": "https://www.xbox.com"
+        }
+      ],
+      "dlcIds": [],
+      "editionIds": [],
+      "similarGameIds": [
+        1,
+        2,
+        9
+      ],
+      "media": [
+        {
+          "type": "image",
+          "thumb": "assets/images/games/cp2077-pl-hero.jpg",
+          "src": "assets/images/games/cp2077-pl-hero.jpg",
+          "caption": "Night City / Dogtown"
+        },
+        {
+          "type": "image",
+          "thumb": "assets/images/games/cp-scene-2.jpg",
+          "src": "assets/images/games/cp-scene-2.jpg",
+          "caption": "Dogtown Bölgesi"
+        },
+        {
+          "type": "image",
+          "thumb": "assets/images/games/cp-scene-3.jpg",
+          "src": "assets/images/games/cp-scene-3.jpg",
+          "caption": "Watson Neon Hattı"
+        }
+      ],
+      "externalRefs": {
+        "steam": "https://store.steampowered.com",
+        "hltbHours": 14,
+        "metacritic": 89
+      },
+      "communityStats": {
+        "plays": 8420,
+        "playing": 2150,
+        "backlogs": 6340,
+        "favorites": 3180,
+        "lists": 1420,
+        "mainStoryHours": 14,
+        "mainExtraHours": 23,
+        "completionistHours": 32,
+        "ratingBins": [
+          0,
+          0,
+          1,
+          1,
+          2,
+          5,
+          12,
+          28,
+          64,
+          58
+        ]
+      },
+      "gameBlogs": [
+        {
+          "id": "b-pl-1",
+          "title": "Dogtown'ın Gizli Hava İndirme Noktaları ve İkonik Silahları",
+          "author": "Kaan Yılmaz",
+          "date": "10 Kasım 2026",
+          "readTime": "5 dk okuma",
+          "tag": "Rehber",
+          "image": "assets/images/games/cp2077-pl-hero.jpg",
+          "excerpt": "Dogtown sokaklarında düşen tedarik kapsüllerinden elde edilebilen nadir siber donanımları listeledik."
+        }
+      ]
+    },
+    {
+      "id": 5,
+      "entryType": "edition",
+      "parentGameId": 1,
+      "title": "Cyberpunk 2077: Ultimate Edition",
+      "description": "Ana oyun Cyberpunk 2077 ile casusluk gerilimi genişleme paketi Phantom Liberty'yi ve 2.0+ büyük sistem güncellemelerini tek pakette birleştiren eksiksiz sürüm.",
+      "coverImage": "assets/images/games/cp2077-ult-cover.jpg",
+      "heroImage": "assets/images/games/cp2077-ult-hero.jpg",
+      "trailerVideo": "assets/videos/trailer-preview.webm",
+      "releaseDate": "2023-12-05",
+      "genres": [
+        "RPG",
+        "Action",
+        "Sci-Fi",
+        "Bundle"
+      ],
+      "themes": [
+        "Cyberpunk",
+        "Dystopian"
+      ],
+      "platforms": [
+        "PC",
+        "PS5",
+        "Xbox Series X|S"
+      ],
+      "modes": [
+        "Single-player"
+      ],
+      "perspective": "First-Person",
+      "languages": [
+        "Türkçe",
+        "English",
+        "Deutsch",
+        "日本語"
+      ],
+      "stores": [
+        {
+          "name": "Steam",
+          "icon": "fab fa-steam",
+          "url": "https://store.steampowered.com"
+        },
+        {
+          "name": "PlayStation",
+          "icon": "fab fa-playstation",
+          "url": "https://store.playstation.com"
+        },
+        {
+          "name": "Xbox",
+          "icon": "fab fa-xbox",
+          "url": "https://www.xbox.com"
+        }
+      ],
+      "dlcIds": [],
+      "editionIds": [],
+      "similarGameIds": [
+        1,
+        4,
+        10
+      ],
+      "media": [
+        {
+          "type": "image",
+          "thumb": "assets/images/games/cp2077-ult-hero.jpg",
+          "src": "assets/images/games/cp2077-ult-hero.jpg",
+          "caption": "Night City / Dogtown"
+        },
+        {
+          "type": "image",
+          "thumb": "assets/images/games/cp-scene-2.jpg",
+          "src": "assets/images/games/cp-scene-2.jpg",
+          "caption": "Dogtown Bölgesi"
+        },
+        {
+          "type": "image",
+          "thumb": "assets/images/games/cp-scene-3.jpg",
+          "src": "assets/images/games/cp-scene-3.jpg",
+          "caption": "Watson Neon Hattı"
+        }
+      ],
+      "externalRefs": {
+        "steam": "https://store.steampowered.com",
+        "hltbHours": 41,
+        "metacritic": 90
+      },
+      "communityStats": {
+        "plays": 4120,
+        "playing": 940,
+        "backlogs": 3120,
+        "favorites": 1650,
+        "lists": 720,
+        "mainStoryHours": 41,
+        "mainExtraHours": 85,
+        "completionistHours": 135,
+        "ratingBins": [
+          0,
+          0,
+          0,
+          1,
+          2,
+          3,
+          9,
+          20,
+          48,
+          44
+        ]
+      },
+      "gameBlogs": []
+    },
+    {
+      "id": 6,
+      "entryType": "dlc",
+      "parentGameId": 2,
+      "title": "Alan Wake 2: Night Springs",
+      "description": "Karanlık Yer'deki gizemli televizyon dizisi Night Springs'in üç farklı alternatif gerçeklik bölümünü oynanabilir kılan hikâye genişleme paketi.",
+      "coverImage": "assets/images/games/aw2-ns-cover.jpg",
+      "heroImage": "assets/images/games/aw2-ns-hero.jpg",
+      "trailerVideo": "assets/videos/trailer-preview.webm",
+      "releaseDate": "2024-06-08",
+      "genres": [
+        "Survival Horror",
+        "Action",
+        "Sci-Fi"
+      ],
+      "themes": [
+        "Supernatural",
+        "Anthology",
+        "Mystery"
+      ],
+      "platforms": [
+        "PC",
+        "PS5",
+        "Xbox Series X|S"
+      ],
+      "modes": [
+        "Single-player"
+      ],
+      "perspective": "Third-Person",
+      "languages": [
+        "Türkçe",
+        "English",
+        "Français"
+      ],
+      "stores": [
+        {
+          "name": "Epic Games",
+          "icon": "fas fa-store",
+          "url": "https://store.epicgames.com"
+        },
+        {
+          "name": "PlayStation",
+          "icon": "fab fa-playstation",
+          "url": "https://store.playstation.com"
+        },
+        {
+          "name": "Xbox",
+          "icon": "fab fa-xbox",
+          "url": "https://www.xbox.com"
+        }
+      ],
+      "dlcIds": [],
+      "editionIds": [],
+      "similarGameIds": [
+        2,
+        7
+      ],
+      "media": [
+        {
+          "type": "image",
+          "thumb": "assets/images/games/aw2-ns-hero.jpg",
+          "src": "assets/images/games/aw2-ns-hero.jpg",
+          "caption": "Cauldron Lake"
+        },
+        {
+          "type": "image",
+          "thumb": "assets/images/games/aw-scene-2.jpg",
+          "src": "assets/images/games/aw-scene-2.jpg",
+          "caption": "Night Springs"
+        },
+        {
+          "type": "image",
+          "thumb": "assets/images/games/aw-scene-3.jpg",
+          "src": "assets/images/games/aw-scene-3.jpg",
+          "caption": "The Lake House"
+        }
+      ],
+      "externalRefs": {
+        "steam": null,
+        "hltbHours": 4,
+        "metacritic": 82
+      },
+      "communityStats": {
+        "plays": 2180,
+        "playing": 310,
+        "backlogs": 1640,
+        "favorites": 740,
+        "lists": 320,
+        "mainStoryHours": 4,
+        "mainExtraHours": 5,
+        "completionistHours": 6,
+        "ratingBins": [
+          0,
+          0,
+          1,
+          1,
+          2,
+          5,
+          12,
+          24,
+          30,
+          18
+        ]
+      },
+      "gameBlogs": []
+    },
+    {
+      "id": 7,
+      "entryType": "dlc",
+      "parentGameId": 2,
+      "title": "Alan Wake 2: The Lake House",
+      "description": "Cauldron Lake kıyısındaki gizli Federal Bureau of Control araştırma tesisinde yaşanan felaketi konu alan karanlık hikâye genişleme paketi.",
+      "coverImage": "assets/images/games/aw2-lh-cover.jpg",
+      "heroImage": "assets/images/games/aw2-lh-hero.jpg",
+      "trailerVideo": "assets/videos/trailer-preview.webm",
+      "releaseDate": "2024-10-22",
+      "genres": [
+        "Survival Horror",
+        "Thriller"
+      ],
+      "themes": [
+        "Psychological",
+        "Supernatural"
+      ],
+      "platforms": [
+        "PC",
+        "PS5",
+        "Xbox Series X|S"
+      ],
+      "modes": [
+        "Single-player"
+      ],
+      "perspective": "Third-Person",
+      "languages": [
+        "Türkçe",
+        "English",
+        "Français"
+      ],
+      "stores": [
+        {
+          "name": "Epic Games",
+          "icon": "fas fa-store",
+          "url": "https://store.epicgames.com"
+        },
+        {
+          "name": "PlayStation",
+          "icon": "fab fa-playstation",
+          "url": "https://store.playstation.com"
+        },
+        {
+          "name": "Xbox",
+          "icon": "fab fa-xbox",
+          "url": "https://www.xbox.com"
+        }
+      ],
+      "dlcIds": [],
+      "editionIds": [],
+      "similarGameIds": [
+        2,
+        6
+      ],
+      "media": [
+        {
+          "type": "image",
+          "thumb": "assets/images/games/aw2-lh-hero.jpg",
+          "src": "assets/images/games/aw2-lh-hero.jpg",
+          "caption": "Cauldron Lake"
+        },
+        {
+          "type": "image",
+          "thumb": "assets/images/games/aw-scene-2.jpg",
+          "src": "assets/images/games/aw-scene-2.jpg",
+          "caption": "Night Springs"
+        },
+        {
+          "type": "image",
+          "thumb": "assets/images/games/aw-scene-3.jpg",
+          "src": "assets/images/games/aw-scene-3.jpg",
+          "caption": "The Lake House"
+        }
+      ],
+      "externalRefs": {
+        "steam": null,
+        "hltbHours": 4,
+        "metacritic": 84
+      },
+      "communityStats": {
+        "plays": 1940,
+        "playing": 290,
+        "backlogs": 1520,
+        "favorites": 690,
+        "lists": 280,
+        "mainStoryHours": 4,
+        "mainExtraHours": 5,
+        "completionistHours": 6,
+        "ratingBins": [
+          0,
+          0,
+          0,
+          1,
+          2,
+          4,
+          10,
+          22,
+          34,
+          20
+        ]
+      },
+      "gameBlogs": []
+    },
+    {
+      "id": 8,
+      "entryType": "edition",
+      "parentGameId": 2,
+      "title": "Alan Wake 2: Deluxe Edition",
+      "description": "Ana oyun ile birlikte Night Springs ve The Lake House genişleme paketlerini içeren tam sürüm paketi.",
+      "coverImage": "assets/images/games/aw2-dlx-cover.jpg",
+      "heroImage": "assets/images/games/aw2-dlx-hero.jpg",
+      "trailerVideo": "assets/videos/trailer-preview.webm",
+      "releaseDate": "2023-10-27",
+      "genres": [
+        "Survival Horror",
+        "Bundle"
+      ],
+      "themes": [
+        "Psychological",
+        "Supernatural"
+      ],
+      "platforms": [
+        "PC",
+        "PS5",
+        "Xbox Series X|S"
+      ],
+      "modes": [
+        "Single-player"
+      ],
+      "perspective": "Third-Person",
+      "languages": [
+        "Türkçe",
+        "English"
+      ],
+      "stores": [
+        {
+          "name": "Epic Games",
+          "icon": "fas fa-store",
+          "url": "https://store.epicgames.com"
+        },
+        {
+          "name": "PlayStation",
+          "icon": "fab fa-playstation",
+          "url": "https://store.playstation.com"
+        },
+        {
+          "name": "Xbox",
+          "icon": "fab fa-xbox",
+          "url": "https://www.xbox.com"
+        }
+      ],
+      "dlcIds": [],
+      "editionIds": [],
+      "similarGameIds": [
+        2,
+        6,
+        7
+      ],
+      "media": [
+        {
+          "type": "image",
+          "thumb": "assets/images/games/aw2-dlx-hero.jpg",
+          "src": "assets/images/games/aw2-dlx-hero.jpg",
+          "caption": "Cauldron Lake"
+        },
+        {
+          "type": "image",
+          "thumb": "assets/images/games/aw-scene-2.jpg",
+          "src": "assets/images/games/aw-scene-2.jpg",
+          "caption": "Night Springs"
+        },
+        {
+          "type": "image",
+          "thumb": "assets/images/games/aw-scene-3.jpg",
+          "src": "assets/images/games/aw-scene-3.jpg",
+          "caption": "The Lake House"
+        }
+      ],
+      "externalRefs": {
+        "steam": null,
+        "hltbHours": 26,
+        "metacritic": 89
+      },
+      "communityStats": {
+        "plays": 2640,
+        "playing": 420,
+        "backlogs": 1980,
+        "favorites": 1120,
+        "lists": 410,
+        "mainStoryHours": 26,
+        "mainExtraHours": 33,
+        "completionistHours": 44,
+        "ratingBins": [
+          0,
+          0,
+          0,
+          1,
+          2,
+          4,
+          11,
+          26,
+          46,
+          38
+        ]
+      },
+      "gameBlogs": []
+    },
+    {
+      "id": 9,
+      "entryType": "dlc",
+      "parentGameId": 3,
+      "title": "Elden Ring: Shadow of the Erdtree",
+      "description": "Gölge Diyarı'na adım atın ve Miquella'nın izini sürerek Marika'nın geçmişindeki karanlık sırları açığa çıkarın. Yeni silah sınıfları, zindanlar ve acımasız boss karşılaşmaları sizi bekliyor.",
+      "coverImage": "assets/images/games/er-sote-cover.jpg",
+      "heroImage": "assets/images/games/er-sote-hero.jpg",
+      "trailerVideo": "assets/videos/trailer-preview.webm",
+      "releaseDate": "2024-06-21",
+      "genres": [
+        "Action RPG",
+        "Soulslike"
+      ],
+      "themes": [
+        "Dark Fantasy",
+        "Exploration"
+      ],
+      "platforms": [
+        "PC",
+        "PS5",
+        "PS4",
+        "Xbox Series X|S"
+      ],
+      "modes": [
+        "Single-player",
+        "Online Co-op"
+      ],
+      "perspective": "Third-Person",
+      "languages": [
+        "English",
+        "日本語",
+        "Français",
+        "Deutsch"
+      ],
+      "stores": [
+        {
+          "name": "Steam",
+          "icon": "fab fa-steam",
+          "url": "https://store.steampowered.com"
+        },
+        {
+          "name": "PlayStation",
+          "icon": "fab fa-playstation",
+          "url": "https://store.playstation.com"
+        },
+        {
+          "name": "Xbox",
+          "icon": "fab fa-xbox",
+          "url": "https://www.xbox.com"
+        }
+      ],
+      "dlcIds": [],
+      "editionIds": [],
+      "similarGameIds": [
+        3,
+        11,
+        1
+      ],
+      "media": [
+        {
+          "type": "image",
+          "thumb": "assets/images/games/er-sote-hero.jpg",
+          "src": "assets/images/games/er-sote-hero.jpg",
+          "caption": "Lands Between"
+        },
+        {
+          "type": "image",
+          "thumb": "assets/images/games/er-scene-2.jpg",
+          "src": "assets/images/games/er-scene-2.jpg",
+          "caption": "Shadow Realm"
+        }
+      ],
+      "externalRefs": {
+        "steam": "https://store.steampowered.com",
+        "hltbHours": 32,
+        "metacritic": 94
+      },
+      "communityStats": {
+        "plays": 11240,
+        "playing": 3410,
+        "backlogs": 5920,
+        "favorites": 4890,
+        "lists": 2150,
+        "mainStoryHours": 32,
+        "mainExtraHours": 46,
+        "completionistHours": 68,
+        "ratingBins": [
+          1,
+          0,
+          0,
+          1,
+          2,
+          5,
+          12,
+          28,
+          74,
+          95
+        ]
+      },
+      "gameBlogs": [
+        {
+          "id": "b-sote-1",
+          "title": "Scadutree Fragment Konumları ve Hasar Ölçekleme Rehberi",
+          "author": "Mert Kaya",
+          "date": "12 Kasım 2026",
+          "readTime": "6 dk okuma",
+          "tag": "Rehber",
+          "image": "assets/images/games/er-sote-hero.jpg",
+          "excerpt": "Gölge Diyarı'ndaki boss savaşlarında hayatta kalmak için Scadutree kutsamalarının seviyesini nasıl optimize edeceğinizi anlattık."
+        }
+      ]
+    },
+    {
+      "id": 10,
+      "entryType": "edition",
+      "parentGameId": 3,
+      "title": "Elden Ring: Shadow of the Erdtree Edition",
+      "description": "Elden Ring ana oyunu ile Shadow of the Erdtree genişleme paketini bir arada sunan özel tam sürüm paketi.",
+      "coverImage": "assets/images/games/er-sote-ed-cover.jpg",
+      "heroImage": "assets/images/games/er-sote-ed-hero.jpg",
+      "trailerVideo": "assets/videos/trailer-preview.webm",
+      "releaseDate": "2024-06-21",
+      "genres": [
+        "Action RPG",
+        "Soulslike",
+        "Bundle"
+      ],
+      "themes": [
+        "Dark Fantasy",
+        "Exploration"
+      ],
+      "platforms": [
+        "PC",
+        "PS5",
+        "Xbox Series X|S"
+      ],
+      "modes": [
+        "Single-player",
+        "Online Co-op"
+      ],
+      "perspective": "Third-Person",
+      "languages": [
+        "English",
+        "日本語"
+      ],
+      "stores": [
+        {
+          "name": "Steam",
+          "icon": "fab fa-steam",
+          "url": "https://store.steampowered.com"
+        },
+        {
+          "name": "PlayStation",
+          "icon": "fab fa-playstation",
+          "url": "https://store.playstation.com"
+        },
+        {
+          "name": "Xbox",
+          "icon": "fab fa-xbox",
+          "url": "https://www.xbox.com"
+        }
+      ],
+      "dlcIds": [],
+      "editionIds": [],
+      "similarGameIds": [
+        3,
+        9,
+        11
+      ],
+      "media": [
+        {
+          "type": "image",
+          "thumb": "assets/images/games/er-sote-ed-hero.jpg",
+          "src": "assets/images/games/er-sote-ed-hero.jpg",
+          "caption": "Lands Between"
+        },
+        {
+          "type": "image",
+          "thumb": "assets/images/games/er-scene-2.jpg",
+          "src": "assets/images/games/er-scene-2.jpg",
+          "caption": "Shadow Realm"
+        }
+      ],
+      "externalRefs": {
+        "steam": "https://store.steampowered.com",
+        "hltbHours": 91,
+        "metacritic": 95
+      },
+      "communityStats": {
+        "plays": 4890,
+        "playing": 1120,
+        "backlogs": 2940,
+        "favorites": 2140,
+        "lists": 890,
+        "mainStoryHours": 91,
+        "mainExtraHours": 145,
+        "completionistHours": 195,
+        "ratingBins": [
+          0,
+          0,
+          0,
+          0,
+          1,
+          2,
+          6,
+          18,
+          52,
+          74
+        ]
+      },
+      "gameBlogs": []
+    },
+    {
+      "id": 11,
+      "entryType": "base",
+      "parentGameId": null,
+      "title": "Sekiro: Shadows Die Twice",
+      "description": "1500'lerin sonu Sengoku dönemi Japonya'sında tek kollu bir shinobi olarak genç efendinizi kurtarmak için kılıç ustalığı, gizlilik ve protez araçlarınızı kullandığınız aksiyon-macera oyunu.",
+      "coverImage": "assets/images/games/sekiro-cover.jpg",
+      "heroImage": "assets/images/games/sekiro-hero.jpg",
+      "trailerVideo": "assets/videos/trailer-preview.webm",
+      "releaseDate": "2019-03-22",
+      "genres": [
+        "Action",
+        "Soulslike",
+        "Stealth"
+      ],
+      "themes": [
+        "Feudal Japan",
+        "Samurai",
+        "Mythology"
+      ],
+      "platforms": [
+        "PC",
+        "PS4",
+        "Xbox One"
+      ],
+      "modes": [
+        "Single-player"
+      ],
+      "perspective": "Third-Person",
+      "languages": [
+        "English",
+        "日本語",
+        "Français",
+        "Deutsch"
+      ],
+      "stores": [
+        {
+          "name": "Steam",
+          "icon": "fab fa-steam",
+          "url": "https://store.steampowered.com/app/814380/Sekiro_Shadows_Die_Twice__GOTY_Edition/"
+        },
+        {
+          "name": "PlayStation",
+          "icon": "fab fa-playstation",
+          "url": "https://store.playstation.com"
+        },
+        {
+          "name": "Xbox",
+          "icon": "fab fa-xbox",
+          "url": "https://www.xbox.com"
+        }
+      ],
+      "dlcIds": [],
+      "editionIds": [],
+      "similarGameIds": [
+        3,
+        9,
+        1,
+        2
+      ],
+      "media": [
+        {
+          "type": "image",
+          "thumb": "assets/images/games/sekiro-hero.jpg",
+          "src": "assets/images/games/sekiro-hero.jpg",
+          "caption": "Ashina Kalesi"
+        },
+        {
+          "type": "image",
+          "thumb": "assets/images/games/sek-scene-2.jpg",
+          "src": "assets/images/games/sek-scene-2.jpg",
+          "caption": "Sengoku Dolunayı"
+        }
+      ],
+      "externalRefs": {
+        "steam": "https://store.steampowered.com",
+        "hltbHours": 30,
+        "metacritic": 90
+      },
+      "communityStats": {
+        "plays": 15400,
+        "playing": 1820,
+        "backlogs": 6120,
+        "favorites": 7210,
+        "lists": 2910,
+        "mainStoryHours": 30,
+        "mainExtraHours": 44,
+        "completionistHours": 70,
+        "ratingBins": [
+          0,
+          0,
+          1,
+          1,
+          2,
+          4,
+          11,
+          24,
+          68,
+          92
+        ]
+      },
+      "gameBlogs": [
+        {
+          "id": "b-sek-1",
+          "title": "Duruş (Posture) Sistemi Neden Modern Aksiyon Oyunlarının Zirvesi?",
+          "author": "Kaan Yılmaz",
+          "date": "09 Kasım 2026",
+          "readTime": "6 dk okuma",
+          "tag": "Analiz",
+          "image": "assets/images/games/sekiro-hero.jpg",
+          "excerpt": "Savunma ile saldırıyı aynı ritimde birleştiren kılıç çarpışma mekaniklerinin tasarım inceliklerini ele aldık."
+        }
+      ]
+    }
+  ],
+  "gameCompanies": [
+    {
+      "gameId": 1,
+      "companyId": 1,
+      "role": "developer"
+    },
+    {
+      "gameId": 1,
+      "companyId": 1,
+      "role": "publisher"
+    },
+    {
+      "gameId": 2,
+      "companyId": 2,
+      "role": "developer"
+    },
+    {
+      "gameId": 2,
+      "companyId": 3,
+      "role": "publisher"
+    },
+    {
+      "gameId": 3,
+      "companyId": 4,
+      "role": "developer"
+    },
+    {
+      "gameId": 3,
+      "companyId": 5,
+      "role": "publisher"
+    },
+    {
+      "gameId": 4,
+      "companyId": 1,
+      "role": "developer"
+    },
+    {
+      "gameId": 4,
+      "companyId": 1,
+      "role": "publisher"
+    },
+    {
+      "gameId": 5,
+      "companyId": 1,
+      "role": "developer"
+    },
+    {
+      "gameId": 5,
+      "companyId": 1,
+      "role": "publisher"
+    },
+    {
+      "gameId": 6,
+      "companyId": 2,
+      "role": "developer"
+    },
+    {
+      "gameId": 6,
+      "companyId": 3,
+      "role": "publisher"
+    },
+    {
+      "gameId": 7,
+      "companyId": 2,
+      "role": "developer"
+    },
+    {
+      "gameId": 7,
+      "companyId": 3,
+      "role": "publisher"
+    },
+    {
+      "gameId": 8,
+      "companyId": 2,
+      "role": "developer"
+    },
+    {
+      "gameId": 8,
+      "companyId": 3,
+      "role": "publisher"
+    },
+    {
+      "gameId": 9,
+      "companyId": 4,
+      "role": "developer"
+    },
+    {
+      "gameId": 9,
+      "companyId": 5,
+      "role": "publisher"
+    },
+    {
+      "gameId": 10,
+      "companyId": 4,
+      "role": "developer"
+    },
+    {
+      "gameId": 10,
+      "companyId": 5,
+      "role": "publisher"
+    },
+    {
+      "gameId": 11,
+      "companyId": 4,
+      "role": "developer"
+    },
+    {
+      "gameId": 11,
+      "companyId": 6,
+      "role": "publisher"
+    }
+  ],
+  "gamePeople": [
+    {
+      "gameId": 1,
+      "personId": 104,
+      "role": "director",
+      "character": null,
+      "department": "Direction"
+    },
+    {
+      "gameId": 1,
+      "personId": 102,
+      "role": "composer",
+      "character": null,
+      "department": "Audio"
+    },
+    {
+      "gameId": 1,
+      "personId": 103,
+      "role": "voice_actor",
+      "character": "Johnny Silverhand",
+      "department": "Audio"
+    },
+    {
+      "gameId": 2,
+      "personId": 201,
+      "role": "director",
+      "character": null,
+      "department": "Creative"
+    },
+    {
+      "gameId": 2,
+      "personId": 202,
+      "role": "composer",
+      "character": null,
+      "department": "Audio"
+    },
+    {
+      "gameId": 2,
+      "personId": 203,
+      "role": "voice_actor",
+      "character": "Alan Wake",
+      "department": "Audio"
+    },
+    {
+      "gameId": 3,
+      "personId": 301,
+      "role": "director",
+      "character": null,
+      "department": "Direction"
+    },
+    {
+      "gameId": 3,
+      "personId": 302,
+      "role": "composer",
+      "character": null,
+      "department": "Audio"
+    },
+    {
+      "gameId": 4,
+      "personId": 101,
+      "role": "director",
+      "character": null,
+      "department": "Design"
+    },
+    {
+      "gameId": 4,
+      "personId": 102,
+      "role": "composer",
+      "character": null,
+      "department": "Audio"
+    },
+    {
+      "gameId": 4,
+      "personId": 103,
+      "role": "voice_actor",
+      "character": "Johnny Silverhand",
+      "department": "Audio"
+    },
+    {
+      "gameId": 6,
+      "personId": 201,
+      "role": "director",
+      "character": null,
+      "department": "Creative"
+    },
+    {
+      "gameId": 7,
+      "personId": 201,
+      "role": "director",
+      "character": null,
+      "department": "Creative"
+    },
+    {
+      "gameId": 9,
+      "personId": 301,
+      "role": "director",
+      "character": null,
+      "department": "Direction"
+    },
+    {
+      "gameId": 9,
+      "personId": 302,
+      "role": "composer",
+      "character": null,
+      "department": "Audio"
+    },
+    {
+      "gameId": 11,
+      "personId": 401,
+      "role": "director",
+      "character": null,
+      "department": "Direction"
+    },
+    {
+      "gameId": 11,
+      "personId": 402,
+      "role": "composer",
+      "character": null,
+      "department": "Audio"
+    }
+  ],
+  "ratings": [
+    {
+      "id": 1,
+      "userId": 10,
+      "gameId": 1,
+      "score": 5.0
+    },
+    {
+      "id": 2,
+      "userId": 11,
+      "gameId": 1,
+      "score": 4.5
+    },
+    {
+      "id": 3,
+      "userId": 12,
+      "gameId": 1,
+      "score": 4.5
+    },
+    {
+      "id": 4,
+      "userId": 10,
+      "gameId": 2,
+      "score": 5.0
+    },
+    {
+      "id": 5,
+      "userId": 11,
+      "gameId": 2,
+      "score": 4.0
+    },
+    {
+      "id": 6,
+      "userId": 10,
+      "gameId": 3,
+      "score": 5.0
+    },
+    {
+      "id": 7,
+      "userId": 12,
+      "gameId": 3,
+      "score": 5.0
+    },
+    {
+      "id": 8,
+      "userId": 10,
+      "gameId": 4,
+      "score": 5.0
+    },
+    {
+      "id": 9,
+      "userId": 11,
+      "gameId": 4,
+      "score": 4.5
+    },
+    {
+      "id": 10,
+      "userId": 10,
+      "gameId": 9,
+      "score": 5.0
+    },
+    {
+      "id": 11,
+      "userId": 11,
+      "gameId": 11,
+      "score": 5.0
+    }
+  ],
+  "reviews": [
+    {
+      "id": 101,
+      "gameId": 1,
+      "userId": 10,
+      "authorName": "Ece Demir",
+      "authorAvatar": "assets/images/avatar-01.jpg",
+      "rating": 5.0,
+      "title": "2.0 güncellemesiyle bambaşka bir başyapıt",
+      "content": "Night City'nin dikey mimarisi, yenilenen siber donanım sistemi ve karakterlerin gri ahlaki seçimleri oyunu bambaşka bir seviyeye taşımış. Özellikle yan görev kalitesi benzersiz.",
+      "createdAt": "2026-11-18",
+      "upvotes": 42,
+      "downvotes": 2
+    },
+    {
+      "id": 102,
+      "gameId": 1,
+      "userId": 11,
+      "authorName": "Mert Kaya",
+      "authorAvatar": "assets/images/avatar-02.jpg",
+      "rating": 4.5,
+      "title": "Yetenek ağacı revizyonu harika",
+      "content": "Siber donanım sınırları ve yeni yetenek ağaçları dövüş hissini tamamen yenilemiş. Phantom Liberty ile birleşince 100 saati aşan muazzam bir deneyim sunuyor.",
+      "createdAt": "2026-11-12",
+      "upvotes": 19,
+      "downvotes": 1
+    },
+    {
+      "id": 103,
+      "gameId": 2,
+      "userId": 12,
+      "authorName": "Selin Arslan",
+      "authorAvatar": "assets/images/avatar-03.jpg",
+      "rating": 5.0,
+      "title": "Korku ve sanat yönetiminin kusursuz birleşimi",
+      "content": "İki karakter arasında geçiş yapabilmek tempoyu sürekli taze tutuyor. Ses tasarımı kulaklıkla oynandığında inanılmaz gerici.",
+      "createdAt": "2026-11-15",
+      "upvotes": 31,
+      "downvotes": 0
+    },
+    {
+      "id": 104,
+      "gameId": 3,
+      "userId": 10,
+      "authorName": "Ece Demir",
+      "authorAvatar": "assets/images/avatar-01.jpg",
+      "rating": 5.0,
+      "title": "Açık dünya keşfinde çıtayı belirleyen yapım",
+      "content": "Harita keşfi birbirine bağlanan gizli geçitlerle dolu. Oyuncunun merak duygusunu elinden tutmadan ödüllendiren nadir oyunlardan.",
+      "createdAt": "2026-11-10",
+      "upvotes": 54,
+      "downvotes": 3
+    },
+    {
+      "id": 105,
+      "gameId": 4,
+      "userId": 10,
+      "authorName": "Ece Demir",
+      "authorAvatar": "assets/images/avatar-01.jpg",
+      "rating": 5.0,
+      "title": "Casusluk gerilimi ve Dogtown atmosferi zirvede",
+      "content": "Bir genişleme paketinden beklenenin çok ötesinde bir senaryo derinliği ve yeni son alternatifleri sunuyor.",
+      "createdAt": "2026-11-16",
+      "upvotes": 27,
+      "downvotes": 1
+    },
+    {
+      "id": 106,
+      "gameId": 9,
+      "userId": 11,
+      "authorName": "Mert Kaya",
+      "authorAvatar": "assets/images/avatar-02.jpg",
+      "rating": 5.0,
+      "title": "Tek başına ayrı bir oyun büyüklüğünde genişleme",
+      "content": "Gölge Diyarı'nın katmanlı harita yapısı ve yeni dövüş sanatları silahları keşif heyecanını zirvede tutuyor.",
+      "createdAt": "2026-11-11",
+      "upvotes": 38,
+      "downvotes": 2
+    },
+    {
+      "id": 107,
+      "gameId": 11,
+      "userId": 12,
+      "authorName": "Selin Arslan",
+      "authorAvatar": "assets/images/avatar-03.jpg",
+      "rating": 5.0,
+      "title": "Kılıç çarpışmasının saf ritmi",
+      "content": "Duruş (Posture) sistemi öğrenildiğinde her boss savaşı kusursuz bir koreografiye dönüşüyor.",
+      "createdAt": "2026-11-09",
+      "upvotes": 44,
+      "downvotes": 1
+    }
+  ],
+  "latestNewsBlogs": [
+    {
+      "id": "news-1",
+      "title": "Sonbahar İndirimleri ve Yılın En Çok Oynanan RPG Yapımları Açıklandı",
+      "category": "Güncel Haber",
+      "source": "GameShelf Editör",
+      "date": "20 Kasım 2026",
+      "readTime": "4 dk okuma",
+      "image": "assets/images/games/eldenring-hero.jpg",
+      "excerpt": "Topluluk verilerine göre 2026 sonbahar döneminde en çok koleksiyona eklenen ve tamamlanan açık dünya RPG oyunları belli oldu."
+    },
+    {
+      "id": "news-2",
+      "title": "Hikâye Odaklı Büyük Ek Paketler (Expansion) Neden Yeniden Altın Çağında?",
+      "category": "Dosya Konusu",
+      "source": "Oyun Kültürü Blogu",
+      "date": "17 Kasım 2026",
+      "readTime": "7 dk okuma",
+      "image": "assets/images/games/cp2077-pl-hero.jpg",
+      "excerpt": "Phantom Liberty ve Shadow of the Erdtree gibi tek başına bir oyun ölçeğindeki genişleme paketlerinin sektör standartlarını nasıl yükselttiğini inceliyoruz."
+    },
+    {
+      "id": "news-3",
+      "title": "2026 Kış Döneminde Çıkacak Bağımsız Korku & Bilim Kurgu Oyunları",
+      "category": "Ön İnceleme",
+      "source": "Keşif Bülteni",
+      "date": "13 Kasım 2026",
+      "readTime": "5 dk okuma",
+      "image": "assets/images/games/alanwake2-hero.jpg",
+      "excerpt": "Atmosferik anlatımı ve yenilikçi mekanikleriyle dikkat çeken bağımsız yapımları tek listede bir araya getirdik."
+    },
+    {
+      "id": "news-4",
+      "title": "Oyun Günlüğü Tutma Alışkanlığı: Backlog Erime Oranları Nasıl Artıyor?",
+      "category": "Topluluk Blogu",
+      "source": "GameShelf İstatistik",
+      "date": "08 Kasım 2026",
+      "readTime": "5 dk okuma",
+      "image": "assets/images/games/sekiro-hero.jpg",
+      "excerpt": "Oynayış sürelerini ve hedeflerini kaydeden oyuncuların yarım bıraktıkları oyunlara dönme oranının %42 daha yüksek olduğu görüldü."
+    },
+    {
+      "id": "news-5",
+      "title": "Yeni Nesil Oyun Motorlarında Aydınlatma ve Ses Atmosferi Trendleri",
+      "category": "Teknoloji",
+      "source": "Geliştirici Günlüğü",
+      "date": "03 Kasım 2026",
+      "readTime": "6 dk okuma",
+      "image": "assets/images/games/cp2077-hero.jpg",
+      "excerpt": "Gerçek zamanlı ışın izleme ve mekansal ses motorlarının gerilim ve keşif hissini nasıl dönüştürdüğüne göz atıyoruz."
+    }
+  ]
+}

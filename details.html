@@ -1,0 +1,1583 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>GameShelf — Oyun Detayı</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="vendor/bootstrap/css/bootstrap.min.css" />
+  <link rel="stylesheet" href="assets/css/fontawesome.css" />
+  <link rel="stylesheet" href="css/gameshelf.css" />
+</head>
+<body class="gs-body">
+
+  <!-- Üst Navigasyon -->
+  <nav class="navbar navbar-expand-lg gs-navbar">
+    <div class="container">
+      <a class="navbar-brand d-flex align-items-center gap-2 text-white fw-bold" href="index.html">
+        <img src="assets/images/logo.png" alt="GameShelf" style="height: 32px;" />
+        <span>GameShelf</span>
+      </a>
+      <button class="navbar-toggler border-secondary" type="button" data-bs-toggle="collapse" data-bs-target="#gsMainNav">
+        <i class="fa fa-bars text-white"></i>
+      </button>
+      <div class="collapse navbar-collapse" id="gsMainNav">
+        <ul class="navbar-nav ms-auto align-items-lg-center gap-lg-1">
+          <li class="nav-item"><a class="nav-link" href="index.html">Ana Sayfa</a></li>
+
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle active" href="#" role="button" data-bs-toggle="dropdown">Keşfet</a>
+            <ul class="dropdown-menu">
+              <li><a class="dropdown-item" href="browse.html">Oyun Kataloğu</a></li>
+              <li><a class="dropdown-item" href="details.html?id=1">Oyun Detay Örneği</a></li>
+              <li><a class="dropdown-item" href="statistics.html">Platform İstatistikleri</a></li>
+            </ul>
+          </li>
+
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown">Koleksiyonum</a>
+            <ul class="dropdown-menu">
+              <li><a class="dropdown-item" href="collection.html">Tüm Koleksiyon & Geçmiş</a></li>
+              <li><a class="dropdown-item" href="profile.html">Profilim & İstatistikler</a></li>
+            </ul>
+          </li>
+
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown">Kurumsal</a>
+            <ul class="dropdown-menu">
+              <li><a class="dropdown-item" href="about.html">Hakkımızda</a></li>
+              <li><a class="dropdown-item" href="mission-vision.html">Misyon & Vizyon</a></li>
+              <li><a class="dropdown-item" href="announcements.html">Duyurular</a></li>
+            </ul>
+          </li>
+
+          <li class="nav-item"><a class="nav-link" href="contact.html">İletişim</a></li>
+          <li class="nav-item ms-lg-2">
+            <a class="btn btn-sm gs-btn-outline" href="admin/index.html"><i class="fa fa-sliders me-1"></i> Yönetim</a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Prototip Renk Paleti & Sayfa Test Çubuğu -->
+  <div class="gs-game-switcher">
+    <div class="container d-flex flex-wrap align-items-center justify-content-between gap-2">
+      <div class="d-flex align-items-center gap-2 flex-wrap">
+        <span class="text-secondary"><i class="fa fa-palette me-1"></i> Dinamik Kapak Paleti Testi:</span>
+        <div id="gameSwitcherList" class="d-flex gap-2 flex-wrap"></div>
+      </div>
+      <div class="d-flex align-items-center gap-2">
+        <span class="text-secondary">Aktif Vurgu:</span>
+        <span id="activePaletteSwatch" class="d-inline-block rounded-circle" style="width:14px;height:14px;background:var(--gs-accent);border:1px solid #fff;"></span>
+        <code id="activePaletteCode" class="text-light" style="font-size:0.78rem;">--gs-accent</code>
+      </div>
+    </div>
+  </div>
+
+  <!-- HERO, WINDOWS SLIDESHOW & STORE LINKLI POSTER -->
+  <header class="gs-hero" id="gsHeroSection">
+    <div class="gs-hero-bg-clip">
+      <div class="gs-hero-bg" id="heroBgLayer"></div>
+      <div class="gs-hero-overlay"></div>
+    </div>
+
+    <!-- Minimal Sol / Sağ Slayt Geçiş Okları -->
+    <button type="button" class="gs-hero-arrow prev" id="heroPrevBtn" aria-label="Önceki Kapak Görseli">
+      <i class="fa fa-chevron-left"></i>
+    </button>
+    <button type="button" class="gs-hero-arrow next" id="heroNextBtn" aria-label="Sonraki Kapak Görseli">
+      <i class="fa fa-chevron-right"></i>
+    </button>
+
+    <div class="container gs-hero-content">
+      <div class="row align-items-md-start g-4">
+        <!-- Oyun Adıyla Hizalı Kapak Posteri (Üzerine Gelince Yukarıdan Aşağıya Store Linkleri) -->
+        <div class="col-12 col-md-4 col-lg-3 text-center text-md-start gs-poster-overlap-col">
+          <div class="gs-poster-wrapper d-inline-block" id="heroPosterLayer">
+            <img id="gameCoverImg" src="" alt="Oyun Kapağı" class="gs-poster-img" />
+            <div class="gs-poster-store-overlay" id="posterStoreOverlay"></div>
+          </div>
+        </div>
+
+        <div class="col-12 col-md-8 col-lg-6">
+          <div class="gs-hero-info" id="heroInfoLayer">
+            <div id="parentGameBanner"></div>
+            <h1 class="gs-game-title mb-1" id="gameTitle">Yükleniyor...</h1>
+            <p class="text-secondary small mb-3" id="gameStudioLine"></p>
+
+            <!-- Oyun Hakkında Açıklaması -->
+            <p class="gs-hero-description mb-2" id="gameDescription"></p>
+
+            <!-- Arka Plan Slideshow Noktaları & Çıkış Tarihi (İşaretlenen Konum) -->
+            <div class="gs-hero-bottom-meta">
+              <div class="gs-hero-dots mt-0" id="heroSlideDots" aria-label="Arka plan görsel geçişleri"></div>
+              <div id="fullReleaseDateWrap" style="display:none;">
+                <div class="gs-release-inline-bar gs-hero-release-pill">
+                  <i class="fa fa-calendar-alt" style="color: var(--gs-accent);"></i>
+                  <span>Çıkış Tarihi: <strong id="fullReleaseDateText"></strong></span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- POSTER ALT YARISININ SAĞINDAKİ ETİKET + TARİH VE SAĞ AKSİYON ŞERİDİ -->
+  <section class="gs-subhero-strip">
+    <div class="container">
+      <div class="row align-items-center g-3">
+        <!-- Sol kolon posterin alt yarısına ayrılır -->
+        <div class="col-12 col-md-4 col-lg-3 d-none d-md-block"></div>
+
+        <!-- Orta kolon: Soluk & küçük etiketler + aralarında net okunan Tam Çıkış Tarihi -->
+        <div class="col-12 col-md-8 col-lg-5">
+          <div class="gs-subhero-inner">
+            <div class="d-flex flex-wrap align-items-center gap-1" id="topTagsRow"></div>
+
+            <div class="d-flex flex-wrap align-items-center gap-1" id="bottomTagsRow"></div>
+          </div>
+        </div>
+
+        <!-- Sağ kolon: Topluluk Puanı, Senin Puanın & Günlük Aksiyon Kartı -->
+        <div class="col-12 col-lg-4">
+          <section class="gs-minimal-rating-card">
+            <div class="gs-rating-metrics">
+              <div>
+                <div class="text-secondary" style="font-size: 0.72rem;">Topluluk Puanı</div>
+                <div class="d-flex align-items-baseline gap-1">
+                  <span class="fs-5 fw-bold" style="color: var(--gs-accent);" id="communityScore">—</span>
+                  <span class="text-secondary" style="font-size: 0.75rem;" id="communityCount"></span>
+                </div>
+              </div>
+              <div class="vr bg-secondary opacity-25"></div>
+              <div class="text-end">
+                <div class="text-secondary" style="font-size: 0.72rem;">Senin Puanın</div>
+                <div class="fs-6 fw-semibold" id="userScoreBadge">Puanlanmadı</div>
+              </div>
+            </div>
+
+            <div class="d-flex flex-wrap gap-2">
+              <button type="button" class="btn gs-btn-primary flex-grow-1" id="openJournalOverlayBtn">
+                <span id="journalTriggerIcon"><i class="fa fa-book-open me-1"></i></span><span id="journalTriggerLabel">Koleksiyona Ekle</span>
+              </button>
+              <button type="button" class="btn gs-btn-outline" id="toggleFavoriteBtn" style="display:none;" title="Favorilere Ekle/Çıkar">
+                <i class="fa fa-heart"></i>
+              </button>
+              <button type="button" class="btn gs-btn-outline" id="quickRateOverlayBtn" title="Puanla & İnceleme Yaz">
+                <i class="fa fa-star"></i>
+              </button>
+            </div>
+          </section>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Sola Kaydırılmış Fragman Cebi & Lightbox Modal Player (Stacking Context Dışında, En Üst Katmanda) -->
+  <div class="gs-trailer-backdrop" id="trailerBackdrop"></div>
+  <div class="gs-trailer-pocket" id="trailerPocket" title="Sesi duymak için üzerine gelin, büyütmek için tıklayın">
+    <button type="button" class="gs-trailer-close" id="trailerCloseBtn" aria-label="Fragmanı Küçült">
+      <i class="fa fa-times"></i>
+    </button>
+    <video id="trailerVideo" autoplay muted loop playsinline preload="metadata"></video>
+    <div class="gs-trailer-badge" id="trailerBadge">
+      <span><i class="fa fa-volume-mute me-1" id="trailerAudioIcon"></i><span id="trailerStatusText">Fragman</span></span>
+      <span><i class="fa fa-expand-alt"></i></span>
+    </div>
+  </div>
+
+  <!-- SAYFA ORTASINDA AÇILAN OYUN GÜNLÜĞÜM, PUANLAMA & İNCELEME OVERLAY MODALI -->
+  <div class="gs-journal-backdrop" id="journalBackdrop"></div>
+  <section class="gs-journal-overlay" id="journalOverlay" aria-hidden="true">
+    <div class="d-flex justify-content-between align-items-center mb-3 pb-2 border-bottom border-secondary border-opacity-25">
+      <div>
+        <h2 class="gs-section-title mb-0" id="overlayGameHeading">Oyun Günlüğüm, Puanlama & İnceleme</h2>
+        <div class="small text-secondary mt-1">Koleksiyon durumunu, oynayış geçmişini, puanını ve incelemeni tek yerden yönet.</div>
+      </div>
+      <button type="button" class="btn btn-sm gs-btn-outline" id="closeJournalOverlayBtn">
+        <i class="fa fa-times me-1"></i> Kapat
+      </button>
+    </div>
+
+    <div class="row g-3">
+      <!-- Sol Sütun: Puanlama & İnceleme Yazma -->
+      <div class="col-lg-6">
+        <div class="gs-overlay-pane d-flex flex-column justify-content-between">
+          <div>
+            <div class="d-flex flex-wrap justify-content-between align-items-center gap-2 mb-2">
+              <h3 class="h6 fw-semibold mb-0"><i class="fa fa-star me-2" style="color:var(--gs-accent);"></i>Puanla ve İnceleme Yaz</h3>
+              <div class="d-flex align-items-center gap-2">
+                <div class="gs-star-picker" id="starPicker" title="Puan vermek için tıklayın (sol yarı: .5, sağ yarı: tam)"></div>
+                <button type="button" class="btn btn-sm btn-link text-secondary text-decoration-none p-0" id="clearRatingBtn" style="display:none;">Temizle</button>
+              </div>
+            </div>
+            <p class="text-secondary mb-3" style="font-size: 0.78rem;">
+              Koleksiyonuna eklemeden de puan verebilir veya yazılı inceleme paylaşabilirsin.
+            </p>
+
+            <form id="reviewForm" class="d-flex flex-column gap-2">
+              <div>
+                <input type="text" id="reviewTitleInput" class="gs-input" placeholder="İnceleme başlığı (isteğe bağlı)" />
+              </div>
+              <div>
+                <textarea id="reviewContentInput" rows="4" class="gs-textarea" placeholder="Oyun hakkındaki düşüncelerin (isteğe bağlı)..."></textarea>
+              </div>
+              <div class="d-flex justify-content-end mt-1">
+                <button type="submit" class="btn gs-btn-primary">
+                  <i class="fa fa-paper-plane me-2"></i>Puanı & İncelemeyi Yayınla
+                </button>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+
+      <!-- Sağ Sütun: Koleksiyon Durumu & Çoklu Playthrough Kaydı -->
+      <div class="col-lg-6">
+        <div class="gs-overlay-pane">
+          <h3 class="h6 fw-semibold mb-2"><i class="fa fa-bookmark me-2" style="color:var(--gs-accent);"></i>Oyun Günlüğüm & Oynayış Geçmişi</h3>
+          <form id="collectionForm" class="d-flex flex-column gap-2 mb-3">
+            <div class="row g-2">
+              <div class="col-6">
+                <label class="form-label text-secondary mb-1" style="font-size:0.75rem;">Durum</label>
+                <select id="collectionStatus" class="gs-select">
+                  <option value="backlog">📚 Backlog / Want to Play</option>
+                  <option value="playing">🎮 Playing</option>
+                  <option value="completed">🏆 Completed</option>
+                  <option value="dropped">⛔ Dropped</option>
+                </select>
+              </div>
+              <div class="col-6">
+                <label class="form-label text-secondary mb-1" style="font-size:0.75rem;">Profil Görünürlüğü</label>
+                <select id="collectionVisibility" class="gs-select">
+                  <option value="public">Herkese Açık</option>
+                  <option value="private">Gizli (Sadece Ben)</option>
+                </select>
+              </div>
+            </div>
+            <div>
+              <label class="form-label text-secondary mb-1" style="font-size:0.75rem;">Kişisel Notlar (isteğe bağlı)</label>
+              <textarea id="collectionNotes" rows="2" class="gs-textarea" placeholder="Kısa notun..."></textarea>
+            </div>
+            <div class="d-flex gap-2">
+              <button type="submit" class="btn gs-btn-primary flex-grow-1">Günlüğü Kaydet</button>
+              <button type="button" id="removeCollectionBtn" class="btn gs-btn-outline text-danger" style="display:none;" title="Koleksiyondan Kaldır">
+                <i class="fa fa-trash"></i>
+              </button>
+            </div>
+          </form>
+
+          <div class="border-top border-secondary border-opacity-25 pt-2">
+            <div class="d-flex justify-content-between align-items-center mb-2">
+              <span class="fw-semibold" style="font-size:0.82rem;">Oynayış Geçmişi (Playthroughs)</span>
+              <span class="badge bg-dark border border-secondary" id="overlayPlaytimeSummary" style="display:none;"></span>
+            </div>
+            <div id="playthroughList" class="d-flex flex-column gap-2 mb-2" style="max-height: 115px; overflow-y: auto;"></div>
+
+            <form id="playthroughForm" class="d-flex flex-column gap-2 pt-1">
+              <div class="row g-2">
+                <div class="col-6">
+                  <input type="date" id="ptStart" class="gs-input form-control-sm" title="Başlangıç Tarihi (İsteğe bağlı)" />
+                </div>
+                <div class="col-6">
+                  <input type="date" id="ptEnd" class="gs-input form-control-sm" title="Bitiş Tarihi (İsteğe bağlı)" />
+                </div>
+              </div>
+              <div class="row g-2">
+                <div class="col-5">
+                  <input type="number" step="0.5" min="0" id="ptHours" class="gs-input form-control-sm" placeholder="Süre (saat)" />
+                </div>
+                <div class="col-7">
+                  <input type="text" id="ptNotes" class="gs-input form-control-sm" placeholder="Oynayış notu..." />
+                </div>
+              </div>
+              <button type="submit" class="btn btn-sm gs-btn-outline">+ Oynayış Kaydı Ekle</button>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Blog / Haber Okuma Modalı -->
+  <div class="gs-journal-backdrop" id="articleBackdrop"></div>
+  <section class="gs-journal-overlay" id="articleOverlay" aria-hidden="true" style="max-width: 680px;">
+    <div class="d-flex justify-content-between align-items-start gap-3 mb-3 pb-2 border-bottom border-secondary border-opacity-25">
+      <div>
+        <span class="gs-badge-accent mb-2 d-inline-block" id="articleModalTag">Blog</span>
+        <h2 class="h5 fw-bold text-white mb-1" id="articleModalTitle">Başlık</h2>
+        <div class="small text-secondary" id="articleModalMeta"></div>
+      </div>
+      <button type="button" class="btn btn-sm gs-btn-outline" id="closeArticleOverlayBtn">
+        <i class="fa fa-times"></i>
+      </button>
+    </div>
+    <img id="articleModalImg" src="" alt="" class="w-100 rounded-3 mb-3" style="max-height: 240px; object-fit: cover;" />
+    <p class="text-light small" style="line-height: 1.75;" id="articleModalBody"></p>
+  </section>
+
+  <!-- ANA İÇERİK (Normal Kaydırma) -->
+  <main class="container py-4">
+    <div class="row g-4">
+      <!-- Sol Ana Kolon: Özgün Telemetri + Metacritic, Editions & DLCs, Topluluk İncelemeleri -->
+      <div class="col-lg-8">
+        <!-- Özgün GameShelf Telemetri & Metacritic Segmenti -->
+        <section class="gs-telemetry-deck" id="gameTelemetryDeck" aria-label="Oyun Telemetri ve Metacritic Özeti">
+          <!-- Sol Kart: Metacritic Skoru + GameShelf Ortalama & Dağılım -->
+          <div class="gs-telemetry-score-box">
+            <div class="d-flex align-items-center justify-content-between gap-2">
+              <div>
+                <div class="text-secondary" style="font-size:0.72rem;">GameShelf Ortalaması</div>
+                <div class="fs-3 fw-bold text-white" id="stripAvgRating">—</div>
+              </div>
+              <div id="metacriticSlot" style="display:none;" class="text-end">
+                <div class="text-secondary mb-1" style="font-size:0.68rem;">Metacritic</div>
+                <span class="gs-metacritic-badge is-high" id="metacriticScoreBadge">86</span>
+              </div>
+            </div>
+            <div>
+              <div class="gs-hist-bars" id="ratingHistogramBars"></div>
+              <div class="d-flex justify-content-between text-secondary mt-1" style="font-size: 0.68rem;">
+                <span>0.5★</span>
+                <span>5.0★</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Sağ Blok: 6 Oyuncu Aktivite Kapsülü + Ortalama Süre Şeridi -->
+          <div class="gs-telemetry-right-stack">
+            <div class="gs-telemetry-capsules" id="telemetryCapsulesGrid"></div>
+            <div class="gs-playtime-ribbon" id="playtimeRibbon" style="display:none;"></div>
+          </div>
+        </section>
+
+        <!-- Topluluk İncelemeleri -->
+        <section class="gs-card mb-0">
+          <div class="d-flex flex-wrap justify-content-between align-items-center gap-2 mb-3">
+            <h2 class="gs-section-title mb-0">Topluluk İncelemeleri</h2>
+            <div class="d-flex align-items-center gap-2">
+              <button type="button" class="btn btn-sm gs-btn-primary" id="openReviewOverlayBtn">
+                <i class="fa fa-pen me-1"></i> Puanla & İncele
+              </button>
+              <div class="btn-group btn-group-sm">
+                <button class="btn gs-btn-outline active" data-sort="helpful">En Yararlı</button>
+                <button class="btn gs-btn-outline" data-sort="newest">En Yeni</button>
+              </div>
+            </div>
+          </div>
+          <div id="reviewsList" class="d-flex flex-column gap-3"></div>
+        </section>
+      </div>
+
+      <!-- Sağ Yan Kolon: Oyun Günlüğü, Öne Çıkan Yorumlar, DLC/Editions & Teknik Künye -->
+      <div class="col-lg-4">
+        <!-- 1. Oyun Günlüğüm Kısa Özeti -->
+        <section class="gs-card gs-journal-summary-pocket" id="journalSummaryCard">
+          <div class="gs-journal-watermark" id="journalStatusWatermark" aria-hidden="true"></div>
+          <div class="gs-journal-summary-content">
+            <div class="d-flex justify-content-between align-items-center mb-2">
+              <h2 class="gs-section-title mb-0">Oyun Günlüğüm</h2>
+              <button type="button" class="btn btn-sm gs-btn-outline py-1 px-2" id="editJournalSummaryBtn">
+                <i class="fa fa-edit me-1"></i>Düzenle
+              </button>
+            </div>
+            <div id="journalSummaryBody" class="small text-secondary">
+              Henüz koleksiyonuna eklenmedi. Durum ve oynayış geçmişi eklemek için yukarıdaki butonu kullanabilirsin.
+            </div>
+          </div>
+        </section>
+
+        <!-- 2. Öne Çıkan En İyi 2-3 Yorum (Oyun Günlüğüm Cebinin Altında) -->
+        <section class="gs-featured-reviews-pocket" id="featuredReviewsPocket" style="display:none;" aria-label="Öne Çıkan İncelemeler">
+          <div class="d-flex align-items-center justify-content-between gap-2 mb-2">
+            <h2 class="gs-section-title mb-0">Öne Çıkan Yorumlar</h2>
+            <span class="gs-badge-accent" style="font-size:0.68rem;"><i class="fas fa-award me-1"></i>En İyi</span>
+          </div>
+          <div class="gs-featured-review-tabs" id="featuredReviewTabs" role="tablist"></div>
+          <div id="featuredReviewPanes"></div>
+        </section>
+
+        <!-- 3. Farklı Sürümler (Editions) & Ek Paketler (DLC) -->
+        <section class="gs-editions-dlcs-wrap" id="editionsDlcsWrap" style="display:none;">
+          <!-- Editions Cebi -->
+          <div class="gs-addon-group-card" id="editionsGroupCard" style="display:none;">
+            <div class="d-flex align-items-center justify-content-between gap-2 mb-2">
+              <h2 class="gs-section-title mb-0">Farklı Sürümler</h2>
+              <span class="text-secondary" style="font-size:0.72rem;" id="editionsCountHint">Editions</span>
+            </div>
+            <div class="gs-addon-slider-wrap">
+              <button type="button" class="gs-addon-scroll-btn" id="editionsPrevBtn" data-addon-scroll="editionsCoversRow" data-dir="-1" style="display:none;" aria-label="Sola Kaydır">
+                <i class="fa fa-chevron-left"></i>
+              </button>
+              <div class="gs-addon-covers-row" id="editionsCoversRow"></div>
+              <button type="button" class="gs-addon-scroll-btn" id="editionsNextBtn" data-addon-scroll="editionsCoversRow" data-dir="1" style="display:none;" aria-label="Sağa Kaydır">
+                <i class="fa fa-chevron-right"></i>
+              </button>
+            </div>
+          </div>
+
+          <!-- Ek Paketler (DLC) Cebi -->
+          <div class="gs-addon-group-card" id="dlcsGroupCard" style="display:none;">
+            <div class="d-flex align-items-center justify-content-between gap-2 mb-2">
+              <h2 class="gs-section-title mb-0">Ek Paketler (DLC)</h2>
+              <span class="text-secondary" style="font-size:0.72rem;" id="dlcsCountHint">DLC</span>
+            </div>
+            <div class="gs-addon-slider-wrap">
+              <button type="button" class="gs-addon-scroll-btn" id="dlcsPrevBtn" data-addon-scroll="dlcsCoversRow" data-dir="-1" style="display:none;" aria-label="Sola Kaydır">
+                <i class="fa fa-chevron-left"></i>
+              </button>
+              <div class="gs-addon-covers-row" id="dlcsCoversRow"></div>
+              <button type="button" class="gs-addon-scroll-btn" id="dlcsNextBtn" data-addon-scroll="dlcsCoversRow" data-dir="1" style="display:none;" aria-label="Sağa Kaydır">
+                <i class="fa fa-chevron-right"></i>
+              </button>
+            </div>
+          </div>
+        </section>
+
+        <!-- 4. Oyun Künyesi & Teknik Bilgiler (DLC ve Edition'ların Altında) -->
+        <section class="gs-card mb-0">
+          <h2 class="gs-section-title">Künye & Teknik Bilgiler</h2>
+          <dl class="row mb-0 small" id="creditsMetaList"></dl>
+        </section>
+      </div>
+    </div>
+
+    <!-- İNCELEMELERİN EN AŞAĞISINDA 3 YATAY VİTRİN SATIRI (Steam Örneği Gibi) -->
+    <div id="bottomShowcasesContainer">
+      <!-- 1. Benzer Oyunlar Satırı -->
+      <section class="gs-showcase-section" id="similarGamesSection" style="display:none;">
+        <div class="gs-showcase-header">
+          <div>
+            <h2 class="gs-section-title mb-0">Benzer Oyunlar</h2>
+            <div class="text-secondary" style="font-size:0.76rem;">Tür ve atmosfer olarak bu oyuna yakın yapımlar</div>
+          </div>
+          <a href="browse.html" class="btn btn-sm gs-btn-outline">Tümünü Gör</a>
+        </div>
+        <div class="gs-carousel-shell">
+          <button type="button" class="gs-carousel-nav-btn" data-carousel-target="similarGamesTrack" data-dir="-1" aria-label="Sola Kaydır">
+            <i class="fa fa-chevron-left"></i>
+          </button>
+          <div class="gs-carousel-track" id="similarGamesTrack"></div>
+          <button type="button" class="gs-carousel-nav-btn" data-carousel-target="similarGamesTrack" data-dir="1" aria-label="Sağa Kaydır">
+            <i class="fa fa-chevron-right"></i>
+          </button>
+        </div>
+      </section>
+
+      <!-- 2. Oyun Hakkında Bloglar Satırı -->
+      <section class="gs-showcase-section" id="gameBlogsSection" style="display:none;">
+        <div class="gs-showcase-header">
+          <div>
+            <h2 class="gs-section-title mb-0">Oyun Hakkında Bloglar</h2>
+            <div class="text-secondary" style="font-size:0.76rem;">Bu oyun için hazırlanmış rehberler, analizler ve topluluk yazıları</div>
+          </div>
+        </div>
+        <div class="gs-carousel-shell">
+          <button type="button" class="gs-carousel-nav-btn" data-carousel-target="gameBlogsTrack" data-dir="-1" aria-label="Sola Kaydır">
+            <i class="fa fa-chevron-left"></i>
+          </button>
+          <div class="gs-carousel-track" id="gameBlogsTrack"></div>
+          <button type="button" class="gs-carousel-nav-btn" data-carousel-target="gameBlogsTrack" data-dir="1" aria-label="Sağa Kaydır">
+            <i class="fa fa-chevron-right"></i>
+          </button>
+        </div>
+      </section>
+
+      <!-- 3. Daha Fazla İçerik (Güncel Oyun Haberleri & Bloglar) Satırı -->
+      <section class="gs-showcase-section" id="moreContentSection" style="display:none;">
+        <div class="gs-showcase-header">
+          <div>
+            <h2 class="gs-section-title mb-0">Daha Fazla İçerik</h2>
+            <div class="text-secondary" style="font-size:0.76rem;">Güncel oyun haberleri, dosya konuları ve editör blogları</div>
+          </div>
+          <a href="announcements.html" class="btn btn-sm gs-btn-outline">Tüm Haberler</a>
+        </div>
+        <div class="gs-carousel-shell">
+          <button type="button" class="gs-carousel-nav-btn" data-carousel-target="moreContentTrack" data-dir="-1" aria-label="Sola Kaydır">
+            <i class="fa fa-chevron-left"></i>
+          </button>
+          <div class="gs-carousel-track" id="moreContentTrack"></div>
+          <button type="button" class="gs-carousel-nav-btn" data-carousel-target="moreContentTrack" data-dir="1" aria-label="Sağa Kaydır">
+            <i class="fa fa-chevron-right"></i>
+          </button>
+        </div>
+      </section>
+    </div>
+  </main>
+
+  <script src="vendor/jquery/jquery.min.js"></script>
+  <script src="vendor/bootstrap/js/bootstrap.min.js"></script>
+  <script src="js/utils/paletteExtractor.js"></script>
+  <script src="js/services/gameShelfService.js"></script>
+  <script>
+    (async function initGameDetailsPage() {
+      const params = new URLSearchParams(window.location.search);
+      const currentGameId = Number(params.get("id")) || 1;
+      let currentReviewSort = "helpful";
+
+      const STATUS_META = {
+        backlog: { label: "Backlog", icon: "fas fa-book" },
+        playing: { label: "Playing", icon: "fas fa-gamepad" },
+        completed: { label: "Completed", icon: "fas fa-trophy" },
+        dropped: { label: "Dropped", icon: "fas fa-ban" }
+      };
+
+      const VISIBILITY_LABELS = {
+        public: "Herkese Açık",
+        private: "Gizli"
+      };
+
+      function formatCompactNumber(num) {
+        if (num >= 1000) {
+          return (num / 1000).toFixed(1).replace(/\.0$/, "") + "K";
+        }
+        return String(num);
+      }
+
+      // 1. Oyun değiştirici barını doldur (Ana oyunlar + DLC + Edition test erişimi)
+      const allGames = await GameShelfService.getAllGames();
+      const switcherEl = document.getElementById("gameSwitcherList");
+      switcherEl.innerHTML = allGames.map((g) => {
+        const badge = g.entryType === "dlc" ? " (DLC)" : g.entryType === "edition" ? " (Edition)" : "";
+        return `
+          <a href="details.html?id=${g.id}" class="text-decoration-none gs-switch-pill ${g.id === currentGameId ? "active" : ""}">
+            ${g.title}${badge}
+          </a>
+        `;
+      }).join("");
+
+      // 2. Oyun detaylarını yükle
+      const {
+        game,
+        parentGame,
+        dlcs,
+        editions,
+        similarGames,
+        gameBlogs,
+        latestNewsBlogs,
+        companies,
+        credits
+      } = await GameShelfService.getGameDetails(currentGameId);
+
+      document.title = `${game.title} — GameShelf`;
+      document.getElementById("overlayGameHeading").textContent = `${game.title} — Günlük & İnceleme`;
+
+      // Eğer sayfa bir DLC veya Edition ise ana oyuna dönüş rozeti göster
+      const parentBannerEl = document.getElementById("parentGameBanner");
+      if (parentGame) {
+        const typeLabel = game.entryType === "dlc" ? "Ek Paket (DLC)" : "Özel Sürüm (Edition)";
+        parentBannerEl.innerHTML = `
+          <a href="details.html?id=${parentGame.id}" class="gs-parent-game-pill">
+            <i class="fa fa-arrow-left"></i>
+            <span>${typeLabel} • Ana Oyun: <strong>${parentGame.title}</strong></span>
+          </a>
+        `;
+      }
+
+      const coverImg = document.getElementById("gameCoverImg");
+      coverImg.src = game.coverImage;
+      document.getElementById("gameTitle").textContent = game.title;
+
+      // Kapak fotoğrafının üzerine gelince yukarıdan aşağıya mağaza linkleri
+      const storeOverlayEl = document.getElementById("posterStoreOverlay");
+      const stores = game.stores || [];
+      if (stores.length > 0) {
+        storeOverlayEl.innerHTML = `
+          <div class="gs-store-overlay-title">Mağaza Sayfaları</div>
+          ${stores.map((st) => `
+            <a href="${st.url}" target="_blank" rel="noopener" class="gs-store-link-btn" onclick="event.stopPropagation();">
+              <i class="${st.icon}"></i>
+              <span>${st.name}</span>
+            </a>
+          `).join("")}
+        `;
+      } else {
+        storeOverlayEl.style.display = "none";
+      }
+
+      const devs = companies.filter((c) => c.role === "developer").map((c) => c.name).join(", ");
+      const releaseYear = game.releaseDate ? game.releaseDate.slice(0, 4) : null;
+      document.getElementById("gameStudioLine").textContent = [devs, releaseYear].filter(Boolean).join(" • ");
+      document.getElementById("gameDescription").textContent = game.description;
+
+      // Etiketleri (tarihe göre daha soluk & küçük) tarih çizgisinin üstüne ve altına dengeli dağıt
+      const primaryTags = [
+        ...(game.genres || []).map((g) => `<span class="gs-faded-tag is-genre">${g}</span>`),
+        ...(game.themes || []).map((t) => `<span class="gs-faded-tag"># ${t}</span>`)
+      ];
+      const secondaryTags = [
+        ...(game.platforms || []).map((p) => `<span class="gs-faded-tag">${p}</span>`),
+        ...(game.modes || []).map((m) => `<span class="gs-faded-tag">${m}</span>`)
+      ];
+      document.getElementById("topTagsRow").innerHTML = primaryTags.join("");
+      document.getElementById("bottomTagsRow").innerHTML = secondaryTags.join("");
+
+      if (game.releaseDate) {
+        const monthsTr = [
+          "Ocak", "Şubat", "Mart", "Nisan", "Mayıs", "Haziran",
+          "Temmuz", "Ağustos", "Eylül", "Ekim", "Kasım", "Aralık"
+        ];
+        const parts = game.releaseDate.split("-");
+        let formattedDate = game.releaseDate;
+        if (parts.length === 3) {
+          const day = Number(parts[2]);
+          const monthName = monthsTr[Number(parts[1]) - 1] || parts[1];
+          formattedDate = `${day} ${monthName} ${parts[0]}`;
+        }
+        document.getElementById("fullReleaseDateText").textContent = formattedDate;
+        document.getElementById("fullReleaseDateWrap").style.display = "block";
+      }
+
+      // 3. Kapak görselinden dinamik renk paletini çıkar ve uygula
+      const palette = await PaletteExtractor.extractFromImageElement(coverImg);
+      PaletteExtractor.applyPaletteToDocument(palette);
+      document.getElementById("activePaletteCode").textContent = palette.primary.hex;
+
+      // 4. Windows Slayt Gösterisi + 1 Saniye Mouse Bekletme Kuralı
+      const heroSection = document.getElementById("gsHeroSection");
+      const heroBgLayer = document.getElementById("heroBgLayer");
+      const heroDotsEl = document.getElementById("heroSlideDots");
+      const prevBtn = document.getElementById("heroPrevBtn");
+      const nextBtn = document.getElementById("heroNextBtn");
+
+      const slideImages = (game.media || [])
+        .filter((m) => m.type === "image" && m.src)
+        .map((m) => m.src);
+      if (!slideImages.length && game.heroImage) {
+        slideImages.push(game.heroImage);
+      }
+
+      heroBgLayer.innerHTML = slideImages.map((src, idx) => `
+        <div class="gs-hero-slide ${idx === 0 ? "is-current" : ""}"
+             style="background-image: url('${src}');"></div>
+      `).join("");
+
+      if (slideImages.length > 1) {
+        heroDotsEl.innerHTML = slideImages.map((_, idx) => `
+          <button type="button" class="gs-hero-dot ${idx === 0 ? "active" : ""}"
+                  data-slide-idx="${idx}" aria-label="Görsel ${idx + 1}"></button>
+        `).join("");
+      } else {
+        prevBtn.style.display = "none";
+        nextBtn.style.display = "none";
+      }
+
+      let activeSlideIndex = 0;
+      let isAnimatingSlide = false;
+      let isHeroHoldActive = false;
+      let heroHoverDelayTimer = null;
+      const slideNodes = Array.from(heroBgLayer.querySelectorAll(".gs-hero-slide"));
+      const dotNodes = Array.from(heroDotsEl.querySelectorAll(".gs-hero-dot"));
+
+      function goToSlide(targetIdx, direction = 1) {
+        if (slideNodes.length <= 1 || isAnimatingSlide) return;
+        const nextIndex = (targetIdx + slideNodes.length) % slideNodes.length;
+        if (nextIndex === activeSlideIndex) return;
+
+        isAnimatingSlide = true;
+        const currentEl = slideNodes[activeSlideIndex];
+        const nextEl = slideNodes[nextIndex];
+
+        nextEl.classList.remove("is-sliding", "is-current");
+        nextEl.style.opacity = "1";
+        nextEl.style.transform = `translate3d(${direction > 0 ? "100%" : "-100%"}, 0, 0)`;
+        nextEl.style.zIndex = "3";
+        currentEl.style.zIndex = "2";
+
+        void nextEl.offsetWidth;
+
+        currentEl.classList.add("is-sliding");
+        nextEl.classList.add("is-sliding");
+
+        currentEl.style.transform = `translate3d(${direction > 0 ? "-35%" : "35%"}, 0, 0)`;
+        currentEl.style.opacity = "0.25";
+        nextEl.style.transform = "translate3d(0, 0, 0)";
+
+        dotNodes.forEach((dot, i) => dot.classList.toggle("active", i === nextIndex));
+
+        setTimeout(() => {
+          currentEl.classList.remove("is-sliding", "is-current");
+          currentEl.style.opacity = "0";
+          currentEl.style.transform = "translate3d(0, 0, 0)";
+          currentEl.style.zIndex = "1";
+
+          nextEl.classList.remove("is-sliding");
+          nextEl.classList.add("is-current");
+          nextEl.style.zIndex = "2";
+
+          activeSlideIndex = nextIndex;
+          isAnimatingSlide = false;
+        }, 870);
+      }
+
+      let slideTimer = slideNodes.length > 1
+        ? setInterval(() => {
+            if (!isHeroHoldActive) {
+              goToSlide(activeSlideIndex + 1, 1);
+            }
+          }, 5500)
+        : null;
+
+      function resetSlideInterval() {
+        if (!slideTimer) return;
+        clearInterval(slideTimer);
+        slideTimer = setInterval(() => {
+          if (!isHeroHoldActive) {
+            goToSlide(activeSlideIndex + 1, 1);
+          }
+        }, 5500);
+      }
+
+      // 1 saniye (1000ms) kapak üzerinde bekleme kuralı
+      heroSection.addEventListener("mouseenter", () => {
+        clearTimeout(heroHoverDelayTimer);
+        heroHoverDelayTimer = setTimeout(() => {
+          isHeroHoldActive = true;
+          heroSection.classList.add("is-expanded-hover");
+          setTimeout(syncTrailerPocketPosition, 560);
+        }, 1000);
+      });
+
+      heroSection.addEventListener("mouseleave", () => {
+        clearTimeout(heroHoverDelayTimer);
+        heroHoverDelayTimer = null;
+        isHeroHoldActive = false;
+        heroSection.classList.remove("is-expanded-hover");
+        setTimeout(syncTrailerPocketPosition, 560);
+      });
+
+      prevBtn.addEventListener("click", (e) => {
+        e.stopPropagation();
+        goToSlide(activeSlideIndex - 1, -1);
+        resetSlideInterval();
+      });
+
+      nextBtn.addEventListener("click", (e) => {
+        e.stopPropagation();
+        goToSlide(activeSlideIndex + 1, 1);
+        resetSlideInterval();
+      });
+
+      heroDotsEl.addEventListener("click", (e) => {
+        const dot = e.target.closest("[data-slide-idx]");
+        if (!dot) return;
+        const idx = Number(dot.dataset.slideIdx);
+        goToSlide(idx, idx >= activeSlideIndex ? 1 : -1);
+        resetSlideInterval();
+      });
+
+      // 5. Katmanlı Hero Parallax
+      const posterLayer = document.getElementById("heroPosterLayer");
+      const infoLayer = document.getElementById("heroInfoLayer");
+      let ticking = false;
+
+      window.addEventListener("scroll", () => {
+        if (ticking) return;
+        window.requestAnimationFrame(() => {
+          const scrollY = window.scrollY;
+          const heroHeight = heroSection.offsetHeight;
+          if (scrollY <= heroHeight + 80) {
+            heroBgLayer.style.transform = `translate3d(0, ${scrollY * 0.26}px, 0)`;
+            posterLayer.style.transform = `translate3d(0, ${scrollY * -0.04}px, 0)`;
+            infoLayer.style.transform = `translate3d(0, ${scrollY * 0.04}px, 0)`;
+          }
+          ticking = false;
+        });
+        ticking = true;
+      }, { passive: true });
+
+      // 6. Sola Kaydırılmış Fragman Cebi & Debug Edilmiş Lightbox Video Player
+      const trailerPocket = document.getElementById("trailerPocket");
+      const trailerVideo = document.getElementById("trailerVideo");
+      const trailerCloseBtn = document.getElementById("trailerCloseBtn");
+      const trailerBackdrop = document.getElementById("trailerBackdrop");
+      const trailerAudioIcon = document.getElementById("trailerAudioIcon");
+      const trailerStatusText = document.getElementById("trailerStatusText");
+
+      trailerVideo.src = game.trailerVideo || "assets/videos/trailer-preview.webm";
+      trailerVideo.muted = true;
+      trailerVideo.controls = false;
+      trailerVideo.play().catch(() => {});
+
+      function syncTrailerPocketPosition() {
+        if (trailerPocket.classList.contains("is-expanded")) return;
+        if (window.innerWidth < 992) {
+          trailerPocket.style.top = "";
+          trailerPocket.style.right = "";
+          return;
+        }
+        const rect = heroSection.getBoundingClientRect();
+        const scrollTop = window.scrollY || document.documentElement.scrollTop;
+        const pocketHeight = trailerPocket.offsetHeight || 126;
+        const topPos = rect.top + scrollTop + rect.height - pocketHeight - 22;
+        // Çizimdeki gibi sola kaydırılmış konum
+        const rightOffset = Math.max(195, Math.round(window.innerWidth * 0.175));
+        trailerPocket.style.top = `${topPos}px`;
+        trailerPocket.style.right = `${rightOffset}px`;
+      }
+
+      syncTrailerPocketPosition();
+      window.addEventListener("resize", syncTrailerPocketPosition);
+      window.addEventListener("load", syncTrailerPocketPosition);
+
+      function setPocketAudioUI(isUnmuted, blockedByBrowser = false) {
+        if (blockedByBrowser) {
+          trailerAudioIcon.className = "fa fa-volume-off me-1";
+          trailerStatusText.textContent = "Sesi açmak için tıkla";
+          return;
+        }
+        trailerAudioIcon.className = isUnmuted ? "fa fa-volume-up me-1" : "fa fa-volume-mute me-1";
+        trailerStatusText.textContent = isUnmuted ? "Ses Açık • Büyüt" : "Fragman";
+      }
+
+      trailerPocket.addEventListener("mouseenter", async () => {
+        if (trailerPocket.classList.contains("is-expanded")) return;
+        try {
+          trailerVideo.muted = false;
+          trailerVideo.volume = 0.65;
+          await trailerVideo.play();
+          setPocketAudioUI(true, false);
+        } catch {
+          trailerVideo.muted = true;
+          trailerVideo.play().catch(() => {});
+          setPocketAudioUI(false, true);
+        }
+      });
+
+      trailerPocket.addEventListener("mouseleave", () => {
+        if (trailerPocket.classList.contains("is-expanded")) return;
+        trailerVideo.muted = true;
+        setPocketAudioUI(false, false);
+      });
+
+      function expandTrailerModal() {
+        trailerPocket.classList.add("is-expanded");
+        trailerBackdrop.classList.add("active");
+        trailerVideo.controls = true;
+        trailerVideo.muted = false;
+        trailerVideo.volume = 0.85;
+        if (trailerVideo.paused) {
+          trailerVideo.play().catch(() => {});
+        }
+      }
+
+      function collapseTrailerModal() {
+        trailerPocket.classList.remove("is-expanded");
+        trailerBackdrop.classList.remove("active");
+        trailerVideo.controls = false;
+        trailerVideo.muted = true;
+        setPocketAudioUI(false, false);
+        trailerVideo.play().catch(() => {});
+        syncTrailerPocketPosition();
+      }
+
+      trailerPocket.addEventListener("click", (e) => {
+        if (e.target.closest("#trailerCloseBtn")) return;
+        if (!trailerPocket.classList.contains("is-expanded")) {
+          e.stopPropagation();
+          expandTrailerModal();
+        }
+      });
+
+      trailerCloseBtn.addEventListener("click", (e) => {
+        e.stopPropagation();
+        collapseTrailerModal();
+      });
+
+      trailerBackdrop.addEventListener("click", collapseTrailerModal);
+
+      // 7. Sayfa Ortasında Açılan Günlük, Puanlama & İnceleme Overlay Kontrolü
+      const journalOverlay = document.getElementById("journalOverlay");
+      const journalBackdrop = document.getElementById("journalBackdrop");
+      const openJournalBtn = document.getElementById("openJournalOverlayBtn");
+      const editJournalSummaryBtn = document.getElementById("editJournalSummaryBtn");
+      const openReviewOverlayBtn = document.getElementById("openReviewOverlayBtn");
+      const quickRateOverlayBtn = document.getElementById("quickRateOverlayBtn");
+      const closeJournalBtn = document.getElementById("closeJournalOverlayBtn");
+
+      function openJournalOverlay(focusReview = false) {
+        journalOverlay.classList.add("active");
+        journalOverlay.setAttribute("aria-hidden", "false");
+        journalBackdrop.classList.add("active");
+        if (focusReview) {
+          setTimeout(() => {
+            document.getElementById("reviewTitleInput")?.focus();
+          }, 180);
+        }
+      }
+
+      function closeJournalOverlay() {
+        journalOverlay.classList.remove("active");
+        journalOverlay.setAttribute("aria-hidden", "true");
+        journalBackdrop.classList.remove("active");
+      }
+
+      openJournalBtn.addEventListener("click", () => openJournalOverlay(false));
+      editJournalSummaryBtn.addEventListener("click", () => openJournalOverlay(false));
+      openReviewOverlayBtn.addEventListener("click", () => openJournalOverlay(true));
+      quickRateOverlayBtn.addEventListener("click", () => openJournalOverlay(true));
+      closeJournalBtn.addEventListener("click", closeJournalOverlay);
+      journalBackdrop.addEventListener("click", closeJournalOverlay);
+
+      // Blog / Haber Okuyucu Modalı
+      const articleOverlay = document.getElementById("articleOverlay");
+      const articleBackdrop = document.getElementById("articleBackdrop");
+      const closeArticleBtn = document.getElementById("closeArticleOverlayBtn");
+
+      function openArticleReader(item) {
+        document.getElementById("articleModalTag").textContent = item.tag || item.category || "Blog";
+        document.getElementById("articleModalTitle").textContent = item.title;
+        document.getElementById("articleModalMeta").textContent = [
+          item.author || item.source,
+          item.date,
+          item.readTime
+        ].filter(Boolean).join(" • ");
+        document.getElementById("articleModalImg").src = item.image;
+        document.getElementById("articleModalBody").textContent =
+          `${item.excerpt} Bu içerik GameShelf topluluk ve editör arşivi kapsamında oyunun mekanikleri, dünya tasarımı ve oyuncu deneyimi üzerine detaylı notlar sunmaktadır.`;
+        articleOverlay.classList.add("active");
+        articleOverlay.setAttribute("aria-hidden", "false");
+        articleBackdrop.classList.add("active");
+      }
+
+      function closeArticleReader() {
+        articleOverlay.classList.remove("active");
+        articleOverlay.setAttribute("aria-hidden", "true");
+        articleBackdrop.classList.remove("active");
+      }
+
+      closeArticleBtn.addEventListener("click", closeArticleReader);
+      articleBackdrop.addEventListener("click", closeArticleReader);
+
+      document.addEventListener("keydown", (e) => {
+        if (e.key === "Escape") {
+          if (trailerPocket.classList.contains("is-expanded")) collapseTrailerModal();
+          if (journalOverlay.classList.contains("active")) closeJournalOverlay();
+          if (articleOverlay.classList.contains("active")) closeArticleReader();
+        }
+      });
+
+      // 8. Editions & Büyük DLC'ler Satırlarını Oluştur (İncelemelerden Önce; yoksa hiç açılmaz)
+      const editionsDlcsWrap = document.getElementById("editionsDlcsWrap");
+      const editionsGroupCard = document.getElementById("editionsGroupCard");
+      const dlcsGroupCard = document.getElementById("dlcsGroupCard");
+
+      if (editions.length > 0 || dlcs.length > 0) {
+        editionsDlcsWrap.style.display = "flex";
+      }
+
+      if (editions.length > 0) {
+        editionsGroupCard.style.display = "block";
+        document.getElementById("editionsCountHint").textContent = editions.length > 1 ? `${editions.length} sürüm • kaydır` : "1 sürüm";
+        if (editions.length > 1) {
+          document.getElementById("editionsPrevBtn").style.display = "inline-flex";
+          document.getElementById("editionsNextBtn").style.display = "inline-flex";
+        }
+        document.getElementById("editionsCoversRow").innerHTML = editions.map((ed) => `
+          <a href="details.html?id=${ed.id}" class="gs-addon-cover-card" title="${ed.title}">
+            <img src="${ed.coverImage}" alt="${ed.title}" />
+            <div class="gs-addon-hover-label">
+              <span class="badge bg-dark border border-secondary mb-1 align-self-start" style="font-size:0.62rem;">Sürüm</span>
+              <div class="text-white fw-semibold" style="font-size:0.75rem;line-height:1.25;">${ed.title}</div>
+            </div>
+          </a>
+        `).join("");
+      }
+
+      if (dlcs.length > 0) {
+        dlcsGroupCard.style.display = "block";
+        document.getElementById("dlcsCountHint").textContent = dlcs.length > 1 ? `${dlcs.length} paket • kaydır` : "1 paket";
+        if (dlcs.length > 1) {
+          document.getElementById("dlcsPrevBtn").style.display = "inline-flex";
+          document.getElementById("dlcsNextBtn").style.display = "inline-flex";
+        }
+        document.getElementById("dlcsCoversRow").innerHTML = dlcs.map((dlc) => `
+          <a href="details.html?id=${dlc.id}" class="gs-addon-cover-card" title="${dlc.title}">
+            <img src="${dlc.coverImage}" alt="${dlc.title}" />
+            <div class="gs-addon-hover-label">
+              <span class="badge mb-1 align-self-start" style="background:var(--gs-accent);color:var(--gs-accent-contrast);font-size:0.62rem;">DLC</span>
+              <div class="text-white fw-semibold" style="font-size:0.75rem;line-height:1.25;">${dlc.title}</div>
+            </div>
+          </a>
+        `).join("");
+      }
+
+      document.querySelectorAll("[data-addon-scroll]").forEach((btn) => {
+        btn.addEventListener("click", () => {
+          const row = document.getElementById(btn.dataset.addonScroll);
+          if (!row) return;
+          const dir = Number(btn.dataset.dir) || 1;
+          row.scrollBy({ left: dir * 220, behavior: "smooth" });
+        });
+      });
+
+      // 9. İncelemelerin En Aşağısında 3 Yatay Vitrin Satırı (Benzer Oyunlar, Oyun Blogları, Daha Fazla İçerik)
+      if (similarGames.length > 0) {
+        document.getElementById("similarGamesSection").style.display = "block";
+        document.getElementById("similarGamesTrack").innerHTML = similarGames.map((sg) => `
+          <a href="details.html?id=${sg.id}" class="gs-showcase-card">
+            <div class="gs-showcase-thumb">
+              <img src="${sg.heroImage || sg.coverImage}" alt="${sg.title}" />
+              <span class="gs-showcase-pill">${(sg.genres || [])[0] || "Oyun"}</span>
+            </div>
+            <div class="gs-showcase-footer">
+              <div class="fw-semibold small text-truncate">${sg.title}</div>
+              <div class="d-flex justify-content-between align-items-center text-secondary" style="font-size:0.74rem;">
+                <span>${sg.releaseDate ? sg.releaseDate.slice(0, 4) : ""}</span>
+                ${sg.externalRefs?.metacritic ? `<span class="badge bg-success bg-opacity-25 text-success border border-success border-opacity-25">MC ${sg.externalRefs.metacritic}</span>` : ""}
+              </div>
+            </div>
+          </a>
+        `).join("");
+      }
+
+      if (gameBlogs.length > 0) {
+        document.getElementById("gameBlogsSection").style.display = "block";
+        document.getElementById("gameBlogsTrack").innerHTML = gameBlogs.map((bl, idx) => `
+          <article class="gs-showcase-card" data-game-blog-idx="${idx}">
+            <div class="gs-showcase-thumb">
+              <img src="${bl.image}" alt="${bl.title}" />
+              <span class="gs-showcase-pill">${bl.tag}</span>
+            </div>
+            <div class="gs-showcase-footer">
+              <div class="fw-semibold small" style="display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;">${bl.title}</div>
+              <div class="d-flex justify-content-between align-items-center text-secondary mt-1" style="font-size:0.72rem;">
+                <span>${bl.author}</span>
+                <span>${bl.readTime}</span>
+              </div>
+            </div>
+          </article>
+        `).join("");
+
+        document.getElementById("gameBlogsTrack").addEventListener("click", (e) => {
+          const card = e.target.closest("[data-game-blog-idx]");
+          if (!card) return;
+          openArticleReader(gameBlogs[Number(card.dataset.gameBlogIdx)]);
+        });
+      }
+
+      if (latestNewsBlogs.length > 0) {
+        document.getElementById("moreContentSection").style.display = "block";
+        document.getElementById("moreContentTrack").innerHTML = latestNewsBlogs.map((nw, idx) => `
+          <article class="gs-showcase-card" data-news-idx="${idx}">
+            <div class="gs-showcase-thumb">
+              <img src="${nw.image}" alt="${nw.title}" />
+              <span class="gs-showcase-pill">${nw.category}</span>
+            </div>
+            <div class="gs-showcase-footer">
+              <div class="fw-semibold small" style="display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;">${nw.title}</div>
+              <div class="d-flex justify-content-between align-items-center text-secondary mt-1" style="font-size:0.72rem;">
+                <span>${nw.source}</span>
+                <span>${nw.date}</span>
+              </div>
+            </div>
+          </article>
+        `).join("");
+
+        document.getElementById("moreContentTrack").addEventListener("click", (e) => {
+          const card = e.target.closest("[data-news-idx]");
+          if (!card) return;
+          openArticleReader(latestNewsBlogs[Number(card.dataset.newsIdx)]);
+        });
+      }
+
+      // Yatay vitrin okları kontrolü
+      document.querySelectorAll("[data-carousel-target]").forEach((btn) => {
+        btn.addEventListener("click", () => {
+          const track = document.getElementById(btn.dataset.carouselTarget);
+          if (!track) return;
+          const dir = Number(btn.dataset.dir) || 1;
+          track.scrollBy({ left: dir * 540, behavior: "smooth" });
+        });
+      });
+
+      // 10. Künye ve Harici Referanslar
+      const roleLabels = { director: "Yönetmen", composer: "Besteci", voice_actor: "Seslendirme" };
+      const creditRows = [];
+      if (devs) creditRows.push(["Geliştirici", devs]);
+      const pubs = companies.filter((c) => c.role === "publisher").map((c) => c.name).join(", ");
+      if (pubs) creditRows.push(["Yayıncı", pubs]);
+      if (game.releaseDate) creditRows.push(["Çıkış Tarihi", game.releaseDate]);
+      if (game.perspective) creditRows.push(["Bakış Açısı", game.perspective]);
+      if (game.modes?.length) creditRows.push(["Modlar", game.modes.join(", ")]);
+
+      credits.forEach((c) => {
+        const label = roleLabels[c.role] || c.role;
+        const val = c.character ? `${c.name} (${c.character})` : c.name;
+        creditRows.push([label, val]);
+      });
+
+      document.getElementById("creditsMetaList").innerHTML = creditRows.map(([k, v]) => `
+        <dt class="col-5 text-secondary fw-normal mb-2">${k}</dt>
+        <dd class="col-7 text-light mb-2">${v}</dd>
+      `).join("");
+
+
+
+      // 11. Yıldız Puanlama & Özgün Telemetri + Metacritic Güncelleme
+      const starPicker = document.getElementById("starPicker");
+      const clearRatingBtn = document.getElementById("clearRatingBtn");
+
+      function renderStars(score) {
+        let html = "";
+        for (let i = 1; i <= 5; i++) {
+          let iconClass = "far fa-star";
+          let stateClass = "";
+          if (score !== null && score >= i) {
+            iconClass = "fas fa-star";
+            stateClass = "full";
+          } else if (score !== null && score >= i - 0.5) {
+            iconClass = "fas fa-star-half-alt";
+            stateClass = "half";
+          }
+          html += `<span class="gs-star-slot ${stateClass}" data-star="${i}"><i class="${iconClass}"></i></span>`;
+        }
+        starPicker.innerHTML = html;
+      }
+
+      async function refreshTelemetryDeck(summary, entry, reviewsCount) {
+        const cs = game.communityStats || {
+          plays: 0,
+          playing: 0,
+          backlogs: 0,
+          favorites: 0,
+          lists: 0,
+          mainStoryHours: null,
+          mainExtraHours: null,
+          completionistHours: null,
+          ratingBins: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+        };
+
+        // GameShelf Ortalama Puan & Metacritic Rozeti
+        document.getElementById("stripAvgRating").textContent = summary.average !== null ? `${summary.average.toFixed(1)} ★` : "—";
+
+        const mcSlot = document.getElementById("metacriticSlot");
+        const mcBadge = document.getElementById("metacriticScoreBadge");
+        const mcVal = game.externalRefs ? game.externalRefs.metacritic : null;
+        if (mcVal !== null && mcVal !== undefined) {
+          mcSlot.style.display = "block";
+          mcBadge.textContent = mcVal;
+          mcBadge.className = "gs-metacritic-badge " + (mcVal >= 75 ? "is-high" : mcVal >= 50 ? "is-mid" : "is-low");
+        } else {
+          mcSlot.style.display = "none";
+        }
+
+        // 10 Çubuklu Dağılım
+        const bins = [...(cs.ratingBins || [0, 0, 0, 0, 0, 0, 0, 0, 0, 0])];
+        if (summary.userScore !== null) {
+          const binIdx = Math.max(0, Math.min(9, Math.round(summary.userScore * 2) - 1));
+          bins[binIdx] += 1;
+        }
+        const maxBin = Math.max(...bins, 1);
+        document.getElementById("ratingHistogramBars").innerHTML = bins.map((val, idx) => {
+          const pct = Math.max(6, Math.round((val / maxBin) * 100));
+          const starVal = ((idx + 1) * 0.5).toFixed(1);
+          return `<div class="gs-hist-bar" style="height:${pct}%;" title="${starVal} ★ (${val} oy)"></div>`;
+        }).join("");
+
+        // 6 Oyuncu Aktivite Kapsülü
+        const playsCount = cs.plays + (entry && entry.status === "completed" ? 1 : 0);
+        const playingCount = cs.playing + (entry && entry.status === "playing" ? 1 : 0);
+        const backlogCount = cs.backlogs + (entry && entry.status === "backlog" ? 1 : 0);
+        const favCount = cs.favorites + (entry && entry.favorite ? 1 : 0);
+
+        const capsules = [
+          { icon: "fas fa-gamepad", label: "Oynuyor", value: formatCompactNumber(playingCount) },
+          { icon: "fas fa-trophy", label: "Tamamladı", value: formatCompactNumber(playsCount) },
+          { icon: "fas fa-book", label: "Backlog", value: formatCompactNumber(backlogCount) },
+          { icon: "fas fa-heart", label: "Favori", value: formatCompactNumber(favCount) },
+          { icon: "fas fa-layer-group", label: "Listeler", value: formatCompactNumber(cs.lists) },
+          { icon: "fas fa-align-left", label: "İnceleme", value: formatCompactNumber(reviewsCount) }
+        ];
+
+        document.getElementById("telemetryCapsulesGrid").innerHTML = capsules.map((c) => `
+          <div class="gs-capsule-chip">
+            <div class="gs-capsule-icon"><i class="${c.icon}"></i></div>
+            <div>
+              <div class="fw-bold text-white" style="font-size:0.9rem;line-height:1.1;">${c.value}</div>
+              <div class="text-secondary" style="font-size:0.71rem;">${c.label}</div>
+            </div>
+          </div>
+        `).join("");
+
+        // Oynanış Süresi Şeridi (Null değerler asla 0 olarak gösterilmez)
+        const durationChips = [];
+        if (cs.mainStoryHours !== null && cs.mainStoryHours !== undefined) {
+          durationChips.push(`<span class="gs-playtime-chip"><i class="far fa-clock" style="color:var(--gs-accent);"></i>Ana Hikâye: <strong>${cs.mainStoryHours} sa</strong></span>`);
+        }
+        if (cs.mainExtraHours !== null && cs.mainExtraHours !== undefined) {
+          durationChips.push(`<span class="gs-playtime-chip"><i class="fas fa-flag-checkered" style="color:var(--gs-accent);"></i>Ana + Ekstra: <strong>${cs.mainExtraHours} sa</strong></span>`);
+        }
+        if (cs.completionistHours !== null && cs.completionistHours !== undefined) {
+          durationChips.push(`<span class="gs-playtime-chip"><i class="fas fa-trophy" style="color:var(--gs-accent);"></i>%100 Tamamlama: <strong>${cs.completionistHours} sa</strong></span>`);
+        }
+
+        const ribbonEl = document.getElementById("playtimeRibbon");
+        if (durationChips.length > 0) {
+          ribbonEl.style.display = "flex";
+          ribbonEl.innerHTML = durationChips.join("");
+        } else {
+          ribbonEl.style.display = "none";
+        }
+      }
+
+      async function refreshAllDynamicSections() {
+        const [summary, entry, reviews] = await Promise.all([
+          GameShelfService.getRatingSummary(currentGameId),
+          GameShelfService.getCollectionEntry(currentGameId),
+          GameShelfService.getReviews(currentGameId, currentReviewSort)
+        ]);
+
+        document.getElementById("communityScore").textContent = summary.average !== null ? `${summary.average} / 5` : "—";
+        document.getElementById("communityCount").textContent = summary.count > 0 ? `(${summary.count} oy)` : "";
+        document.getElementById("userScoreBadge").textContent = summary.userScore !== null ? `${summary.userScore} ★` : "Puanlanmadı";
+        clearRatingBtn.style.display = summary.userScore !== null ? "inline-block" : "none";
+        renderStars(summary.userScore);
+
+        await refreshTelemetryDeck(summary, entry, reviews.length);
+      }
+
+      starPicker.addEventListener("click", async (e) => {
+        const slot = e.target.closest(".gs-star-slot");
+        if (!slot) return;
+        const rect = slot.getBoundingClientRect();
+        const isLeftHalf = e.clientX - rect.left < rect.width / 2;
+        const starNum = Number(slot.dataset.star);
+        const chosenScore = isLeftHalf ? starNum - 0.5 : starNum;
+        await GameShelfService.setUserRating(currentGameId, chosenScore);
+        await refreshAllDynamicSections();
+      });
+
+      clearRatingBtn.addEventListener("click", async () => {
+        await GameShelfService.setUserRating(currentGameId, null);
+        await refreshAllDynamicSections();
+      });
+
+      // 12. Koleksiyon Özeti (Arka Plana Yedirilen Durum Simgeli) & Overlay Playthrough Yönetimi
+      async function refreshCollectionUI() {
+        const entry = await GameShelfService.getCollectionEntry(currentGameId);
+        const triggerIcon = document.getElementById("journalTriggerIcon");
+        const triggerLabel = document.getElementById("journalTriggerLabel");
+        const favBtn = document.getElementById("toggleFavoriteBtn");
+        const removeBtn = document.getElementById("removeCollectionBtn");
+        const ptList = document.getElementById("playthroughList");
+        const overlayTotalBadge = document.getElementById("overlayPlaytimeSummary");
+        const summaryBody = document.getElementById("journalSummaryBody");
+        const watermarkEl = document.getElementById("journalStatusWatermark");
+
+        if (!entry) {
+          triggerIcon.innerHTML = `<i class="fas fa-book-open me-1"></i>`;
+          triggerLabel.textContent = "Koleksiyona Ekle";
+          favBtn.style.display = "none";
+          removeBtn.style.display = "none";
+          overlayTotalBadge.style.display = "none";
+          watermarkEl.innerHTML = `<i class="fas fa-bookmark"></i>`;
+          watermarkEl.style.opacity = "0.06";
+          ptList.innerHTML = `<div class="small text-secondary">Henüz oynayış kaydı bulunmuyor.</div>`;
+          summaryBody.innerHTML = `Henüz koleksiyonuna eklenmedi. Durum ve oynayış geçmişi eklemek için <strong>Koleksiyona Ekle</strong> butonuna tıkla.`;
+          await refreshAllDynamicSections();
+          return;
+        }
+
+        const stMeta = STATUS_META[entry.status] || { label: entry.status, icon: "fas fa-bookmark" };
+        triggerIcon.innerHTML = `<i class="${stMeta.icon} me-1"></i>`;
+        triggerLabel.textContent = `Günlük: ${stMeta.label}`;
+        favBtn.style.display = "inline-block";
+        favBtn.classList.toggle("active", entry.favorite);
+        removeBtn.style.display = "inline-block";
+
+        watermarkEl.innerHTML = `<i class="${stMeta.icon}"></i>`;
+        watermarkEl.style.opacity = "0.17";
+
+        document.getElementById("collectionStatus").value = entry.status;
+        document.getElementById("collectionVisibility").value = entry.visibility;
+        document.getElementById("collectionNotes").value = entry.notes || "";
+
+        const summaryBadges = [
+          `<span class="gs-badge-accent"><i class="${stMeta.icon} me-1"></i>${stMeta.label}</span>`,
+          `<span class="gs-badge-neutral">${VISIBILITY_LABELS[entry.visibility] || entry.visibility}</span>`
+        ];
+        if (entry.favorite) {
+          summaryBadges.push(`<span class="gs-badge-accent"><i class="fas fa-heart me-1"></i>Favori</span>`);
+        }
+        if (entry.totalKnownHours !== null) {
+          summaryBadges.push(`<span class="gs-badge-neutral"><i class="far fa-clock me-1"></i>${entry.totalKnownHours} saat</span>`);
+        }
+        if (entry.playthroughs.length > 0) {
+          summaryBadges.push(`<span class="gs-badge-neutral">${entry.playthroughs.length} oynayış</span>`);
+        }
+
+        summaryBody.innerHTML = `
+          <div class="d-flex flex-wrap gap-2 mb-2">${summaryBadges.join("")}</div>
+          ${entry.notes ? `<div class="text-light small mt-1" style="opacity:0.92;">“${entry.notes}”</div>` : ""}
+        `;
+
+        if (entry.totalKnownHours !== null) {
+          overlayTotalBadge.style.display = "inline-block";
+          overlayTotalBadge.textContent = `Bilinen Toplam: ${entry.totalKnownHours} sa`;
+        } else {
+          overlayTotalBadge.style.display = "none";
+        }
+
+        if (!entry.playthroughs.length) {
+          ptList.innerHTML = `<div class="small text-secondary">Kayıtlı oynayış yok.</div>`;
+        } else {
+          ptList.innerHTML = entry.playthroughs.map((pt, i) => {
+            const metaParts = [];
+            if (pt.startedAt || pt.completedAt) {
+              metaParts.push([pt.startedAt, pt.completedAt].filter(Boolean).join(" → "));
+            }
+            if (pt.playtime !== null) {
+              metaParts.push(`${pt.playtime} saat`);
+            }
+            return `
+              <div class="gs-playthrough-row d-flex justify-content-between align-items-start gap-2">
+                <div>
+                  <div class="fw-semibold small">${i + 1}. Oynayış</div>
+                  ${metaParts.length ? `<div class="text-secondary" style="font-size:0.76rem;">${metaParts.join(" • ")}</div>` : ""}
+                  ${pt.notes ? `<div class="small mt-1">${pt.notes}</div>` : ""}
+                </div>
+                <button class="btn btn-sm text-secondary p-0" data-del-pt="${pt.id}" title="Sil"><i class="fa fa-times"></i></button>
+              </div>
+            `;
+          }).join("");
+        }
+
+        await refreshAllDynamicSections();
+      }
+
+      document.getElementById("collectionForm").addEventListener("submit", async (e) => {
+        e.preventDefault();
+        const current = await GameShelfService.getCollectionEntry(currentGameId);
+        await GameShelfService.saveCollectionEntry(currentGameId, {
+          status: document.getElementById("collectionStatus").value,
+          visibility: document.getElementById("collectionVisibility").value,
+          notes: document.getElementById("collectionNotes").value,
+          favorite: current ? current.favorite : false
+        });
+        await refreshCollectionUI();
+        closeJournalOverlay();
+      });
+
+      document.getElementById("toggleFavoriteBtn").addEventListener("click", async () => {
+        const current = await GameShelfService.getCollectionEntry(currentGameId);
+        if (!current) return;
+        await GameShelfService.saveCollectionEntry(currentGameId, {
+          ...current,
+          favorite: !current.favorite
+        });
+        await refreshCollectionUI();
+      });
+
+      document.getElementById("removeCollectionBtn").addEventListener("click", async () => {
+        await GameShelfService.removeCollectionEntry(currentGameId);
+        document.getElementById("collectionNotes").value = "";
+        await refreshCollectionUI();
+        closeJournalOverlay();
+      });
+
+      document.getElementById("playthroughForm").addEventListener("submit", async (e) => {
+        e.preventDefault();
+        await GameShelfService.addPlaythrough(currentGameId, {
+          startedAt: document.getElementById("ptStart").value,
+          completedAt: document.getElementById("ptEnd").value,
+          playtime: document.getElementById("ptHours").value,
+          notes: document.getElementById("ptNotes").value
+        });
+        e.target.reset();
+        await refreshCollectionUI();
+      });
+
+      document.getElementById("playthroughList").addEventListener("click", async (e) => {
+        const btn = e.target.closest("[data-del-pt]");
+        if (!btn) return;
+        await GameShelfService.deletePlaythrough(currentGameId, btn.dataset.delPt);
+        await refreshCollectionUI();
+      });
+
+      await refreshCollectionUI();
+
+      // 13. İnceleme Listeleme (Kişinin kendi incelemesi en üstte + belirgin ayırıcı çizgi)
+      function renderReviewCard(rev, isOwn = false) {
+        return `
+          <article class="gs-review-card ${isOwn ? "is-own-review" : ""}">
+            <div class="d-flex justify-content-between align-items-start gap-2 mb-2">
+              <div class="d-flex align-items-center gap-2">
+                <img src="${rev.authorAvatar}" alt="${rev.authorName}" class="rounded-circle" style="width:36px;height:36px;object-fit:cover;" />
+                <div>
+                  <div class="d-flex align-items-center gap-2">
+                    <span class="fw-semibold small">${rev.authorName}</span>
+                    ${isOwn ? `<span class="gs-badge-accent py-0 px-2" style="font-size:0.68rem;">Senin İncelemen</span>` : ""}
+                  </div>
+                  <div class="text-secondary" style="font-size:0.75rem;">${rev.createdAt}</div>
+                </div>
+              </div>
+              ${rev.rating !== null ? `<span class="gs-badge-accent"><i class="fas fa-star me-1"></i>${rev.rating}</span>` : ""}
+            </div>
+            ${rev.title ? `<h3 class="h6 fw-semibold mb-1">${rev.title}</h3>` : ""}
+            ${rev.content ? `<p class="small mb-3" style="color:#cbd5e1;line-height:1.6;">${rev.content}</p>` : ""}
+            <div class="d-flex align-items-center gap-2">
+              <button class="btn btn-sm gs-btn-outline py-1 px-2 ${rev.userVote === "up" ? "active" : ""}" data-vote="up" data-rev-id="${rev.id}">
+                <i class="fa fa-thumbs-up me-1"></i>${rev.upvotes}
+              </button>
+              <button class="btn btn-sm gs-btn-outline py-1 px-2 ${rev.userVote === "down" ? "active" : ""}" data-vote="down" data-rev-id="${rev.id}">
+                <i class="fa fa-thumbs-down me-1"></i>${rev.downvotes}
+              </button>
+            </div>
+          </article>
+        `;
+      }
+
+      let activeFeaturedTabIdx = 0;
+
+      function renderFeaturedReviewsSidebar(allReviews) {
+        const pocket = document.getElementById("featuredReviewsPocket");
+        const tabsEl = document.getElementById("featuredReviewTabs");
+        const panesEl = document.getElementById("featuredReviewPanes");
+
+        const ranked = [...allReviews]
+          .filter((r) => (r.content && r.content.trim()) || (r.title && r.title.trim()))
+          .sort((a, b) => {
+            const scoreA = (a.upvotes - a.downvotes) * 2 + (a.rating || 0);
+            const scoreB = (b.upvotes - b.downvotes) * 2 + (b.rating || 0);
+            return scoreB - scoreA;
+          })
+          .slice(0, 3);
+
+        if (!ranked.length) {
+          pocket.style.display = "none";
+          return;
+        }
+
+        pocket.style.display = "block";
+        if (activeFeaturedTabIdx >= ranked.length) {
+          activeFeaturedTabIdx = 0;
+        }
+
+        tabsEl.innerHTML = ranked.map((rev, idx) => {
+          const shortName = rev.authorName.split(" ")[0];
+          const ratingTxt = rev.rating !== null ? ` • ${rev.rating}★` : "";
+          return `
+            <button type="button"
+                    class="gs-featured-tab-btn ${idx === activeFeaturedTabIdx ? "active" : ""}"
+                    data-featured-tab="${idx}"
+                    role="tab"
+                    aria-selected="${idx === activeFeaturedTabIdx ? "true" : "false"}">
+              <span>#${idx + 1} ${shortName}${ratingTxt}</span>
+            </button>
+          `;
+        }).join("");
+
+        panesEl.innerHTML = ranked.map((rev, idx) => `
+          <div class="gs-featured-tab-pane ${idx === activeFeaturedTabIdx ? "active" : ""}"
+               data-featured-pane="${idx}"
+               role="tabpanel">
+            <div class="d-flex justify-content-between align-items-center gap-2 mb-2">
+              <div class="d-flex align-items-center gap-2 min-w-0">
+                <img src="${rev.authorAvatar}" alt="${rev.authorName}" class="rounded-circle flex-shrink-0" style="width:30px;height:30px;object-fit:cover;" />
+                <div class="text-truncate">
+                  <div class="fw-semibold text-white text-truncate" style="font-size:0.8rem;">${rev.authorName}</div>
+                  <div class="text-secondary" style="font-size:0.69rem;">${rev.createdAt}</div>
+                </div>
+              </div>
+              ${rev.rating !== null ? `<span class="gs-badge-accent flex-shrink-0" style="font-size:0.72rem;"><i class="fas fa-star me-1"></i>${rev.rating}</span>` : ""}
+            </div>
+            ${rev.title ? `<div class="fw-semibold text-white mb-1" style="font-size:0.84rem;line-height:1.35;">“${rev.title}”</div>` : ""}
+            ${rev.content ? `<p class="mb-2" style="color:#cbd5e1;font-size:0.79rem;line-height:1.55;">${rev.content}</p>` : ""}
+            <div class="d-flex justify-content-between align-items-center pt-1 border-top border-secondary border-opacity-25" style="font-size:0.72rem;">
+              <span class="text-secondary"><i class="fa fa-thumbs-up me-1" style="color:var(--gs-accent);"></i>${rev.upvotes} kişi yararlı buldu</span>
+              <a href="#reviewsList" class="text-decoration-none" style="color:var(--gs-accent);">Tümünü Gör →</a>
+            </div>
+          </div>
+        `).join("");
+      }
+
+      document.getElementById("featuredReviewTabs").addEventListener("click", (e) => {
+        const btn = e.target.closest("[data-featured-tab]");
+        if (!btn) return;
+        activeFeaturedTabIdx = Number(btn.dataset.featuredTab) || 0;
+        document.querySelectorAll("[data-featured-tab]").forEach((t, i) => {
+          const isAct = i === activeFeaturedTabIdx;
+          t.classList.toggle("active", isAct);
+          t.setAttribute("aria-selected", isAct ? "true" : "false");
+        });
+        document.querySelectorAll("[data-featured-pane]").forEach((p, i) => {
+          p.classList.toggle("active", i === activeFeaturedTabIdx);
+        });
+      });
+
+      async function refreshReviews() {
+        const reviews = await GameShelfService.getReviews(currentGameId, currentReviewSort);
+        const listEl = document.getElementById("reviewsList");
+
+        renderFeaturedReviewsSidebar(reviews);
+
+        if (!reviews.length) {
+          listEl.innerHTML = `<div class="small text-secondary">Bu oyun için henüz yazılı inceleme bulunmuyor.</div>`;
+          await refreshAllDynamicSections();
+          return;
+        }
+
+        const ownReviews = reviews.filter((r) => r.isOwn);
+        const otherReviews = reviews.filter((r) => !r.isOwn);
+
+        let html = "";
+        if (ownReviews.length > 0) {
+          html += ownReviews.map((r) => renderReviewCard(r, true)).join("");
+          if (otherReviews.length > 0) {
+            html += `<div class="gs-own-reviews-divider"><span>Topluluk İncelemeleri</span></div>`;
+          }
+        }
+        html += otherReviews.map((r) => renderReviewCard(r, false)).join("");
+        listEl.innerHTML = html;
+
+        await refreshAllDynamicSections();
+      }
+
+      document.querySelectorAll("[data-sort]").forEach((btn) => {
+        btn.addEventListener("click", async () => {
+          document.querySelectorAll("[data-sort]").forEach((b) => b.classList.remove("active"));
+          btn.classList.add("active");
+          currentReviewSort = btn.dataset.sort;
+          await refreshReviews();
+        });
+      });
+
+      document.getElementById("reviewsList").addEventListener("click", async (e) => {
+        const voteBtn = e.target.closest("[data-vote]");
+        if (!voteBtn) return;
+        GameShelfService.toggleReviewVote(Number(voteBtn.dataset.revId), voteBtn.dataset.vote);
+        await refreshReviews();
+      });
+
+      document.getElementById("reviewForm").addEventListener("submit", async (e) => {
+        e.preventDefault();
+        const title = document.getElementById("reviewTitleInput").value;
+        const content = document.getElementById("reviewContentInput").value;
+        const summary = await GameShelfService.getRatingSummary(currentGameId);
+
+        if (!title.trim() && !content.trim() && summary.userScore === null) {
+          alert("Lütfen en azından bir puan seçin veya inceleme yazın.");
+          return;
+        }
+
+        await GameShelfService.createReview(currentGameId, {
+          title,
+          content,
+          rating: summary.userScore
+        });
+        e.target.reset();
+        await refreshReviews();
+        closeJournalOverlay();
+      });
+
+      await refreshReviews();
+    })();
+  </script>
+</body>
+</html>

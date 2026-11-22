@@ -1,0 +1,1782 @@
+:root {
+  /* Sabit GameShelf Koyu Arayüz Kimliği */
+  --gs-bg: #0b0d12;
+  --gs-surface: #131722;
+  --gs-surface-elevated: #1a202e;
+  --gs-border: rgba(255, 255, 255, 0.08);
+  --gs-text: #f1f5f9;
+  --gs-text-muted: #94a3b8;
+
+  /* Oyuna Özel Dinamik Renk Paleti (JS ile kapaktan güncellenir) */
+  --gs-accent: #e75e8d;
+  --gs-accent-rgb: 231, 94, 141;
+  --gs-accent-contrast: #ffffff;
+  --gs-secondary: #6c8eeb;
+  --gs-secondary-rgb: 108, 142, 235;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body.gs-body {
+  background-color: var(--gs-bg);
+  color: var(--gs-text);
+  font-family: 'Poppins', -apple-system, BlinkMacSystemFont, sans-serif;
+  margin: 0;
+  overflow-x: hidden;
+}
+
+/* Navigasyon ve Çok Seviyeli Menü (Ders Gereksinimi 9.2) */
+.gs-navbar {
+  background: rgba(11, 13, 18, 0.88);
+  backdrop-filter: blur(14px);
+  border-bottom: 1px solid var(--gs-border);
+  position: sticky;
+  top: 0;
+  z-index: 1030;
+}
+
+.gs-navbar .nav-link {
+  color: var(--gs-text-muted) !important;
+  font-weight: 500;
+  font-size: 0.92rem;
+  transition: color 0.2s ease;
+}
+
+.gs-navbar .nav-link:hover,
+.gs-navbar .nav-link.active {
+  color: var(--gs-accent) !important;
+}
+
+.gs-navbar .dropdown-menu {
+  background: var(--gs-surface-elevated);
+  border: 1px solid var(--gs-border);
+  border-radius: 12px;
+  padding: 0.5rem;
+}
+
+.gs-navbar .dropdown-item {
+  color: var(--gs-text);
+  border-radius: 8px;
+  font-size: 0.88rem;
+  padding: 0.5rem 0.85rem;
+}
+
+.gs-navbar .dropdown-item:hover {
+  background: rgba(var(--gs-accent-rgb), 0.16);
+  color: var(--gs-accent);
+}
+
+/* Oyun Test Seçici Barı (Prototip Kolaylığı) */
+.gs-game-switcher {
+  background: var(--gs-surface);
+  border-bottom: 1px solid var(--gs-border);
+  padding: 0.55rem 0;
+  font-size: 0.82rem;
+}
+
+.gs-switch-pill {
+  background: var(--gs-surface-elevated);
+  color: var(--gs-text-muted);
+  border: 1px solid var(--gs-border);
+  border-radius: 999px;
+  padding: 0.25rem 0.85rem;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.gs-switch-pill.active,
+.gs-switch-pill:hover {
+  background: rgba(var(--gs-accent-rgb), 0.18);
+  border-color: var(--gs-accent);
+  color: var(--gs-accent);
+}
+
+/* HERO, WINDOWS SLIDESHOW & STORE LINKLI POSTER */
+.gs-hero {
+  position: relative;
+  min-height: 390px;
+  display: flex;
+  align-items: flex-end;
+  overflow: visible;
+  border-bottom: 1px solid rgba(var(--gs-accent-rgb), 0.35);
+  padding-top: 2.35rem;
+  padding-bottom: 2.1rem;
+  transition: min-height 0.55s cubic-bezier(0.22, 1, 0.36, 1),
+              padding-top 0.55s cubic-bezier(0.22, 1, 0.36, 1),
+              padding-bottom 0.55s cubic-bezier(0.22, 1, 0.36, 1);
+  z-index: 10;
+}
+
+/* Mouse 1 saniye boyunca hero üzerinde tutulursa yukarı-aşağı genişler */
+.gs-hero.is-expanded-hover {
+  min-height: 555px;
+  padding-top: 3.35rem;
+  padding-bottom: 2.9rem;
+}
+
+.gs-hero-bg-clip {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  z-index: 1;
+}
+
+.gs-hero-bg {
+  position: absolute;
+  inset: -45px 0;
+  will-change: transform;
+  transform: translate3d(0, 0, 0);
+  z-index: 1;
+}
+
+/* Windows Slayt Gösterisi: Normalde sabit, geçiş anında position X ile kayar */
+.gs-hero-slide {
+  position: absolute;
+  inset: 0;
+  background-size: cover;
+  background-position: center 28%;
+  background-repeat: no-repeat;
+  filter: brightness(0.45) saturate(1.1);
+  opacity: 0;
+  transform: translate3d(0, 0, 0);
+  pointer-events: none;
+  z-index: 1;
+}
+
+.gs-hero-slide.is-current {
+  opacity: 1;
+  transform: translate3d(0, 0, 0);
+  z-index: 2;
+}
+
+.gs-hero-slide.is-sliding {
+  transition: transform 0.85s cubic-bezier(0.25, 0.9, 0.3, 1), opacity 0.85s ease;
+}
+
+.gs-hero.is-expanded-hover .gs-hero-slide {
+  filter: brightness(0.64) saturate(1.15);
+  transition: filter 0.45s ease;
+}
+
+.gs-hero.is-expanded-hover .gs-hero-slide.is-sliding {
+  transition: transform 0.85s cubic-bezier(0.25, 0.9, 0.3, 1), opacity 0.85s ease, filter 0.45s ease;
+}
+
+/* Minimal Sağ ve Sol Geçiş Okları */
+.gs-hero-arrow {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 36px;
+  height: 52px;
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  background: rgba(11, 13, 18, 0.36);
+  backdrop-filter: blur(6px);
+  color: rgba(255, 255, 255, 0.72);
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.95rem;
+  cursor: pointer;
+  z-index: 5;
+  opacity: 0.42;
+  transition: opacity 0.25s ease, background-color 0.25s ease, border-color 0.25s ease, color 0.25s ease;
+}
+
+.gs-hero:hover .gs-hero-arrow {
+  opacity: 0.88;
+}
+
+.gs-hero-arrow:hover {
+  opacity: 1 !important;
+  background: rgba(11, 13, 18, 0.8);
+  border-color: var(--gs-accent);
+  color: var(--gs-accent);
+}
+
+.gs-hero-arrow.prev {
+  left: 0.85rem;
+}
+
+.gs-hero-arrow.next {
+  right: 0.85rem;
+}
+
+.gs-hero-overlay {
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(circle at 22% 35%, rgba(var(--gs-accent-rgb), 0.25), transparent 58%),
+    linear-gradient(180deg, rgba(11, 13, 18, 0.18) 0%, rgba(11, 13, 18, 0.74) 76%, var(--gs-bg) 100%);
+  z-index: 2;
+  pointer-events: none;
+  transition: opacity 0.45s ease;
+}
+
+.gs-hero.is-expanded-hover .gs-hero-overlay {
+  opacity: 0.72;
+}
+
+.gs-hero-content {
+  position: relative;
+  z-index: 4;
+  width: 100%;
+}
+
+/* Oyun Adıyla Hizalı, Üzerine Gelince Store Linklerini Gösteren Kapak Posteri */
+.gs-poster-overlap-col {
+  position: relative;
+  z-index: 15;
+}
+
+.gs-poster-wrapper {
+  position: relative;
+  margin-top: -10px;
+  margin-bottom: -158px;
+  width: 248px;
+  max-width: 100%;
+  aspect-ratio: 3 / 4;
+  border-radius: 18px;
+  overflow: hidden;
+  border: 2px solid rgba(var(--gs-accent-rgb), 0.65);
+  box-shadow:
+    0 24px 54px rgba(0, 0, 0, 0.8),
+    0 0 0 5px rgba(11, 13, 18, 0.74),
+    0 0 34px rgba(var(--gs-accent-rgb), 0.26);
+  background: var(--gs-surface);
+  will-change: transform;
+  transition: transform 0.35s ease, border-color 0.28s ease;
+}
+
+.gs-poster-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  transition: opacity 0.28s ease, filter 0.28s ease, transform 0.35s ease;
+}
+
+.gs-poster-wrapper:hover {
+  border-color: var(--gs-accent);
+}
+
+.gs-poster-wrapper:hover .gs-poster-img {
+  opacity: 0.24;
+  filter: blur(1.5px) brightness(0.6);
+  transform: scale(1.03);
+}
+
+/* Kapak Posteri Üzerinde Yukarıdan Aşağıya Mağaza Linkleri */
+.gs-poster-store-overlay {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: stretch;
+  gap: 0.48rem;
+  padding: 1rem;
+  background: linear-gradient(180deg, rgba(11, 13, 18, 0.55) 0%, rgba(11, 13, 18, 0.82) 100%);
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(-6px);
+  transition: opacity 0.26s ease, visibility 0.26s ease, transform 0.26s ease;
+  z-index: 3;
+}
+
+.gs-poster-wrapper:hover .gs-poster-store-overlay {
+  opacity: 1;
+  visibility: visible;
+  transform: translateY(0);
+}
+
+.gs-store-overlay-title {
+  font-size: 0.7rem;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--gs-text-muted);
+  text-align: center;
+  margin-bottom: 0.15rem;
+}
+
+.gs-store-link-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.55rem;
+  padding: 0.46rem 0.75rem;
+  border-radius: 10px;
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.16);
+  color: #f8fafc;
+  font-size: 0.8rem;
+  font-weight: 500;
+  text-decoration: none;
+  transition: background 0.2s ease, border-color 0.2s ease, color 0.2s ease, transform 0.16s ease;
+}
+
+.gs-store-link-btn:hover {
+  background: var(--gs-accent);
+  border-color: var(--gs-accent);
+  color: var(--gs-accent-contrast);
+  transform: translateY(-1px);
+}
+
+/* Poster Alt Yarısının Sağında Kalan Etiket + Tarih ve Sağ Aksiyon Şeridi */
+.gs-subhero-strip {
+  position: relative;
+  z-index: 8;
+  padding-top: 1.05rem;
+  padding-bottom: 1.25rem;
+  border-bottom: 1px solid var(--gs-border);
+  background: linear-gradient(180deg, rgba(19, 23, 34, 0.58) 0%, rgba(11, 13, 18, 0) 100%);
+}
+
+.gs-subhero-inner {
+  min-height: 122px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+/* Etiketler tarihe göre daha soluk ve küçük */
+.gs-faded-tag {
+  background: rgba(255, 255, 255, 0.025);
+  color: rgba(154, 168, 188, 0.76);
+  border: 1px solid rgba(255, 255, 255, 0.055);
+  border-radius: 7px;
+  padding: 0.15rem 0.48rem;
+  font-size: 0.67rem;
+  font-weight: 400;
+  line-height: 1.3;
+  letter-spacing: 0.01em;
+  transition: border-color 0.2s ease, color 0.2s ease, background-color 0.2s ease;
+}
+
+.gs-faded-tag:hover {
+  border-color: rgba(var(--gs-accent-rgb), 0.35);
+  color: #dbe4f0;
+  background: rgba(var(--gs-accent-rgb), 0.07);
+}
+
+.gs-faded-tag.is-genre {
+  color: rgba(203, 213, 225, 0.82);
+  border-color: rgba(var(--gs-accent-rgb), 0.18);
+  background: rgba(var(--gs-accent-rgb), 0.05);
+}
+
+/* Etiketlerle karışmayan belirgin Tam Çıkış Tarihi satırı */
+.gs-release-inline-bar {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.48rem;
+  padding: 0.34rem 0.78rem;
+  border-radius: 9px;
+  background: rgba(255, 255, 255, 0.045);
+  border: 1px solid rgba(var(--gs-accent-rgb), 0.28);
+  font-size: 0.84rem;
+  color: #cbd5e1;
+  margin: 0.42rem 0;
+}
+
+.gs-release-inline-bar strong {
+  color: #ffffff;
+  font-weight: 600;
+  letter-spacing: 0.01em;
+}
+
+/* Subhero Sağ Tarafındaki Minimal Puanlama & Aksiyon Kartı */
+.gs-minimal-rating-card {
+  background: var(--gs-surface);
+  border: 1px solid var(--gs-border);
+  border-radius: 14px;
+  padding: 0.88rem 1.05rem;
+}
+
+.gs-rating-metrics {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.75rem;
+  padding-bottom: 0.72rem;
+  margin-bottom: 0.72rem;
+  border-bottom: 1px solid var(--gs-border);
+}
+
+@media (max-width: 767.98px) {
+  .gs-poster-wrapper {
+    margin: 0 auto;
+    width: 210px;
+  }
+  .gs-subhero-inner {
+    min-height: auto;
+  }
+}
+
+/* Hero içindeki kompakt Oyun Hakkında açıklaması */
+.gs-hero-description {
+  color: #dbe4f0;
+  font-size: 0.93rem;
+  line-height: 1.65;
+  max-width: 620px;
+  text-shadow: 0 1px 8px rgba(0, 0, 0, 0.65);
+}
+
+.gs-parent-game-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+  padding: 0.26rem 0.72rem;
+  border-radius: 999px;
+  background: rgba(11, 13, 18, 0.68);
+  border: 1px solid rgba(var(--gs-accent-rgb), 0.45);
+  color: #f8fafc;
+  font-size: 0.76rem;
+  text-decoration: none;
+  margin-bottom: 0.6rem;
+  transition: background 0.2s ease, border-color 0.2s ease;
+}
+
+.gs-parent-game-pill:hover {
+  background: rgba(var(--gs-accent-rgb), 0.22);
+  border-color: var(--gs-accent);
+  color: #fff;
+}
+
+/* Hero Slideshow Gösterge Noktaları */
+.gs-hero-dots {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  margin-top: 0.75rem;
+}
+
+.gs-hero-dot {
+  width: 18px;
+  height: 3.5px;
+  border-radius: 999px;
+  border: none;
+  background: rgba(255, 255, 255, 0.25);
+  padding: 0;
+  cursor: pointer;
+  transition: width 0.25s ease, background-color 0.25s ease;
+}
+
+.gs-hero-dot.active {
+  width: 32px;
+  background: var(--gs-accent);
+}
+
+/* Sola Kaydırılmış Fragman Cebi & Düzeltilmiş Lightbox Modal Player */
+.gs-trailer-backdrop {
+  position: fixed;
+  inset: 0;
+  background: rgba(5, 7, 11, 0.84);
+  backdrop-filter: blur(8px);
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.28s ease, visibility 0.28s ease;
+  z-index: 1050;
+}
+
+.gs-trailer-backdrop.active {
+  opacity: 1;
+  visibility: visible;
+}
+
+.gs-trailer-pocket {
+  position: absolute;
+  width: 224px;
+  aspect-ratio: 16 / 9;
+  border-radius: 14px;
+  overflow: hidden;
+  background: #07090d;
+  border: 2px solid rgba(var(--gs-accent-rgb), 0.62);
+  box-shadow: 0 14px 34px rgba(0, 0, 0, 0.65), 0 0 22px rgba(var(--gs-accent-rgb), 0.22);
+  cursor: pointer;
+  z-index: 25;
+  transition:
+    width 0.32s cubic-bezier(0.22, 1, 0.36, 1),
+    transform 0.32s cubic-bezier(0.22, 1, 0.36, 1),
+    box-shadow 0.32s ease,
+    border-color 0.25s ease;
+}
+
+.gs-trailer-pocket:not(.is-expanded):hover {
+  width: 300px;
+  transform: translateY(-4px);
+  border-color: var(--gs-accent);
+  box-shadow: 0 20px 44px rgba(0, 0, 0, 0.78), 0 0 32px rgba(var(--gs-accent-rgb), 0.38);
+}
+
+.gs-trailer-pocket.is-expanded {
+  position: fixed !important;
+  top: 50% !important;
+  left: 50% !important;
+  right: auto !important;
+  bottom: auto !important;
+  transform: translate(-50%, -50%) !important;
+  width: min(68vw, 960px) !important;
+  max-width: 92vw;
+  border-radius: 18px;
+  border-color: var(--gs-accent);
+  box-shadow: 0 30px 80px rgba(0, 0, 0, 0.92), 0 0 48px rgba(var(--gs-accent-rgb), 0.34);
+  cursor: default;
+  z-index: 1065 !important;
+}
+
+.gs-trailer-pocket video {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  background: #000;
+}
+
+.gs-trailer-pocket.is-expanded video {
+  object-fit: contain;
+}
+
+.gs-trailer-badge {
+  position: absolute;
+  left: 0.6rem;
+  bottom: 0.55rem;
+  right: 0.6rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.4rem;
+  padding: 0.26rem 0.58rem;
+  border-radius: 8px;
+  background: rgba(11, 13, 18, 0.78);
+  backdrop-filter: blur(6px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  color: #f8fafc;
+  font-size: 0.72rem;
+  pointer-events: none;
+  transition: opacity 0.2s ease;
+}
+
+.gs-trailer-pocket.is-expanded .gs-trailer-badge {
+  opacity: 0;
+  visibility: hidden;
+}
+
+.gs-trailer-close {
+  position: absolute;
+  top: 0.75rem;
+  right: 0.75rem;
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  border: 1px solid rgba(255, 255, 255, 0.25);
+  background: rgba(11, 13, 18, 0.88);
+  color: #fff;
+  display: none;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  z-index: 1070;
+  transition: background 0.2s ease, border-color 0.2s ease;
+}
+
+.gs-trailer-close:hover {
+  background: var(--gs-accent);
+  border-color: var(--gs-accent);
+  color: var(--gs-accent-contrast);
+}
+
+.gs-trailer-pocket.is-expanded .gs-trailer-close {
+  display: flex;
+}
+
+@media (max-width: 991.98px) {
+  .gs-trailer-pocket:not(.is-expanded) {
+    position: static !important;
+    width: 100%;
+    max-width: 340px;
+    margin: 1rem auto 0;
+  }
+}
+
+.gs-hero-info {
+  will-change: transform;
+}
+
+.gs-game-title {
+  font-size: clamp(1.75rem, 3.2vw, 2.65rem);
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  line-height: 1.08;
+  margin-top: 0;
+}
+
+.gs-badge-accent {
+  background: rgba(var(--gs-accent-rgb), 0.16);
+  color: var(--gs-accent);
+  border: 1px solid rgba(var(--gs-accent-rgb), 0.38);
+  border-radius: 999px;
+  padding: 0.25rem 0.72rem;
+  font-size: 0.76rem;
+  font-weight: 500;
+}
+
+.gs-badge-neutral {
+  background: rgba(255, 255, 255, 0.06);
+  color: var(--gs-text-muted);
+  border: 1px solid var(--gs-border);
+  border-radius: 999px;
+  padding: 0.25rem 0.72rem;
+  font-size: 0.76rem;
+}
+
+.gs-btn-primary {
+  background: var(--gs-accent);
+  color: var(--gs-accent-contrast);
+  border: none;
+  border-radius: 10px;
+  padding: 0.52rem 1.05rem;
+  font-weight: 600;
+  font-size: 0.84rem;
+  transition: transform 0.18s ease, box-shadow 0.2s ease, filter 0.2s ease;
+}
+
+.gs-btn-primary:hover {
+  filter: brightness(1.08);
+  transform: translateY(-1px);
+  box-shadow: 0 8px 24px rgba(var(--gs-accent-rgb), 0.36);
+  color: var(--gs-accent-contrast);
+}
+
+.gs-btn-outline {
+  background: rgba(255, 255, 255, 0.04);
+  color: var(--gs-text);
+  border: 1px solid var(--gs-border);
+  border-radius: 10px;
+  padding: 0.5rem 0.9rem;
+  font-size: 0.84rem;
+  transition: all 0.2s ease;
+}
+
+.gs-btn-outline:hover,
+.gs-btn-outline.active {
+  border-color: var(--gs-accent);
+  color: var(--gs-accent);
+  background: rgba(var(--gs-accent-rgb), 0.12);
+}
+
+/* Oyun Günlüğüm Özet Cebi & Arkaya Yedirilen Bulanık Durum Simgesi */
+.gs-journal-summary-pocket {
+  position: relative;
+  overflow: hidden;
+}
+
+.gs-journal-summary-content {
+  position: relative;
+  z-index: 2;
+}
+
+.gs-journal-watermark {
+  position: absolute;
+  right: -16px;
+  bottom: -24px;
+  font-size: 8.4rem;
+  line-height: 1;
+  color: var(--gs-accent);
+  opacity: 0.17;
+  filter: blur(3.8px);
+  transform: rotate(-14deg) scale(1.04);
+  pointer-events: none;
+  user-select: none;
+  z-index: 1;
+  transition: opacity 0.35s ease, transform 0.35s ease, color 0.35s ease;
+}
+
+/* Özgün GameShelf Telemetri & Metacritic Segmenti */
+.gs-telemetry-deck {
+  display: grid;
+  grid-template-columns: 245px 1fr;
+  gap: 1rem;
+  margin-bottom: 1.35rem;
+}
+
+@media (max-width: 991.98px) {
+  .gs-telemetry-deck {
+    grid-template-columns: 1fr;
+  }
+}
+
+.gs-telemetry-score-box {
+  background: var(--gs-surface);
+  border: 1px solid var(--gs-border);
+  border-radius: 16px;
+  padding: 1rem 1.15rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: 0.75rem;
+}
+
+.gs-metacritic-badge {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 44px;
+  height: 44px;
+  padding: 0 0.55rem;
+  border-radius: 10px;
+  font-weight: 700;
+  font-size: 1.15rem;
+  color: #fff;
+}
+
+.gs-metacritic-badge.is-high {
+  background: #16a34a;
+  box-shadow: 0 6px 18px rgba(22, 163, 74, 0.32);
+}
+
+.gs-metacritic-badge.is-mid {
+  background: #d97706;
+  box-shadow: 0 6px 18px rgba(217, 119, 6, 0.32);
+}
+
+.gs-metacritic-badge.is-low {
+  background: #dc2626;
+}
+
+.gs-hist-bars {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 4px;
+  height: 44px;
+  padding-top: 4px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.gs-hist-bar {
+  flex: 1;
+  min-height: 3px;
+  border-radius: 3px 3px 0 0;
+  background: var(--gs-accent);
+  opacity: 0.85;
+  transition: height 0.35s ease, opacity 0.2s ease;
+}
+
+.gs-hist-bar:hover {
+  opacity: 1;
+}
+
+.gs-telemetry-right-stack {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.gs-telemetry-capsules {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 0.65rem;
+}
+
+@media (max-width: 575.98px) {
+  .gs-telemetry-capsules {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+.gs-capsule-chip {
+  background: var(--gs-surface);
+  border: 1px solid var(--gs-border);
+  border-radius: 12px;
+  padding: 0.65rem 0.8rem;
+  display: flex;
+  align-items: center;
+  gap: 0.65rem;
+}
+
+.gs-capsule-icon {
+  width: 32px;
+  height: 32px;
+  border-radius: 9px;
+  background: rgba(var(--gs-accent-rgb), 0.12);
+  color: var(--gs-accent);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.85rem;
+  flex-shrink: 0;
+}
+
+.gs-playtime-ribbon {
+  background: linear-gradient(90deg, rgba(var(--gs-accent-rgb), 0.12) 0%, var(--gs-surface) 100%);
+  border: 1px solid rgba(var(--gs-accent-rgb), 0.26);
+  border-radius: 12px;
+  padding: 0.65rem 0.9rem;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.75rem;
+}
+
+.gs-playtime-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+  font-size: 0.8rem;
+  color: var(--gs-text-muted);
+}
+
+.gs-playtime-chip strong {
+  color: #fff;
+  font-weight: 600;
+}
+
+/* Sağ Sütun: Editions, DLC (Yatay Kaydırmalı) & Öne Çıkan Yorum Sekmeleri */
+.gs-editions-dlcs-wrap {
+  display: flex;
+  flex-direction: column;
+  gap: 1.15rem;
+  margin-bottom: 1.35rem;
+  width: 100%;
+}
+
+.gs-addon-group-card {
+  background: var(--gs-surface);
+  border: 1px solid var(--gs-border);
+  border-radius: 16px;
+  padding: 1.15rem 1.25rem;
+  width: 100%;
+}
+
+.gs-addon-slider-wrap {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 0.45rem;
+}
+
+.gs-addon-covers-row {
+  display: flex;
+  flex-wrap: nowrap;
+  gap: 0.75rem;
+  overflow-x: auto;
+  scroll-behavior: smooth;
+  scroll-snap-type: x mandatory;
+  scrollbar-width: thin;
+  scrollbar-color: rgba(var(--gs-accent-rgb), 0.45) rgba(255, 255, 255, 0.04);
+  padding-bottom: 0.35rem;
+  width: 100%;
+}
+
+.gs-addon-covers-row::-webkit-scrollbar {
+  height: 5px;
+}
+
+.gs-addon-covers-row::-webkit-scrollbar-track {
+  background: rgba(255, 255, 255, 0.04);
+  border-radius: 999px;
+}
+
+.gs-addon-covers-row::-webkit-scrollbar-thumb {
+  background: rgba(var(--gs-accent-rgb), 0.48);
+  border-radius: 999px;
+}
+
+.gs-addon-scroll-btn {
+  width: 26px;
+  height: 56px;
+  border-radius: 8px;
+  border: 1px solid var(--gs-border);
+  background: var(--gs-surface-elevated);
+  color: var(--gs-text-muted);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  flex-shrink: 0;
+  font-size: 0.72rem;
+  transition: border-color 0.2s ease, color 0.2s ease, background 0.2s ease;
+}
+
+.gs-addon-scroll-btn:hover {
+  border-color: var(--gs-accent);
+  color: var(--gs-accent);
+  background: rgba(var(--gs-accent-rgb), 0.14);
+}
+
+.gs-addon-cover-card {
+  position: relative;
+  flex: 0 0 112px;
+  width: 112px;
+  aspect-ratio: 3 / 4;
+  border-radius: 12px;
+  overflow: hidden;
+  scroll-snap-align: start;
+  border: 1px solid var(--gs-border);
+  background: var(--gs-surface-elevated);
+  text-decoration: none;
+  display: block;
+  transition: transform 0.22s ease, border-color 0.22s ease, box-shadow 0.22s ease;
+}
+
+.gs-addon-cover-card:hover {
+  transform: translateY(-3px);
+  border-color: var(--gs-accent);
+  box-shadow: 0 10px 22px rgba(0, 0, 0, 0.6), 0 0 15px rgba(var(--gs-accent-rgb), 0.25);
+}
+
+.gs-addon-cover-card img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  transition: transform 0.3s ease, filter 0.25s ease;
+}
+
+.gs-addon-cover-card:hover img {
+  transform: scale(1.06);
+  filter: brightness(0.42);
+}
+
+.gs-addon-hover-label {
+  position: absolute;
+  inset: 0;
+  padding: 0.6rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  background: linear-gradient(180deg, rgba(11, 13, 18, 0.15) 0%, rgba(11, 13, 18, 0.92) 100%);
+  opacity: 0;
+  transition: opacity 0.22s ease;
+}
+
+.gs-addon-cover-card:hover .gs-addon-hover-label {
+  opacity: 1;
+}
+
+/* Sağ Sütun: Öne Çıkan En İyi 2-3 Yorum (Sekmeli) */
+.gs-featured-reviews-pocket {
+  background: linear-gradient(165deg, rgba(var(--gs-accent-rgb), 0.08) 0%, var(--gs-surface) 58%);
+  border: 1px solid rgba(var(--gs-accent-rgb), 0.32);
+  border-radius: 16px;
+  padding: 1.2rem 1.25rem;
+  margin-bottom: 1.35rem;
+  width: 100%;
+  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.35);
+}
+
+.gs-featured-review-tabs {
+  display: flex;
+  gap: 0.4rem;
+  overflow-x: auto;
+  scrollbar-width: none;
+  margin-bottom: 0.85rem;
+  padding-bottom: 0.15rem;
+}
+
+.gs-featured-review-tabs::-webkit-scrollbar {
+  display: none;
+}
+
+.gs-featured-tab-btn {
+  flex: 1 1 0;
+  min-width: 84px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.35rem;
+  padding: 0.42rem 0.55rem;
+  border-radius: 10px;
+  border: 1px solid var(--gs-border);
+  background: var(--gs-surface-elevated);
+  color: var(--gs-text-muted);
+  font-size: 0.74rem;
+  font-weight: 600;
+  cursor: pointer;
+  white-space: nowrap;
+  transition: all 0.2s ease;
+}
+
+.gs-featured-tab-btn:hover {
+  border-color: rgba(var(--gs-accent-rgb), 0.55);
+  color: #fff;
+}
+
+.gs-featured-tab-btn.active {
+  background: rgba(var(--gs-accent-rgb), 0.18);
+  border-color: var(--gs-accent);
+  color: #fff;
+  box-shadow: 0 4px 14px rgba(var(--gs-accent-rgb), 0.22);
+}
+
+.gs-featured-tab-pane {
+  display: none;
+  background: var(--gs-surface-elevated);
+  border: 1px solid rgba(255, 255, 255, 0.07);
+  border-radius: 12px;
+  padding: 0.95rem 1rem;
+  animation: gsFadePane 0.22s ease;
+}
+
+.gs-featured-tab-pane.active {
+  display: block;
+}
+
+@keyframes gsFadePane {
+  from { opacity: 0; transform: translateY(4px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* Steam Tarzı Yatay Vitrin Satırları (Benzer Oyunlar, Oyun Blogları, Daha Fazla İçerik) */
+.gs-showcase-section {
+  background: var(--gs-surface);
+  border: 1px solid var(--gs-border);
+  border-radius: 16px;
+  padding: 1.25rem 1.35rem;
+  margin-top: 1.35rem;
+}
+
+.gs-showcase-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.75rem;
+  margin-bottom: 0.95rem;
+}
+
+.gs-carousel-shell {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 0.65rem;
+}
+
+.gs-carousel-track {
+  display: flex;
+  gap: 0.95rem;
+  overflow-x: auto;
+  scroll-behavior: smooth;
+  scrollbar-width: none;
+  padding: 0.2rem 0.1rem;
+  flex: 1;
+}
+
+.gs-carousel-track::-webkit-scrollbar {
+  display: none;
+}
+
+.gs-carousel-nav-btn {
+  width: 34px;
+  height: 76px;
+  border-radius: 10px;
+  border: 1px solid var(--gs-border);
+  background: var(--gs-surface-elevated);
+  color: var(--gs-text-muted);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  flex-shrink: 0;
+  transition: border-color 0.2s ease, color 0.2s ease, background 0.2s ease;
+}
+
+.gs-carousel-nav-btn:hover {
+  border-color: var(--gs-accent);
+  color: var(--gs-accent);
+  background: rgba(var(--gs-accent-rgb), 0.12);
+}
+
+.gs-showcase-card {
+  flex: 0 0 258px;
+  background: var(--gs-surface-elevated);
+  border: 1px solid var(--gs-border);
+  border-radius: 12px;
+  overflow: hidden;
+  text-decoration: none;
+  color: var(--gs-text);
+  display: flex;
+  flex-direction: column;
+  cursor: pointer;
+  transition: transform 0.22s ease, border-color 0.22s ease, box-shadow 0.22s ease;
+}
+
+.gs-showcase-card:hover {
+  transform: translateY(-3px);
+  border-color: var(--gs-accent);
+  box-shadow: 0 12px 26px rgba(0, 0, 0, 0.55);
+  color: #fff;
+}
+
+.gs-showcase-thumb {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  overflow: hidden;
+  background: #090b10;
+}
+
+.gs-showcase-thumb img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  transition: transform 0.3s ease;
+}
+
+.gs-showcase-card:hover .gs-showcase-thumb img {
+  transform: scale(1.05);
+}
+
+.gs-showcase-pill {
+  position: absolute;
+  top: 0.5rem;
+  left: 0.5rem;
+  padding: 0.16rem 0.52rem;
+  border-radius: 6px;
+  background: rgba(11, 13, 18, 0.82);
+  backdrop-filter: blur(4px);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  font-size: 0.68rem;
+  color: var(--gs-accent);
+  font-weight: 500;
+}
+
+.gs-showcase-footer {
+  padding: 0.72rem 0.82rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  flex: 1;
+  gap: 0.35rem;
+}
+
+/* Sayfa Ortasında Açılan Oyun Günlüğü, Puanlama & İnceleme Overlay Modalı */
+.gs-journal-backdrop {
+  position: fixed;
+  inset: 0;
+  background: rgba(5, 7, 11, 0.78);
+  backdrop-filter: blur(7px);
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.26s ease, visibility 0.26s ease;
+  z-index: 1040;
+}
+
+.gs-journal-backdrop.active {
+  opacity: 1;
+  visibility: visible;
+}
+
+.gs-journal-overlay {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%) scale(0.95);
+  width: min(880px, 94vw);
+  max-height: 86vh;
+  overflow-y: auto;
+  background: var(--gs-surface);
+  border: 1px solid rgba(var(--gs-accent-rgb), 0.48);
+  border-radius: 20px;
+  padding: 1.65rem 1.85rem;
+  box-shadow: 0 28px 80px rgba(0, 0, 0, 0.88), 0 0 42px rgba(var(--gs-accent-rgb), 0.2);
+  opacity: 0;
+  visibility: hidden;
+  z-index: 1045;
+  transition: transform 0.28s cubic-bezier(0.22, 1, 0.36, 1), opacity 0.25s ease, visibility 0.25s ease;
+}
+
+.gs-journal-overlay.active {
+  transform: translate(-50%, -50%) scale(1);
+  opacity: 1;
+  visibility: visible;
+}
+
+.gs-overlay-pane {
+  background: rgba(255, 255, 255, 0.02);
+  border: 1px solid var(--gs-border);
+  border-radius: 14px;
+  padding: 1.15rem;
+  height: 100%;
+}
+
+/* Kartlar ve İçerik Bölümleri (Normal Akış - Parallax Yok) */
+.gs-card {
+  background: var(--gs-surface);
+  border: 1px solid var(--gs-border);
+  border-radius: 16px;
+  padding: 1.4rem;
+  margin-bottom: 1.35rem;
+}
+
+.gs-section-title {
+  font-size: 1.08rem;
+  font-weight: 600;
+  margin-bottom: 0.9rem;
+  display: flex;
+  align-items: center;
+  gap: 0.55rem;
+}
+
+.gs-section-title::before {
+  content: "";
+  width: 4px;
+  height: 17px;
+  border-radius: 4px;
+  background: var(--gs-accent);
+  display: inline-block;
+}
+
+/* Etkileşimli 5 Yıldız Puanlama (Yarım Yıldız Destekli) */
+.gs-star-picker {
+  display: inline-flex;
+  gap: 0.25rem;
+  font-size: 1.55rem;
+  cursor: pointer;
+  user-select: none;
+}
+
+.gs-star-slot {
+  position: relative;
+  color: #2c3446;
+  transition: transform 0.12s ease;
+}
+
+.gs-star-slot:hover {
+  transform: scale(1.12);
+}
+
+.gs-star-slot.full,
+.gs-star-slot.half {
+  color: var(--gs-accent);
+}
+
+/* Form Elemanları */
+.gs-input,
+.gs-select,
+.gs-textarea {
+  background: var(--gs-surface-elevated);
+  border: 1px solid var(--gs-border);
+  color: var(--gs-text);
+  border-radius: 10px;
+  padding: 0.56rem 0.85rem;
+  font-size: 0.88rem;
+  width: 100%;
+}
+
+.gs-input:focus,
+.gs-select:focus,
+.gs-textarea:focus {
+  outline: none;
+  border-color: var(--gs-accent);
+  box-shadow: 0 0 0 3px rgba(var(--gs-accent-rgb), 0.18);
+}
+
+/* Playthrough & Review Listeleri */
+.gs-playthrough-row {
+  background: var(--gs-surface-elevated);
+  border: 1px solid var(--gs-border);
+  border-left: 3px solid var(--gs-accent);
+  border-radius: 10px;
+  padding: 0.65rem 0.9rem;
+}
+
+.gs-review-card {
+  background: var(--gs-surface-elevated);
+  border: 1px solid var(--gs-border);
+  border-radius: 12px;
+  padding: 1.15rem;
+}
+
+/* Kullanıcının Kendi İncelemesi (En Üstte & Belirgin Çizgiyle Ayrılmış) */
+.gs-review-card.is-own-review {
+  border-color: rgba(var(--gs-accent-rgb), 0.5);
+  background: linear-gradient(135deg, rgba(var(--gs-accent-rgb), 0.10) 0%, var(--gs-surface-elevated) 65%);
+  box-shadow: 0 10px 28px rgba(0, 0, 0, 0.35);
+}
+
+.gs-own-reviews-divider {
+  display: flex;
+  align-items: center;
+  gap: 0.85rem;
+  margin: 0.65rem 0 0.85rem;
+  color: var(--gs-text-muted);
+  font-size: 0.76rem;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+}
+
+.gs-own-reviews-divider::before,
+.gs-own-reviews-divider::after {
+  content: "";
+  flex: 1;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(var(--gs-accent-rgb), 0.55), transparent);
+}
+
+/* Hero Alt Satır: Slideshow Noktaları + İşaretlenen Alandaki Çıkış Tarihi */
+.gs-hero-bottom-meta {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.75rem 1.25rem;
+  margin-top: 0.75rem;
+  max-width: 620px;
+}
+
+.gs-hero-release-pill {
+  background: rgba(11, 13, 18, 0.62);
+  backdrop-filter: blur(8px);
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  border-radius: 10px;
+  padding: 0.32rem 0.78rem;
+  font-size: 0.82rem;
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.38);
+}
+
+/* ==========================================================================
+   PROFİL & OYUN RAFI SAYFASI (profile.html)
+   ========================================================================== */
+.gs-profile-hero {
+  position: relative;
+  padding: 2.2rem 0 0;
+  border-bottom: 1px solid var(--gs-border);
+  overflow: hidden;
+}
+
+.gs-profile-hero-backdrop {
+  position: absolute;
+  inset: 0;
+  background-image: url('../assets/images/games/cp2077-hero.jpg');
+  background-size: cover;
+  background-position: center;
+  opacity: 0.14;
+  filter: blur(14px) saturate(1.1);
+  transform: scale(1.06);
+  pointer-events: none;
+}
+
+.gs-profile-hero::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(180deg, rgba(11, 13, 18, 0.45) 0%, var(--gs-bg) 100%);
+  pointer-events: none;
+}
+
+.gs-profile-top-row {
+  position: relative;
+  z-index: 2;
+  padding-bottom: 1.5rem;
+}
+
+.gs-profile-avatar-wrap {
+  position: relative;
+  width: 96px;
+  height: 96px;
+}
+
+.gs-profile-avatar {
+  width: 96px;
+  height: 96px;
+  border-radius: 20px;
+  object-fit: cover;
+  border: 2px solid rgba(var(--gs-accent-rgb), 0.65);
+  box-shadow: 0 10px 26px rgba(0, 0, 0, 0.55);
+}
+
+.gs-profile-online-dot {
+  position: absolute;
+  right: -3px;
+  bottom: -3px;
+  width: 15px;
+  height: 15px;
+  border-radius: 50%;
+  background: #22c55e;
+  border: 3px solid var(--gs-bg);
+}
+
+/* Profil Alt Sekme Navigasyonu (Profil / Oyun Rafı / Günlük / İncelemeler) */
+.gs-profile-subnav {
+  position: relative;
+  z-index: 2;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.35rem;
+  border-top: 1px solid rgba(255, 255, 255, 0.06);
+  padding-top: 0.65rem;
+}
+
+.gs-profile-nav-btn {
+  background: transparent;
+  border: none;
+  border-bottom: 2px solid transparent;
+  color: var(--gs-text-muted);
+  font-size: 0.88rem;
+  font-weight: 500;
+  padding: 0.55rem 0.95rem 0.72rem;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+  transition: color 0.2s ease, border-color 0.2s ease;
+}
+
+.gs-profile-nav-btn:hover {
+  color: #fff;
+}
+
+.gs-profile-nav-btn.active {
+  color: #fff;
+  border-bottom-color: var(--gs-accent);
+  font-weight: 600;
+}
+
+.gs-profile-nav-pill {
+  background: rgba(255, 255, 255, 0.07);
+  color: var(--gs-text-muted);
+  font-size: 0.72rem;
+  padding: 0.1rem 0.48rem;
+  border-radius: 999px;
+}
+
+.gs-profile-nav-btn.active .gs-profile-nav-pill {
+  background: rgba(var(--gs-accent-rgb), 0.22);
+  color: var(--gs-accent);
+}
+
+/* Odak Büyük İstatistik Şeridi (Editorial Metric Band) */
+.gs-profile-metric-band {
+  background: var(--gs-surface);
+  border: 1px solid var(--gs-border);
+  border-radius: 16px;
+  padding: 1.15rem 1rem;
+  margin-bottom: 1.5rem;
+}
+
+.gs-metric-big-num {
+  font-size: clamp(1.75rem, 3vw, 2.35rem);
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  line-height: 1.05;
+  color: #fff;
+  font-variant-numeric: tabular-nums;
+}
+
+.gs-metric-big-label {
+  font-size: 0.76rem;
+  color: var(--gs-text-muted);
+  margin-top: 0.28rem;
+}
+
+/* Favori 5'li Kapak Vitrini */
+.gs-fav-shelf-grid {
+  display: grid;
+  grid-template-columns: repeat(5, minmax(0, 1fr));
+  gap: 0.85rem;
+}
+
+@media (max-width: 767.98px) {
+  .gs-fav-shelf-grid {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+}
+
+.gs-fav-poster-card {
+  position: relative;
+  display: block;
+  aspect-ratio: 3 / 4;
+  border-radius: 12px;
+  overflow: hidden;
+  border: 1px solid var(--gs-border);
+  background: var(--gs-surface-elevated);
+  box-shadow: 0 10px 24px rgba(0, 0, 0, 0.42);
+  transition: transform 0.22s ease, border-color 0.22s ease, box-shadow 0.22s ease;
+}
+
+.gs-fav-poster-card:hover {
+  transform: translateY(-4px);
+  border-color: var(--gs-accent);
+  box-shadow: 0 16px 32px rgba(0, 0, 0, 0.6), 0 0 18px rgba(var(--gs-accent-rgb), 0.24);
+}
+
+.gs-fav-poster-card img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+/* Son Oynananlar Mini Raf Kartı (Kapak + Altında Sade Tarih/Süre & Yıldız) */
+.gs-recent-shelf-grid {
+  display: grid;
+  grid-template-columns: repeat(5, minmax(0, 1fr));
+  gap: 0.85rem;
+}
+
+@media (max-width: 767.98px) {
+  .gs-recent-shelf-grid {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+}
+
+.gs-recent-poster-item {
+  display: block;
+  text-decoration: none;
+}
+
+.gs-recent-poster-frame {
+  aspect-ratio: 3 / 4;
+  border-radius: 11px;
+  overflow: hidden;
+  border: 1px solid var(--gs-border);
+  background: var(--gs-surface-elevated);
+  transition: transform 0.2s ease, border-color 0.2s ease;
+}
+
+.gs-recent-poster-item:hover .gs-recent-poster-frame {
+  transform: translateY(-3px);
+  border-color: var(--gs-accent);
+}
+
+.gs-recent-poster-frame img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.gs-recent-poster-foot {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.25rem;
+  margin-top: 0.35rem;
+  font-size: 0.7rem;
+  color: var(--gs-text-muted);
+}
+
+/* ==========================================================================
+   OYUN RAFI (GAMES SEKMESİ) — SADECE KAPAKLARDAN OLUŞAN SIRALI RAF
+   ========================================================================== */
+.gs-shelf-toolbar {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.75rem;
+  padding-bottom: 0.9rem;
+  margin-bottom: 1.15rem;
+  border-bottom: 1px solid var(--gs-border);
+}
+
+.gs-shelf-tabs {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem;
+}
+
+.gs-shelf-tab {
+  background: rgba(255, 255, 255, 0.035);
+  color: var(--gs-text-muted);
+  border: 1px solid var(--gs-border);
+  border-radius: 999px;
+  padding: 0.3rem 0.78rem;
+  font-size: 0.78rem;
+  font-weight: 500;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.38rem;
+  transition: all 0.2s ease;
+}
+
+.gs-shelf-tab:hover {
+  border-color: rgba(var(--gs-accent-rgb), 0.45);
+  color: #fff;
+}
+
+.gs-shelf-tab.active {
+  background: rgba(var(--gs-accent-rgb), 0.18);
+  border-color: var(--gs-accent);
+  color: var(--gs-accent);
+}
+
+.gs-tab-count {
+  background: rgba(0, 0, 0, 0.35);
+  padding: 0.06rem 0.42rem;
+  border-radius: 999px;
+  font-size: 0.7rem;
+}
+
+.gs-shelf-search-box {
+  position: relative;
+  min-width: 210px;
+}
+
+.gs-shelf-search-box i {
+  position: absolute;
+  left: 0.75rem;
+  top: 50%;
+  transform: translateY(-50%);
+  color: var(--gs-text-muted);
+  font-size: 0.78rem;
+  pointer-events: none;
+}
+
+.gs-shelf-search-box input {
+  padding-left: 2rem;
+  font-size: 0.8rem;
+  height: 34px;
+}
+
+/* Sadece Kapakların Sıralandığı Saf Raf Izgarası */
+.gs-cover-only-shelf {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(134px, 1fr));
+  gap: 0.85rem;
+}
+
+@media (max-width: 575.98px) {
+  .gs-cover-only-shelf {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 0.6rem;
+  }
+}
+
+.gs-shelf-poster-tile {
+  position: relative;
+  aspect-ratio: 3 / 4;
+  border-radius: 11px;
+  overflow: hidden;
+  border: 1px solid var(--gs-border);
+  background: var(--gs-surface-elevated);
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.38);
+  transition: transform 0.2s cubic-bezier(0.22, 1, 0.36, 1), border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.gs-shelf-poster-tile:hover {
+  transform: translateY(-4px) scale(1.015);
+  border-color: var(--gs-accent);
+  box-shadow: 0 14px 28px rgba(0, 0, 0, 0.62), 0 0 16px rgba(var(--gs-accent-rgb), 0.26);
+  z-index: 2;
+}
+
+.gs-shelf-poster-tile a.gs-tile-link {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
+.gs-shelf-poster-tile img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+/* Hover'da beliren minimal hızlı düzenleme butonu (varsayılan halde tamamen gizli, kapak temiz kalır) */
+.gs-tile-quick-btn {
+  position: absolute;
+  top: 7px;
+  right: 7px;
+  width: 28px;
+  height: 28px;
+  border-radius: 8px;
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  background: rgba(11, 13, 18, 0.82);
+  backdrop-filter: blur(6px);
+  color: #f8fafc;
+  font-size: 0.72rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  transform: translateY(-4px);
+  cursor: pointer;
+  transition: opacity 0.18s ease, transform 0.18s ease, background 0.18s ease, border-color 0.18s ease;
+}
+
+.gs-shelf-poster-tile:hover .gs-tile-quick-btn {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.gs-tile-quick-btn:hover {
+  background: var(--gs-accent);
+  border-color: var(--gs-accent);
+  color: var(--gs-accent-contrast);
+}
+
+/* Durum Rozetleri & Boş Raf */
+.gs-status-pill {
+  font-size: 0.72rem;
+  font-weight: 600;
+  padding: 0.2rem 0.62rem;
+  border-radius: 999px;
+  border: 1px solid transparent;
+}
+
+.gs-status-playing {
+  background: rgba(56, 189, 248, 0.14);
+  color: #38bdf8;
+  border-color: rgba(56, 189, 248, 0.35);
+}
+
+.gs-status-completed {
+  background: rgba(52, 211, 153, 0.14);
+  color: #34d399;
+  border-color: rgba(52, 211, 153, 0.35);
+}
+
+.gs-status-backlog {
+  background: rgba(167, 139, 250, 0.14);
+  color: #a78bfa;
+  border-color: rgba(167, 139, 250, 0.35);
+}
+
+.gs-status-dropped {
+  background: rgba(248, 113, 113, 0.14);
+  color: #f87171;
+  border-color: rgba(248, 113, 113, 0.35);
+}
+
+.gs-empty-shelf {
+  background: rgba(255, 255, 255, 0.02);
+  border: 1px dashed var(--gs-border);
+  border-radius: 14px;
+}
+
+/* Kişisel Puan Histogramı (10 Adım: 0.5★ - 5.0★) */
+.gs-personal-rating-bars {
+  display: flex;
+  align-items: flex-end;
+  gap: 4px;
+  height: 54px;
+  padding-top: 8px;
+}
+
+.gs-personal-rating-col {
+  flex: 1;
+  height: 100%;
+  display: flex;
+  align-items: flex-end;
+}
+
+.gs-personal-rating-bar {
+  width: 100%;
+  min-height: 4px;
+  border-radius: 3px 3px 0 0;
+  background: rgba(255, 255, 255, 0.1);
+  transition: height 0.3s ease, background-color 0.2s ease;
+}
+
+.gs-personal-rating-bar.has-val {
+  background: var(--gs-accent);
+}
