@@ -25,31 +25,53 @@
       </button>
       <div class="collapse navbar-collapse" id="gsMainNav">
         <ul class="navbar-nav ms-auto align-items-lg-center gap-lg-1">
-          <li class="nav-item"><a class="nav-link" href="index.html">Ana Sayfa</a></li>
-
+          <!-- Ana Sayfa + Sayfa İçi Sekmeler -->
           <li class="nav-item dropdown">
-            <a class="nav-link dropdown-toggle active" href="#" role="button" data-bs-toggle="dropdown">Keşfet</a>
+            <a class="nav-link dropdown-toggle " href="index.html">Ana Sayfa</a>
             <ul class="dropdown-menu">
-              <li><a class="dropdown-item" href="browse.html">Oyun Kataloğu</a></li>
-              <li><a class="dropdown-item" href="details.html?id=1">Oyun Detay Örneği</a></li>
-              <li><a class="dropdown-item" href="statistics.html">Platform İstatistikleri</a></li>
+              <li class="dropdown-header-label">Ana Sayfa Bölümleri</li>
+              <li><a class="dropdown-item" href="index.html#homeMarqueeShowcase"><i class="fa fa-film"></i> Kayan Oyun Kapakları</a></li>
+              <li><a class="dropdown-item" href="index.html#homeFeaturedGamesGrid"><i class="fa fa-star"></i> Öne Çıkan Yapımlar</a></li>
+              <li><a class="dropdown-item" href="index.html#homeRecentReviewsList"><i class="fa fa-comments"></i> Topluluk İncelemeleri</a></li>
+              <li><a class="dropdown-item" href="index.html#homeNewsGrid"><i class="fa fa-newspaper"></i> Editör Seçkisi &amp; Haberler</a></li>
             </ul>
           </li>
 
+          <!-- Keşfet + Katalog & Detay Sekmeleri -->
           <li class="nav-item dropdown">
-            <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown">Koleksiyonum</a>
+            <a class="nav-link dropdown-toggle active" href="browse.html">Keşfet</a>
             <ul class="dropdown-menu">
-              <li><a class="dropdown-item" href="collection.html">Tüm Koleksiyon & Geçmiş</a></li>
-              <li><a class="dropdown-item" href="profile.html">Profilim & İstatistikler</a></li>
+              <li class="dropdown-header-label">Katalog &amp; Keşif Sekmeleri</li>
+              <li><a class="dropdown-item" href="browse.html"><i class="fa fa-compass"></i> Tüm Oyun Kataloğu</a></li>
+              <li><a class="dropdown-item" href="browse.html?type=base"><i class="fa fa-gamepad"></i> Ana Oyunlar</a></li>
+              <li><a class="dropdown-item" href="browse.html?type=dlc"><i class="fa fa-puzzle-piece"></i> DLC &amp; Genişleme Paketleri</a></li>
+              <li><a class="dropdown-item" href="browse.html?type=edition"><i class="fa fa-box-open"></i> Özel Sürümler</a></li>
+              <li><hr class="dropdown-divider border-secondary border-opacity-25 my-1" /></li>
+              <li><a class="dropdown-item" href="details.html?id=1"><i class="fa fa-info-circle"></i> Oyun Detay Sayfası</a></li>
             </ul>
           </li>
 
+          <!-- Koleksiyonum + Profil & Raf Sekmeleri -->
           <li class="nav-item dropdown">
-            <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown">Kurumsal</a>
+            <a class="nav-link dropdown-toggle " href="profile.html">Koleksiyonum</a>
             <ul class="dropdown-menu">
-              <li><a class="dropdown-item" href="about.html">Hakkımızda</a></li>
-              <li><a class="dropdown-item" href="mission-vision.html">Misyon & Vizyon</a></li>
-              <li><a class="dropdown-item" href="announcements.html">Duyurular</a></li>
+              <li class="dropdown-header-label">Profil &amp; Raf Sekmeleri</li>
+              <li><a class="dropdown-item" href="profile.html?tab=overview"><i class="fa fa-user"></i> Profil Özeti &amp; İstatistikler</a></li>
+              <li><a class="dropdown-item" href="profile.html?tab=games"><i class="fa fa-th"></i> Oyun Rafı (Kapaklar)</a></li>
+              <li><a class="dropdown-item" href="profile.html?tab=journal"><i class="fa fa-history"></i> Günlük Geçmişi</a></li>
+              <li><a class="dropdown-item" href="profile.html?tab=reviews"><i class="fa fa-comment-alt"></i> İncelemelerim</a></li>
+              <li><a class="dropdown-item" href="profile.html?tab=games&amp;filter=favorites"><i class="fa fa-heart text-danger"></i> Favori Oyunlarım</a></li>
+            </ul>
+          </li>
+
+          <!-- Kurumsal -->
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle " href="#" role="button" data-bs-toggle="dropdown">Kurumsal</a>
+            <ul class="dropdown-menu">
+              <li class="dropdown-header-label">Platform Bilgileri</li>
+              <li><a class="dropdown-item" href="about.html"><i class="fa fa-building"></i> Hakkımızda</a></li>
+              <li><a class="dropdown-item" href="mission-vision.html"><i class="fa fa-bullseye"></i> Misyon &amp; Vizyon</a></li>
+              <li><a class="dropdown-item" href="announcements.html"><i class="fa fa-bullhorn"></i> Duyurular</a></li>
             </ul>
           </li>
 
