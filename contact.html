@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="vendor/bootstrap/css/bootstrap.min.css" />
+  <link rel="stylesheet" href="assets/css/fontawesome.css" />
+  <link rel="stylesheet" href="css/gameshelf.css" />
+  <title>İletişim — GameShelf</title>
+</head>
+<body class="gs-body">
+  <!-- Üst Navigasyon -->
+  <nav class="navbar navbar-expand-lg gs-navbar">
+    <div class="container">
+      <a class="navbar-brand d-flex align-items-center gap-2 text-white fw-bold" href="index.html">
+        <img src="assets/images/logo.png" alt="GameShelf" style="height: 32px;" />
+        <span>GameShelf</span>
+      </a>
+      <button class="navbar-toggler border-secondary" type="button" data-bs-toggle="collapse" data-bs-target="#gsMainNav">
+        <i class="fa fa-bars text-white"></i>
+      </button>
+      <div class="collapse navbar-collapse" id="gsMainNav">
+        <ul class="navbar-nav ms-auto align-items-lg-center gap-lg-1">
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle " href="index.html">Ana Sayfa</a>
+            <ul class="dropdown-menu">
+              <li class="dropdown-header-label">Ana Sayfa Bölümleri</li>
+              <li><a class="dropdown-item" href="index.html#lanePopular"><i class="fa fa-fire"></i> En Popüler Oyunlar</a></li>
+              <li><a class="dropdown-item" href="index.html#laneNewReleases"><i class="fa fa-sparkles"></i> Yeni Oyunlar (Ön Plan)</a></li>
+              <li><a class="dropdown-item" href="index.html#laneTopReviews"><i class="fa fa-thumbs-up"></i> En Çok Upvote Alan İncelemeler</a></li>
+              <li><a class="dropdown-item" href="index.html#homeNewsGrid"><i class="fa fa-newspaper"></i> Editör Seçkisi &amp; Haberler</a></li>
+            </ul>
+          </li>
+
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle " href="browse.html">Ürünlerimiz</a>
+            <ul class="dropdown-menu">
+              <li class="dropdown-header-label">Oyun Kataloğu &amp; Sürümler</li>
+              <li><a class="dropdown-item" href="browse.html"><i class="fa fa-compass"></i> Tüm Oyun Kataloğu</a></li>
+              <li><a class="dropdown-item" href="browse.html?type=base"><i class="fa fa-gamepad"></i> Ana Oyunlar</a></li>
+              <li><a class="dropdown-item" href="browse.html?type=dlc"><i class="fa fa-puzzle-piece"></i> DLC &amp; Genişleme Paketleri</a></li>
+              <li><a class="dropdown-item" href="browse.html?type=edition"><i class="fa fa-box-open"></i> Özel Sürümler</a></li>
+              <li><hr class="dropdown-divider border-secondary border-opacity-25 my-1" /></li>
+              <li><a class="dropdown-item" href="details.html?id=1"><i class="fa fa-info-circle"></i> Oyun Detay Sayfası</a></li>
+            </ul>
+          </li>
+
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle " href="profile.html">Birimlerimiz</a>
+            <ul class="dropdown-menu">
+              <li class="dropdown-header-label">Platform &amp; Topluluk Birimleri</li>
+              <li><a class="dropdown-item" href="profile.html?tab=overview"><i class="fa fa-user"></i> Kişisel Günlük &amp; İstatistikler</a></li>
+              <li><a class="dropdown-item" href="profile.html?tab=games"><i class="fa fa-th"></i> Oyun Rafı (Kapaklar)</a></li>
+              <li><a class="dropdown-item" href="streams.html"><i class="fa fa-video"></i> Canlı Yayın &amp; Akış Birimi</a></li>
+              <li><a class="dropdown-item" href="announcements.html"><i class="fa fa-bullhorn"></i> Duyuru &amp; Arşiv Birimi</a></li>
+            </ul>
+          </li>
+
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle " href="about.html">Kurumsal</a>
+            <ul class="dropdown-menu">
+              <li class="dropdown-header-label">Kurumsal Sayfalar</li>
+              <li><a class="dropdown-item" href="about.html"><i class="fa fa-building"></i> Hakkımızda</a></li>
+              <li><a class="dropdown-item" href="mission-vision.html"><i class="fa fa-bullseye"></i> Misyon &amp; Vizyon</a></li>
+              <li><a class="dropdown-item" href="announcements.html"><i class="fa fa-bullhorn"></i> Duyurular</a></li>
+            </ul>
+          </li>
+
+          <li class="nav-item"><a class="nav-link " href="about.html">Hakkımızda</a></li>
+          <li class="nav-item"><a class="nav-link " href="mission-vision.html">Misyon-Vizyon</a></li>
+          <li class="nav-item"><a class="nav-link active" href="contact.html">İletişim</a></li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+
+  <main class="container py-5">
+    <section class="gs-card mb-4">
+      <span class="gs-badge-accent mb-2 d-inline-block">İletişim &amp; Destek</span>
+      <h1 class="h3 fw-bold text-white mb-2">Bizimle İletişime Geçin</h1>
+      <p class="text-secondary mb-0" style="max-width: 780px; line-height: 1.7;">
+        Konumumuzu harita üzerinde inceleyebilir veya şikâyet ve önerilerinizi aşağıdaki form üzerinden müşteri ilişkileri temsilcimize iletebilirsin.
+      </p>
+    </section>
+
+    <div class="row g-4">
+      <div class="col-lg-6">
+        <section class="gs-card h-100 mb-0">
+          <h2 class="h5 fw-bold text-white mb-1">Şikâyet ve Öneri Formu</h2>
+          <p class="small text-secondary mb-3">
+            Form gönderildiğinde mesajınız <strong class="text-light">Müşteri İlişkileri Temsilcisi</strong> (<span class="text-light">musteri.iliskileri@gameshelf.tr</span>) adına iletilmek üzere hazırlanır.
+          </p>
+
+          <form id="complaintSuggestionForm" novalidate>
+            <div class="mb-3">
+              <label for="csSenderName" class="form-label small text-light">Adınız Soyadınız</label>
+              <input type="text" class="form-control gs-input" id="csSenderName" placeholder="Örn. Melih Çetin" required />
+            </div>
+            <div class="mb-3">
+              <label for="csSenderEmail" class="form-label small text-light">E-posta Adresiniz</label>
+              <input type="email" class="form-control gs-input" id="csSenderEmail" placeholder="ornek@eposta.com" required />
+            </div>
+            <div class="mb-3">
+              <label for="csType" class="form-label small text-light">Bildirim Türü</label>
+              <select class="form-select gs-input" id="csType">
+                <option value="Öneri">Öneri</option>
+                <option value="Şikâyet">Şikâyet</option>
+                <option value="Hata Bildirimi">Hata Bildirimi</option>
+                <option value="İş Birliği">İş Birliği</option>
+              </select>
+            </div>
+            <div class="mb-3">
+              <label for="csSubject" class="form-label small text-light">Başlık</label>
+              <input type="text" class="form-control gs-input" id="csSubject" placeholder="Konu başlığını yazınız..." required />
+            </div>
+            <div class="mb-3">
+              <label for="csMessage" class="form-label small text-light">İçerik</label>
+              <textarea class="form-control gs-input" id="csMessage" rows="4" placeholder="Şikâyet veya önerinizi detaylıca yazınız..." required></textarea>
+            </div>
+            <button type="submit" class="btn gs-btn-primary px-4">
+              <i class="fa fa-paper-plane me-1"></i> Müşteri İlişkilerine Gönder
+            </button>
+          </form>
+
+          <div id="csFeedbackBox" class="alert alert-success mt-3 mb-0 d-none small" role="alert"></div>
+        </section>
+      </div>
+
+      <div class="col-lg-6">
+        <section class="gs-card h-100 mb-0 d-flex flex-column">
+          <h2 class="h5 fw-bold text-white mb-1">Konumumuz (Google Haritalar)</h2>
+          <p class="small text-secondary mb-3">
+            Umuttepe Yerleşkesi / İzmit, Kocaeli konumu harita üzerinde işaretlenmiştir.
+          </p>
+
+          <div class="rounded-3 overflow-hidden border border-secondary border-opacity-25 mb-3" style="min-height: 290px;">
+            <iframe
+              title="GameShelf Konum Haritası"
+              src="https://maps.google.com/maps?q=Kocaeli%20Universitesi%20Umuttepe%20Kampusu%20Izmit&t=&z=15&ie=UTF8&iwloc=&output=embed"
+              width="100%"
+              height="290"
+              style="border:0; display:block;"
+              loading="lazy"
+              referrerpolicy="no-referrer-when-downgrade">
+            </iframe>
+          </div>
+
+          <div class="small text-secondary mt-auto">
+            <div class="mb-1"><strong class="text-light">Adres:</strong> Kabaoğlu Mah. Baki Komsuoğlu Cad. No:515, İzmit / Kocaeli</div>
+            <div class="mb-1"><strong class="text-light">Müşteri İlişkileri E-posta:</strong> musteri.iliskileri@gameshelf.tr</div>
+            <div><strong class="text-light">Çalışma Saatleri:</strong> Hafta içi 09:00 – 18:00</div>
+          </div>
+        </section>
+      </div>
+    </div>
+  </main>
+
+  <!-- Tutarlı Kurumsal Alt Bilgi (Footer) -->
+  <footer class="border-top border-secondary border-opacity-15 py-4 mt-5" style="background: rgba(11, 13, 18, 0.72);">
+    <div class="container">
+      <div class="row g-4 small">
+        <div class="col-lg-4">
+          <div class="d-flex align-items-center gap-2 text-white fw-bold mb-2">
+            <img src="assets/images/logo.png" alt="GameShelf" style="height: 26px;" />
+            <span>GameShelf</span>
+          </div>
+          <p class="text-secondary mb-2" style="line-height: 1.6;">
+            Kişisel oyun günlüğü, koleksiyon rafı ve topluluk inceleme platformu. TBL303 Web Tasarımı Dersi kapsamında geliştirilmiştir.
+          </p>
+          <div class="text-secondary">
+            <strong class="text-light">Tasarımcı:</strong> Melih Çetin • Bilişim Sistemleri Mühendisliği (Kocaeli Üniversitesi)
+          </div>
+        </div>
+        <div class="col-lg-4">
+          <div class="fw-semibold text-white mb-2">Adres &amp; İletişim</div>
+          <div class="text-secondary mb-1"><i class="fa fa-map-marker-alt me-2 text-secondary"></i>Kabaoğlu Mah. Baki Komsuoğlu Cad. No:515, Umuttepe / İzmit, Kocaeli</div>
+          <div class="text-secondary mb-1"><i class="fa fa-envelope me-2 text-secondary"></i>iletisim@gameshelf.tr • musteri.iliskileri@gameshelf.tr</div>
+          <div class="text-secondary"><i class="fa fa-globe me-2 text-secondary"></i>https://gameshelf.tr</div>
+        </div>
+        <div class="col-lg-4">
+          <div class="fw-semibold text-white mb-2">Hızlı Bağlantılar &amp; Sosyal</div>
+          <div class="d-flex flex-wrap gap-3 mb-2">
+            <a href="index.html" class="text-secondary text-decoration-none">Ana Sayfa</a>
+            <a href="browse.html" class="text-secondary text-decoration-none">Ürünlerimiz</a>
+            <a href="about.html" class="text-secondary text-decoration-none">Hakkımızda</a>
+            <a href="mission-vision.html" class="text-secondary text-decoration-none">Misyon-Vizyon</a>
+            <a href="contact.html" class="text-secondary text-decoration-none">İletişim</a>
+          </div>
+          <div class="d-flex gap-3 fs-6">
+            <a href="https://store.steampowered.com" target="_blank" rel="noopener" class="text-secondary" title="Steam"><i class="fab fa-steam"></i></a>
+            <a href="https://github.com" target="_blank" rel="noopener" class="text-secondary" title="GitHub"><i class="fab fa-github"></i></a>
+            <a href="https://youtube.com" target="_blank" rel="noopener" class="text-secondary" title="YouTube"><i class="fab fa-youtube"></i></a>
+            <a href="https://x.com" target="_blank" rel="noopener" class="text-secondary" title="X / Twitter"><i class="fab fa-twitter"></i></a>
+          </div>
+        </div>
+      </div>
+      <hr class="border-secondary border-opacity-15 my-3" />
+      <div class="d-flex flex-wrap justify-content-between align-items-center gap-2 small text-secondary">
+        <div>© 2026 <strong class="text-white">GameShelf</strong> — Tüm hakları saklıdır.</div>
+        <div>Kocaeli Üniversitesi • TBL303 Web Tasarımı</div>
+      </div>
+    </div>
+  </footer>
+  <script src="vendor/bootstrap/js/bootstrap.min.js"></script>
+  <script>
+    (function initContactForm() {
+      const form = document.getElementById("complaintSuggestionForm");
+      const box = document.getElementById("csFeedbackBox");
+      if (!form || !box) return;
+
+      form.addEventListener("submit", function (e) {
+        e.preventDefault();
+        const name = document.getElementById("csSenderName").value.trim();
+        const email = document.getElementById("csSenderEmail").value.trim();
+        const type = document.getElementById("csType").value;
+        const subject = document.getElementById("csSubject").value.trim();
+        const message = document.getElementById("csMessage").value.trim();
+
+        if (!name || !email || !subject || !message) {
+          box.className = "alert alert-warning mt-3 mb-0 small";
+          box.textContent = "Lütfen ad soyad, e-posta, başlık ve içerik alanlarını doldurun.";
+          box.classList.remove("d-none");
+          return;
+        }
+
+        const mailSubject = encodeURIComponent("[" + type + "] " + subject);
+        const mailBody = encodeURIComponent(
+          "Gönderen: " + name + " (" + email + ")\nTür: " + type + "\nBaşlık: " + subject + "\n\nİçerik:\n" + message
+        );
+        const mailtoHref = "mailto:musteri.iliskileri@gameshelf.tr?subject=" + mailSubject + "&body=" + mailBody;
+
+        box.className = "alert alert-success mt-3 mb-0 small";
+        box.innerHTML =
+          '<strong>Bildiriminiz hazırlandı!</strong> "' +
+          subject +
+          '" başlıklı <strong>' +
+          type +
+          '</strong> kaydınız <strong>Müşteri İlişkileri Temsilcisi</strong> (<code>musteri.iliskileri@gameshelf.tr</code>) adresine iletilmek üzere oluşturuldu.' +
+          '<div class="mt-2"><a href="' +
+          mailtoHref +
+          '" class="btn btn-sm gs-btn-outline">E-posta İstemcisinde Aç</a></div>';
+        box.classList.remove("d-none");
+        form.reset();
+      });
+    })();
+  </script>
+</body>
+</html>

@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="vendor/bootstrap/css/bootstrap.min.css" />
+  <link rel="stylesheet" href="assets/css/fontawesome.css" />
+  <link rel="stylesheet" href="css/gameshelf.css" />
+  <title>Hakkımızda — GameShelf</title>
+</head>
+<body class="gs-body">
+  <!-- Üst Navigasyon -->
+  <nav class="navbar navbar-expand-lg gs-navbar">
+    <div class="container">
+      <a class="navbar-brand d-flex align-items-center gap-2 text-white fw-bold" href="index.html">
+        <img src="assets/images/logo.png" alt="GameShelf" style="height: 32px;" />
+        <span>GameShelf</span>
+      </a>
+      <button class="navbar-toggler border-secondary" type="button" data-bs-toggle="collapse" data-bs-target="#gsMainNav">
+        <i class="fa fa-bars text-white"></i>
+      </button>
+      <div class="collapse navbar-collapse" id="gsMainNav">
+        <ul class="navbar-nav ms-auto align-items-lg-center gap-lg-1">
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle " href="index.html">Ana Sayfa</a>
+            <ul class="dropdown-menu">
+              <li class="dropdown-header-label">Ana Sayfa Bölümleri</li>
+              <li><a class="dropdown-item" href="index.html#lanePopular"><i class="fa fa-fire"></i> En Popüler Oyunlar</a></li>
+              <li><a class="dropdown-item" href="index.html#laneNewReleases"><i class="fa fa-sparkles"></i> Yeni Oyunlar (Ön Plan)</a></li>
+              <li><a class="dropdown-item" href="index.html#laneTopReviews"><i class="fa fa-thumbs-up"></i> En Çok Upvote Alan İncelemeler</a></li>
+              <li><a class="dropdown-item" href="index.html#homeNewsGrid"><i class="fa fa-newspaper"></i> Editör Seçkisi &amp; Haberler</a></li>
+            </ul>
+          </li>
+
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle " href="browse.html">Ürünlerimiz</a>
+            <ul class="dropdown-menu">
+              <li class="dropdown-header-label">Oyun Kataloğu &amp; Sürümler</li>
+              <li><a class="dropdown-item" href="browse.html"><i class="fa fa-compass"></i> Tüm Oyun Kataloğu</a></li>
+              <li><a class="dropdown-item" href="browse.html?type=base"><i class="fa fa-gamepad"></i> Ana Oyunlar</a></li>
+              <li><a class="dropdown-item" href="browse.html?type=dlc"><i class="fa fa-puzzle-piece"></i> DLC &amp; Genişleme Paketleri</a></li>
+              <li><a class="dropdown-item" href="browse.html?type=edition"><i class="fa fa-box-open"></i> Özel Sürümler</a></li>
+              <li><hr class="dropdown-divider border-secondary border-opacity-25 my-1" /></li>
+              <li><a class="dropdown-item" href="details.html?id=1"><i class="fa fa-info-circle"></i> Oyun Detay Sayfası</a></li>
+            </ul>
+          </li>
+
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle " href="profile.html">Birimlerimiz</a>
+            <ul class="dropdown-menu">
+              <li class="dropdown-header-label">Platform &amp; Topluluk Birimleri</li>
+              <li><a class="dropdown-item" href="profile.html?tab=overview"><i class="fa fa-user"></i> Kişisel Günlük &amp; İstatistikler</a></li>
+              <li><a class="dropdown-item" href="profile.html?tab=games"><i class="fa fa-th"></i> Oyun Rafı (Kapaklar)</a></li>
+              <li><a class="dropdown-item" href="streams.html"><i class="fa fa-video"></i> Canlı Yayın &amp; Akış Birimi</a></li>
+              <li><a class="dropdown-item" href="announcements.html"><i class="fa fa-bullhorn"></i> Duyuru &amp; Arşiv Birimi</a></li>
+            </ul>
+          </li>
+
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle " href="about.html">Kurumsal</a>
+            <ul class="dropdown-menu">
+              <li class="dropdown-header-label">Kurumsal Sayfalar</li>
+              <li><a class="dropdown-item" href="about.html"><i class="fa fa-building"></i> Hakkımızda</a></li>
+              <li><a class="dropdown-item" href="mission-vision.html"><i class="fa fa-bullseye"></i> Misyon &amp; Vizyon</a></li>
+              <li><a class="dropdown-item" href="announcements.html"><i class="fa fa-bullhorn"></i> Duyurular</a></li>
+            </ul>
+          </li>
+
+          <li class="nav-item"><a class="nav-link active" href="about.html">Hakkımızda</a></li>
+          <li class="nav-item"><a class="nav-link " href="mission-vision.html">Misyon-Vizyon</a></li>
+          <li class="nav-item"><a class="nav-link " href="contact.html">İletişim</a></li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+
+  <main class="container py-5">
+    <section class="gs-card mb-4">
+      <span class="gs-badge-accent mb-2 d-inline-block">Kurumsal</span>
+      <h1 class="h3 fw-bold text-white mb-2">GameShelf Hakkında</h1>
+      <p class="text-secondary mb-0" style="max-width: 780px; line-height: 1.7;">
+        GameShelf, oyuncuların oynadıkları oyunları düzenli bir oyun günlüğünde kayıt altına almasını, oynanış sürelerini ve deneyim notlarını arşivlemesini, ayrıca topluluk incelemeleri üzerinden yeni yapımlar keşfetmesini sağlayan modern bir web platformudur.
+      </p>
+    </section>
+
+    <div class="row g-4 mb-4">
+      <div class="col-md-4">
+        <div class="gs-card h-100 mb-0">
+          <div class="gs-badge-accent mb-2 d-inline-block"><i class="fa fa-layer-group me-1"></i> Katalog &amp; Arşiv</div>
+          <h2 class="h6 fw-bold text-white">Ana Oyun, DLC ve Özel Sürümler</h2>
+          <p class="small text-secondary mb-0" style="line-height: 1.65;">
+            Farklı sürümleri ve genişleme paketlerini ana yapımlarla ilişkili şekilde inceleyebilir, oynama durumlarını (Backlog, Playing, Completed, Dropped) kolayca yönetebilirsin.
+          </p>
+        </div>
+      </div>
+      <div class="col-md-4">
+        <div class="gs-card h-100 mb-0">
+          <div class="gs-badge-accent mb-2 d-inline-block"><i class="fa fa-comments me-1"></i> Topluluk İncelemeleri</div>
+          <h2 class="h6 fw-bold text-white">Dengeli Puanlama &amp; Tartışma</h2>
+          <p class="small text-secondary mb-0" style="line-height: 1.65;">
+            Yarım yıldız hassasiyetinde puanlama, puan dağılım grafikleri ve faydalı/yeni sıralamalarıyla gerçek oyuncu deneyimlerine hızlıca ulaşabilirsin.
+          </p>
+        </div>
+      </div>
+      <div class="col-md-4">
+        <div class="gs-card h-100 mb-0">
+          <div class="gs-badge-accent mb-2 d-inline-block"><i class="fa fa-palette me-1"></i> Dinamik Arayüz</div>
+          <h2 class="h6 fw-bold text-white">Kapağa Uyumlu Tema Paleti</h2>
+          <p class="small text-secondary mb-0" style="line-height: 1.65;">
+            Her oyunun kapak görselinden uyumlu vurgu renkleri türeten arayüz sayesinde detay sayfaları her yapıma özgü bir kimlik kazanır.
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <section class="gs-card mb-0">
+      <h2 class="gs-section-title">Proje &amp; Tasarım Künyesi</h2>
+      <dl class="row small mb-0">
+        <dt class="col-sm-4 text-secondary">Platform Adı</dt>
+        <dd class="col-sm-8 text-light">GameShelf — Kişisel Oyun Günlüğü ve Keşif Platformu</dd>
+        <dt class="col-sm-4 text-secondary">Tasarımcı</dt>
+        <dd class="col-sm-8 text-light">Melih Çetin (Kocaeli Üniversitesi — Bilişim Sistemleri Mühendisliği)</dd>
+        <dt class="col-sm-4 text-secondary">Konum</dt>
+        <dd class="col-sm-8 text-light">Umuttepe / İzmit, Kocaeli</dd>
+      </dl>
+    </section>
+  </main>
+
+  <!-- Tutarlı Kurumsal Alt Bilgi (Footer) -->
+  <footer class="border-top border-secondary border-opacity-15 py-4 mt-5" style="background: rgba(11, 13, 18, 0.72);">
+    <div class="container">
+      <div class="row g-4 small">
+        <div class="col-lg-4">
+          <div class="d-flex align-items-center gap-2 text-white fw-bold mb-2">
+            <img src="assets/images/logo.png" alt="GameShelf" style="height: 26px;" />
+            <span>GameShelf</span>
+          </div>
+          <p class="text-secondary mb-2" style="line-height: 1.6;">
+            Kişisel oyun günlüğü, koleksiyon rafı ve topluluk inceleme platformu. TBL303 Web Tasarımı Dersi kapsamında geliştirilmiştir.
+          </p>
+          <div class="text-secondary">
+            <strong class="text-light">Tasarımcı:</strong> Melih Çetin • Bilişim Sistemleri Mühendisliği (Kocaeli Üniversitesi)
+          </div>
+        </div>
+        <div class="col-lg-4">
+          <div class="fw-semibold text-white mb-2">Adres &amp; İletişim</div>
+          <div class="text-secondary mb-1"><i class="fa fa-map-marker-alt me-2 text-secondary"></i>Kabaoğlu Mah. Baki Komsuoğlu Cad. No:515, Umuttepe / İzmit, Kocaeli</div>
+          <div class="text-secondary mb-1"><i class="fa fa-envelope me-2 text-secondary"></i>iletisim@gameshelf.tr • musteri.iliskileri@gameshelf.tr</div>
+          <div class="text-secondary"><i class="fa fa-globe me-2 text-secondary"></i>https://gameshelf.tr</div>
+        </div>
+        <div class="col-lg-4">
+          <div class="fw-semibold text-white mb-2">Hızlı Bağlantılar &amp; Sosyal</div>
+          <div class="d-flex flex-wrap gap-3 mb-2">
+            <a href="index.html" class="text-secondary text-decoration-none">Ana Sayfa</a>
+            <a href="browse.html" class="text-secondary text-decoration-none">Ürünlerimiz</a>
+            <a href="about.html" class="text-secondary text-decoration-none">Hakkımızda</a>
+            <a href="mission-vision.html" class="text-secondary text-decoration-none">Misyon-Vizyon</a>
+            <a href="contact.html" class="text-secondary text-decoration-none">İletişim</a>
+          </div>
+          <div class="d-flex gap-3 fs-6">
+            <a href="https://store.steampowered.com" target="_blank" rel="noopener" class="text-secondary" title="Steam"><i class="fab fa-steam"></i></a>
+            <a href="https://github.com" target="_blank" rel="noopener" class="text-secondary" title="GitHub"><i class="fab fa-github"></i></a>
+            <a href="https://youtube.com" target="_blank" rel="noopener" class="text-secondary" title="YouTube"><i class="fab fa-youtube"></i></a>
+            <a href="https://x.com" target="_blank" rel="noopener" class="text-secondary" title="X / Twitter"><i class="fab fa-twitter"></i></a>
+          </div>
+        </div>
+      </div>
+      <hr class="border-secondary border-opacity-15 my-3" />
+      <div class="d-flex flex-wrap justify-content-between align-items-center gap-2 small text-secondary">
+        <div>© 2026 <strong class="text-white">GameShelf</strong> — Tüm hakları saklıdır.</div>
+        <div>Kocaeli Üniversitesi • TBL303 Web Tasarımı</div>
+      </div>
+    </div>
+  </footer>
+  <script src="vendor/bootstrap/js/bootstrap.min.js"></script>
+</body>
+</html>
