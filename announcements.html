@@ -1,0 +1,294 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="vendor/bootstrap/css/bootstrap.min.css" />
+  <link rel="stylesheet" href="assets/css/fontawesome.css" />
+  <link rel="stylesheet" href="css/gameshelf.css" />
+  <title>Tüm Duyurular — GameShelf</title>
+</head>
+<body class="gs-body">
+  <!-- Üst Navigasyon -->
+  <nav class="navbar navbar-expand-lg gs-navbar">
+    <div class="container">
+      <a class="navbar-brand d-flex align-items-center gap-2 text-white fw-bold" href="index.html">
+        <img src="assets/images/logo.png" alt="GameShelf" style="height: 32px;" />
+        <span>GameShelf</span>
+      </a>
+      <button class="navbar-toggler border-secondary" type="button" data-bs-toggle="collapse" data-bs-target="#gsMainNav">
+        <i class="fa fa-bars text-white"></i>
+      </button>
+      <div class="collapse navbar-collapse" id="gsMainNav">
+        <ul class="navbar-nav ms-auto align-items-lg-center gap-lg-1">
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle " href="index.html">Ana Sayfa</a>
+            <ul class="dropdown-menu">
+              <li class="dropdown-header-label">Ana Sayfa Bölümleri</li>
+              <li><a class="dropdown-item" href="index.html#lanePopular"><i class="fa fa-fire"></i> En Popüler Oyunlar</a></li>
+              <li><a class="dropdown-item" href="index.html#laneNewReleases"><i class="fa fa-sparkles"></i> Yeni Oyunlar (Ön Plan)</a></li>
+              <li><a class="dropdown-item" href="index.html#laneTopReviews"><i class="fa fa-thumbs-up"></i> En Çok Upvote Alan İncelemeler</a></li>
+              <li><a class="dropdown-item" href="index.html#homeNewsGrid"><i class="fa fa-newspaper"></i> Duyurular &amp; Haberler</a></li>
+            </ul>
+          </li>
+
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle " href="browse.html">Ürünlerimiz</a>
+            <ul class="dropdown-menu">
+              <li class="dropdown-header-label">Oyun Kataloğu &amp; Sürümler</li>
+              <li><a class="dropdown-item" href="browse.html"><i class="fa fa-compass"></i> Tüm Oyun Kataloğu</a></li>
+              <li><a class="dropdown-item" href="browse.html?type=base"><i class="fa fa-gamepad"></i> Ana Oyunlar</a></li>
+              <li><a class="dropdown-item" href="browse.html?type=dlc"><i class="fa fa-puzzle-piece"></i> DLC &amp; Genişleme Paketleri</a></li>
+              <li><a class="dropdown-item" href="browse.html?type=edition"><i class="fa fa-box-open"></i> Özel Sürümler</a></li>
+              <li><hr class="dropdown-divider border-secondary border-opacity-25 my-1" /></li>
+              <li><a class="dropdown-item" href="details.html?id=1"><i class="fa fa-info-circle"></i> Oyun Detay Sayfası</a></li>
+            </ul>
+          </li>
+
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle " href="profile.html">Birimlerimiz</a>
+            <ul class="dropdown-menu">
+              <li class="dropdown-header-label">Platform &amp; Topluluk Birimleri</li>
+              <li><a class="dropdown-item" href="profile.html?tab=overview"><i class="fa fa-user"></i> Kişisel Günlük &amp; İstatistikler</a></li>
+              <li><a class="dropdown-item" href="profile.html?tab=games"><i class="fa fa-th"></i> Oyun Rafı (Kapaklar)</a></li>
+              <li><a class="dropdown-item" href="streams.html"><i class="fa fa-video"></i> Canlı Yayın &amp; Akış Birimi</a></li>
+              <li><a class="dropdown-item" href="announcements.html"><i class="fa fa-bullhorn"></i> Duyuru &amp; Arşiv Birimi</a></li>
+            </ul>
+          </li>
+
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle active" href="about.html">Kurumsal</a>
+            <ul class="dropdown-menu">
+              <li class="dropdown-header-label">Kurumsal Sayfalar</li>
+              <li><a class="dropdown-item" href="about.html"><i class="fa fa-building"></i> Hakkımızda</a></li>
+              <li><a class="dropdown-item" href="mission-vision.html"><i class="fa fa-bullseye"></i> Misyon &amp; Vizyon</a></li>
+              <li><a class="dropdown-item" href="announcements.html"><i class="fa fa-bullhorn"></i> Tüm Duyurular</a></li>
+            </ul>
+          </li>
+
+          <li class="nav-item"><a class="nav-link " href="about.html">Hakkımızda</a></li>
+          <li class="nav-item"><a class="nav-link " href="mission-vision.html">Misyon-Vizyon</a></li>
+          <li class="nav-item"><a class="nav-link " href="contact.html">İletişim</a></li>
+          <li class="nav-item ms-lg-2">
+            <a class="btn btn-sm gs-btn-outline " href="admin.html"><i class="fa fa-sliders me-1"></i> Admin Paneli</a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+
+  <main class="container py-5">
+    <section class="gs-card mb-4">
+      <div class="d-flex flex-wrap justify-content-between align-items-center gap-3">
+        <div>
+          <span class="gs-badge-accent mb-2 d-inline-block">Duyuru &amp; Kampanya Arşivi</span>
+          <h1 class="h3 fw-bold text-white mb-1">Tüm Duyurular (En Yeniden En Eskiye)</h1>
+          <p class="small text-secondary mb-0">
+            Platform güncellemeleri, sezonluk etkinlikler ve ekli dokümanlar kronolojik olarak en yeniden en eskiye listelenir.
+          </p>
+        </div>
+        <a href="admin.html#adminAnnouncementForm" class="btn btn-sm gs-btn-primary">
+          <i class="fa fa-plus me-1"></i> Admin Panelinden Duyuru Ekle
+        </a>
+      </div>
+
+      <div class="row g-2 mt-3">
+        <div class="col-md-8">
+          <input type="search" id="annSearchInput" class="form-control gs-input" placeholder="Duyuru başlığı veya içeriğinde ara..." />
+        </div>
+        <div class="col-md-4">
+          <select id="annCategoryFilter" class="form-select gs-input">
+            <option value="all">Tüm Kategoriler</option>
+            <option value="Duyuru">Duyuru</option>
+            <option value="Güncel Haber">Güncel Haber</option>
+            <option value="Dosya Konusu">Dosya Konusu</option>
+            <option value="Kampanya">Kampanya</option>
+            <option value="Sistem Güncellemesi">Sistem Güncellemesi</option>
+          </select>
+        </div>
+      </div>
+    </section>
+
+    <div id="allAnnouncementsList" class="row g-4"></div>
+  </main>
+
+  <!-- Duyuru Ayrıntı Modalı -->
+  <div class="gs-journal-backdrop" id="annBackdrop"></div>
+  <section class="gs-journal-overlay" id="annOverlay" aria-hidden="true" style="max-width: 680px;">
+    <div class="d-flex justify-content-between align-items-start gap-3 mb-3 pb-2 border-bottom border-secondary border-opacity-25">
+      <div>
+        <span class="gs-badge-accent mb-2 d-inline-block" id="annModalTag">Duyuru</span>
+        <h2 class="h5 fw-bold text-white mb-1" id="annModalTitle">Başlık</h2>
+        <div class="small text-secondary" id="annModalMeta"></div>
+      </div>
+      <button type="button" class="btn btn-sm gs-btn-outline" id="closeAnnModalBtn">
+        <i class="fa fa-times"></i>
+      </button>
+    </div>
+    <img id="annModalImg" src="" alt="" class="w-100 rounded-3 mb-3" style="max-height: 240px; object-fit: cover;" />
+    <p class="text-light small mb-3" style="line-height: 1.75;" id="annModalBody"></p>
+    <div id="annModalAttachments" class="border-top border-secondary border-opacity-25 pt-3 d-none"></div>
+  </section>
+
+  <!-- Tutarlı Kurumsal Alt Bilgi (Footer) -->
+  <footer class="border-top border-secondary border-opacity-15 py-4 mt-5" style="background: rgba(11, 13, 18, 0.72);">
+    <div class="container">
+      <div class="row g-4 small">
+        <div class="col-lg-4">
+          <div class="d-flex align-items-center gap-2 text-white fw-bold mb-2">
+            <img src="assets/images/logo.png" alt="GameShelf" style="height: 26px;" />
+            <span>GameShelf</span>
+          </div>
+          <p class="text-secondary mb-2" style="line-height: 1.6;">
+            Kişisel oyun günlüğü, koleksiyon rafı ve topluluk inceleme platformu. TBL303 Web Tasarımı Dersi kapsamında geliştirilmiştir.
+          </p>
+          <div class="text-secondary">
+            <strong class="text-light">Tasarımcı:</strong> Melih Çetin • Bilişim Sistemleri Mühendisliği (Kocaeli Üniversitesi)
+          </div>
+        </div>
+        <div class="col-lg-4">
+          <div class="fw-semibold text-white mb-2">Adres &amp; İletişim</div>
+          <div class="text-secondary mb-1"><i class="fa fa-map-marker-alt me-2 text-secondary"></i>Kabaoğlu Mah. Baki Komsuoğlu Cad. No:515, Umuttepe / İzmit, Kocaeli</div>
+          <div class="text-secondary mb-1"><i class="fa fa-envelope me-2 text-secondary"></i>iletisim@gameshelf.tr • musteri.iliskileri@gameshelf.tr</div>
+          <div class="text-secondary"><i class="fa fa-globe me-2 text-secondary"></i>https://gameshelf.tr</div>
+        </div>
+        <div class="col-lg-4">
+          <div class="fw-semibold text-white mb-2">Hızlı Bağlantılar &amp; Sosyal</div>
+          <div class="d-flex flex-wrap gap-3 mb-2">
+            <a href="index.html" class="text-secondary text-decoration-none">Ana Sayfa</a>
+            <a href="browse.html" class="text-secondary text-decoration-none">Ürünlerimiz</a>
+            <a href="announcements.html" class="text-secondary text-decoration-none">Duyurular</a>
+            <a href="about.html" class="text-secondary text-decoration-none">Hakkımızda</a>
+            <a href="contact.html" class="text-secondary text-decoration-none">İletişim</a>
+            <a href="admin.html" class="text-secondary text-decoration-none">Admin Paneli</a>
+          </div>
+          <div class="d-flex gap-3 fs-6">
+            <a href="https://store.steampowered.com" target="_blank" rel="noopener" class="text-secondary" title="Steam"><i class="fab fa-steam"></i></a>
+            <a href="https://github.com" target="_blank" rel="noopener" class="text-secondary" title="GitHub"><i class="fab fa-github"></i></a>
+            <a href="https://youtube.com" target="_blank" rel="noopener" class="text-secondary" title="YouTube"><i class="fab fa-youtube"></i></a>
+            <a href="https://x.com" target="_blank" rel="noopener" class="text-secondary" title="X / Twitter"><i class="fab fa-twitter"></i></a>
+          </div>
+        </div>
+      </div>
+      <hr class="border-secondary border-opacity-15 my-3" />
+      <div class="d-flex flex-wrap justify-content-between align-items-center gap-2 small text-secondary">
+        <div>© 2026 <strong class="text-white">GameShelf</strong> — Tüm hakları saklıdır.</div>
+        <div>Kocaeli Üniversitesi • TBL303 Web Tasarımı</div>
+      </div>
+    </div>
+  </footer>
+  <script src="vendor/bootstrap/js/bootstrap.min.js"></script>
+  <script src="js/services/gameShelfService.js"></script>
+  <script>
+    (async function initAnnouncementsPage() {
+      let allItems = [];
+
+      function esc(str) {
+        return String(str || "")
+          .replace(/&/g, "&amp;")
+          .replace(/</g, "&lt;")
+          .replace(/>/g, "&gt;")
+          .replace(/"/g, "&quot;");
+      }
+
+      function iconForType(t) {
+        if (t === "pdf") return "fa-file-pdf text-danger";
+        if (t === "docx" || t === "word") return "fa-file-word text-info";
+        return "fa-file-image text-warning";
+      }
+
+      function renderList() {
+        const q = document.getElementById("annSearchInput").value.trim().toLowerCase();
+        const cat = document.getElementById("annCategoryFilter").value;
+
+        const filtered = allItems
+          .filter((item) => {
+            if (cat !== "all" && item.category !== cat) return false;
+            if (q && !(`${item.title} ${item.excerpt} ${item.content}`.toLowerCase().includes(q))) return false;
+            return true;
+          })
+          .sort((a, b) => String(b.publishedAt || "").localeCompare(String(a.publishedAt || "")));
+
+        const container = document.getElementById("allAnnouncementsList");
+        if (filtered.length === 0) {
+          container.innerHTML = '<div class="col-12"><div class="gs-card text-center text-secondary py-4">Eşleşen duyuru bulunamadı.</div></div>';
+          return;
+        }
+
+        container.innerHTML = filtered.map((item) => {
+          const atts = Array.isArray(item.attachments) ? item.attachments : [];
+          return `
+            <div class="col-md-6 col-lg-4">
+              <article class="gs-news-card h-100" style="cursor:pointer;" data-ann-id="${esc(item.id)}">
+                <img src="${esc(item.image)}" onerror="this.src='assets/images/games/cp2077-hero.jpg'" alt="${esc(item.title)}" />
+                <div class="p-3 d-flex flex-column flex-grow-1">
+                  <div class="d-flex justify-content-between align-items-center gap-2 mb-2">
+                    <span class="gs-badge-accent" style="font-size:0.68rem;">${esc(item.category)}</span>
+                    <span class="small text-secondary"><i class="far fa-calendar me-1"></i>${esc(item.date || item.publishedAt)}</span>
+                  </div>
+                  <h2 class="h6 fw-bold text-white mb-2" style="line-height:1.4;">${esc(item.title)}</h2>
+                  <p class="small text-secondary mb-3 flex-grow-1" style="line-height:1.55;">${esc(item.excerpt || "")}</p>
+                  <div class="d-flex justify-content-between align-items-center pt-2 border-top border-secondary border-opacity-15 mt-auto">
+                    <span class="small text-secondary">${atts.length} ek dosya</span>
+                    <button type="button" class="btn btn-sm gs-btn-outline" data-ann-id="${esc(item.id)}">Detayları Gör</button>
+                  </div>
+                </div>
+              </article>
+            </div>
+          `;
+        }).join("");
+      }
+
+      const backdrop = document.getElementById("annBackdrop");
+      const overlay = document.getElementById("annOverlay");
+
+      function closeModal() {
+        backdrop.classList.remove("active");
+        overlay.classList.remove("active");
+        overlay.setAttribute("aria-hidden", "true");
+      }
+
+      document.getElementById("closeAnnModalBtn").addEventListener("click", closeModal);
+      backdrop.addEventListener("click", closeModal);
+
+      document.getElementById("allAnnouncementsList").addEventListener("click", (e) => {
+        const card = e.target.closest("[data-ann-id]");
+        if (!card) return;
+        const item = allItems.find((x) => String(x.id) === String(card.dataset.annId));
+        if (!item) return;
+
+        document.getElementById("annModalTag").textContent = item.category;
+        document.getElementById("annModalTitle").textContent = item.title;
+        document.getElementById("annModalMeta").textContent = `${item.source || "GameShelf"} • ${item.date || item.publishedAt} (${item.publishedAt || ""})`;
+        document.getElementById("annModalImg").src = item.image || "assets/images/games/cp2077-hero.jpg";
+        document.getElementById("annModalBody").textContent = item.content || item.excerpt || "";
+
+        const attBox = document.getElementById("annModalAttachments");
+        const atts = Array.isArray(item.attachments) ? item.attachments : [];
+        if (atts.length > 0) {
+          attBox.innerHTML = '<div class="small fw-semibold text-white mb-2">Duyuruya Eklenen Belgeler &amp; Görseller</div><div class="d-flex flex-wrap gap-2">' +
+            atts.map((a) => `<span class="badge bg-dark border border-secondary border-opacity-25 text-light fw-normal px-2 py-1"><i class="fa ${iconForType(a.type)} me-1"></i>${esc(a.name)} <span class="text-secondary">(${esc(a.size || "Ek")})</span></span>`).join("") +
+            '</div>';
+          attBox.classList.remove("d-none");
+        } else {
+          attBox.classList.add("d-none");
+        }
+
+        backdrop.classList.add("active");
+        overlay.classList.add("active");
+        overlay.setAttribute("aria-hidden", "false");
+      });
+
+      document.getElementById("annSearchInput").addEventListener("input", renderList);
+      document.getElementById("annCategoryFilter").addEventListener("change", renderList);
+
+      const data = await GameShelfService.getCatalogData({ skipLiveFetch: true });
+      allItems = data.news || [];
+      renderList();
+    })();
+  </script>
+</body>
+</html>

@@ -1970,7 +1970,21 @@
       "readTime": "4 dk okuma",
       "image": "https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/1245620/library_hero.jpg",
       "excerpt": "Topluluk verilerine göre 2026 sonbahar döneminde en çok koleksiyona eklenen ve tamamlanan açık dünya RPG oyunları belli oldu.",
-      "fallbackImage": "assets/images/games/eldenring-hero.jpg"
+      "fallbackImage": "assets/images/games/eldenring-hero.jpg",
+      "publishedAt": "2026-11-20",
+      "attachments": [
+        {
+          "type": "pdf",
+          "name": "Sonbahar_RPG_Raporu_2026.pdf",
+          "size": "1.4 MB"
+        },
+        {
+          "type": "image",
+          "name": "rpg-grafik-ozeti.jpg",
+          "size": "420 KB"
+        }
+      ],
+      "content": "Topluluk verilerine göre 2026 sonbahar döneminde en çok koleksiyona eklenen ve tamamlanan açık dünya RPG oyunları belli oldu. Bu duyuru GameShelf içerik yönetim paneli üzerinden yayımlanmış olup ilgili doküman ve görsel ekleri incelemeye açıktır."
     },
     {
       "id": "news-2",
@@ -1981,7 +1995,16 @@
       "readTime": "7 dk okuma",
       "image": "https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/2138330/library_hero.jpg",
       "excerpt": "Phantom Liberty ve Shadow of the Erdtree gibi tek başına bir oyun ölçeğindeki genişleme paketlerinin sektör standartlarını nasıl yükselttiğini inceliyoruz.",
-      "fallbackImage": "assets/images/games/cp2077-pl-hero.jpg"
+      "fallbackImage": "assets/images/games/cp2077-pl-hero.jpg",
+      "publishedAt": "2026-11-17",
+      "attachments": [
+        {
+          "type": "docx",
+          "name": "Expansion_Analiz_Notlari.docx",
+          "size": "680 KB"
+        }
+      ],
+      "content": "Phantom Liberty ve Shadow of the Erdtree gibi tek başına bir oyun ölçeğindeki genişleme paketlerinin sektör standartlarını nasıl yükselttiğini inceliyoruz. Bu duyuru GameShelf içerik yönetim paneli üzerinden yayımlanmış olup ilgili doküman ve görsel ekleri incelemeye açıktır."
     },
     {
       "id": "news-3",
@@ -1992,7 +2015,21 @@
       "readTime": "5 dk okuma",
       "image": "https://cdn2.unrealengine.com/egs-alanwake2-remedyentertainment-g1a-01-1920x1080-2322a8668992.jpg",
       "excerpt": "Atmosferik anlatımı ve yenilikçi mekanikleriyle dikkat çeken bağımsız yapımları tek listede bir araya getirdik.",
-      "fallbackImage": "assets/images/games/alanwake2-hero.jpg"
+      "fallbackImage": "assets/images/games/alanwake2-hero.jpg",
+      "publishedAt": "2026-11-12",
+      "attachments": [
+        {
+          "type": "pdf",
+          "name": "GameShelf_v2_Surum_Notlari.pdf",
+          "size": "950 KB"
+        },
+        {
+          "type": "docx",
+          "name": "Yeni_Ozellikler_Kilavuzu.docx",
+          "size": "510 KB"
+        }
+      ],
+      "content": "Atmosferik anlatımı ve yenilikçi mekanikleriyle dikkat çeken bağımsız yapımları tek listede bir araya getirdik. Bu duyuru GameShelf içerik yönetim paneli üzerinden yayımlanmış olup ilgili doküman ve görsel ekleri incelemeye açıktır."
     },
     {
       "id": "news-4",
@@ -2003,7 +2040,16 @@
       "readTime": "5 dk okuma",
       "image": "https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/814380/library_hero.jpg",
       "excerpt": "Oynayış sürelerini ve hedeflerini kaydeden oyuncuların yarım bıraktıkları oyunlara dönme oranının %42 daha yüksek olduğu görüldü.",
-      "fallbackImage": "assets/images/games/sekiro-hero.jpg"
+      "fallbackImage": "assets/images/games/sekiro-hero.jpg",
+      "publishedAt": "2026-11-05",
+      "attachments": [
+        {
+          "type": "image",
+          "name": "katalog-ekran-goruntusu.jpg",
+          "size": "540 KB"
+        }
+      ],
+      "content": "Oynayış sürelerini ve hedeflerini kaydeden oyuncuların yarım bıraktıkları oyunlara dönme oranının %42 daha yüksek olduğu görüldü. Bu duyuru GameShelf içerik yönetim paneli üzerinden yayımlanmış olup ilgili doküman ve görsel ekleri incelemeye açıktır."
     },
     {
       "id": "news-5",
@@ -2014,7 +2060,16 @@
       "readTime": "6 dk okuma",
       "image": "https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/1091500/library_hero.jpg",
       "excerpt": "Gerçek zamanlı ışın izleme ve mekansal ses motorlarının gerilim ve keşif hissini nasıl dönüştürdüğüne göz atıyoruz.",
-      "fallbackImage": "assets/images/games/cp2077-hero.jpg"
+      "fallbackImage": "assets/images/games/cp2077-hero.jpg",
+      "publishedAt": "2026-10-28",
+      "attachments": [
+        {
+          "type": "pdf",
+          "name": "Topluluk_Inceleme_Kurallari.pdf",
+          "size": "790 KB"
+        }
+      ],
+      "content": "Gerçek zamanlı ışın izleme ve mekansal ses motorlarının gerilim ve keşif hissini nasıl dönüştürdüğüne göz atıyoruz. Bu duyuru GameShelf içerik yönetim paneli üzerinden yayımlanmış olup ilgili doküman ve görsel ekleri incelemeye açıktır."
     }
   ]
 }

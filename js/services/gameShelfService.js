@@ -15,7 +15,8 @@ const GameShelfService = (() => {
     VOTES: "gs_v1_review_votes",
     LIVE_GAMES_CACHE: "gs_v25_live_games_cache",
     LIVE_FEED_META: "gs_v25_live_feed_meta",
-    RAWG_API_KEY: "gs_v2_rawg_api_key"
+    RAWG_API_KEY: "gs_v2_rawg_api_key",
+    ANNOUNCEMENTS: "gs_v29_announcements"
   };
 
   const STEAM_CDN = "https://shared.fastly.steamstatic.com/store_item_assets/steam/apps";
@@ -824,7 +825,7 @@ const GameShelfService = (() => {
       editions,
       similarGames,
       gameBlogs: game.gameBlogs || [],
-      latestNewsBlogs: seed.latestNewsBlogs || [],
+      latestNewsBlogs: getMergedNewsList(seed),
       companies,
       credits,
       currentUser: seed.currentUser
@@ -1130,9 +1131,63 @@ const GameShelfService = (() => {
     writeStore(STORAGE_KEYS.REVIEWS, reviews);
   }
 
-  async function getCatalogData({ forceRefresh = false } = {}) {
+
+  function getMergedNewsList(seed) {
+    const custom = readStore(STORAGE_KEYS.ANNOUNCEMENTS, []);
+    const base = (seed.latestNewsBlogs || []).map((item, i) => ({
+      ...item,
+      publishedAt: item.publishedAt || `2026-11-${String(Math.max(1, 20 - i * 3)).padStart(2, "0")}`,
+      attachments: Array.isArray(item.attachments) ? item.attachments : []
+    }));
+    const customIds = new Set(custom.map((c) => String(c.id)));
+    const combined = [
+      ...custom.map((c) => ({
+        ...c,
+        isCustom: true,
+        attachments: Array.isArray(c.attachments) ? c.attachments : []
+      })),
+      ...base.filter((b) => !customIds.has(String(b.id)))
+    ];
+    return combined.sort((a, b) => String(b.publishedAt || "").localeCompare(String(a.publishedAt || "")));
+  }
+
+  function createAnnouncement(payload) {
+    const list = readStore(STORAGE_KEYS.ANNOUNCEMENTS, []);
+    const nowIso = new Date().toISOString().slice(0, 10);
+    const monthsTr = ["Ocak", "Şubat", "Mart", "Nisan", "Mayıs", "Haziran", "Temmuz", "Ağustos", "Eylül", "Ekim", "Kasım", "Aralık"];
+    const dObj = new Date(payload.publishedAt || nowIso);
+    const formattedDate = isNaN(dObj.getTime())
+      ? nowIso
+      : `${dObj.getDate()} ${monthsTr[dObj.getMonth()]} ${dObj.getFullYear()}`;
+
+    const entry = {
+      id: "ann-" + Date.now(),
+      title: String(payload.title || "").trim(),
+      category: String(payload.category || "Duyuru").trim(),
+      source: String(payload.source || "GameShelf Yönetici").trim(),
+      publishedAt: payload.publishedAt || nowIso,
+      date: formattedDate,
+      readTime: payload.readTime || "3 dk okuma",
+      image: payload.image || "assets/images/games/cp2077-hero.jpg",
+      fallbackImage: "assets/images/games/cp2077-hero.jpg",
+      excerpt: String(payload.excerpt || payload.content || "").slice(0, 160),
+      content: String(payload.content || "").trim(),
+      attachments: Array.isArray(payload.attachments) ? payload.attachments : []
+    };
+    list.unshift(entry);
+    writeStore(STORAGE_KEYS.ANNOUNCEMENTS, list);
+    return entry;
+  }
+
+  function deleteAnnouncement(id) {
+    const list = readStore(STORAGE_KEYS.ANNOUNCEMENTS, []);
+    const next = list.filter((item) => String(item.id) !== String(id));
+    writeStore(STORAGE_KEYS.ANNOUNCEMENTS, next);
+  }
+
+  async function getCatalogData({ forceRefresh = false, skipLiveFetch = false } = {}) {
     const seed = await loadSeed();
-    const hasNewData = await fetchLiveFeedsIfNeeded(forceRefresh);
+    const hasNewData = skipLiveFetch ? false : await fetchLiveFeedsIfNeeded(forceRefresh);
 
     const mergedGames = getMergedGamesList(seed);
     const userRatings = readStore(STORAGE_KEYS.RATINGS, []);
@@ -1205,7 +1260,7 @@ const GameShelfService = (() => {
     return {
       games,
       reviews: allReviews,
-      news: seed.latestNewsBlogs || [],
+      news: getMergedNewsList(seed),
       currentUser: seed.currentUser,
       apiInfo: getApiProviderInfo(),
       hasNewData: Boolean(hasNewData)
@@ -1228,6 +1283,8 @@ const GameShelfService = (() => {
     getUserProfileData,
     deleteUserReview,
     getCatalogData,
+    createAnnouncement,
+    deleteAnnouncement,
     searchLiveGames,
     getRawgApiKey,
     setRawgApiKey,

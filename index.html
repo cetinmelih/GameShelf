@@ -32,7 +32,7 @@
               <li><a class="dropdown-item" href="index.html#lanePopular"><i class="fa fa-fire"></i> En Popüler Oyunlar</a></li>
               <li><a class="dropdown-item" href="index.html#laneNewReleases"><i class="fa fa-sparkles"></i> Yeni Oyunlar (Ön Plan)</a></li>
               <li><a class="dropdown-item" href="index.html#laneTopReviews"><i class="fa fa-thumbs-up"></i> En Çok Upvote Alan İncelemeler</a></li>
-              <li><a class="dropdown-item" href="index.html#homeNewsGrid"><i class="fa fa-newspaper"></i> Editör Seçkisi &amp; Haberler</a></li>
+              <li><a class="dropdown-item" href="index.html#homeNewsGrid"><i class="fa fa-newspaper"></i> Duyurular &amp; Haberler</a></li>
             </ul>
           </li>
 
@@ -66,13 +66,16 @@
               <li class="dropdown-header-label">Kurumsal Sayfalar</li>
               <li><a class="dropdown-item" href="about.html"><i class="fa fa-building"></i> Hakkımızda</a></li>
               <li><a class="dropdown-item" href="mission-vision.html"><i class="fa fa-bullseye"></i> Misyon &amp; Vizyon</a></li>
-              <li><a class="dropdown-item" href="announcements.html"><i class="fa fa-bullhorn"></i> Duyurular</a></li>
+              <li><a class="dropdown-item" href="announcements.html"><i class="fa fa-bullhorn"></i> Tüm Duyurular</a></li>
             </ul>
           </li>
 
           <li class="nav-item"><a class="nav-link " href="about.html">Hakkımızda</a></li>
           <li class="nav-item"><a class="nav-link " href="mission-vision.html">Misyon-Vizyon</a></li>
           <li class="nav-item"><a class="nav-link " href="contact.html">İletişim</a></li>
+          <li class="nav-item ms-lg-2">
+            <a class="btn btn-sm gs-btn-outline " href="admin.html"><i class="fa fa-sliders me-1"></i> Admin Paneli</a>
+          </li>
         </ul>
       </div>
     </div>
@@ -143,12 +146,15 @@
   <!-- SADE EDİTÖR SEÇKİSİ & HABERLER BÖLÜMÜ -->
   <main class="container py-4">
     <section class="gs-card mb-0">
-      <div class="d-flex justify-content-between align-items-center mb-3">
+      <div class="d-flex flex-wrap justify-content-between align-items-center gap-2 mb-3">
         <div>
-          <h2 class="gs-section-title mb-0">Editör Seçkisi &amp; Haberler</h2>
-          <div class="small text-secondary mt-1">Oyun dünyasından öne çıkan dosya konuları ve güncellemeler</div>
+          <h2 class="gs-section-title mb-0">Duyurular, Fırsatlar &amp; Editör Seçkisi</h2>
+          <div class="small text-secondary mt-1">En güncel duyurular — ayrıntılar ve ekli dosyalar için duyuruya tıklayın</div>
         </div>
-        <a href="browse.html" class="btn btn-sm gs-btn-outline">Kataloğu Aç</a>
+        <div class="d-flex gap-2">
+          <a href="admin.html#adminAnnouncementForm" class="btn btn-sm gs-btn-outline"><i class="fa fa-plus me-1"></i> Yeni Duyuru</a>
+          <a href="announcements.html" class="btn btn-sm gs-btn-primary">Daha Fazla →</a>
+        </div>
       </div>
       <div id="homeNewsGrid" class="row g-3"></div>
     </section>
@@ -168,7 +174,8 @@
       </button>
     </div>
     <img id="homeArticleImg" src="" alt="" class="w-100 rounded-3 mb-3" style="max-height: 230px; object-fit: cover;" />
-    <p class="text-light small mb-0" style="line-height: 1.75;" id="homeArticleBody"></p>
+    <p class="text-light small mb-3" style="line-height: 1.75;" id="homeArticleBody"></p>
+    <div id="homeArticleAttachments" class="border-top border-secondary border-opacity-25 pt-2 d-none"></div>
   </section>
 
   <!-- Tutarlı Kurumsal Alt Bilgi (Footer) -->
@@ -198,9 +205,10 @@
           <div class="d-flex flex-wrap gap-3 mb-2">
             <a href="index.html" class="text-secondary text-decoration-none">Ana Sayfa</a>
             <a href="browse.html" class="text-secondary text-decoration-none">Ürünlerimiz</a>
+            <a href="announcements.html" class="text-secondary text-decoration-none">Duyurular</a>
             <a href="about.html" class="text-secondary text-decoration-none">Hakkımızda</a>
-            <a href="mission-vision.html" class="text-secondary text-decoration-none">Misyon-Vizyon</a>
             <a href="contact.html" class="text-secondary text-decoration-none">İletişim</a>
+            <a href="admin.html" class="text-secondary text-decoration-none">Admin Paneli</a>
           </div>
           <div class="d-flex gap-3 fs-6">
             <a href="https://store.steampowered.com" target="_blank" rel="noopener" class="text-secondary" title="Steam"><i class="fab fa-steam"></i></a>
@@ -365,8 +373,8 @@
           .join("");
       }
 
-      async function renderHome(forceRefresh = false) {
-        const { games, reviews, news } = await GameShelfService.getCatalogData({ forceRefresh });
+      async function renderHome(forceRefresh = false, skipLiveFetch = false) {
+        const { games, reviews, news } = await GameShelfService.getCatalogData({ forceRefresh, skipLiveFetch });
         cachedCatalogGames = games;
 
         const signature = `${games.length}_${games.map((g) => `${g.id}:${g.collectionStatus}:${g.isFavorite}`).join(",")}_${reviews.map((r) => `${r.id}:${r.upvotes}:${r.downvotes}`).join(",")}`;
@@ -393,27 +401,33 @@
         );
         document.getElementById("trackTopReviews").innerHTML = buildReviewsTrack(topUpvotedReviews);
 
-        // 4. Editör Seçkisi & Haberler
+        // 4. Duyurular / Fırsatlar (En az 5 adet, en yeniden en eskiye sıralı)
         const newsGrid = document.getElementById("homeNewsGrid");
         newsGrid.innerHTML = news
-          .slice(0, 4)
+          .slice(0, 5)
           .map(
-            (item, idx) => `
-            <div class="col-md-6 col-lg-3">
-              <article class="gs-news-card">
+            (item, idx) => {
+              const attCount = Array.isArray(item.attachments) ? item.attachments.length : 0;
+              return `
+            <div class="col-md-6 col-lg-4">
+              <article class="gs-news-card h-100" style="cursor:pointer;" data-open-news="${idx}">
                 <img src="${item.image}" onerror="if(this.dataset.fb && this.src!==this.dataset.fb){this.src=this.dataset.fb;}" data-fb="${item.fallbackImage || item.image}" alt="${escapeHtml(item.title)}" />
                 <div class="p-3 d-flex flex-column flex-grow-1">
                   <div class="d-flex justify-content-between align-items-center gap-1 mb-1">
                     <span class="gs-badge-accent" style="font-size:0.65rem; padding:0.12rem 0.48rem;">${escapeHtml(item.category)}</span>
-                    <span class="text-secondary" style="font-size:0.68rem;">${escapeHtml(item.readTime || "")}</span>
+                    <span class="text-secondary" style="font-size:0.68rem;">${escapeHtml(item.date || item.publishedAt || "")}</span>
                   </div>
-                  <h3 class="h6 fw-semibold text-white mb-2" style="font-size:0.84rem; line-height:1.4;">${escapeHtml(item.title)}</h3>
+                  <h3 class="h6 fw-semibold text-white mb-2" style="font-size:0.86rem; line-height:1.4;">${escapeHtml(item.title)}</h3>
                   <p class="small text-secondary mb-3 flex-grow-1" style="font-size:0.76rem; line-height:1.5;">${escapeHtml(item.excerpt || "")}</p>
-                  <button type="button" class="btn btn-sm gs-btn-outline w-100" data-open-news="${idx}">Oku</button>
+                  <div class="d-flex justify-content-between align-items-center gap-2 mt-auto">
+                    ${attCount > 0 ? `<span class="small text-secondary" style="font-size:0.7rem;"><i class="fa fa-paperclip me-1"></i>${attCount} ek dosya</span>` : `<span></span>`}
+                    <button type="button" class="btn btn-sm gs-btn-outline" data-open-news="${idx}">Ayrıntıları Aç</button>
+                  </div>
                 </div>
               </article>
             </div>
-          `
+          `;
+            }
           )
           .join("");
       }
@@ -648,13 +662,27 @@
         document.getElementById("homeArticleMeta").textContent = `${article.source} • ${article.date} • ${article.readTime}`;
         document.getElementById("homeArticleImg").src = article.image;
         document.getElementById("homeArticleBody").textContent = article.content || article.excerpt;
+        const attBox = document.getElementById("homeArticleAttachments");
+        if (attBox) {
+          const atts = Array.isArray(article.attachments) ? article.attachments : [];
+          if (atts.length > 0) {
+            const iconFor = (t) => t === "pdf" ? "fa-file-pdf text-danger" : (t === "docx" || t === "word") ? "fa-file-word text-info" : "fa-file-image text-warning";
+            attBox.innerHTML = '<div class="small fw-semibold text-white mb-2">Ekli Dosyalar (PDF / Word / Görsel)</div><div class="d-flex flex-wrap gap-2">' +
+              atts.map((a) => `<span class="badge bg-dark border border-secondary border-opacity-25 text-light fw-normal px-2 py-1"><i class="fa ${iconFor(a.type)} me-1"></i>${escapeHtml(a.name)} <span class="text-secondary">(${escapeHtml(a.size || "Ek")})</span></span>`).join("") +
+              '</div>';
+            attBox.classList.remove("d-none");
+          } else {
+            attBox.classList.add("d-none");
+          }
+        }
         artBackdrop.classList.add("active");
         artOverlay.classList.add("active");
         artOverlay.setAttribute("aria-hidden", "false");
       });
 
-      // İlk yükleme + Otomatik arka plan senkronizasyonu (yeni oyun geldiğinde veya başka sekmede güncellendiğinde)
-      await renderHome();
+      // 1) Önce yerel katalogla şeritleri anında çiz (beklemesiz), 2) Arka planda canlı API ile zenginleştir
+      await renderHome(false, true);
+      renderHome(false, false);
 
       window.addEventListener("storage", () => {
         renderHome();
