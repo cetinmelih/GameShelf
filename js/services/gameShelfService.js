@@ -16,11 +16,54 @@ const GameShelfService = (() => {
     LIVE_GAMES_CACHE: "gs_v25_live_games_cache",
     LIVE_FEED_META: "gs_v25_live_feed_meta",
     RAWG_API_KEY: "gs_v2_rawg_api_key",
-    ANNOUNCEMENTS: "gs_v29_announcements"
+    ANNOUNCEMENTS: "gs_v29_announcements",
+    DELETED_SEED_REVIEWS: "gs_v1_deleted_seed_reviews",
+    API_PROXY: "gs_api_proxy"
   };
 
   const STEAM_CDN = "https://shared.fastly.steamstatic.com/store_item_assets/steam/apps";
   const CACHE_TTL_MS = 12 * 60 * 1000; // 12 dakika otomatik tazeleme
+  const REQUEST_TIMEOUT_MS = 6000; // Harici API istekleri için zaman aşımı
+  const DETAIL_WAIT_MS = 3000; // Detay sayfasının zenginleştirmeyi bekleme süresi (devamı arka planda sürer)
+  const PLACEHOLDER_TITLE_RE = /^Oyun #\d+$/;
+
+  // Çakışmasız, artan ID üretici (aynı milisaniyede iki kayıt oluşsa bile benzersiz kalır)
+  let lastGeneratedId = 0;
+  function newId() {
+    const now = Date.now();
+    lastGeneratedId = now > lastGeneratedId ? now : lastGeneratedId + 1;
+    return lastGeneratedId;
+  }
+
+  // Tarayıcıdan CORS'a izin vermeyen uçlar (Steam) için isteğe bağlı kendi proxy'niz.
+  // Örn: localStorage.setItem("gs_api_proxy", "https://proxy.example.com/?url=")
+  function proxiedUrl(url) {
+    let proxy = "";
+    try {
+      proxy = (localStorage.getItem(STORAGE_KEYS.API_PROXY) || "").trim();
+    } catch {
+      proxy = "";
+    }
+    return proxy ? proxy + encodeURIComponent(url) : url;
+  }
+
+  async function fetchJsonWithTimeout(url, timeoutMs = REQUEST_TIMEOUT_MS) {
+    const controller = new AbortController();
+    const timer = setTimeout(() => controller.abort(), timeoutMs);
+    try {
+      const res = await fetch(url, { signal: controller.signal });
+      if (!res.ok) return null;
+      return await res.json();
+    } catch {
+      return null;
+    } finally {
+      clearTimeout(timer);
+    }
+  }
+
+  function getDeletedSeedReviewIds() {
+    return new Set(readStore(STORAGE_KEYS.DELETED_SEED_REVIEWS, []).map(String));
+  }
 
   let seedCache = null;
   let bootstrapPromise = null;
@@ -101,6 +144,7 @@ const GameShelfService = (() => {
     const map = getCachedLiveGamesMap();
     gamesList.forEach((g) => {
       if (!g || !g.id) return;
+      if (PLACEHOLDER_TITLE_RE.test(String(g.title || ""))) return; // Çözülemeyen "Oyun #id" kayıtları önbelleğe alınmaz
       const existing = map[g.id] || {};
       const mergedStudio = cleanStudioValue(g.studio) || cleanStudioValue(existing.studio) || null;
       const mergedPublishers =
@@ -156,7 +200,7 @@ const GameShelfService = (() => {
   function parseSteamReleaseDate(dateStr) {
     if (!dateStr) return { iso: null, year: null };
     const clean = String(dateStr).trim();
-    const yearMatch = clean.match(/(19\d{2}|20\d{2})/);
+    const yearMatch = clean.match(/\b(19\d{2}|20\d{2})\b/);
     const year = yearMatch ? Number(yearMatch[1]) : null;
     const parsed = Date.parse(clean);
     if (!Number.isNaN(parsed)) {
@@ -269,36 +313,19 @@ const GameShelfService = (() => {
         const storeUrl = `https://store.steampowered.com/api/appdetails?appids=${appId}&l=turkish`;
         const playersUrl = `https://api.steampowered.com/ISteamUserStats/GetNumberOfCurrentPlayers/v1/?appid=${appId}`;
 
-        // Hızlı zaman aşımı (1.6s) korumalı fetch yardımcı fonksiyonu — asla dakikalarca bekletmez
-        async function fetchWithTimeout(url, timeoutMs = 500) {
-          const controller = new AbortController();
-          const timer = setTimeout(() => controller.abort(), timeoutMs);
-          try {
-            const res = await fetch(url, { signal: controller.signal });
-            clearTimeout(timer);
-            if (!res.ok) return null;
-            return await res.json();
-          } catch {
-            clearTimeout(timer);
-            return null;
-          }
-        }
-
-        async function fetchJsonResilient(url) {
-          const direct = await fetchWithTimeout(url, 500);
-          if (direct) return direct;
-          // Yalnızca hızlı fallback (1.8s)
-          return await fetchWithTimeout(`https://api.allorigins.win/raw?url=${encodeURIComponent(url)}`, 500);
-        }
-
+        // Steam uçları CORS'a izin vermeyebilir; başarısız olursa sessizce null döner.
+        // Gerekirse kendi proxy'nizi gs_api_proxy ile tanımlayın (üçüncü taraf herkese açık proxy kullanılmaz).
         const [storeJson, playersJson] = await Promise.all([
-          fetchJsonResilient(storeUrl),
-          fetchJsonResilient(playersUrl)
+          fetchJsonWithTimeout(proxiedUrl(storeUrl)),
+          fetchJsonWithTimeout(proxiedUrl(playersUrl))
         ]);
 
         const appEntry = storeJson && storeJson[String(appId)];
         if (appEntry && appEntry.success && appEntry.data) {
           const d = appEntry.data;
+          if (d.name && PLACEHOLDER_TITLE_RE.test(String(updated.title || ""))) {
+            updated.title = d.name;
+          }
           if (Array.isArray(d.developers) && d.developers.length) {
             updated.studio = d.developers.join(", ");
           }
@@ -487,23 +514,24 @@ const GameShelfService = (() => {
         if (rawgKey) {
           const fetchTimed = async (u) => {
             const c = new AbortController();
-            const tm = setTimeout(() => c.abort(), 500);
-            try { const r = await fetch(u, { signal: c.signal }); clearTimeout(tm); return r; }
-            catch { clearTimeout(tm); return null; }
+            const tm = setTimeout(() => c.abort(), REQUEST_TIMEOUT_MS);
+            try { return await fetch(u, { signal: c.signal }); }
+            catch { return null; }
+            finally { clearTimeout(tm); }
           };
           const [popRes, newRes] = await Promise.all([
             fetchTimed(`https://api.rawg.io/api/games?key=${encodeURIComponent(rawgKey)}&ordering=-added&page_size=18`),
             fetchTimed(`https://api.rawg.io/api/games?key=${encodeURIComponent(rawgKey)}&ordering=-released&metacritic=75,100&page_size=18`)
           ]);
           const fetched = [];
-          if (popRes.ok) {
+          if (popRes && popRes.ok) {
             const popJson = await popRes.json();
             (popJson.results || []).forEach((item) => {
               const m = mapRawgGameToModel(item, "popular");
               if (m) fetched.push(m);
             });
           }
-          if (newRes.ok) {
+          if (newRes && newRes.ok) {
             const newJson = await newRes.json();
             (newJson.results || []).forEach((item) => {
               const m = mapRawgGameToModel(item, "newest");
@@ -516,12 +544,13 @@ const GameShelfService = (() => {
           }
           writeStore(STORAGE_KEYS.LIVE_FEED_META, { updatedAt: Date.now(), mode: "rawg" });
         } else {
-          // Çoklu Steam akışı: Popüler + Yeni Çıkanlar + En Yüksek Puanlılar (2.2s zaman aşımı korumalı)
+          // Çoklu Steam akışı: Popüler + Yeni Çıkanlar + En Yüksek Puanlılar (zaman aşımı korumalı)
           const fetchTimed = async (u) => {
             const c = new AbortController();
-            const tm = setTimeout(() => c.abort(), 500);
-            try { const r = await fetch(u, { signal: c.signal }); clearTimeout(tm); return r; }
-            catch { clearTimeout(tm); return null; }
+            const tm = setTimeout(() => c.abort(), REQUEST_TIMEOUT_MS);
+            try { return await fetch(u, { signal: c.signal }); }
+            catch { return null; }
+            finally { clearTimeout(tm); }
           };
           const [popRes, newRes, topRes] = await Promise.all([
             fetchTimed("https://www.cheapshark.com/api/1.0/deals?storeID=1&sortBy=Reviews&pageSize=22"),
@@ -575,12 +604,12 @@ const GameShelfService = (() => {
     try {
       if (rawgKey) {
         const c = new AbortController();
-        const tm = setTimeout(() => c.abort(), 500);
+        const tm = setTimeout(() => c.abort(), REQUEST_TIMEOUT_MS);
         const res = await fetch(
           `https://api.rawg.io/api/games?key=${encodeURIComponent(rawgKey)}&search=${encodeURIComponent(q)}&page_size=14`,
           { signal: c.signal }
         ).finally(() => clearTimeout(tm));
-        if (res.ok) {
+        if (res && res.ok) {
           const json = await res.json();
           (json.results || []).forEach((item) => {
             const mapped = mapRawgGameToModel(item, "search");
@@ -589,7 +618,7 @@ const GameShelfService = (() => {
         }
       } else {
         const c = new AbortController();
-        const tm = setTimeout(() => c.abort(), 500);
+        const tm = setTimeout(() => c.abort(), REQUEST_TIMEOUT_MS);
         const res = await fetch(
           `https://www.cheapshark.com/api/1.0/games?title=${encodeURIComponent(q)}&limit=18`,
           { signal: c.signal }
@@ -707,9 +736,16 @@ const GameShelfService = (() => {
     }
   }
 
+  /**
+   * Oyun detayını döndürür. Geçersiz veya bulunamayan ID için `null` döner
+   * (arayüz "oyun bulunamadı" durumunu göstermelidir). ID verilmezse ilk seed oyunu açılır.
+   */
   async function getGameDetails(gameId) {
     const seed = await loadSeed();
-    const id = Number(gameId) || seed.games[0].id;
+    const hasId = gameId !== null && gameId !== undefined && String(gameId).trim() !== "";
+    const id = hasId ? Number(gameId) : seed.games[0].id;
+    if (!Number.isInteger(id) || id <= 0) return null;
+
     const liveMap = getCachedLiveGamesMap();
 
     let game = seed.games.find((g) => g.id === id) || liveMap[id] || null;
@@ -719,49 +755,36 @@ const GameShelfService = (() => {
       game = refreshedMap[id] || null;
     }
 
-    // Eğer doğrudan harici bir Steam AppID URL'si ile gelindiyse (ör. ?id=292030) sıfırdan oluştur ve API'den çek
+    // Doğrudan harici bir Steam AppID URL'si ile gelindiyse (ör. ?id=292030) geçici kayıt oluştur;
+    // Steam'den ad çözülemezse aşağıda null döndürülür.
     if (!game && id > 100) {
       game = mapSteamDealToGame({ steamAppID: id, title: `Oyun #${id}` }, "direct");
     }
-    if (!game) {
-      game = seed.games[0];
-    }
+    if (!game) return null;
 
-    // API zenginleştirme: eğer oyun zaten zenginleştirildiyse veya önbellekte varsa anında döner;
-    // aksi halde en fazla ~1.8s içinde tamamlanır veya arka planda güncellenir.
+    // API zenginleştirme: önbellekteyse anında döner; aksi halde DETAIL_WAIT_MS kadar beklenir,
+    // tamamlanmazsa sayfa açılır ve zenginleştirme arka planda sürer.
     if (game.source === "rawg-live" && getRawgApiKey()) {
+      const base = game;
       game = await Promise.race([
-        enrichRawgGameDetails(game),
-        new Promise((resolve) => setTimeout(() => resolve(game), 500))
+        enrichRawgGameDetails(base),
+        new Promise((resolve) => setTimeout(() => resolve(base), DETAIL_WAIT_MS))
       ]);
     } else if (game.steamAppId || game.externalRefs?.steamAppId || game.source === "steam-live") {
       if (game._steamEnriched) {
         // Arka planda sessizce tazele, sayfa açılışını bloklama
         enrichSteamAppDetails(game).catch(() => {});
       } else {
+        const base = game;
         game = await Promise.race([
-          enrichSteamAppDetails(game),
-          new Promise((resolve) => setTimeout(() => resolve(game), 500))
+          enrichSteamAppDetails(base),
+          new Promise((resolve) => setTimeout(() => resolve(base), DETAIL_WAIT_MS))
         ]);
       }
-      const targetAppId = game.steamAppId || game.externalRefs?.steamAppId;
-      if (targetAppId && /^Oyun #\d+$/.test(game.title)) {
-        try {
-          const ctrl = new AbortController();
-          const t = setTimeout(() => ctrl.abort(), 500);
-          const res = await fetch(`https://store.steampowered.com/api/appdetails?appids=${targetAppId}&l=turkish`, { signal: ctrl.signal });
-          clearTimeout(t);
-          if (res.ok) {
-            const j = await res.json();
-            const d = j[String(targetAppId)]?.data;
-            if (d && d.name) {
-              game.title = d.name;
-              upsertLiveGames([game]);
-            }
-          }
-        } catch {}
-      }
     }
+
+    // Adı çözülemeyen yer tutucu kayıt = geçersiz ID
+    if (PLACEHOLDER_TITLE_RE.test(String(game.title || ""))) return null;
 
     const allGames = getMergedGamesList(seed);
 
@@ -776,12 +799,12 @@ const GameShelfService = (() => {
     if (companies.length === 0) {
       const cleanDev = cleanStudioValue(game.studio);
       if (cleanDev) {
-        companies.push({ id: 999, name: cleanDev, role: "developer" });
+        companies.push({ id: "ext-dev", name: cleanDev, role: "developer" });
       }
       (game.publishers || []).forEach((pub, i) => {
         const cleanPub = cleanStudioValue(pub);
         if (cleanPub) {
-          companies.push({ id: 1000 + i, name: cleanPub, role: "publisher" });
+          companies.push({ id: `ext-pub-${i}`, name: cleanPub, role: "publisher" });
         }
       });
     }
@@ -874,7 +897,7 @@ const GameShelfService = (() => {
       if (idx > -1) list.splice(idx, 1);
     } else {
       const entry = {
-        id: idx > -1 ? list[idx].id : Date.now(),
+        id: idx > -1 ? list[idx].id : newId(),
         userId: seed.currentUser.id,
         gameId: id,
         score: Number(score)
@@ -918,7 +941,7 @@ const GameShelfService = (() => {
     const idx = collections.findIndex((c) => c.gameId === id && c.userId === seed.currentUser.id);
 
     const record = {
-      id: idx > -1 ? collections[idx].id : Date.now(),
+      id: idx > -1 ? collections[idx].id : newId(),
       userId: seed.currentUser.id,
       gameId: id,
       status: payload.status,
@@ -964,7 +987,7 @@ const GameShelfService = (() => {
 
     const playthroughs = readStore(STORAGE_KEYS.PLAYTHROUGHS, []);
     playthroughs.push({
-      id: Date.now(),
+      id: newId(),
       collectionEntryId: entry.id,
       startedAt: startedAt && startedAt.trim() ? startedAt.trim() : null,
       completedAt: completedAt && completedAt.trim() ? completedAt.trim() : null,
@@ -992,7 +1015,8 @@ const GameShelfService = (() => {
   async function getReviews(gameId, sortBy = "helpful") {
     const seed = await loadSeed();
     const id = Number(gameId);
-    const seedReviews = seed.reviews.filter((r) => r.gameId === id);
+    const deletedSeedIds = getDeletedSeedReviewIds();
+    const seedReviews = seed.reviews.filter((r) => r.gameId === id && !deletedSeedIds.has(String(r.id)));
     const userReviews = readStore(STORAGE_KEYS.REVIEWS, []).filter((r) => r.gameId === id);
     const userVotes = readStore(STORAGE_KEYS.VOTES, {});
 
@@ -1038,8 +1062,9 @@ const GameShelfService = (() => {
     const existingIdx = reviews.findIndex(
       (r) => Number(r.gameId) === id && r.userId === seed.currentUser.id
     );
+    const deletedSeedIds = getDeletedSeedReviewIds();
     const seedExisting = seed.reviews.find(
-      (r) => Number(r.gameId) === id && r.userId === seed.currentUser.id
+      (r) => Number(r.gameId) === id && r.userId === seed.currentUser.id && !deletedSeedIds.has(String(r.id))
     );
 
     const cleanTitle = title && title.trim() ? title.trim() : null;
@@ -1066,7 +1091,7 @@ const GameShelfService = (() => {
       reviews.unshift(savedReview);
     } else {
       savedReview = {
-        id: Date.now(),
+        id: newId(),
         gameId: id,
         userId: seed.currentUser.id,
         authorName: seed.currentUser.displayName,
@@ -1151,8 +1176,8 @@ const GameShelfService = (() => {
         return {
           ...rev,
           game,
-          upvotes: rev.upvotes + (vote === "up" ? 1 : 0),
-          downvotes: rev.downvotes + (vote === "down" ? 1 : 0),
+          upvotes: (rev.upvotes || 0) + (vote === "up" ? 1 : 0),
+          downvotes: (rev.downvotes || 0) + (vote === "down" ? 1 : 0),
           userVote: vote
         };
       })
@@ -1193,8 +1218,21 @@ const GameShelfService = (() => {
   }
 
   async function deleteUserReview(reviewId) {
-    const reviews = readStore(STORAGE_KEYS.REVIEWS, []).filter((r) => r.id !== Number(reviewId));
+    const seed = await loadSeed();
+    const reviews = readStore(STORAGE_KEYS.REVIEWS, []).filter((r) => String(r.id) !== String(reviewId));
     writeStore(STORAGE_KEYS.REVIEWS, reviews);
+
+    // Düzenlenmiş bir seed incelemesi silindiyse, seed'deki özgün kaydın geri görünmemesi için işaretle
+    const seedMatch = seed.reviews.find(
+      (r) => String(r.id) === String(reviewId) && r.userId === seed.currentUser.id
+    );
+    if (seedMatch) {
+      const deleted = readStore(STORAGE_KEYS.DELETED_SEED_REVIEWS, []);
+      if (!deleted.map(String).includes(String(seedMatch.id))) {
+        deleted.push(seedMatch.id);
+        writeStore(STORAGE_KEYS.DELETED_SEED_REVIEWS, deleted);
+      }
+    }
   }
 
 
@@ -1227,7 +1265,7 @@ const GameShelfService = (() => {
       : `${dObj.getDate()} ${monthsTr[dObj.getMonth()]} ${dObj.getFullYear()}`;
 
     const entry = {
-      id: "ann-" + Date.now(),
+      id: "ann-" + newId(),
       title: String(payload.title || "").trim(),
       category: String(payload.category || "Duyuru").trim(),
       source: String(payload.source || "GameShelf Yönetici").trim(),
@@ -1312,8 +1350,11 @@ const GameShelfService = (() => {
     const ownGameIdsWithCustom = new Set(
       userReviews.filter((r) => r.userId === seed.currentUser.id).map((r) => Number(r.gameId))
     );
+    const deletedSeedIds = getDeletedSeedReviewIds();
     const filteredSeedCatReviews = seed.reviews.filter(
-      (r) => !(r.userId === seed.currentUser.id && ownGameIdsWithCustom.has(Number(r.gameId)))
+      (r) =>
+        !deletedSeedIds.has(String(r.id)) &&
+        !(r.userId === seed.currentUser.id && ownGameIdsWithCustom.has(Number(r.gameId)))
     );
     const allReviews = [...userReviews, ...filteredSeedCatReviews]
       .map((rev) => {

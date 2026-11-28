@@ -16,7 +16,23 @@
   "GameShelf — Kişisel Oyun Günlüğü ve Keşif Platformu": "GameShelf — Personal Game Journal & Discovery Platform",
   "Misyon & Vizyon — GameShelf": "Mission & Vision — GameShelf",
   "GameShelf — Profilim & Oyun Rafı": "GameShelf — My Profile & Game Shelf",
-  "Cyborg - Awesome HTML5 Template": "GameShelf — Live Streams & Community Feed",
+  "Canlı Yayın & Akış Birimi — GameShelf": "Live Streams & Community Feed — GameShelf",
+  "Topluluk": "Community",
+  "Topluluğun katalogdaki oyunlardan yaptığı yayınları tek yerde keşfet. Bir yayına tıklayarak oyunun detay sayfasına, günlük ve inceleme alanına geçebilirsin.": "Discover the community's streams of catalog games in one place. Click a stream to jump to the game's details, journal and review area.",
+  "Bu sayfadaki yayınlar ve izleyici sayıları prototip için hazırlanmış örnek verilerdir.": "The streams and viewer counts on this page are sample data prepared for the prototype.",
+  "Öne Çıkan Yayınlar": "Featured Streams",
+  "Canlı": "Live",
+  "izleyici": "viewers",
+  "Oyun Kataloğuna Git": "Go to Game Catalog",
+  "Night City’de akşam turu": "Evening tour of Night City",
+  "Karanlık Mevcudiyet bölümü, ilk bitirme": "Dark Presence chapter, first playthrough",
+  "Boss rush: Shadow of the Erdtree": "Boss rush: Shadow of the Erdtree",
+  "Hasarsız koşu denemesi": "No-damage run attempt",
+  "Dogtown hikâyesi, sohbet yayını": "Dogtown story, chat stream",
+  "Yeni DLC ilk bakış": "New DLC first look",
+  "Korku": "Horror",
+  "Aksiyon": "Action",
+  "Aksiyon RPG": "Action RPG",
   "Ana Sayfa": "Home",
   "Ana Sayfa Bölümleri": "Home Sections",
   "En Popüler Oyunlar": "Most Popular Games",
@@ -384,7 +400,40 @@
   "GameShelf Yönetici": "GameShelf Admin",
   "RAWG.io Veritabanı": "RAWG.io Database",
   "Steam Kataloğu": "Steam Catalog",
-  "Steam Mağaza Veritabanı": "Steam Store Database"
+  "Steam Mağaza Veritabanı": "Steam Store Database",
+  "+ Rafıma Ekle": "+ Add to Shelf",
+  "Rafıma Ekle": "Add to Shelf",
+  "Rafta": "In Shelf",
+  "Rafta (Completed)": "In Shelf (Completed)",
+  "Rafta (Playing)": "In Shelf (Playing)",
+  "Rafta (Backlog)": "In Shelf (Backlog)",
+  "Rafta (Dropped)": "In Shelf (Dropped)",
+  "Yeni": "New",
+  "Favorilere Ekle": "Add to Favorites",
+  "Favorilerden Çıkar": "Remove from Favorites",
+  "Katalogda Ara →": "Search in Catalog →",
+  "Oyuna Git →": "Open Game →",
+  "Rafta değil": "Not in shelf",
+  "Oyun": "Game",
+  "Güncelleme": "Update",
+  "Tamamlandı": "Completed",
+  "Oynanıyor": "Playing",
+  "Planlandı": "Backlog",
+  "Bırakıldı": "Dropped",
+  "Oynanış": "Playthrough",
+  "İnceleme": "Review",
+  "Puan": "Rating",
+  "Ekle": "Add",
+  "Kaldır": "Remove",
+  "Sil": "Delete",
+  "Güncelle": "Update",
+  "Gönder": "Send",
+  "İptal": "Cancel",
+  "Detay": "Details",
+  "Tümünü Göster": "Show All",
+  "Sonuç bulunamadı": "No results found",
+  "Eşleşen oyun bulunamadı.": "No matching games found.",
+  "Arama sonucu bulunamadı.": "No search results found."
 };
 
   const EXACT_EN_TO_TR = {};
@@ -394,6 +443,30 @@
 
   // Parçalı / şablon tabanlı dinamik cümle çevirileri (sayı veya isim içeren ifadeler)
   const PATTERN_RULES = [
+    {
+      trToEn: /^Rafta\s*\((.+?)\)$/i,
+      enToTr: /^In Shelf\s*\((.+?)\)$/i,
+      toEn: (_, st) => `In Shelf (${st})`,
+      toTr: (_, st) => `Rafta (${st})`
+    },
+    {
+      trToEn: /^\+?\s*Rafıma Ekle$/i,
+      enToTr: /^\+?\s*Add to Shelf$/i,
+      toEn: () => "+ Add to Shelf",
+      toTr: () => "+ Rafıma Ekle"
+    },
+    {
+      trToEn: /^(\d+)\.\s*Oynayış$/i,
+      enToTr: /^Playthrough\s*#(\d+)$/i,
+      toEn: (_, n) => `Playthrough #${n}`,
+      toTr: (_, n) => `${n}. Oynayış`
+    },
+    {
+      trToEn: /^(\d+)\s+kişi yararlı buldu$/i,
+      enToTr: /^(\d+)\s+people found this helpful$/i,
+      toEn: (_, n) => `${n} people found this helpful`,
+      toTr: (_, n) => `${n} kişi yararlı buldu`
+    },
     {
       trToEn: /^(\d+)\s+kayıt$/i,
       enToTr: /^(\d+)\s+entries$/i,
@@ -684,7 +757,7 @@
     } finally {
       isApplying = false;
       if (observer && document.body) {
-        observer.observe(document.body, { childList: true, subtree: true, characterData: true });
+        observer.observe(document.body, { childList: true, subtree: true, characterData: true, attributes: true, attributeFilter: ['title', 'placeholder', 'aria-label'] });
       }
     }
   }
@@ -732,7 +805,7 @@
     } finally {
       isApplying = false;
       if (observer && document.body) {
-        observer.observe(document.body, { childList: true, subtree: true, characterData: true });
+        observer.observe(document.body, { childList: true, subtree: true, characterData: true, attributes: true, attributeFilter: ['title', 'placeholder', 'aria-label'] });
       }
     }
   }
@@ -781,7 +854,7 @@
 
     // İlk açılışta ve asenkron API/JSON yüklemeleri tamamlandığında otomatik çevir
     syncSavedLanguageNow();
-    [120, 400, 900, 1800].forEach((ms) => {
+    [50, 150, 350, 700, 1200, 2200, 3500].forEach((ms) => {
       setTimeout(() => {
         if (getLang() === "en") syncSavedLanguageNow();
       }, ms);

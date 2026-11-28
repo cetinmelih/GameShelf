@@ -1,0 +1,937 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Sayılarla GameShelf — İstatistikler &amp; Veri Analitiği</title>
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20viewBox%3D%220%200%20120%20120%22%3E%3Cdefs%3E%3CclipPath%20id%3D%22fk%22%3E%3Cpolygon%20points%3D%220%2C0%2084%2C0%2036%2C120%200%2C120%22/%3E%3C/clipPath%3E%3CclipPath%20id%3D%22fg%22%3E%3Cpolygon%20points%3D%2284%2C0%20120%2C0%20120%2C120%2036%2C120%22/%3E%3C/clipPath%3E%3C/defs%3E%3Crect%20x%3D%226%22%20y%3D%2210%22%20width%3D%22108%22%20height%3D%22100%22%20rx%3D%2226%22%20fill%3D%22%230b0e16%22%20stroke%3D%22%23ffffff%22%20stroke-width%3D%225.5%22/%3E%3Cg%20clip-path%3D%22url%28%23fk%29%22%3E%3Crect%20x%3D%2215%22%20y%3D%2231%22%20width%3D%2268%22%20height%3D%2254%22%20rx%3D%229%22%20fill%3D%22%23ffffff%22/%3E%3Crect%20x%3D%2221%22%20y%3D%2237%22%20width%3D%2210.5%22%20height%3D%2210.5%22%20rx%3D%222.5%22%20fill%3D%22%230b0e16%22/%3E%3Crect%20x%3D%2235%22%20y%3D%2237%22%20width%3D%2210.5%22%20height%3D%2210.5%22%20rx%3D%222.5%22%20fill%3D%22%230b0e16%22/%3E%3Crect%20x%3D%2249%22%20y%3D%2237%22%20width%3D%2210.5%22%20height%3D%2210.5%22%20rx%3D%222.5%22%20fill%3D%22%230b0e16%22/%3E%3Crect%20x%3D%2263%22%20y%3D%2237%22%20width%3D%2210.5%22%20height%3D%2210.5%22%20rx%3D%222.5%22%20fill%3D%22%230b0e16%22/%3E%3Crect%20x%3D%2221%22%20y%3D%2251.5%22%20width%3D%2210.5%22%20height%3D%2210.5%22%20rx%3D%222.5%22%20fill%3D%22%230b0e16%22/%3E%3Crect%20x%3D%2235%22%20y%3D%2251.5%22%20width%3D%2210.5%22%20height%3D%2210.5%22%20rx%3D%222.5%22%20fill%3D%22%230b0e16%22/%3E%3Crect%20x%3D%2249%22%20y%3D%2251.5%22%20width%3D%2210.5%22%20height%3D%2210.5%22%20rx%3D%222.5%22%20fill%3D%22%230b0e16%22/%3E%3Crect%20x%3D%2263%22%20y%3D%2251.5%22%20width%3D%2210.5%22%20height%3D%2210.5%22%20rx%3D%222.5%22%20fill%3D%22%230b0e16%22/%3E%3Crect%20x%3D%2221%22%20y%3D%2266%22%20width%3D%2210.5%22%20height%3D%2210.5%22%20rx%3D%222.5%22%20fill%3D%22%230b0e16%22/%3E%3Crect%20x%3D%2235%22%20y%3D%2266%22%20width%3D%2210.5%22%20height%3D%2210.5%22%20rx%3D%222.5%22%20fill%3D%22%230b0e16%22/%3E%3Crect%20x%3D%2249%22%20y%3D%2266%22%20width%3D%2210.5%22%20height%3D%2210.5%22%20rx%3D%222.5%22%20fill%3D%22%230b0e16%22/%3E%3C/g%3E%3Cg%20clip-path%3D%22url%28%23fg%29%22%3E%3Cpath%20d%3D%22M52%2C39%20L84%2C39%20C96%2C39%20102%2C46%20104%2C58%20L106%2C77%20C107%2C86%2099%2C91%2092%2C86%20L82%2C76%20L58%2C76%20L46%2C88%20C39%2C93%2033%2C87%2035%2C77%20L41%2C53%20C43%2C44%2046%2C39%2052%2C39%20Z%22%20fill%3D%22%23ffffff%22/%3E%3Ccircle%20cx%3D%2262%22%20cy%3D%2263%22%20r%3D%225.2%22%20fill%3D%22%230b0e16%22/%3E%3Ccircle%20cx%3D%2284%22%20cy%3D%2249%22%20r%3D%223.4%22%20fill%3D%22%230b0e16%22/%3E%3Ccircle%20cx%3D%2292%22%20cy%3D%2256%22%20r%3D%223.4%22%20fill%3D%22%230b0e16%22/%3E%3Ccircle%20cx%3D%2284%22%20cy%3D%2263%22%20r%3D%223.4%22%20fill%3D%22%230b0e16%22/%3E%3Ccircle%20cx%3D%2276%22%20cy%3D%2256%22%20r%3D%223.4%22%20fill%3D%22%230b0e16%22/%3E%3C/g%3E%3Cpolygon%20points%3D%2284%2C18%2035%2C98%2040%2C101%2087%2C20%22%20fill%3D%22%23ffffff%22%20stroke%3D%22%230b0e16%22%20stroke-width%3D%222.6%22%20stroke-linejoin%3D%22round%22/%3E%3C/svg%3E" />
+  <link rel="icon" type="image/png" sizes="32x32" href="assets/images/favicon-32.png" />
+  <link rel="icon" type="image/png" href="assets/images/favicon.png" />
+  <link rel="stylesheet" href="vendor/bootstrap/css/bootstrap.min.css" />
+  <link rel="stylesheet" href="assets/css/fontawesome.css" />
+  <link rel="stylesheet" href="css/gameshelf.css" />
+  <style>
+    .gs-stats-banner {
+      background: radial-gradient(ellipse 80% 55% at 50% 0%, rgba(var(--gs-accent-rgb), 0.16), transparent 72%),
+                  linear-gradient(180deg, rgba(16, 20, 31, 0.96), var(--gs-bg));
+      border-bottom: 1px solid var(--gs-border);
+      padding: 1.85rem 0 1.45rem;
+    }
+    .gs-breadcrumb-mini {
+      font-size: 0.72rem;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+      color: #94a3b8;
+    }
+    .gs-stat-section-card {
+      background: rgba(16, 20, 31, 0.94);
+      border: 1px solid rgba(255, 255, 255, 0.09);
+      border-radius: 20px;
+      padding: 1.5rem;
+      margin-bottom: 1.5rem;
+      box-shadow: 0 18px 42px rgba(0, 0, 0, 0.42);
+    }
+    .gs-stat-sec-head {
+      border-left: 3px solid var(--gs-accent);
+      padding-left: 0.75rem;
+      margin-bottom: 1.15rem;
+    }
+    .gs-stat-sec-title {
+      font-size: 0.94rem;
+      font-weight: 800;
+      letter-spacing: 0.03em;
+      text-transform: uppercase;
+      color: #f8fafc;
+      margin: 0;
+    }
+    .gs-stat-sec-sub {
+      font-size: 0.78rem;
+      color: #94a3b8;
+      margin-top: 0.2rem;
+    }
+    .gs-stat-sec-sub strong {
+      color: var(--gs-accent);
+    }
+    .gs-metric-tile {
+      background: rgba(11, 14, 22, 0.86);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      border-radius: 14px;
+      padding: 0.85rem 0.95rem;
+      display: flex;
+      align-items: center;
+      gap: 0.8rem;
+      height: 100%;
+      transition: border-color 0.2s ease, transform 0.2s ease;
+    }
+    .gs-metric-tile:hover {
+      border-color: rgba(var(--gs-accent-rgb), 0.45);
+      transform: translateY(-1px);
+    }
+    .gs-metric-tile--compact {
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+      padding: 0.8rem 0.6rem;
+      gap: 0.35rem;
+    }
+    .gs-metric-icon {
+      width: 36px;
+      height: 36px;
+      border-radius: 10px;
+      background: rgba(var(--gs-accent-rgb), 0.14);
+      border: 1px solid rgba(var(--gs-accent-rgb), 0.28);
+      color: var(--gs-accent);
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.95rem;
+      flex-shrink: 0;
+    }
+    .gs-metric-icon--sm {
+      width: 30px;
+      height: 30px;
+      border-radius: 8px;
+      font-size: 0.82rem;
+    }
+    .gs-metric-num {
+      font-size: 1.18rem;
+      font-weight: 800;
+      color: #ffffff;
+      line-height: 1.15;
+    }
+    .gs-metric-lbl {
+      font-size: 0.68rem;
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+      color: #94a3b8;
+      line-height: 1.25;
+    }
+    .gs-capacity-row {
+      background: rgba(11, 14, 22, 0.86);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      border-radius: 12px;
+      padding: 0.68rem 0.9rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 0.75rem;
+      margin-bottom: 0.55rem;
+    }
+    .gs-capacity-row:last-child {
+      margin-bottom: 0;
+    }
+    .gs-chart-box {
+      background: rgba(11, 14, 22, 0.68);
+      border: 1px solid rgba(255, 255, 255, 0.07);
+      border-radius: 16px;
+      padding: 0.9rem 1rem 0.65rem;
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
+    .gs-chart-legend {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 0.85rem;
+      font-size: 0.71rem;
+      color: #cbd5e1;
+      margin-bottom: 0.45rem;
+    }
+    .gs-legend-item {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.35rem;
+    }
+    .gs-legend-dot {
+      width: 9px;
+      height: 9px;
+      border-radius: 50%;
+      display: inline-block;
+    }
+    .gs-canvas-el {
+      width: 100%;
+      height: 245px;
+      display: block;
+      cursor: crosshair;
+    }
+    .gs-chart-tooltip {
+      position: fixed;
+      pointer-events: none;
+      background: rgba(9, 12, 20, 0.97);
+      border: 1px solid rgba(var(--gs-accent-rgb), 0.65);
+      color: #f8fafc;
+      padding: 0.42rem 0.7rem;
+      border-radius: 10px;
+      font-size: 0.75rem;
+      box-shadow: 0 12px 28px rgba(0, 0, 0, 0.78);
+      z-index: 2150;
+      display: none;
+    }
+  </style>
+</head>
+<body>
+  <nav class="navbar navbar-expand-lg gs-navbar">
+    <div class="container">
+      <a class="navbar-brand gs-brand-link text-white fw-bold" href="index.html">
+        <div class="gs-static-logo" id="gsStaticLogo" aria-label="GameShelf Logo">
+          <svg viewBox="0 0 120 120" class="gs-logo-svg" role="img" aria-hidden="true">
+            <defs>
+              <clipPath id="gsClipKeyboard"><polygon points="0,0 82,0 38,120 0,120" /></clipPath>
+              <clipPath id="gsClipGamepad"><polygon points="82,0 120,0 120,120 38,120" /></clipPath>
+            </defs>
+            <rect x="6" y="10" width="108" height="100" rx="26" fill="#090b10" stroke="#ffffff" stroke-width="5.2" />
+            <g clip-path="url(#gsClipKeyboard)">
+              <rect x="15" y="31" width="68" height="54" rx="9" fill="#ffffff" />
+              <rect x="21" y="37" width="10.5" height="10.5" rx="2.6" fill="#090b10" />
+              <rect x="35" y="37" width="10.5" height="10.5" rx="2.6" fill="#090b10" />
+              <rect x="49" y="37" width="10.5" height="10.5" rx="2.6" fill="#090b10" />
+              <rect x="63" y="37" width="10.5" height="10.5" rx="2.6" fill="#090b10" />
+              <rect x="21" y="51.5" width="10.5" height="10.5" rx="2.6" fill="#090b10" />
+              <rect x="35" y="51.5" width="10.5" height="10.5" rx="2.6" fill="#090b10" />
+              <rect x="49" y="51.5" width="10.5" height="10.5" rx="2.6" fill="#090b10" />
+              <rect x="63" y="51.5" width="10.5" height="10.5" rx="2.6" fill="#090b10" />
+              <rect x="21" y="66" width="10.5" height="10.5" rx="2.6" fill="#090b10" />
+              <rect x="35" y="66" width="10.5" height="10.5" rx="2.6" fill="#090b10" />
+              <rect x="49" y="66" width="10.5" height="10.5" rx="2.6" fill="#090b10" />
+            </g>
+            <g clip-path="url(#gsClipGamepad)">
+              <path d="M52,39 L84,39 C96,39 102,46 104,58 L106,77 C107,86 99,91 92,86 L82,76 L58,76 L46,88 C39,93 33,87 35,77 L41,53 C43,44 46,39 52,39 Z" fill="#ffffff" />
+              <circle cx="62" cy="63" r="5.2" fill="#090b10" />
+              <circle cx="84" cy="49" r="3.4" fill="#090b10" />
+              <circle cx="92" cy="56" r="3.4" fill="#090b10" />
+              <circle cx="84" cy="63" r="3.4" fill="#090b10" />
+              <circle cx="76" cy="56" r="3.4" fill="#090b10" />
+            </g>
+            <polygon points="84,18 35,98 40,101 87,20" fill="#ffffff" stroke="#090b10" stroke-width="2.6" stroke-linejoin="round" />
+          </svg>
+        </div>
+        <span class="gs-brand-title">GameShelf</span>
+      </a>
+      <div class="gs-nav-search-wrap" id="globalNavSearchWrap">
+        <form id="globalNavSearchForm" class="gs-nav-search-bar" autocomplete="off">
+          <i class="fa fa-search text-secondary" id="globalNavSearchIcon"></i>
+          <input type="text" id="globalNavSearchInput" placeholder="Oyun, stüdyo veya tür yazmaya başla..." aria-label="Oyun ara" />
+          <button type="submit" class="btn btn-sm gs-btn-primary rounded-pill px-2 py-0" style="font-size:0.74rem; height:24px;">Ara</button>
+        </form>
+        <div class="gs-search-suggestions gs-nav-search-suggestions" id="globalNavSearchSuggestions" role="listbox"></div>
+      </div>
+      <button class="navbar-toggler border-secondary" type="button" data-bs-toggle="collapse" data-bs-target="#gsMainNav" aria-label="Menüyü Aç">
+        <i class="fa fa-bars text-white"></i>
+      </button>
+      <div class="collapse navbar-collapse" id="gsMainNav">
+        <ul class="navbar-nav ms-auto align-items-lg-center gap-lg-1">
+          <li class="nav-item"><a class="nav-link" href="index.html">Ana Sayfa</a></li>
+          <li class="nav-item"><a class="nav-link" href="browse.html">Ürünlerimiz</a></li>
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle active" href="stats.html">Birimlerimiz</a>
+            <ul class="dropdown-menu">
+              <li><a class="dropdown-item" href="stats.html"><i class="fa fa-chart-bar"></i> Sayılarla GameShelf</a></li>
+              <li><a class="dropdown-item" href="profile.html?tab=overview"><i class="fa fa-user"></i> Kişisel Günlük &amp; İstatistikler</a></li>
+              <li><a class="dropdown-item" href="streams.html"><i class="fa fa-video"></i> Canlı Yayın &amp; Akış Birimi</a></li>
+              <li><a class="dropdown-item" href="announcements.html"><i class="fa fa-bullhorn"></i> Duyuru &amp; Arşiv Birimi</a></li>
+            </ul>
+          </li>
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">Kurumsal</a>
+            <ul class="dropdown-menu">
+              <li><a class="dropdown-item" href="about.html"><i class="fa fa-building"></i> Hakkımızda</a></li>
+              <li><a class="dropdown-item" href="mission-vision.html"><i class="fa fa-bullseye"></i> Misyon &amp; Vizyon</a></li>
+              <li><a class="dropdown-item" href="announcements.html"><i class="fa fa-bullhorn"></i> Tüm Duyurular</a></li>
+            </ul>
+          </li>
+          <li class="nav-item"><a class="nav-link" href="contact.html">İletişim</a></li>
+          <li class="nav-item ms-lg-1">
+            <a class="btn btn-sm gs-btn-outline" href="admin.html"><i class="fa fa-sliders me-1"></i> Admin Paneli</a>
+          </li>
+          <li class="nav-item dropdown ms-lg-2 mt-2 mt-lg-0">
+            <button type="button" class="btn btn-sm dropdown-toggle gs-lang-switcher-btn" id="gsLangDropdownBtn" data-bs-toggle="dropdown" aria-expanded="false">
+              <i class="fa fa-globe gs-lang-globe-icon" aria-hidden="true"></i>
+              <span id="gsCurrentLangLabel">Türkçe</span>
+              <span class="gs-lang-code-pill">TR / EN</span>
+            </button>
+            <ul class="dropdown-menu dropdown-menu-end gs-lang-dropdown-menu" aria-labelledby="gsLangDropdownBtn">
+              <li><button type="button" class="dropdown-item gs-lang-option active" data-set-lang="tr"><span>🇹🇷 Türkçe</span><span class="badge bg-dark border border-secondary border-opacity-25 text-info">TR</span></button></li>
+              <li><button type="button" class="dropdown-item gs-lang-option" data-set-lang="en"><span>🇬🇧 English</span><span class="badge bg-dark border border-secondary border-opacity-25 text-info">EN</span></button></li>
+            </ul>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+
+  <!-- SAYFA ÜST BAŞLIK -->
+  <header class="gs-stats-banner">
+    <div class="container">
+      <div class="gs-breadcrumb-mini mb-1">
+        <i class="fa fa-home me-1"></i> Ana Sayfa &nbsp;/&nbsp; Birimlerimiz &nbsp;/&nbsp; Sayılarla GameShelf
+      </div>
+      <div class="d-flex flex-wrap justify-content-between align-items-end gap-3">
+        <div>
+          <h1 class="h3 fw-bold mb-1" style="color: var(--gs-accent); letter-spacing: 0.02em;">SAYILARLA GAMESHELF</h1>
+          <p class="text-secondary small mb-0">
+            Oyun koleksiyonu gelişimi, sürüm dağılımları, veritabanı içerik hacmi, aktif oyuncu profili ve platform kapasite metrikleri
+          </p>
+        </div>
+        <span class="badge bg-dark border border-secondary border-opacity-25 text-light px-3 py-2 rounded-pill">
+          <i class="fa fa-database me-1 text-info"></i> Dönemsel Veri Özeti (2022 – 2026)
+        </span>
+      </div>
+    </div>
+  </header>
+
+  <main class="container py-4">
+
+    <!-- 1. BÖLÜM: KOLEKSİYON GELİŞİMİ -->
+    <section class="gs-stat-section-card" aria-labelledby="secCollectionTitle">
+      <div class="gs-stat-sec-head">
+        <h2 class="gs-stat-sec-title" id="secCollectionTitle">Koleksiyon Gelişimi</h2>
+        <div class="gs-stat-sec-sub">Toplam <strong id="totalArchiveLabel">48.620</strong> dijital oyun ve topluluk kaydı bulunmaktadır.</div>
+      </div>
+      <div class="row g-3 align-items-stretch">
+        <div class="col-lg-4 d-flex flex-column gap-3 justify-content-center">
+          <div class="gs-metric-tile">
+            <span class="gs-metric-icon"><i class="fa fa-gamepad"></i></span>
+            <div>
+              <div class="gs-metric-num" id="statCuratedGames">4.820</div>
+              <div class="gs-metric-lbl">Küratörlü Ana Oyun</div>
+            </div>
+          </div>
+          <div class="gs-metric-tile">
+            <span class="gs-metric-icon"><i class="fa fa-layer-group"></i></span>
+            <div>
+              <div class="gs-metric-num" id="statDigitalRecords">43.800</div>
+              <div class="gs-metric-lbl">Dijital Sürüm &amp; Günlük Kaydı</div>
+            </div>
+          </div>
+        </div>
+        <div class="col-lg-8">
+          <div class="gs-chart-box">
+            <div class="gs-chart-legend">
+              <span class="gs-legend-item"><span class="gs-legend-dot" style="background:#38bdf8;"></span>Küratörlü Oyun</span>
+              <span class="gs-legend-item"><span class="gs-legend-dot" style="background:#7c5cff;"></span>Dijital Günlük Kaydı</span>
+            </div>
+            <canvas id="chartCollectionGrowth" class="gs-canvas-el"></canvas>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 2. BÖLÜM: İÇERİK TÜRÜNE GÖRE YILLIK DAĞILIM -->
+    <section class="gs-stat-section-card" aria-labelledby="secMaterialTitle">
+      <div class="gs-stat-sec-head">
+        <h2 class="gs-stat-sec-title" id="secMaterialTitle">İçerik Türüne Göre Yıllık Dağılım</h2>
+        <div class="gs-stat-sec-sub">Katalogdaki oyun, genişleme paketi ve medya kayıtlarının yıllık kümülatif kırılımı</div>
+      </div>
+      <div class="row g-3 align-items-stretch">
+        <div class="col-lg-5">
+          <div class="row g-2">
+            <div class="col-6">
+              <div class="gs-metric-tile gs-metric-tile--compact">
+                <span class="gs-metric-icon gs-metric-icon--sm"><i class="fa fa-compact-disc"></i></span>
+                <div class="gs-metric-num">3.410</div>
+                <div class="gs-metric-lbl">Ana Oyun</div>
+              </div>
+            </div>
+            <div class="col-6">
+              <div class="gs-metric-tile gs-metric-tile--compact">
+                <span class="gs-metric-icon gs-metric-icon--sm"><i class="fa fa-puzzle-piece"></i></span>
+                <div class="gs-metric-num">1.410</div>
+                <div class="gs-metric-lbl">DLC &amp; Ek Paket</div>
+              </div>
+            </div>
+            <div class="col-6">
+              <div class="gs-metric-tile gs-metric-tile--compact">
+                <span class="gs-metric-icon gs-metric-icon--sm"><i class="fa fa-box-open"></i></span>
+                <div class="gs-metric-num">620</div>
+                <div class="gs-metric-lbl">Özel Sürüm</div>
+              </div>
+            </div>
+            <div class="col-6">
+              <div class="gs-metric-tile gs-metric-tile--compact">
+                <span class="gs-metric-icon gs-metric-icon--sm"><i class="fa fa-pen-nib"></i></span>
+                <div class="gs-metric-num">12.480</div>
+                <div class="gs-metric-lbl">Oyuncu İncelemesi</div>
+              </div>
+            </div>
+            <div class="col-6">
+              <div class="gs-metric-tile gs-metric-tile--compact">
+                <span class="gs-metric-icon gs-metric-icon--sm"><i class="fa fa-film"></i></span>
+                <div class="gs-metric-num">2.940</div>
+                <div class="gs-metric-lbl">Fragman &amp; Klip</div>
+              </div>
+            </div>
+            <div class="col-6">
+              <div class="gs-metric-tile gs-metric-tile--compact">
+                <span class="gs-metric-icon gs-metric-icon--sm"><i class="fa fa-list-check"></i></span>
+                <div class="gs-metric-num">18.650</div>
+                <div class="gs-metric-lbl">Raf Listesi</div>
+              </div>
+            </div>
+            <div class="col-6">
+              <div class="gs-metric-tile gs-metric-tile--compact">
+                <span class="gs-metric-icon gs-metric-icon--sm"><i class="fa fa-flask"></i></span>
+                <div class="gs-metric-num">490</div>
+                <div class="gs-metric-lbl">Erken Erişim</div>
+              </div>
+            </div>
+            <div class="col-6">
+              <div class="gs-metric-tile gs-metric-tile--compact">
+                <span class="gs-metric-icon gs-metric-icon--sm"><i class="fa fa-trophy"></i></span>
+                <div class="gs-metric-num">8.620</div>
+                <div class="gs-metric-lbl">Tamamlama Kaydı</div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-lg-7">
+          <div class="gs-chart-box">
+            <div class="gs-chart-legend">
+              <span class="gs-legend-item"><span class="gs-legend-dot" style="background:#7c5cff;"></span>Raf Listesi</span>
+              <span class="gs-legend-item"><span class="gs-legend-dot" style="background:#38bdf8;"></span>İnceleme</span>
+              <span class="gs-legend-item"><span class="gs-legend-dot" style="background:#10b981;"></span>Tamamlama</span>
+              <span class="gs-legend-item"><span class="gs-legend-dot" style="background:#f59e0b;"></span>Ana Oyun &amp; DLC</span>
+            </div>
+            <canvas id="chartStackedTypes" class="gs-canvas-el" style="height:285px;"></canvas>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 3. BÖLÜM: VERİTABANI İÇERİKLERİ ARTIŞI -->
+    <section class="gs-stat-section-card" aria-labelledby="secDbTitle">
+      <div class="gs-stat-sec-head">
+        <h2 class="gs-stat-sec-title" id="secDbTitle">Veritabanı İçerikleri Artışı</h2>
+        <div class="gs-stat-sec-sub">Toplamda <strong>64.250</strong> indekslenmiş meta veri ve topluluk girdisi yer almaktadır.</div>
+      </div>
+      <div class="row g-3 align-items-stretch">
+        <div class="col-lg-5">
+          <div class="row g-2">
+            <div class="col-6">
+              <div class="gs-metric-tile gs-metric-tile--compact">
+                <span class="gs-metric-icon gs-metric-icon--sm"><i class="fa fa-server"></i></span>
+                <div class="gs-metric-num">28.400</div>
+                <div class="gs-metric-lbl">Oyun Meta Kaydı</div>
+              </div>
+            </div>
+            <div class="col-6">
+              <div class="gs-metric-tile gs-metric-tile--compact">
+                <span class="gs-metric-icon gs-metric-icon--sm"><i class="fa fa-building"></i></span>
+                <div class="gs-metric-num">3.180</div>
+                <div class="gs-metric-lbl">Stüdyo &amp; Yayıncı</div>
+              </div>
+            </div>
+            <div class="col-6">
+              <div class="gs-metric-tile gs-metric-tile--compact">
+                <span class="gs-metric-icon gs-metric-icon--sm"><i class="fa fa-star"></i></span>
+                <div class="gs-metric-num">19.720</div>
+                <div class="gs-metric-lbl">Puanlama Girdisi</div>
+              </div>
+            </div>
+            <div class="col-6">
+              <div class="gs-metric-tile gs-metric-tile--compact">
+                <span class="gs-metric-icon gs-metric-icon--sm"><i class="fa fa-image"></i></span>
+                <div class="gs-metric-num">8.940</div>
+                <div class="gs-metric-lbl">Kapak &amp; Sahne Görseli</div>
+              </div>
+            </div>
+            <div class="col-6">
+              <div class="gs-metric-tile gs-metric-tile--compact">
+                <span class="gs-metric-icon gs-metric-icon--sm"><i class="fa fa-tags"></i></span>
+                <div class="gs-metric-num">1.460</div>
+                <div class="gs-metric-lbl">Tür &amp; Mekanik Etiketi</div>
+              </div>
+            </div>
+            <div class="col-6">
+              <div class="gs-metric-tile gs-metric-tile--compact">
+                <span class="gs-metric-icon gs-metric-icon--sm"><i class="fa fa-newspaper"></i></span>
+                <div class="gs-metric-num">2.550</div>
+                <div class="gs-metric-lbl">Bülten &amp; Duyuru</div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-lg-7">
+          <div class="gs-chart-box">
+            <div class="gs-chart-legend">
+              <span class="gs-legend-item"><span class="gs-legend-dot" style="background:#6366f1;"></span>Toplam İndekslenmiş İçerik</span>
+            </div>
+            <canvas id="chartDbGrowth" class="gs-canvas-el"></canvas>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 4. BÖLÜM: AKTİF KULLANICI DAĞILIMI -->
+    <section class="gs-stat-section-card" aria-labelledby="secUsersTitle">
+      <div class="gs-stat-sec-head">
+        <h2 class="gs-stat-sec-title" id="secUsersTitle">Aktif Kullanıcı Dağılımı</h2>
+        <div class="gs-stat-sec-sub">Topluluk üyelerinin platform üzerindeki etkileşim rollerine göre dağılımı</div>
+      </div>
+      <div class="row g-3 align-items-center">
+        <div class="col-lg-6">
+          <div class="row g-2">
+            <div class="col-4">
+              <div class="gs-metric-tile gs-metric-tile--compact">
+                <span class="gs-metric-icon gs-metric-icon--sm"><i class="fa fa-play"></i></span>
+                <div class="gs-metric-num">4.920</div>
+                <div class="gs-metric-lbl">Aktif Oyuncu</div>
+              </div>
+            </div>
+            <div class="col-4">
+              <div class="gs-metric-tile gs-metric-tile--compact">
+                <span class="gs-metric-icon gs-metric-icon--sm"><i class="fa fa-bookmark"></i></span>
+                <div class="gs-metric-num">1.380</div>
+                <div class="gs-metric-lbl">Koleksiyoner</div>
+              </div>
+            </div>
+            <div class="col-4">
+              <div class="gs-metric-tile gs-metric-tile--compact">
+                <span class="gs-metric-icon gs-metric-icon--sm"><i class="fa fa-feather"></i></span>
+                <div class="gs-metric-num">640</div>
+                <div class="gs-metric-lbl">İnceleme Yazarı</div>
+              </div>
+            </div>
+            <div class="col-4">
+              <div class="gs-metric-tile gs-metric-tile--compact">
+                <span class="gs-metric-icon gs-metric-icon--sm"><i class="fa fa-video"></i></span>
+                <div class="gs-metric-num">315</div>
+                <div class="gs-metric-lbl">Yayıncı</div>
+              </div>
+            </div>
+            <div class="col-4">
+              <div class="gs-metric-tile gs-metric-tile--compact">
+                <span class="gs-metric-icon gs-metric-icon--sm"><i class="fa fa-compass"></i></span>
+                <div class="gs-metric-num">485</div>
+                <div class="gs-metric-lbl">Liste Küratörü</div>
+              </div>
+            </div>
+            <div class="col-4">
+              <div class="gs-metric-tile gs-metric-tile--compact">
+                <span class="gs-metric-icon gs-metric-icon--sm"><i class="fa fa-shield-halved"></i></span>
+                <div class="gs-metric-num">42</div>
+                <div class="gs-metric-lbl">Moderatör</div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-lg-6">
+          <div class="gs-chart-box">
+            <canvas id="chartUserDonut" class="gs-canvas-el"></canvas>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 5. BÖLÜM: PLATFORM ALANLARI VE KAPASİTE -->
+    <section class="gs-stat-section-card mb-0" aria-labelledby="secCapacityTitle">
+      <div class="gs-stat-sec-head">
+        <h2 class="gs-stat-sec-title" id="secCapacityTitle">Platform Bölümleri ve Modül Kapasitesi</h2>
+        <div class="gs-stat-sec-sub">Toplam <strong>1.192</strong> aktif modül ve topluluk etkileşim kanalı</div>
+      </div>
+      <div class="row g-3 align-items-stretch">
+        <div class="col-lg-5">
+          <div class="gs-capacity-row">
+            <div class="d-flex align-items-center gap-2">
+              <span class="gs-metric-icon gs-metric-icon--sm"><i class="fa fa-th-large"></i></span>
+              <div>
+                <div class="text-white fw-semibold small">Oyun Kataloğu &amp; Keşif</div>
+                <div class="text-secondary" style="font-size:0.68rem;">Filtreleme ve API eşleştirme</div>
+              </div>
+            </div>
+            <div class="text-end">
+              <div class="fw-bold text-white">611</div>
+              <div class="text-secondary" style="font-size:0.65rem;">Kayıt</div>
+            </div>
+          </div>
+          <div class="gs-capacity-row">
+            <div class="d-flex align-items-center gap-2">
+              <span class="gs-metric-icon gs-metric-icon--sm"><i class="fa fa-book-open"></i></span>
+              <div>
+                <div class="text-white fw-semibold small">Kişisel Oyun Günlüğü</div>
+                <div class="text-secondary" style="font-size:0.68rem;">Oynanış turu ve puanlama</div>
+              </div>
+            </div>
+            <div class="text-end">
+              <div class="fw-bold text-white">354</div>
+              <div class="text-secondary" style="font-size:0.65rem;">Günlük</div>
+            </div>
+          </div>
+          <div class="gs-capacity-row">
+            <div class="d-flex align-items-center gap-2">
+              <span class="gs-metric-icon gs-metric-icon--sm"><i class="fa fa-comments"></i></span>
+              <div>
+                <div class="text-white fw-semibold small">Topluluk İnceleme Akışı</div>
+                <div class="text-secondary" style="font-size:0.68rem;">Upvote / downvote etkileşimi</div>
+              </div>
+            </div>
+            <div class="text-end">
+              <div class="fw-bold text-white">75</div>
+              <div class="text-secondary" style="font-size:0.65rem;">Başlık</div>
+            </div>
+          </div>
+          <div class="gs-capacity-row">
+            <div class="d-flex align-items-center gap-2">
+              <span class="gs-metric-icon gs-metric-icon--sm"><i class="fa fa-bullhorn"></i></span>
+              <div>
+                <div class="text-white fw-semibold small">Duyuru &amp; Haber Merkezi</div>
+                <div class="text-secondary" style="font-size:0.68rem;">PDF / Word / görsel arşivli</div>
+              </div>
+            </div>
+            <div class="text-end">
+              <div class="fw-bold text-white">66</div>
+              <div class="text-secondary" style="font-size:0.65rem;">Bülten</div>
+            </div>
+          </div>
+          <div class="gs-capacity-row">
+            <div class="d-flex align-items-center gap-2">
+              <span class="gs-metric-icon gs-metric-icon--sm"><i class="fa fa-video"></i></span>
+              <div>
+                <div class="text-white fw-semibold small">Canlı Yayın &amp; Akış Kanalları</div>
+                <div class="text-secondary" style="font-size:0.68rem;">Anlık izleme odaları</div>
+              </div>
+            </div>
+            <div class="text-end">
+              <div class="fw-bold text-white">75</div>
+              <div class="text-secondary" style="font-size:0.65rem;">Kanal</div>
+            </div>
+          </div>
+          <div class="gs-capacity-row">
+            <div class="d-flex align-items-center gap-2">
+              <span class="gs-metric-icon gs-metric-icon--sm"><i class="fa fa-sliders"></i></span>
+              <div>
+                <div class="text-white fw-semibold small">Yönetim &amp; Moderasyon</div>
+                <div class="text-secondary" style="font-size:0.68rem;">İçerik güncelleme araçları</div>
+              </div>
+            </div>
+            <div class="text-end">
+              <div class="fw-bold text-white">11</div>
+              <div class="text-secondary" style="font-size:0.65rem;">Modül</div>
+            </div>
+          </div>
+        </div>
+        <div class="col-lg-7">
+          <div class="gs-chart-box">
+            <canvas id="chartCapacityBars" class="gs-canvas-el" style="height:320px;"></canvas>
+          </div>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <div class="gs-chart-tooltip" id="gsChartTooltip"></div>
+
+  <footer class="border-top border-secondary border-opacity-25 py-4 mt-4">
+    <div class="container d-flex flex-wrap justify-content-between align-items-center gap-2 small text-secondary">
+      <div>GameShelf • Dijital Oyun Kataloğu, Kişisel Raf &amp; Topluluk Analitiği</div>
+      <div class="d-flex gap-3">
+        <a href="index.html" class="text-secondary text-decoration-none">Ana Sayfa</a>
+        <a href="browse.html" class="text-secondary text-decoration-none">Katalog</a>
+        <a href="about.html" class="text-secondary text-decoration-none">Hakkımızda</a>
+        <a href="contact.html" class="text-secondary text-decoration-none">İletişim</a>
+      </div>
+    </div>
+  </footer>
+
+  <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+  <script src="js/services/gameShelfService.js"></script>
+  <script src="js/utils/globalSearch.js"></script>
+  <script src="js/utils/i18n.js"></script>
+  <script>
+    (async function renderGameShelfStatistics() {
+      const tooltip = document.getElementById("gsChartTooltip");
+      const hitRegions = [];
+
+      document.addEventListener("mousemove", (e) => {
+        const hit = hitRegions.find(
+          (r) => e.clientX >= r.x && e.clientX <= r.x + r.w && e.clientY >= r.y && e.clientY <= r.y + r.h
+        );
+        if (hit) {
+          tooltip.innerHTML = hit.label;
+          tooltip.style.display = "block";
+          tooltip.style.left = `${Math.min(window.innerWidth - 230, e.clientX + 12)}px`;
+          tooltip.style.top = `${Math.min(window.innerHeight - 72, e.clientY + 12)}px`;
+        } else {
+          tooltip.style.display = "none";
+        }
+      });
+
+      function setupCanvas(canvas) {
+        const rect = canvas.getBoundingClientRect();
+        const dpr = window.devicePixelRatio || 1;
+        canvas.width = Math.max(280, Math.floor(rect.width * dpr));
+        canvas.height = Math.max(180, Math.floor(rect.height * dpr));
+        const ctx = canvas.getContext("2d");
+        ctx.scale(dpr, dpr);
+        return { ctx, w: rect.width, h: rect.height, rect };
+      }
+
+      function drawGrid(ctx, w, h, padL, padR, padT, padB, maxVal, steps = 4) {
+        const plotH = h - padT - padB;
+        ctx.strokeStyle = "rgba(255,255,255,0.08)";
+        ctx.fillStyle = "#64748b";
+        ctx.font = "10px sans-serif";
+        ctx.textAlign = "right";
+        for (let i = 0; i <= steps; i++) {
+          const y = padT + (plotH / steps) * i;
+          const val = Math.round(maxVal * (1 - i / steps));
+          ctx.beginPath();
+          ctx.moveTo(padL, y);
+          ctx.lineTo(w - padR, y);
+          ctx.stroke();
+          ctx.fillText(val.toLocaleString("tr-TR"), padL - 6, y + 3);
+        }
+      }
+
+      const years = ["2022", "2023", "2024", "2025", "2026"];
+      const curatedSeries = [1420, 2150, 3040, 3910, 4820];
+      const digitalSeries = [14800, 21900, 29400, 36500, 43800];
+
+      const stackedData = [
+        { year: "2022", shelf: 6200, rev: 4100, comp: 2800, base: 1420 },
+        { year: "2023", shelf: 9100, rev: 6200, comp: 4100, base: 2150 },
+        { year: "2024", shelf: 12400, rev: 8500, comp: 5600, base: 3040 },
+        { year: "2025", shelf: 15600, rev: 10600, comp: 7100, base: 3910 },
+        { year: "2026", shelf: 18650, rev: 12480, comp: 8620, base: 4820 }
+      ];
+
+      const dbGrowthSeries = [24100, 33400, 44200, 54800, 64250];
+
+      const userSegments = [
+        { label: "Aktif Oyuncu", value: 4920, color: "#7c5cff" },
+        { label: "Koleksiyoner", value: 1380, color: "#38bdf8" },
+        { label: "İnceleme Yazarı", value: 640, color: "#10b981" },
+        { label: "Liste Küratörü", value: 485, color: "#f59e0b" },
+        { label: "Yayıncı", value: 315, color: "#ec4899" },
+        { label: "Moderatör", value: 42, color: "#94a3b8" }
+      ];
+
+      const capacityItems = [
+        { label: "Katalog", value: 611, color: "#7c5cff" },
+        { label: "Günlük", value: 354, color: "#38bdf8" },
+        { label: "İnceleme", value: 75, color: "#10b981" },
+        { label: "Yayın", value: 75, color: "#6366f1" },
+        { label: "Duyuru", value: 66, color: "#f59e0b" },
+        { label: "Yönetim", value: 11, color: "#94a3b8" }
+      ];
+
+      function drawAll() {
+        hitRegions.length = 0;
+
+        // 1) Koleksiyon Gelişimi (Çift Sütun)
+        const c1 = document.getElementById("chartCollectionGrowth");
+        if (c1) {
+          const { ctx, w, h, rect } = setupCanvas(c1);
+          const padL = 48, padR = 16, padT = 18, padB = 28;
+          const plotW = w - padL - padR;
+          const plotH = h - padT - padB;
+          const maxV = 50000;
+          drawGrid(ctx, w, h, padL, padR, padT, padB, maxV);
+          const groupW = plotW / years.length;
+          const bw = Math.min(26, groupW * 0.28);
+
+          years.forEach((yr, i) => {
+            const gx = padL + i * groupW + groupW / 2;
+            const h1 = (curatedSeries[i] / maxV) * plotH;
+            const h2 = (digitalSeries[i] / maxV) * plotH;
+
+            ctx.fillStyle = "#38bdf8";
+            ctx.beginPath();
+            ctx.roundRect(gx - bw - 3, padT + plotH - h1, bw, h1, [5, 5, 0, 0]);
+            ctx.fill();
+
+            ctx.fillStyle = "#7c5cff";
+            ctx.beginPath();
+            ctx.roundRect(gx + 3, padT + plotH - h2, bw, h2, [5, 5, 0, 0]);
+            ctx.fill();
+
+            ctx.fillStyle = "#cbd5e1";
+            ctx.font = "11px sans-serif";
+            ctx.textAlign = "center";
+            ctx.fillText(yr, gx, h - 8);
+
+            hitRegions.push({
+              x: rect.left + gx - bw - 6,
+              y: rect.top + padT + plotH - h2,
+              w: bw * 2 + 12,
+              h: h2,
+              label: `<strong>${yr} Koleksiyonu</strong><br/>Küratörlü Oyun: ${curatedSeries[i].toLocaleString("tr-TR")}<br/>Dijital Kayıt: ${digitalSeries[i].toLocaleString("tr-TR")}`
+            });
+          });
+        }
+
+        // 2) Yığılmış Sütun Grafiği (İçerik Türleri)
+        const c2 = document.getElementById("chartStackedTypes");
+        if (c2) {
+          const { ctx, w, h, rect } = setupCanvas(c2);
+          const padL = 48, padR = 16, padT = 18, padB = 28;
+          const plotW = w - padL - padR;
+          const plotH = h - padT - padB;
+          const maxV = 48000;
+          drawGrid(ctx, w, h, padL, padR, padT, padB, maxV);
+          const groupW = plotW / stackedData.length;
+          const bw = Math.min(46, groupW * 0.52);
+
+          stackedData.forEach((d, i) => {
+            const x = padL + i * groupW + (groupW - bw) / 2;
+            const segs = [
+              { val: d.base, color: "#f59e0b" },
+              { val: d.comp, color: "#10b981" },
+              { val: d.rev, color: "#38bdf8" },
+              { val: d.shelf, color: "#7c5cff" }
+            ];
+            let curY = padT + plotH;
+            segs.forEach((s, si) => {
+              const sh = (s.val / maxV) * plotH;
+              curY -= sh;
+              ctx.fillStyle = s.color;
+              ctx.beginPath();
+              ctx.roundRect(x, curY, bw, sh, si === segs.length - 1 ? [6, 6, 0, 0] : 0);
+              ctx.fill();
+            });
+            const total = d.base + d.comp + d.rev + d.shelf;
+            ctx.fillStyle = "#cbd5e1";
+            ctx.font = "11px sans-serif";
+            ctx.textAlign = "center";
+            ctx.fillText(d.year, x + bw / 2, h - 8);
+
+            hitRegions.push({
+              x: rect.left + x,
+              y: rect.top + curY,
+              w: bw,
+              h: padT + plotH - curY,
+              label: `<strong>${d.year} Toplam: ${total.toLocaleString("tr-TR")}</strong><br/>Raf: ${d.shelf.toLocaleString("tr-TR")} • İnceleme: ${d.rev.toLocaleString("tr-TR")}`
+            });
+          });
+        }
+
+        // 3) Veritabanı Artışı (Tekil Bar Chart)
+        const c3 = document.getElementById("chartDbGrowth");
+        if (c3) {
+          const { ctx, w, h, rect } = setupCanvas(c3);
+          const padL = 50, padR = 16, padT = 22, padB = 28;
+          const plotW = w - padL - padR;
+          const plotH = h - padT - padB;
+          const maxV = 70000;
+          drawGrid(ctx, w, h, padL, padR, padT, padB, maxV);
+          const groupW = plotW / years.length;
+          const bw = Math.min(48, groupW * 0.54);
+
+          years.forEach((yr, i) => {
+            const val = dbGrowthSeries[i];
+            const bh = (val / maxV) * plotH;
+            const x = padL + i * groupW + (groupW - bw) / 2;
+            const y = padT + plotH - bh;
+            ctx.fillStyle = "#6366f1";
+            ctx.beginPath();
+            ctx.roundRect(x, y, bw, bh, [7, 7, 0, 0]);
+            ctx.fill();
+
+            ctx.fillStyle = "#e2e8f0";
+            ctx.font = "10px sans-serif";
+            ctx.textAlign = "center";
+            ctx.fillText(val.toLocaleString("tr-TR"), x + bw / 2, y - 5);
+            ctx.fillText(yr, x + bw / 2, h - 8);
+
+            hitRegions.push({
+              x: rect.left + x,
+              y: rect.top + y,
+              w: bw,
+              h: bh,
+              label: `<strong>${yr} Veritabanı Hacmi</strong><br/>${val.toLocaleString("tr-TR")} meta veri kaydı`
+            });
+          });
+        }
+
+        // 4) Aktif Kullanıcı Dağılımı (Donut Chart)
+        const c4 = document.getElementById("chartUserDonut");
+        if (c4) {
+          const { ctx, w, h } = setupCanvas(c4);
+          const total = userSegments.reduce((a, b) => a + b.value, 0);
+          const cx = w * 0.34;
+          const cy = h * 0.5;
+          const rOut = Math.min(w * 0.27, h * 0.4);
+          const rIn = rOut * 0.58;
+          let ang = -Math.PI / 2;
+
+          userSegments.forEach((seg) => {
+            const slice = (seg.value / total) * Math.PI * 2;
+            ctx.beginPath();
+            ctx.moveTo(cx, cy);
+            ctx.arc(cx, cy, rOut, ang, ang + slice);
+            ctx.closePath();
+            ctx.fillStyle = seg.color;
+            ctx.fill();
+            ang += slice;
+          });
+
+          ctx.beginPath();
+          ctx.arc(cx, cy, rIn, 0, Math.PI * 2);
+          ctx.fillStyle = "#10141f";
+          ctx.fill();
+
+          ctx.fillStyle = "#ffffff";
+          ctx.font = "bold 14px sans-serif";
+          ctx.textAlign = "center";
+          ctx.fillText(total.toLocaleString("tr-TR"), cx, cy + 4);
+
+          const lx = w * 0.64;
+          let ly = h * 0.18;
+          userSegments.forEach((seg) => {
+            ctx.fillStyle = seg.color;
+            ctx.fillRect(lx, ly - 8, 10, 10);
+            ctx.fillStyle = "#cbd5e1";
+            ctx.font = "11px sans-serif";
+            ctx.textAlign = "left";
+            const pct = ((seg.value / total) * 100).toFixed(1);
+            ctx.fillText(`${seg.label} (${pct}%)`, lx + 16, ly + 1);
+            ly += 25;
+          });
+        }
+
+        // 5) Platform Bölümleri ve Kapasite (İnce Sütun Grafiği)
+        const c5 = document.getElementById("chartCapacityBars");
+        if (c5) {
+          const { ctx, w, h, rect } = setupCanvas(c5);
+          const padL = 42, padR = 16, padT = 22, padB = 34;
+          const plotW = w - padL - padR;
+          const plotH = h - padT - padB;
+          const maxV = 700;
+          drawGrid(ctx, w, h, padL, padR, padT, padB, maxV);
+          const groupW = plotW / capacityItems.length;
+          const bw = Math.min(24, groupW * 0.34);
+
+          capacityItems.forEach((it, i) => {
+            const bh = (it.value / maxV) * plotH;
+            const x = padL + i * groupW + (groupW - bw) / 2;
+            const y = padT + plotH - bh;
+            ctx.fillStyle = it.color;
+            ctx.beginPath();
+            ctx.roundRect(x, y, bw, bh, [6, 6, 0, 0]);
+            ctx.fill();
+
+            ctx.fillStyle = "#e2e8f0";
+            ctx.font = "10px sans-serif";
+            ctx.textAlign = "center";
+            ctx.fillText(String(it.value), x + bw / 2, y - 5);
+            ctx.fillText(it.label, x + bw / 2, h - 10);
+
+            hitRegions.push({
+              x: rect.left + x - 6,
+              y: rect.top + y,
+              w: bw + 12,
+              h: bh,
+              label: `<strong>${it.label}</strong>: ${it.value} aktif kayıt`
+            });
+          });
+        }
+      }
+
+      drawAll();
+      window.addEventListener("resize", drawAll);
+    })();
+  </script>
+</body>
+</html>

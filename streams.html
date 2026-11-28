@@ -1,487 +1,339 @@
 <!DOCTYPE html>
-<html lang="en">
-
-  <head>
-
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600;700;800;900&display=swap" rel="stylesheet">
-
-    <title>Cyborg - Awesome HTML5 Template</title>
-
-    <!-- Bootstrap core CSS -->
-    <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
-
-
-    <!-- Additional CSS Files -->
-    <link rel="stylesheet" href="assets/css/fontawesome.css">
-    <link rel="stylesheet" href="assets/css/templatemo-cyborg-gaming.css">
-    <link rel="stylesheet" href="assets/css/owl.css">
-    <link rel="stylesheet" href="assets/css/animate.css">
-    <link rel="stylesheet"href="https://unpkg.com/swiper@7/swiper-bundle.min.css"/>
-<!--
-
-TemplateMo 579 Cyborg Gaming
-
-https://templatemo.com/tm-579-cyborg-gaming
-
--->
-    <script>
+<html lang="tr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="vendor/bootstrap/css/bootstrap.min.css" />
+  <link rel="stylesheet" href="assets/css/fontawesome.css" />
+  <link rel="stylesheet" href="css/gameshelf.css" />
+  <meta name="description" content="GameShelf canlı yayın ve akış birimi: topluluğun oynadığı oyunlardan öne çıkan örnek yayınlar." />
+  <title>Canlı Yayın & Akış Birimi — GameShelf</title>
+  <script>
     if (localStorage.getItem("gs_ui_lang") === "en") {
       document.documentElement.lang = "en";
     }
   </script>
   <script src="js/utils/i18n.js"></script>
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20viewBox%3D%220%200%20120%20120%22%3E%3Cdefs%3E%3CclipPath%20id%3D%22fk%22%3E%3Cpolygon%20points%3D%220%2C0%2084%2C0%2036%2C120%200%2C120%22/%3E%3C/clipPath%3E%3CclipPath%20id%3D%22fg%22%3E%3Cpolygon%20points%3D%2284%2C0%20120%2C0%20120%2C120%2036%2C120%22/%3E%3C/clipPath%3E%3C/defs%3E%3Crect%20x%3D%226%22%20y%3D%2210%22%20width%3D%22108%22%20height%3D%22100%22%20rx%3D%2226%22%20fill%3D%22%230b0e16%22%20stroke%3D%22%23ffffff%22%20stroke-width%3D%225.5%22/%3E%3Cg%20clip-path%3D%22url%28%23fk%29%22%3E%3Crect%20x%3D%2215%22%20y%3D%2231%22%20width%3D%2268%22%20height%3D%2254%22%20rx%3D%229%22%20fill%3D%22%23ffffff%22/%3E%3Crect%20x%3D%2221%22%20y%3D%2237%22%20width%3D%2210.5%22%20height%3D%2210.5%22%20rx%3D%222.5%22%20fill%3D%22%230b0e16%22/%3E%3Crect%20x%3D%2235%22%20y%3D%2237%22%20width%3D%2210.5%22%20height%3D%2210.5%22%20rx%3D%222.5%22%20fill%3D%22%230b0e16%22/%3E%3Crect%20x%3D%2249%22%20y%3D%2237%22%20width%3D%2210.5%22%20height%3D%2210.5%22%20rx%3D%222.5%22%20fill%3D%22%230b0e16%22/%3E%3Crect%20x%3D%2263%22%20y%3D%2237%22%20width%3D%2210.5%22%20height%3D%2210.5%22%20rx%3D%222.5%22%20fill%3D%22%230b0e16%22/%3E%3Crect%20x%3D%2221%22%20y%3D%2251.5%22%20width%3D%2210.5%22%20height%3D%2210.5%22%20rx%3D%222.5%22%20fill%3D%22%230b0e16%22/%3E%3Crect%20x%3D%2235%22%20y%3D%2251.5%22%20width%3D%2210.5%22%20height%3D%2210.5%22%20rx%3D%222.5%22%20fill%3D%22%230b0e16%22/%3E%3Crect%20x%3D%2249%22%20y%3D%2251.5%22%20width%3D%2210.5%22%20height%3D%2210.5%22%20rx%3D%222.5%22%20fill%3D%22%230b0e16%22/%3E%3Crect%20x%3D%2263%22%20y%3D%2251.5%22%20width%3D%2210.5%22%20height%3D%2210.5%22%20rx%3D%222.5%22%20fill%3D%22%230b0e16%22/%3E%3Crect%20x%3D%2221%22%20y%3D%2266%22%20width%3D%2210.5%22%20height%3D%2210.5%22%20rx%3D%222.5%22%20fill%3D%22%230b0e16%22/%3E%3Crect%20x%3D%2235%22%20y%3D%2266%22%20width%3D%2210.5%22%20height%3D%2210.5%22%20rx%3D%222.5%22%20fill%3D%22%230b0e16%22/%3E%3Crect%20x%3D%2249%22%20y%3D%2266%22%20width%3D%2210.5%22%20height%3D%2210.5%22%20rx%3D%222.5%22%20fill%3D%22%230b0e16%22/%3E%3C/g%3E%3Cg%20clip-path%3D%22url%28%23fg%29%22%3E%3Cpath%20d%3D%22M52%2C39%20L84%2C39%20C96%2C39%20102%2C46%20104%2C58%20L106%2C77%20C107%2C86%2099%2C91%2092%2C86%20L82%2C76%20L58%2C76%20L46%2C88%20C39%2C93%2033%2C87%2035%2C77%20L41%2C53%20C43%2C44%2046%2C39%2052%2C39%20Z%22%20fill%3D%22%23ffffff%22/%3E%3Ccircle%20cx%3D%2262%22%20cy%3D%2263%22%20r%3D%225.2%22%20fill%3D%22%230b0e16%22/%3E%3Ccircle%20cx%3D%2284%22%20cy%3D%2249%22%20r%3D%223.4%22%20fill%3D%22%230b0e16%22/%3E%3Ccircle%20cx%3D%2292%22%20cy%3D%2256%22%20r%3D%223.4%22%20fill%3D%22%230b0e16%22/%3E%3Ccircle%20cx%3D%2284%22%20cy%3D%2263%22%20r%3D%223.4%22%20fill%3D%22%230b0e16%22/%3E%3Ccircle%20cx%3D%2276%22%20cy%3D%2256%22%20r%3D%223.4%22%20fill%3D%22%230b0e16%22/%3E%3C/g%3E%3Cpolygon%20points%3D%2284%2C18%2035%2C98%2040%2C101%2087%2C20%22%20fill%3D%22%23ffffff%22%20stroke%3D%22%230b0e16%22%20stroke-width%3D%222.6%22%20stroke-linejoin%3D%22round%22/%3E%3C/svg%3E" />
+  <link rel="icon" type="image/png" sizes="32x32" href="assets/images/favicon-32.png" />
+  <link rel="icon" type="image/png" href="assets/images/favicon.png" />
 </head>
+<body class="gs-body">
+    <!-- Üst Navigasyon -->
+  <nav class="navbar navbar-expand-lg gs-navbar">
+    <div class="container">
+      <a class="navbar-brand gs-brand-link text-white fw-bold" href="index.html">
+        <div class="gs-static-logo" id="gsStaticLogo" aria-label="GameShelf Logo">
+          <svg viewBox="0 0 120 120" class="gs-logo-svg" role="img" aria-hidden="true">
+            <defs>
+              <!-- Diyagonal çizginin sol üstü (Klavye bölgesi) -->
+              <clipPath id="gsClipKeyboard">
+                <polygon points="0,0 82,0 38,120 0,120" />
+              </clipPath>
+              <!-- Diyagonal çizginin sağ altı (Gamepad bölgesi) -->
+              <clipPath id="gsClipGamepad">
+                <polygon points="82,0 120,0 120,120 38,120" />
+              </clipPath>
+            </defs>
 
-<body>
+            <!-- Yuvarlatılmış Kalın Beyaz Dış Çerçeve -->
+            <rect x="6" y="10" width="108" height="100" rx="26" fill="#090b10" stroke="#ffffff" stroke-width="5.2" />
 
-  <!-- ***** Preloader Start ***** -->
-  <div id="js-preloader" class="js-preloader">
-    <div class="preloader-inner">
-      <span class="dot"></span>
-      <div class="dots">
-        <span></span>
-        <span></span>
-        <span></span>
+            <!-- SOL BÖLGE: BEYAZ DOLGULU KLAVYE -->
+            <g clip-path="url(#gsClipKeyboard)">
+              <!-- Klavye Ana Gövdesi -->
+              <rect x="15" y="31" width="68" height="54" rx="9" fill="#ffffff" />
+              <!-- 3x4 Yuvarlatılmış Kare Tuş Oyukları (Siyah Kontrast) -->
+              <!-- Satır 1 -->
+              <rect x="21" y="37" width="10.5" height="10.5" rx="2.6" fill="#090b10" />
+              <rect x="35" y="37" width="10.5" height="10.5" rx="2.6" fill="#090b10" />
+              <rect x="49" y="37" width="10.5" height="10.5" rx="2.6" fill="#090b10" />
+              <rect x="63" y="37" width="10.5" height="10.5" rx="2.6" fill="#090b10" />
+              <!-- Satır 2 -->
+              <rect x="21" y="51.5" width="10.5" height="10.5" rx="2.6" fill="#090b10" />
+              <rect x="35" y="51.5" width="10.5" height="10.5" rx="2.6" fill="#090b10" />
+              <rect x="49" y="51.5" width="10.5" height="10.5" rx="2.6" fill="#090b10" />
+              <rect x="63" y="51.5" width="10.5" height="10.5" rx="2.6" fill="#090b10" />
+              <!-- Satır 3 -->
+              <rect x="21" y="66" width="10.5" height="10.5" rx="2.6" fill="#090b10" />
+              <rect x="35" y="66" width="10.5" height="10.5" rx="2.6" fill="#090b10" />
+              <rect x="49" y="66" width="10.5" height="10.5" rx="2.6" fill="#090b10" />
+            </g>
+
+            <!-- SAĞ BÖLGE: BEYAZ DOLGULU OYUN KOLU (GAMEPAD) -->
+            <g clip-path="url(#gsClipGamepad)">
+              <!-- Ergonomik Beyaz Gamepad Silüeti -->
+              <path d="M52,39 L84,39 C96,39 102,46 104,58 L106,77 C107,86 99,91 92,86 L82,76 L58,76 L46,88 C39,93 33,87 35,77 L41,53 C43,44 46,39 52,39 Z"
+                    fill="#ffffff" />
+              <!-- Sol Analog / Kontrol Dairesi -->
+              <circle cx="62" cy="63" r="5.2" fill="#090b10" />
+              <!-- Sağ 4'lü Aksiyon Butonları (Elmas Dizilimi) -->
+              <circle cx="84" cy="49" r="3.4" fill="#090b10" />
+              <circle cx="92" cy="56" r="3.4" fill="#090b10" />
+              <circle cx="84" cy="63" r="3.4" fill="#090b10" />
+              <circle cx="76" cy="56" r="3.4" fill="#090b10" />
+            </g>
+
+            <!-- ORTA DİYAGONAL AYIRICI ÇİZGİ (Siyah dış konturlu, uçlara doğru incelen beyaz kesim çizgisi) -->
+            <polygon points="84,18 35,98 40,101 87,20" fill="#ffffff" stroke="#090b10" stroke-width="2.6" stroke-linejoin="round" />
+          </svg>
+        </div>
+        <span class="gs-brand-title">GameShelf</span>
+      </a>
+      <!-- GameShelf ile Home Arasında Kalıcı Global Oyun Arama Kutucuğu -->
+      <div class="gs-nav-search-wrap" id="globalNavSearchWrap">
+        <form id="globalNavSearchForm" class="gs-nav-search-bar" autocomplete="off">
+          <i class="fa fa-search text-secondary" id="globalNavSearchIcon"></i>
+          <input type="text"
+                 id="globalNavSearchInput"
+                 placeholder="Oyun, stüdyo veya tür yazmaya başla..."
+                 aria-label="Oyun ara" />
+          <button type="submit" class="btn btn-sm gs-btn-primary rounded-pill px-2 py-0" style="font-size:0.74rem; height:24px;">Ara</button>
+        </form>
+        <div class="gs-search-suggestions gs-nav-search-suggestions" id="globalNavSearchSuggestions" role="listbox"></div>
+      </div>
+      <button class="navbar-toggler border-secondary" type="button" data-bs-toggle="collapse" data-bs-target="#gsMainNav" aria-label="Menüyü Aç">
+        <i class="fa fa-bars text-white"></i>
+      </button>
+      <div class="collapse navbar-collapse" id="gsMainNav">
+        <ul class="navbar-nav ms-auto align-items-lg-center gap-lg-1">
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle " href="index.html">Ana Sayfa</a>
+            <ul class="dropdown-menu">
+              <li class="dropdown-header-label">Ana Sayfa Bölümleri</li>
+              <li><a class="dropdown-item" href="index.html#lanePopular"><i class="fa fa-fire"></i> En Popüler Oyunlar</a></li>
+              <li><a class="dropdown-item" href="index.html#laneNewReleases"><i class="fa fa-sparkles"></i> Yeni Oyunlar (Ön Plan)</a></li>
+              <li><a class="dropdown-item" href="index.html#laneTopReviews"><i class="fa fa-thumbs-up"></i> En Çok Upvote Alan İncelemeler</a></li>
+              <li><a class="dropdown-item" href="index.html#homeNewsGrid"><i class="fa fa-newspaper"></i> Duyurular &amp; Haberler</a></li>
+            </ul>
+          </li>
+
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle " href="browse.html">Ürünlerimiz</a>
+            <ul class="dropdown-menu">
+              <li class="dropdown-header-label">Oyun Kataloğu &amp; Sürümler</li>
+              <li><a class="dropdown-item" href="browse.html"><i class="fa fa-compass"></i> Tüm Oyun Kataloğu</a></li>
+              <li><a class="dropdown-item" href="browse.html?type=base"><i class="fa fa-gamepad"></i> Ana Oyunlar</a></li>
+              <li><a class="dropdown-item" href="browse.html?type=dlc"><i class="fa fa-puzzle-piece"></i> DLC &amp; Genişleme Paketleri</a></li>
+              <li><a class="dropdown-item" href="browse.html?type=edition"><i class="fa fa-box-open"></i> Özel Sürümler</a></li>
+              <li><hr class="dropdown-divider border-secondary border-opacity-25 my-1" /></li>
+              <li><a class="dropdown-item" href="details.html?id=1"><i class="fa fa-info-circle"></i> Oyun Detay Sayfası</a></li>
+            </ul>
+          </li>
+
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle active" href="profile.html">Birimlerimiz</a>
+            <ul class="dropdown-menu">
+              <li class="dropdown-header-label">Platform &amp; Topluluk Birimleri</li>
+              <li><a class="dropdown-item" href="stats.html"><i class="fa fa-chart-bar"></i> Sayılarla GameShelf</a></li>
+              <li><a class="dropdown-item" href="profile.html?tab=overview"><i class="fa fa-user"></i> Kişisel Günlük &amp; İstatistikler</a></li>
+              <li><a class="dropdown-item" href="profile.html?tab=games"><i class="fa fa-th"></i> Oyun Rafı (Kapaklar)</a></li>
+              <li><a class="dropdown-item active" href="streams.html"><i class="fa fa-video"></i> Canlı Yayın &amp; Akış Birimi</a></li>
+              <li><a class="dropdown-item" href="announcements.html"><i class="fa fa-bullhorn"></i> Duyuru &amp; Arşiv Birimi</a></li>
+            </ul>
+          </li>
+
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle " href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">Kurumsal</a>
+            <ul class="dropdown-menu">
+              <li class="dropdown-header-label">Kurumsal Sayfalar</li>
+              <li><a class="dropdown-item" href="about.html"><i class="fa fa-building"></i> Hakkımızda</a></li>
+              <li><a class="dropdown-item" href="mission-vision.html"><i class="fa fa-bullseye"></i> Misyon &amp; Vizyon</a></li>
+              <li><a class="dropdown-item" href="announcements.html"><i class="fa fa-bullhorn"></i> Tüm Duyurular</a></li>
+            </ul>
+          </li>
+
+          <li class="nav-item"><a class="nav-link " href="contact.html">İletişim</a></li>
+
+          <li class="nav-item ms-lg-1">
+            <a class="btn btn-sm gs-btn-outline " href="admin.html"><i class="fa fa-sliders me-1"></i> Admin Paneli</a>
+          </li>
+
+          <!-- EN SAĞ ÜST DİKKAT ÇEKİCİ DİL SEÇİMİ (KENDİ DİLİNDE: TÜRKÇE / ENGLISH) -->
+          <li class="nav-item dropdown ms-lg-2 mt-2 mt-lg-0">
+            <button type="button"
+                    class="btn btn-sm dropdown-toggle gs-lang-switcher-btn"
+                    id="gsLangDropdownBtn"
+                    data-bs-toggle="dropdown"
+                    aria-expanded="false"
+                    aria-label="Language / Dil Seçimi"
+                    title="Dil Seçimi / Language">
+              <i class="fa fa-globe gs-lang-globe-icon" aria-hidden="true"></i>
+              <span id="gsCurrentLangLabel">Türkçe</span>
+              <span class="gs-lang-code-pill">TR / EN</span>
+            </button>
+            <ul class="dropdown-menu dropdown-menu-end gs-lang-dropdown-menu" aria-labelledby="gsLangDropdownBtn">
+              <li class="dropdown-header-label px-2 py-1" style="font-size:0.68rem;">Dil / Language</li>
+              <li>
+                <button type="button" class="dropdown-item gs-lang-option active" data-set-lang="tr">
+                  <span>🇹🇷 Türkçe</span>
+                  <span class="badge bg-dark border border-secondary border-opacity-25 text-info">TR</span>
+                </button>
+              </li>
+              <li>
+                <button type="button" class="dropdown-item gs-lang-option" data-set-lang="en">
+                  <span>🇬🇧 English</span>
+                  <span class="badge bg-dark border border-secondary border-opacity-25 text-info">EN</span>
+                </button>
+              </li>
+            </ul>
+          </li>
+        </ul>
       </div>
     </div>
-  </div>
-  <!-- ***** Preloader End ***** -->
+  </nav>
 
-  <!-- ***** Header Area Start ***** -->
-  <header class="header-area header-sticky">
-    <div class="container">
-        <div class="row">
-            <div class="col-12">
-                <nav class="main-nav">
-                    <!-- ***** Logo Start ***** -->
-                    <a href="index.html" class="logo">
-                        <img src="assets/images/logo.png" alt="">
-                    </a>
-                    <!-- ***** Logo End ***** -->
-                    <!-- ***** Search End ***** -->
-                    <div class="search-input">
-                      <form id="search" action="#">
-                        <input type="text" placeholder="Type Something" id='searchText' name="searchKeyword" onkeypress="handle" />
-                        <i class="fa fa-search"></i>
-                      </form>
-                    </div>
-                    <!-- ***** Search End ***** -->
-                    <!-- ***** Menu Start ***** -->
-                    <ul class="nav">
-                        <li><a href="index.html">Home</a></li>
-                        <li><a href="browse.html">Browse</a></li>
-                        <li><a href="details.html">Details</a></li>
-                        <li><a href="streams.html" class="active">Streams</a></li>
-                        <li><a href="profile.html">Profile <img src="assets/images/profile-header.jpg" alt=""></a></li>
-                    </ul>   
-                    <a class='menu-trigger'>
-                        <span>Menu</span>
-                    </a>
-                    <!-- ***** Menu End ***** -->
-                </nav>
-            </div>
-        </div>
-    </div>
-  </header>
-  <!-- ***** Header Area End ***** -->
 
-  <div class="container">
-    <div class="row">
-      <div class="col-lg-12">
-        <div class="page-content">
+  <main class="container py-5">
+    <section class="gs-card mb-4">
+      <span class="gs-badge-accent mb-2 d-inline-block">Topluluk</span>
+      <h1 class="h3 fw-bold text-white mb-2">Canlı Yayın &amp; Akış Birimi</h1>
+      <p class="text-secondary mb-2" style="max-width: 780px; line-height: 1.7;">
+        Topluluğun katalogdaki oyunlardan yaptığı yayınları tek yerde keşfet. Bir yayına tıklayarak oyunun detay sayfasına, günlük ve inceleme alanına geçebilirsin.
+      </p>
+      <p class="small text-secondary mb-0"><i class="fa fa-circle-info me-1"></i> Bu sayfadaki yayınlar ve izleyici sayıları prototip için hazırlanmış örnek verilerdir.</p>
+    </section>
 
-          <!-- ***** Featured Games Start ***** -->
-          <div class="row">
-            <div class="col-lg-8">
-              <div class="featured-games header-text">
-                <div class="heading-section">
-                  <h4><em>Live</em> Streams</h4>
-                </div>
-                <div class="owl-features owl-carousel">
-                  <div class="item">
-                    <div class="thumb">
-                      <img src="assets/images/games/cp2077-cover.jpg" alt="">
-                      <div class="hover-effect">
-                        <h6>2.4K Streaming</h6>
-                      </div>
-                    </div>
-                    <h4>CS-GO<br><span>249K Downloads</span></h4>
-                    <ul>
-                      <li><i class="fa fa-star"></i> 4.8</li>
-                      <li><i class="fa fa-download"></i> 2.3M</li>
-                    </ul>
-                  </div>
-                  <div class="item">
-                    <div class="thumb">
-                      <img src="assets/images/games/alanwake2-cover.jpg" alt="">
-                      <div class="hover-effect">
-                        <h6>2.4K Streaming</h6>
-                      </div>
-                    </div>
-                    <h4>Gamezer<br><span>249K Downloads</span></h4>
-                    <ul>
-                      <li><i class="fa fa-star"></i> 4.8</li>
-                      <li><i class="fa fa-download"></i> 2.3M</li>
-                    </ul>
-                  </div>
-                  <div class="item">
-                    <div class="thumb">
-                      <img src="assets/images/games/eldenring-cover.jpg" alt="">
-                      <div class="hover-effect">
-                        <h6>2.4K Streaming</h6>
-                      </div>
-                    </div>
-                    <h4>Island Rusty<br><span>249K Downloads</span></h4>
-                    <ul>
-                      <li><i class="fa fa-star"></i> 4.8</li>
-                      <li><i class="fa fa-download"></i> 2.3M</li>
-                    </ul>
-                  </div>
-                  <div class="item">
-                    <div class="thumb">
-                      <img src="assets/images/games/cp2077-cover.jpg" alt="">
-                      <div class="hover-effect">
-                        <h6>2.4K Streaming</h6>
-                      </div>
-                    </div>
-                    <h4>CS-GO<br><span>249K Downloads</span></h4>
-                    <ul>
-                      <li><i class="fa fa-star"></i> 4.8</li>
-                      <li><i class="fa fa-download"></i> 2.3M</li>
-                    </ul>
-                  </div>
-                  <div class="item">
-                    <div class="thumb">
-                      <img src="assets/images/games/alanwake2-cover.jpg" alt="">
-                      <div class="hover-effect">
-                        <h6>2.4K Streaming</h6>
-                      </div>
-                    </div>
-                    <h4>Gamezer<br><span>249K Downloads</span></h4>
-                    <ul>
-                      <li><i class="fa fa-star"></i> 4.8</li>
-                      <li><i class="fa fa-download"></i> 2.3M</li>
-                    </ul>
-                  </div>
-                  <div class="item">
-                    <div class="thumb">
-                      <img src="assets/images/games/eldenring-cover.jpg" alt="">
-                      <div class="hover-effect">
-                        <h6>2.4K Streaming</h6>
-                      </div>
-                    </div>
-                    <h4>Island Rusty<br><span>249K Downloads</span></h4>
-                    <ul>
-                      <li><i class="fa fa-star"></i> 4.8</li>
-                      <li><i class="fa fa-download"></i> 2.3M</li>
-                    </ul>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div class="col-lg-4">
-              <div class="top-streamers">
-                <div class="heading-section">
-                  <h4><em>Top</em> Streamers</h4>
-                </div>
-                <ul>
-                  <li>
-                    <span>01</span>
-                    <img src="assets/images/avatar-01.jpg" alt="" style="max-width: 46px; border-radius: 50%; margin-right: 15px;">
-                    <h6><i class="fa fa-check"></i> LahutaM</h6>
-                    <div class="main-button">
-                      <a href="#">Follow</a>
-                    </div>
-                  </li>
-                  <li>
-                    <span>02</span>
-                    <img src="assets/images/avatar-02.jpg" alt="" style="max-width: 46px; border-radius: 50%; margin-right: 15px;">
-                    <h6><i class="fa fa-check"></i> Kengan</h6>
-                    <div class="main-button">
-                      <a href="#">Follow</a>
-                    </div>
-                  </li>
-                  <li>
-                    <span>03</span>
-                    <img src="assets/images/avatar-03.jpg" alt="" style="max-width: 46px; border-radius: 50%; margin-right: 15px;">
-                    <h6><i class="fa fa-check"></i> Areluwa</h6>
-                    <div class="main-button">
-                      <a href="#">Follow</a>
-                    </div>
-                  </li>
-                  <li>
-                    <span>04</span>
-                    <img src="assets/images/avatar-04.jpg" alt="" style="max-width: 46px; border-radius: 50%; margin-right: 15px;">
-                    <h6><i class="fa fa-check"></i> Omeg</h6>
-                    <div class="main-button">
-                      <a href="#">Follow</a>
-                    </div>
-                  </li>
-                  <li>
-                    <span>05</span>
-                    <img src="assets/images/avatar-01.jpg" alt="" style="max-width: 46px; border-radius: 50%; margin-right: 15px;">
-                    <h6><i class="fa fa-check"></i> GangTeam</h6>
-                    <div class="main-button">
-                      <a href="#">Follow</a>
-                    </div>
-                  </li>
-                </ul>
-              </div>
-            </div>
+    <h2 class="gs-section-title mb-3">Öne Çıkan Yayınlar</h2>
+    <div class="row g-4 mb-4">
+      <div class="col-sm-6 col-lg-4">
+        <a href="details.html?id=1" class="gs-card h-100 mb-0 d-block text-decoration-none p-0 overflow-hidden">
+          <div class="position-relative">
+            <img src="assets/images/stream-01.jpg" alt="Cyberpunk 2077" class="w-100" style="aspect-ratio:16/9; object-fit:cover;" loading="lazy" />
+            <span class="gs-badge-accent position-absolute" style="top:10px; left:10px;"><i class="fa fa-circle me-1" style="font-size:0.5rem;"></i> <span>Canlı</span></span>
+            <span class="gs-badge-neutral position-absolute" style="top:10px; right:10px;"><i class="fa fa-eye me-1"></i> <span>2.4K</span> <span>izleyici</span></span>
           </div>
-          <!-- ***** Featured Games End ***** -->
-
-          <!-- ***** Live Stream Start ***** -->
-          <div class="live-stream">
-            <div class="col-lg-12">
-              <div class="heading-section">
-                <h4><em>Most Popular</em> Live Stream</h4>
-              </div>
-            </div>
-            <div class="row">
-              <div class="col-lg-3 col-sm-6">
-                <div class="item">
-                  <div class="thumb">
-                    <img src="assets/images/stream-05.jpg" alt="">
-                    <div class="hover-effect">
-                      <div class="content">
-                        <div class="live">
-                          <a href="#">Live</a>
-                        </div>
-                        <ul>
-                          <li><a href="#"><i class="fa fa-eye"></i> 1.2K</a></li>
-                          <li><a href="#"><i class="fa fa-gamepad"></i> CS-GO</a></li>
-                        </ul>
-                      </div>
-                    </div>
-                  </div>
-                  <div class="down-content">
-                    <div class="avatar">
-                      <img src="assets/images/avatar-01.jpg" alt="" style="max-width: 46px; border-radius: 50%; float: left;">
-                    </div>
-                    <span><i class="fa fa-check"></i> Kengan Omeg</span>
-                    <h4>Just Talking With Fans</h4>
-                  </div> 
-                </div>
-              </div>
-              <div class="col-lg-3 col-sm-6">
-                <div class="item">
-                  <div class="thumb">
-                    <img src="assets/images/stream-06.jpg" alt="">
-                    <div class="hover-effect">
-                      <div class="content">
-                        <div class="live">
-                          <a href="#">Live</a>
-                        </div>
-                        <ul>
-                          <li><a href="#"><i class="fa fa-eye"></i> 1.2K</a></li>
-                          <li><a href="#"><i class="fa fa-gamepad"></i> CS-GO</a></li>
-                        </ul>
-                      </div>
-                    </div>
-                  </div>
-                  <div class="down-content">
-                    <div class="avatar">
-                      <img src="assets/images/avatar-02.jpg" alt="" style="max-width: 46px; border-radius: 50%; float: left;">
-                    </div>
-                    <span><i class="fa fa-check"></i> LahutaMalc</span>
-                    <h4>CS-GO 36 Hours Live Stream</h4>
-                  </div> 
-                </div>
-              </div>
-              <div class="col-lg-3 col-sm-6">
-                <div class="item">
-                  <div class="thumb">
-                    <img src="assets/images/stream-07.jpg" alt="">
-                    <div class="hover-effect">
-                      <div class="content">
-                        <div class="live">
-                          <a href="#">Live</a>
-                        </div>
-                        <ul>
-                          <li><a href="#"><i class="fa fa-eye"></i> 1.2K</a></li>
-                          <li><a href="#"><i class="fa fa-gamepad"></i> CS-GO</a></li>
-                        </ul>
-                      </div>
-                    </div>
-                  </div>
-                  <div class="down-content">
-                    <div class="avatar">
-                      <img src="assets/images/avatar-03.jpg" alt="" style="max-width: 46px; border-radius: 50%; float: left;">
-                    </div>
-                    <span><i class="fa fa-check"></i> Areluwa</span>
-                    <h4>Maybe Nathej Allnight Chillin'</h4>
-                  </div> 
-                </div>
-              </div>
-              <div class="col-lg-3 col-sm-6">
-                <div class="item">
-                  <div class="thumb">
-                    <img src="assets/images/stream-08.jpg" alt="">
-                    <div class="hover-effect">
-                      <div class="content">
-                        <div class="live">
-                          <a href="#">Live</a>
-                        </div>
-                        <ul>
-                          <li><a href="#"><i class="fa fa-eye"></i> 1.2K</a></li>
-                          <li><a href="#"><i class="fa fa-gamepad"></i> CS-GO</a></li>
-                        </ul>
-                      </div>
-                    </div>
-                  </div>
-                  <div class="down-content">
-                    <div class="avatar">
-                      <img src="assets/images/avatar-04.jpg" alt="" style="max-width: 46px; border-radius: 50%; float: left;">
-                    </div>
-                    <span><i class="fa fa-check"></i> NewGangTeam</span>
-                    <h4>Live Streaming Till Morning</h4>
-                  </div> 
-                </div>
-              </div>
-              <div class="col-lg-3 col-sm-6">
-                <div class="item">
-                  <div class="thumb">
-                    <img src="assets/images/stream-07.jpg" alt="">
-                    <div class="hover-effect">
-                      <div class="content">
-                        <div class="live">
-                          <a href="#">Live</a>
-                        </div>
-                        <ul>
-                          <li><a href="#"><i class="fa fa-eye"></i> 1.2K</a></li>
-                          <li><a href="#"><i class="fa fa-gamepad"></i> CS-GO</a></li>
-                        </ul>
-                      </div>
-                    </div>
-                  </div>
-                  <div class="down-content">
-                    <div class="avatar">
-                      <img src="assets/images/avatar-01.jpg" alt="" style="max-width: 46px; border-radius: 50%; float: left;">
-                    </div>
-                    <span><i class="fa fa-check"></i> Kengan Omeg</span>
-                    <h4>Just Talking With Fans</h4>
-                  </div> 
-                </div>
-              </div>
-              <div class="col-lg-3 col-sm-6">
-                <div class="item">
-                  <div class="thumb">
-                    <img src="assets/images/stream-08.jpg" alt="">
-                    <div class="hover-effect">
-                      <div class="content">
-                        <div class="live">
-                          <a href="#">Live</a>
-                        </div>
-                        <ul>
-                          <li><a href="#"><i class="fa fa-eye"></i> 1.2K</a></li>
-                          <li><a href="#"><i class="fa fa-gamepad"></i> CS-GO</a></li>
-                        </ul>
-                      </div>
-                    </div>
-                  </div>
-                  <div class="down-content">
-                    <div class="avatar">
-                      <img src="assets/images/avatar-02.jpg" alt="" style="max-width: 46px; border-radius: 50%; float: left;">
-                    </div>
-                    <span><i class="fa fa-check"></i> LahutaMalc</span>
-                    <h4>CS-GO 36 Hours Live Stream</h4>
-                  </div> 
-                </div>
-              </div>
-              <div class="col-lg-3 col-sm-6">
-                <div class="item">
-                  <div class="thumb">
-                    <img src="assets/images/stream-05.jpg" alt="">
-                    <div class="hover-effect">
-                      <div class="content">
-                        <div class="live">
-                          <a href="#">Live</a>
-                        </div>
-                        <ul>
-                          <li><a href="#"><i class="fa fa-eye"></i> 1.2K</a></li>
-                          <li><a href="#"><i class="fa fa-gamepad"></i> CS-GO</a></li>
-                        </ul>
-                      </div>
-                    </div>
-                  </div>
-                  <div class="down-content">
-                    <div class="avatar">
-                      <img src="assets/images/avatar-03.jpg" alt="" style="max-width: 46px; border-radius: 50%; float: left;">
-                    </div>
-                    <span><i class="fa fa-check"></i> Areluwa</span>
-                    <h4>Maybe Nathej Allnight Chillin'</h4>
-                  </div> 
-                </div>
-              </div>
-              <div class="col-lg-3 col-sm-6">
-                <div class="item">
-                  <div class="thumb">
-                    <img src="assets/images/stream-06.jpg" alt="">
-                    <div class="hover-effect">
-                      <div class="content">
-                        <div class="live">
-                          <a href="#">Live</a>
-                        </div>
-                        <ul>
-                          <li><a href="#"><i class="fa fa-eye"></i> 1.2K</a></li>
-                          <li><a href="#"><i class="fa fa-gamepad"></i> CS-GO</a></li>
-                        </ul>
-                      </div>
-                    </div>
-                  </div>
-                  <div class="down-content">
-                    <div class="avatar">
-                      <img src="assets/images/avatar-04.jpg" alt="" style="max-width: 46px; border-radius: 50%; float: left;">
-                    </div>
-                    <span><i class="fa fa-check"></i> NewGangTeam</span>
-                    <h4>Live Streaming Till Morning</h4>
-                  </div> 
-                </div>
-              </div>
-              <div class="col-lg-12">
-                <div class="main-button">
-                  <a href="streams.html">Load More Streams</a>
-                </div>
-              </div>
-            </div>
+          <div class="p-3">
+            <div class="small text-secondary mb-1"><span>Cyberpunk 2077</span> • <span>RPG</span></div>
+            <h3 class="h6 fw-semibold text-white mb-0">Night City’de akşam turu</h3>
           </div>
-          <!-- ***** Live Stream End ***** -->
-
-        </div>
+        </a>
+      </div>
+      <div class="col-sm-6 col-lg-4">
+        <a href="details.html?id=2" class="gs-card h-100 mb-0 d-block text-decoration-none p-0 overflow-hidden">
+          <div class="position-relative">
+            <img src="assets/images/stream-02.jpg" alt="Alan Wake 2" class="w-100" style="aspect-ratio:16/9; object-fit:cover;" loading="lazy" />
+            <span class="gs-badge-accent position-absolute" style="top:10px; left:10px;"><i class="fa fa-circle me-1" style="font-size:0.5rem;"></i> <span>Canlı</span></span>
+            <span class="gs-badge-neutral position-absolute" style="top:10px; right:10px;"><i class="fa fa-eye me-1"></i> <span>1.8K</span> <span>izleyici</span></span>
+          </div>
+          <div class="p-3">
+            <div class="small text-secondary mb-1"><span>Alan Wake 2</span> • <span>Korku</span></div>
+            <h3 class="h6 fw-semibold text-white mb-0">Karanlık Mevcudiyet bölümü, ilk bitirme</h3>
+          </div>
+        </a>
+      </div>
+      <div class="col-sm-6 col-lg-4">
+        <a href="details.html?id=9" class="gs-card h-100 mb-0 d-block text-decoration-none p-0 overflow-hidden">
+          <div class="position-relative">
+            <img src="assets/images/stream-03.jpg" alt="Elden Ring" class="w-100" style="aspect-ratio:16/9; object-fit:cover;" loading="lazy" />
+            <span class="gs-badge-accent position-absolute" style="top:10px; left:10px;"><i class="fa fa-circle me-1" style="font-size:0.5rem;"></i> <span>Canlı</span></span>
+            <span class="gs-badge-neutral position-absolute" style="top:10px; right:10px;"><i class="fa fa-eye me-1"></i> <span>3.1K</span> <span>izleyici</span></span>
+          </div>
+          <div class="p-3">
+            <div class="small text-secondary mb-1"><span>Elden Ring</span> • <span>Aksiyon RPG</span></div>
+            <h3 class="h6 fw-semibold text-white mb-0">Boss rush: Shadow of the Erdtree</h3>
+          </div>
+        </a>
+      </div>
+      <div class="col-sm-6 col-lg-4">
+        <a href="details.html?id=11" class="gs-card h-100 mb-0 d-block text-decoration-none p-0 overflow-hidden">
+          <div class="position-relative">
+            <img src="assets/images/stream-04.jpg" alt="Sekiro: Shadows Die Twice" class="w-100" style="aspect-ratio:16/9; object-fit:cover;" loading="lazy" />
+            <span class="gs-badge-accent position-absolute" style="top:10px; left:10px;"><i class="fa fa-circle me-1" style="font-size:0.5rem;"></i> <span>Canlı</span></span>
+            <span class="gs-badge-neutral position-absolute" style="top:10px; right:10px;"><i class="fa fa-eye me-1"></i> <span>1.2K</span> <span>izleyici</span></span>
+          </div>
+          <div class="p-3">
+            <div class="small text-secondary mb-1"><span>Sekiro: Shadows Die Twice</span> • <span>Aksiyon</span></div>
+            <h3 class="h6 fw-semibold text-white mb-0">Hasarsız koşu denemesi</h3>
+          </div>
+        </a>
+      </div>
+      <div class="col-sm-6 col-lg-4">
+        <a href="details.html?id=4" class="gs-card h-100 mb-0 d-block text-decoration-none p-0 overflow-hidden">
+          <div class="position-relative">
+            <img src="assets/images/stream-05.jpg" alt="Cyberpunk 2077: Phantom Liberty" class="w-100" style="aspect-ratio:16/9; object-fit:cover;" loading="lazy" />
+            <span class="gs-badge-accent position-absolute" style="top:10px; left:10px;"><i class="fa fa-circle me-1" style="font-size:0.5rem;"></i> <span>Canlı</span></span>
+            <span class="gs-badge-neutral position-absolute" style="top:10px; right:10px;"><i class="fa fa-eye me-1"></i> <span>960</span> <span>izleyici</span></span>
+          </div>
+          <div class="p-3">
+            <div class="small text-secondary mb-1"><span>Cyberpunk 2077: Phantom Liberty</span> • <span>RPG</span></div>
+            <h3 class="h6 fw-semibold text-white mb-0">Dogtown hikâyesi, sohbet yayını</h3>
+          </div>
+        </a>
+      </div>
+      <div class="col-sm-6 col-lg-4">
+        <a href="details.html?id=7" class="gs-card h-100 mb-0 d-block text-decoration-none p-0 overflow-hidden">
+          <div class="position-relative">
+            <img src="assets/images/stream-06.jpg" alt="Alan Wake 2: The Lake House" class="w-100" style="aspect-ratio:16/9; object-fit:cover;" loading="lazy" />
+            <span class="gs-badge-accent position-absolute" style="top:10px; left:10px;"><i class="fa fa-circle me-1" style="font-size:0.5rem;"></i> <span>Canlı</span></span>
+            <span class="gs-badge-neutral position-absolute" style="top:10px; right:10px;"><i class="fa fa-eye me-1"></i> <span>740</span> <span>izleyici</span></span>
+          </div>
+          <div class="p-3">
+            <div class="small text-secondary mb-1"><span>Alan Wake 2: The Lake House</span> • <span>Korku</span></div>
+            <h3 class="h6 fw-semibold text-white mb-0">Yeni DLC ilk bakış</h3>
+          </div>
+        </a>
       </div>
     </div>
-  </div>
-  
-  <footer>
+
+    <div class="text-center">
+      <a href="browse.html" class="btn gs-btn-primary px-4"><i class="fa fa-compass me-1"></i> Oyun Kataloğuna Git</a>
+    </div>
+  </main>
+
+  <!-- Tutarlı Kurumsal Alt Bilgi (Footer) -->
+  <footer class="border-top border-secondary border-opacity-15 py-4 mt-5" style="background: rgba(11, 13, 18, 0.72);">
     <div class="container">
-      <div class="row">
-        <div class="col-lg-12">
-          <p>Copyright © 2036 <a href="#">Cyborg Gaming</a> Company. All rights reserved. 
-          
-          <br>Design: <a href="https://templatemo.com" target="_blank" title="free CSS templates">TemplateMo</a>  Distributed By <a href="https://themewagon.com" target="_blank" >ThemeWagon</a></p>
+      <div class="row g-4 small">
+        <div class="col-lg-4">
+          <div class="d-flex align-items-center gap-2 text-white fw-bold mb-2">
+            <img src="assets/images/logo.png" alt="GameShelf" style="height: 26px;" />
+            <span>GameShelf</span>
+          </div>
+          <p class="text-secondary mb-2" style="line-height: 1.6;">
+            Kişisel oyun günlüğü, koleksiyon rafı ve topluluk inceleme platformu. TBL303 Web Tasarımı Dersi kapsamında geliştirilmiştir.
+          </p>
+          <div class="text-secondary">
+            <strong class="text-light">Tasarımcı:</strong> Melih Çetin • Bilişim Sistemleri Mühendisliği (Kocaeli Üniversitesi)
+          </div>
         </div>
+        <div class="col-lg-4">
+          <div class="fw-semibold text-white mb-2">Adres &amp; İletişim</div>
+          <div class="text-secondary mb-1"><i class="fa fa-map-marker-alt me-2 text-secondary"></i>Kabaoğlu Mah. Baki Komsuoğlu Cad. No:515, Umuttepe / İzmit, Kocaeli</div>
+          <div class="text-secondary mb-1"><i class="fa fa-envelope me-2 text-secondary"></i>iletisim@gameshelf.tr • musteri.iliskileri@gameshelf.tr</div>
+          <div class="text-secondary"><i class="fa fa-globe me-2 text-secondary"></i>https://gameshelf.tr</div>
+        </div>
+        <div class="col-lg-4">
+          <div class="fw-semibold text-white mb-2">Hızlı Bağlantılar &amp; Sosyal</div>
+          <div class="d-flex flex-wrap gap-3 mb-2">
+            <a href="index.html" class="text-secondary text-decoration-none">Ana Sayfa</a>
+            <a href="browse.html" class="text-secondary text-decoration-none">Ürünlerimiz</a>
+            <a href="announcements.html" class="text-secondary text-decoration-none">Duyurular</a>
+            <a href="about.html" class="text-secondary text-decoration-none">Hakkımızda</a>
+            <a href="contact.html" class="text-secondary text-decoration-none">İletişim</a>
+            <a href="admin.html" class="text-secondary text-decoration-none">Admin Paneli</a>
+          </div>
+          <div class="d-flex gap-3 fs-6">
+            <a href="https://store.steampowered.com" target="_blank" rel="noopener" class="text-secondary" title="Steam"><i class="fab fa-steam"></i></a>
+            <a href="https://github.com" target="_blank" rel="noopener" class="text-secondary" title="GitHub"><i class="fab fa-github"></i></a>
+            <a href="https://youtube.com" target="_blank" rel="noopener" class="text-secondary" title="YouTube"><i class="fab fa-youtube"></i></a>
+            <a href="https://x.com" target="_blank" rel="noopener" class="text-secondary" title="X / Twitter"><i class="fab fa-twitter"></i></a>
+          </div>
+        </div>
+      </div>
+      <hr class="border-secondary border-opacity-15 my-3" />
+      <div class="d-flex flex-wrap justify-content-between align-items-center gap-2 small text-secondary">
+        <div>© 2026 <strong class="text-white">GameShelf</strong> — Tüm hakları saklıdır.</div>
+        <div>Kocaeli Üniversitesi • TBL303 Web Tasarımı</div>
       </div>
     </div>
   </footer>
 
-
-  <!-- Scripts -->
-  <!-- Bootstrap core JavaScript -->
-  <script src="vendor/jquery/jquery.min.js"></script>
   <script src="vendor/bootstrap/js/bootstrap.min.js"></script>
-
-  <script src="assets/js/isotope.min.js"></script>
-  <script src="assets/js/owl-carousel.js"></script>
-  <script src="assets/js/tabs.js"></script>
-  <script src="assets/js/popup.js"></script>
-  <script src="assets/js/custom.js"></script>
-
-
-    <script src="js/utils/dynamicLogo.js"></script>
+  <script src="js/services/gameShelfService.js"></script>
+  <script src="js/utils/globalSearch.js"></script>
 </body>
-
 </html>

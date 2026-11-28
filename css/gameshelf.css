@@ -1981,23 +1981,25 @@ body.gs-body {
 
 /* Üst ve Alt Şeritler: 3D Derinlikte Biraz Daha Geride ama Net ve Okunabilir */
 .gs-3d-lane--back {
-  transform: translateZ(-75px) scale(0.95);
-  opacity: 0.84;
-  z-index: 2;
+  transform: translateZ(0px) scale(0.96);
+  opacity: 0.88;
+  z-index: 5;
+  pointer-events: auto;
 }
 
 .gs-3d-lane--back:hover {
-  transform: translateZ(-25px) scale(0.985);
+  transform: translateZ(18px) scale(0.99);
   opacity: 1;
-  z-index: 8;
+  z-index: 12;
 }
 
 /* Orta Şerit (Yeni Oyunlar): 3D Ön Planda, Daha Büyük ve Vurgulu */
 .gs-3d-lane--front {
-  transform: translateZ(48px) scale(1.02);
+  transform: translateZ(36px) scale(1.015);
   opacity: 1;
-  z-index: 10;
+  z-index: 8;
   padding: 0.55rem 0;
+  pointer-events: auto;
 }
 
 .gs-lane-header {
@@ -2793,4 +2795,194 @@ body.gs-body {
   .gs-brand-title {
     font-size: 1.3rem;
   }
+}
+
+
+/* === STATİK BEYAZ DOLGULU LOGO & NAVBAR GLOBAL ARAMA KUTUCUĞU === */
+.gs-static-logo {
+  width: 54px;
+  height: 54px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  border-radius: 14px;
+  transition: transform 0.2s ease;
+}
+
+.gs-brand-link:hover .gs-static-logo {
+  transform: scale(1.04);
+}
+
+.gs-nav-search-wrap {
+  position: relative;
+  flex: 1 1 230px;
+  max-width: 310px;
+  margin: 0 0.75rem;
+}
+
+.gs-nav-search-bar {
+  display: flex;
+  align-items: center;
+  gap: 0.45rem;
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  border-radius: 999px;
+  padding: 0.26rem 0.4rem 0.26rem 0.75rem;
+  transition: border-color 0.2s ease, background 0.2s ease, box-shadow 0.2s ease;
+}
+
+.gs-nav-search-bar:focus-within {
+  background: rgba(18, 22, 33, 0.96);
+  border-color: rgba(var(--gs-accent-rgb), 0.75);
+  box-shadow: 0 0 0 3px rgba(var(--gs-accent-rgb), 0.16);
+}
+
+.gs-nav-search-bar input {
+  width: 100%;
+  min-width: 0;
+  background: transparent;
+  border: 0;
+  outline: none;
+  color: #ffffff;
+  font-size: 0.8rem;
+}
+
+.gs-nav-search-bar input::placeholder {
+  color: var(--gs-text-muted);
+}
+
+.gs-nav-search-suggestions {
+  top: calc(100% + 6px);
+  left: 0;
+  right: 0;
+  min-width: 280px;
+  z-index: 2060;
+}
+
+@media (max-width: 991.98px) {
+  .gs-nav-search-wrap {
+    order: 3;
+    flex: 1 1 100%;
+    max-width: 100%;
+    margin: 0.5rem 0 0.25rem;
+  }
+}
+
+/* === STEAM TARZI 1 SANİYE HOVER KARTVİZİTİ === */
+.gs-steam-hovercard {
+  position: fixed;
+  width: 290px;
+  background: #131722;
+  border: 1px solid rgba(var(--gs-accent-rgb), 0.55);
+  border-radius: 14px;
+  box-shadow: 0 22px 48px rgba(0, 0, 0, 0.82), 0 0 0 1px rgba(255, 255, 255, 0.06);
+  overflow: hidden;
+  z-index: 2050;
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(6px) scale(0.97);
+  transition: opacity 0.2s ease, transform 0.2s ease, visibility 0.2s ease;
+  pointer-events: auto;
+}
+
+.gs-steam-hovercard.is-visible {
+  opacity: 1;
+  visibility: visible;
+  transform: translateY(0) scale(1);
+}
+
+.gs-hc-banner {
+  position: relative;
+  width: 100%;
+  height: 112px;
+  background: #0b0e14;
+  overflow: hidden;
+}
+
+.gs-hc-banner img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.gs-hc-banner-grad {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(180deg, rgba(19, 23, 34, 0.15) 0%, #131722 100%);
+}
+
+.gs-hc-badges {
+  position: absolute;
+  top: 8px;
+  left: 8px;
+  right: 8px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.3rem;
+}
+
+.gs-hc-pill {
+  background: rgba(11, 14, 20, 0.82);
+  border: 1px solid rgba(255, 255, 255, 0.16);
+  color: #f3f4f6;
+  font-size: 0.68rem;
+  font-weight: 600;
+  padding: 0.12rem 0.45rem;
+  border-radius: 999px;
+}
+
+.gs-hc-pill--mc {
+  border-color: rgba(34, 197, 94, 0.55);
+  color: #4ade80;
+}
+
+.gs-hc-body {
+  padding: 0.65rem 0.85rem 0.8rem;
+}
+
+.gs-hc-title {
+  font-size: 0.94rem;
+  font-weight: 700;
+  color: #ffffff;
+  line-height: 1.25;
+  margin-bottom: 0.2rem;
+}
+
+.gs-hc-meta {
+  font-size: 0.72rem;
+  color: var(--gs-text-muted);
+  margin-bottom: 0.45rem;
+}
+
+.gs-hc-desc {
+  font-size: 0.75rem;
+  color: #d1d5db;
+  line-height: 1.45;
+  margin-bottom: 0.55rem;
+}
+
+.gs-hc-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.28rem;
+  margin-bottom: 0.6rem;
+}
+
+.gs-hc-tag {
+  font-size: 0.66rem;
+  background: rgba(255, 255, 255, 0.07);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  color: #e5e7eb;
+  padding: 0.1rem 0.42rem;
+  border-radius: 6px;
+}
+
+.gs-hc-footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding-top: 0.45rem;
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
 }

@@ -80,16 +80,6 @@
       "id": 104,
       "name": "Adam Badowski",
       "biography": "Game Director at CD Projekt Red."
-    },
-    {
-      "id": 401,
-      "name": "Hidetaka Miyazaki",
-      "biography": "Director of Sekiro: Shadows Die Twice."
-    },
-    {
-      "id": 402,
-      "name": "Yuka Kitamura",
-      "biography": "Lead Composer."
     }
   ],
   "games": [
@@ -1786,14 +1776,14 @@
     },
     {
       "gameId": 11,
-      "personId": 401,
+      "personId": 301,
       "role": "director",
       "character": null,
       "department": "Direction"
     },
     {
       "gameId": 11,
-      "personId": 402,
+      "personId": 302,
       "role": "composer",
       "character": null,
       "department": "Audio"
