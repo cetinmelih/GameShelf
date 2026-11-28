@@ -984,6 +984,11 @@ const GameShelfService = (() => {
     return getCollectionEntry(gameId);
   }
 
+  function formatReviewTimestampTr(dateObj = new Date()) {
+    const pad = (n) => String(n).padStart(2, "0");
+    return `${pad(dateObj.getDate())}.${pad(dateObj.getMonth() + 1)}.${dateObj.getFullYear()} ${pad(dateObj.getHours())}:${pad(dateObj.getMinutes())}`;
+  }
+
   async function getReviews(gameId, sortBy = "helpful") {
     const seed = await loadSeed();
     const id = Number(gameId);
@@ -991,19 +996,33 @@ const GameShelfService = (() => {
     const userReviews = readStore(STORAGE_KEYS.REVIEWS, []).filter((r) => r.gameId === id);
     const userVotes = readStore(STORAGE_KEYS.VOTES, {});
 
-    const all = [...userReviews, ...seedReviews].map((rev) => {
+    // Kullanıcı başına aynı oyunda tek inceleme kuralı: localStorage'daki güncel inceleme varsa seed'deki eski kaydın yerine geçer
+    const ownUserReviews = userReviews.filter((r) => r.userId === seed.currentUser.id);
+    const latestOwnReview = ownUserReviews.length > 0 ? ownUserReviews[0] : null;
+    const filteredSeedReviews = latestOwnReview
+      ? seedReviews.filter((r) => r.userId !== seed.currentUser.id)
+      : seedReviews;
+    const nonOwnUserReviews = userReviews.filter((r) => r.userId !== seed.currentUser.id);
+
+    const combinedRaw = [
+      ...(latestOwnReview ? [latestOwnReview] : []),
+      ...nonOwnUserReviews,
+      ...filteredSeedReviews
+    ];
+
+    const all = combinedRaw.map((rev) => {
       const vote = userVotes[rev.id] || null;
       return {
         ...rev,
-        upvotes: rev.upvotes + (vote === "up" ? 1 : 0),
-        downvotes: rev.downvotes + (vote === "down" ? 1 : 0),
+        upvotes: (rev.upvotes || 0) + (vote === "up" ? 1 : 0),
+        downvotes: (rev.downvotes || 0) + (vote === "down" ? 1 : 0),
         userVote: vote
       };
     });
 
     const enriched = all.map((rev) => ({ ...rev, isOwn: rev.userId === seed.currentUser.id }));
     if (sortBy === "newest") {
-      return enriched.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
+      return enriched.sort((a, b) => new Date(b.updatedAtIso || b.createdAt) - new Date(a.updatedAtIso || a.createdAt));
     }
     return enriched.sort((a, b) => (b.upvotes - b.downvotes) - (a.upvotes - a.downvotes));
   }
@@ -1012,28 +1031,75 @@ const GameShelfService = (() => {
     const seed = await loadSeed();
     const id = Number(gameId);
     const reviews = readStore(STORAGE_KEYS.REVIEWS, []);
+    const now = new Date();
+    const todayIso = now.toISOString().slice(0, 10);
+    const editedLabel = formatReviewTimestampTr(now);
 
-    const newReview = {
-      id: Date.now(),
-      gameId: id,
-      userId: seed.currentUser.id,
-      authorName: seed.currentUser.displayName,
-      authorAvatar: seed.currentUser.avatar,
-      rating: rating !== null ? Number(rating) : null,
-      title: title && title.trim() ? title.trim() : null,
-      content: content && content.trim() ? content.trim() : null,
-      createdAt: new Date().toISOString().slice(0, 10),
-      upvotes: 0,
-      downvotes: 0
-    };
+    const existingIdx = reviews.findIndex(
+      (r) => Number(r.gameId) === id && r.userId === seed.currentUser.id
+    );
+    const seedExisting = seed.reviews.find(
+      (r) => Number(r.gameId) === id && r.userId === seed.currentUser.id
+    );
 
-    reviews.unshift(newReview);
-    writeStore(STORAGE_KEYS.REVIEWS, reviews);
+    const cleanTitle = title && title.trim() ? title.trim() : null;
+    const cleanContent = content && content.trim() ? content.trim() : null;
+    const cleanRating = rating !== null && rating !== undefined ? Number(rating) : null;
 
-    if (rating !== null) {
-      await setUserRating(id, rating);
+    let savedReview;
+    if (existingIdx !== -1 || seedExisting) {
+      const base = existingIdx !== -1 ? reviews[existingIdx] : seedExisting;
+      savedReview = {
+        ...base,
+        authorName: seed.currentUser.displayName,
+        authorAvatar: seed.currentUser.avatar,
+        rating: cleanRating !== null ? cleanRating : base.rating ?? null,
+        title: cleanTitle,
+        content: cleanContent,
+        createdAt: base.createdAt || todayIso,
+        updatedAt: editedLabel,
+        updatedAtIso: now.toISOString()
+      };
+      if (existingIdx !== -1) {
+        reviews.splice(existingIdx, 1);
+      }
+      reviews.unshift(savedReview);
+    } else {
+      savedReview = {
+        id: Date.now(),
+        gameId: id,
+        userId: seed.currentUser.id,
+        authorName: seed.currentUser.displayName,
+        authorAvatar: seed.currentUser.avatar,
+        rating: cleanRating,
+        title: cleanTitle,
+        content: cleanContent,
+        createdAt: todayIso,
+        updatedAt: null,
+        updatedAtIso: now.toISOString(),
+        upvotes: 0,
+        downvotes: 0
+      };
+      reviews.unshift(savedReview);
     }
-    return newReview;
+
+    // Aynı kullanıcıya ait olası eski mükerrer kayıtları da temizle
+    const deduplicated = [];
+    let seenOwnForGame = false;
+    for (const r of reviews) {
+      if (Number(r.gameId) === id && r.userId === seed.currentUser.id) {
+        if (seenOwnForGame) continue;
+        seenOwnForGame = true;
+      }
+      deduplicated.push(r);
+    }
+
+    writeStore(STORAGE_KEYS.REVIEWS, deduplicated);
+
+    if (cleanRating !== null) {
+      await setUserRating(id, cleanRating);
+    }
+    return savedReview;
   }
 
   function toggleReviewVote(reviewId, direction) {
@@ -1243,7 +1309,13 @@ const GameShelfService = (() => {
     });
 
     const userReviews = readStore(STORAGE_KEYS.REVIEWS, []);
-    const allReviews = [...userReviews, ...seed.reviews]
+    const ownGameIdsWithCustom = new Set(
+      userReviews.filter((r) => r.userId === seed.currentUser.id).map((r) => Number(r.gameId))
+    );
+    const filteredSeedCatReviews = seed.reviews.filter(
+      (r) => !(r.userId === seed.currentUser.id && ownGameIdsWithCustom.has(Number(r.gameId)))
+    );
+    const allReviews = [...userReviews, ...filteredSeedCatReviews]
       .map((rev) => {
         const game = mergedGames.find((g) => g.id === rev.gameId) || null;
         const vote = userVotes[rev.id] || null;

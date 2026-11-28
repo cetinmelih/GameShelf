@@ -2582,3 +2582,215 @@ body.gs-body {
   height: 148px;
   object-fit: cover;
 }
+
+
+/* === SAĞ ÜST DİKKAT ÇEKİCİ DİL SEÇİMİ (TÜRKÇE / ENGLISH) === */
+.gs-lang-switcher-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+  padding: 0.34rem 0.78rem;
+  border-radius: 999px;
+  font-size: 0.78rem;
+  font-weight: 600;
+  color: #ffffff !important;
+  background: linear-gradient(135deg, rgba(102, 192, 244, 0.22), rgba(168, 85, 247, 0.22));
+  border: 1.5px solid rgba(102, 192, 244, 0.75);
+  box-shadow: 0 0 0 2px rgba(102, 192, 244, 0.14), 0 4px 14px rgba(0, 0, 0, 0.35);
+  transition: transform 0.18s ease, box-shadow 0.18s ease, border-color 0.18s ease;
+}
+
+.gs-lang-switcher-btn:hover,
+.gs-lang-switcher-btn:focus {
+  transform: translateY(-1px);
+  border-color: #ffffff;
+  box-shadow: 0 0 0 3px rgba(102, 192, 244, 0.28), 0 6px 18px rgba(0, 0, 0, 0.45);
+}
+
+.gs-lang-globe-icon {
+  color: #66c0f4;
+  font-size: 0.92rem;
+}
+
+.gs-lang-code-pill {
+  font-size: 0.65rem;
+  letter-spacing: 0.04em;
+  padding: 0.08rem 0.38rem;
+  border-radius: 999px;
+  background: rgba(11, 13, 18, 0.75);
+  color: #93c5fd;
+  border: 1px solid rgba(147, 197, 253, 0.35);
+}
+
+.gs-lang-dropdown-menu {
+  min-width: 195px;
+  padding: 0.45rem;
+  border-radius: 14px;
+  background: #121722;
+  border: 1px solid rgba(102, 192, 244, 0.45);
+  box-shadow: 0 14px 34px rgba(0, 0, 0, 0.65);
+}
+
+.gs-lang-option {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.5rem;
+  border-radius: 9px;
+  padding: 0.45rem 0.65rem;
+  font-size: 0.82rem;
+  font-weight: 500;
+  color: #e2e8f0;
+}
+
+.gs-lang-option:hover {
+  background: rgba(102, 192, 244, 0.14);
+  color: #ffffff;
+}
+
+.gs-lang-option.active {
+  background: rgba(102, 192, 244, 0.24);
+  color: #ffffff;
+  font-weight: 600;
+}
+
+.gs-review-edited-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.28rem;
+  font-size: 0.7rem;
+  color: #93c5fd;
+  background: rgba(59, 130, 246, 0.14);
+  border: 1px solid rgba(59, 130, 246, 0.32);
+  border-radius: 999px;
+  padding: 0.06rem 0.52rem;
+}
+
+
+
+
+/* === DİNAMİK BEYAZ KONSOL TUŞU & GENİŞLETİLMİŞ NET DOODLE LOGO === */
+.gs-brand-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.72rem !important;
+  padding-top: 0.15rem;
+  padding-bottom: 0.15rem;
+}
+
+.gs-brand-title {
+  font-size: 1.52rem;
+  font-weight: 800;
+  letter-spacing: -0.02em;
+  line-height: 1;
+  color: #ffffff;
+  text-shadow: 0 2px 10px rgba(0, 0, 0, 0.45);
+}
+
+.gs-dynamic-logo {
+  width: 58px;
+  height: 58px;
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  overflow: hidden;
+  border-radius: 14px;
+}
+
+.gs-logo-svg {
+  width: 100%;
+  height: 100%;
+  display: block;
+}
+
+.gs-logo-frame {
+  fill: rgba(255, 255, 255, 0.05);
+  stroke: rgba(255, 255, 255, 0.92);
+  stroke-width: 2.8;
+}
+
+.gs-logo-orbit {
+  fill: none;
+  stroke: rgba(255, 255, 255, 0.14);
+  stroke-width: 1.2;
+  stroke-dasharray: 4 5;
+}
+
+/* Arka plandaki kontrolcü illüstrasyonları — taşmadan geniş ve gözle net görünür */
+.gs-doodle-group {
+  fill: rgba(255, 255, 255, 0.08);
+  stroke: rgba(255, 255, 255, 0.62);
+  stroke-width: 2.05;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+/* Ön plandaki konsol tuş sembolleri — en önde, parlak beyaz */
+.gs-symbol-fg {
+  fill: none;
+  stroke: #ffffff;
+  stroke-width: 4.5;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  filter: drop-shadow(0 0 5px rgba(255, 255, 255, 0.55));
+}
+
+.gs-logo-layer {
+  transform-box: fill-box;
+  transform-origin: center center;
+  opacity: 0;
+  pointer-events: none;
+  transition:
+    opacity 0.5s cubic-bezier(0.22, 1, 0.36, 1),
+    transform 0.6s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+/* Position odaklı akıcı geçişler (çerçeve içinde kalacak ölçekte) */
+.gs-layer-0 {
+  transform: translateX(-14px) translateY(-8px) scale(0.94);
+}
+.gs-dynamic-logo[data-state="0"] .gs-layer-0 {
+  opacity: 1;
+  transform: translateX(0) translateY(0) scale(1);
+}
+
+.gs-layer-1 {
+  transform: translateX(14px) translateY(-10px) scale(0.94);
+}
+.gs-dynamic-logo[data-state="1"] .gs-layer-1 {
+  opacity: 1;
+  transform: translateX(0) translateY(0) scale(1);
+}
+
+.gs-layer-2 {
+  transform: translateX(-12px) translateY(14px) scale(0.94);
+}
+.gs-dynamic-logo[data-state="2"] .gs-layer-2 {
+  opacity: 1;
+  transform: translateX(0) translateY(0) scale(1);
+}
+
+.gs-layer-3 {
+  transform: translateX(14px) translateY(12px) scale(0.94);
+}
+.gs-dynamic-logo[data-state="3"] .gs-layer-3 {
+  opacity: 1;
+  transform: translateX(0) translateY(0) scale(1);
+}
+
+.gs-brand-link:hover .gs-dynamic-logo {
+  transform: scale(1.04);
+  transition: transform 0.2s ease;
+}
+
+@media (max-width: 575.98px) {
+  .gs-dynamic-logo {
+    width: 48px;
+    height: 48px;
+  }
+  .gs-brand-title {
+    font-size: 1.3rem;
+  }
+}

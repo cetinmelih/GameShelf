@@ -27,7 +27,13 @@ TemplateMo 579 Cyborg Gaming
 https://templatemo.com/tm-579-cyborg-gaming
 
 -->
-  </head>
+    <script>
+    if (localStorage.getItem("gs_ui_lang") === "en") {
+      document.documentElement.lang = "en";
+    }
+  </script>
+  <script src="js/utils/i18n.js"></script>
+</head>
 
 <body>
 
@@ -475,6 +481,7 @@ https://templatemo.com/tm-579-cyborg-gaming
   <script src="assets/js/custom.js"></script>
 
 
-  </body>
+    <script src="js/utils/dynamicLogo.js"></script>
+</body>
 
 </html>
