@@ -3,13 +3,94 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>GameShelf — Oyun Kataloğu & Keşfet</title>
+  <title>GameShelf — Oyun Kataloğu &amp; Çoklu Aktif Filtreleme</title>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="vendor/bootstrap/css/bootstrap.min.css" />
   <link rel="stylesheet" href="assets/css/fontawesome.css" />
   <link rel="stylesheet" href="css/gameshelf.css" />
+  <style>
+    .gs-filter-group-label {
+      font-size: 0.75rem;
+      font-weight: 600;
+      color: var(--gs-text-muted, #9aa4b2);
+      min-width: 88px;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.35rem;
+    }
+    .gs-filter-chip {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.35rem;
+      padding: 0.3rem 0.68rem;
+      border-radius: 999px;
+      font-size: 0.76rem;
+      font-weight: 500;
+      color: #cbd5e1;
+      background: rgba(255, 255, 255, 0.04);
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      cursor: pointer;
+      transition: all 0.16s ease;
+      user-select: none;
+    }
+    .gs-filter-chip:hover {
+      border-color: rgba(var(--gs-accent-rgb, 102, 192, 244), 0.55);
+      color: #fff;
+      background: rgba(var(--gs-accent-rgb, 102, 192, 244), 0.1);
+    }
+    .gs-filter-chip.active {
+      color: #0b0d12;
+      background: var(--gs-accent, #66c0f4);
+      border-color: var(--gs-accent, #66c0f4);
+      font-weight: 600;
+      box-shadow: 0 4px 14px rgba(var(--gs-accent-rgb, 102, 192, 244), 0.28);
+    }
+    .gs-filter-chip .gs-chip-cnt {
+      font-size: 0.68rem;
+      opacity: 0.78;
+      padding: 0 0.32rem;
+      border-radius: 999px;
+      background: rgba(0, 0, 0, 0.22);
+    }
+    .gs-filter-chip.active .gs-chip-cnt {
+      background: rgba(0, 0, 0, 0.18);
+      color: #0b0d12;
+    }
+    .gs-active-pill-bar {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 0.45rem;
+      padding: 0.65rem 0.85rem;
+      border-radius: 12px;
+      background: rgba(var(--gs-accent-rgb, 102, 192, 244), 0.08);
+      border: 1px solid rgba(var(--gs-accent-rgb, 102, 192, 244), 0.24);
+    }
+    .gs-active-tag {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      padding: 0.24rem 0.6rem;
+      border-radius: 999px;
+      font-size: 0.74rem;
+      color: #fff;
+      background: rgba(15, 20, 30, 0.88);
+      border: 1px solid rgba(var(--gs-accent-rgb, 102, 192, 244), 0.45);
+    }
+    .gs-active-tag button {
+      background: none;
+      border: none;
+      color: #94a3b8;
+      padding: 0;
+      line-height: 1;
+      cursor: pointer;
+    }
+    .gs-active-tag button:hover {
+      color: #f87171;
+    }
+  </style>
 </head>
 <body class="gs-body">
 
@@ -25,23 +106,21 @@
       </button>
       <div class="collapse navbar-collapse" id="gsMainNav">
         <ul class="navbar-nav ms-auto align-items-lg-center gap-lg-1">
-          <!-- Ana Sayfa + Sayfa İçi Sekmeler -->
           <li class="nav-item dropdown">
             <a class="nav-link dropdown-toggle " href="index.html">Ana Sayfa</a>
             <ul class="dropdown-menu">
               <li class="dropdown-header-label">Ana Sayfa Bölümleri</li>
-              <li><a class="dropdown-item" href="index.html#homeMarqueeShowcase"><i class="fa fa-film"></i> Kayan Oyun Kapakları</a></li>
-              <li><a class="dropdown-item" href="index.html#homeFeaturedGamesGrid"><i class="fa fa-star"></i> Öne Çıkan Yapımlar</a></li>
-              <li><a class="dropdown-item" href="index.html#homeRecentReviewsList"><i class="fa fa-comments"></i> Topluluk İncelemeleri</a></li>
-              <li><a class="dropdown-item" href="index.html#homeNewsGrid"><i class="fa fa-newspaper"></i> Editör Seçkisi &amp; Haberler</a></li>
+              <li><a class="dropdown-item" href="index.html#lanePopular"><i class="fa fa-fire"></i> En Popüler Oyunlar</a></li>
+              <li><a class="dropdown-item" href="index.html#laneNewReleases"><i class="fa fa-sparkles"></i> Yeni Oyunlar (Ön Plan)</a></li>
+              <li><a class="dropdown-item" href="index.html#laneTopReviews"><i class="fa fa-thumbs-up"></i> En Çok Upvote Alan İncelemeler</a></li>
+              <li><a class="dropdown-item" href="index.html#homeNewsGrid"><i class="fa fa-newspaper"></i> Duyurular &amp; Haberler</a></li>
             </ul>
           </li>
 
-          <!-- Keşfet + Katalog & Detay Sekmeleri -->
           <li class="nav-item dropdown">
-            <a class="nav-link dropdown-toggle active" href="browse.html">Keşfet</a>
+            <a class="nav-link dropdown-toggle " active" href="browse.html">Ürünlerimiz</a>
             <ul class="dropdown-menu">
-              <li class="dropdown-header-label">Katalog &amp; Keşif Sekmeleri</li>
+              <li class="dropdown-header-label">Oyun Kataloğu &amp; Sürümler</li>
               <li><a class="dropdown-item" href="browse.html"><i class="fa fa-compass"></i> Tüm Oyun Kataloğu</a></li>
               <li><a class="dropdown-item" href="browse.html?type=base"><i class="fa fa-gamepad"></i> Ana Oyunlar</a></li>
               <li><a class="dropdown-item" href="browse.html?type=dlc"><i class="fa fa-puzzle-piece"></i> DLC &amp; Genişleme Paketleri</a></li>
@@ -51,63 +130,68 @@
             </ul>
           </li>
 
-          <!-- Koleksiyonum + Profil & Raf Sekmeleri -->
           <li class="nav-item dropdown">
-            <a class="nav-link dropdown-toggle " href="profile.html">Koleksiyonum</a>
+            <a class="nav-link dropdown-toggle " href="profile.html">Birimlerimiz</a>
             <ul class="dropdown-menu">
-              <li class="dropdown-header-label">Profil &amp; Raf Sekmeleri</li>
-              <li><a class="dropdown-item" href="profile.html?tab=overview"><i class="fa fa-user"></i> Profil Özeti &amp; İstatistikler</a></li>
+              <li class="dropdown-header-label">Platform &amp; Topluluk Birimleri</li>
+              <li><a class="dropdown-item" href="profile.html?tab=overview"><i class="fa fa-user"></i> Kişisel Günlük &amp; İstatistikler</a></li>
               <li><a class="dropdown-item" href="profile.html?tab=games"><i class="fa fa-th"></i> Oyun Rafı (Kapaklar)</a></li>
-              <li><a class="dropdown-item" href="profile.html?tab=journal"><i class="fa fa-history"></i> Günlük Geçmişi</a></li>
-              <li><a class="dropdown-item" href="profile.html?tab=reviews"><i class="fa fa-comment-alt"></i> İncelemelerim</a></li>
-              <li><a class="dropdown-item" href="profile.html?tab=games&amp;filter=favorites"><i class="fa fa-heart text-danger"></i> Favori Oyunlarım</a></li>
+              <li><a class="dropdown-item" href="streams.html"><i class="fa fa-video"></i> Canlı Yayın &amp; Akış Birimi</a></li>
+              <li><a class="dropdown-item" href="announcements.html"><i class="fa fa-bullhorn"></i> Duyuru &amp; Arşiv Birimi</a></li>
             </ul>
           </li>
 
-          <!-- Kurumsal -->
           <li class="nav-item dropdown">
-            <a class="nav-link dropdown-toggle " href="#" role="button" data-bs-toggle="dropdown">Kurumsal</a>
+            <a class="nav-link dropdown-toggle " href="about.html">Kurumsal</a>
             <ul class="dropdown-menu">
-              <li class="dropdown-header-label">Platform Bilgileri</li>
+              <li class="dropdown-header-label">Kurumsal Sayfalar</li>
               <li><a class="dropdown-item" href="about.html"><i class="fa fa-building"></i> Hakkımızda</a></li>
               <li><a class="dropdown-item" href="mission-vision.html"><i class="fa fa-bullseye"></i> Misyon &amp; Vizyon</a></li>
-              <li><a class="dropdown-item" href="announcements.html"><i class="fa fa-bullhorn"></i> Duyurular</a></li>
+              <li><a class="dropdown-item" href="announcements.html"><i class="fa fa-bullhorn"></i> Tüm Duyurular</a></li>
             </ul>
           </li>
 
-          <li class="nav-item"><a class="nav-link" href="contact.html">İletişim</a></li>
+          <li class="nav-item"><a class="nav-link " href="about.html">Hakkımızda</a></li>
+          <li class="nav-item"><a class="nav-link " href="mission-vision.html">Misyon-Vizyon</a></li>
+          <li class="nav-item"><a class="nav-link " href="contact.html">İletişim</a></li>
           <li class="nav-item ms-lg-2">
-            <a class="btn btn-sm gs-btn-outline" href="admin/index.html"><i class="fa fa-sliders me-1"></i> Yönetim</a>
+            <a class="btn btn-sm gs-btn-outline " href="admin.html"><i class="fa fa-sliders me-1"></i> Admin Paneli</a>
           </li>
         </ul>
       </div>
     </div>
   </nav>
 
-  <!-- KATALOG ÜST BAŞLIK & FİLTRE ALANI -->
+
+
   <main class="container py-4">
-    <section class="gs-card">
+    <section class="gs-card mb-3">
       <div class="d-flex flex-wrap justify-content-between align-items-center gap-3 mb-3">
         <div>
           <div class="d-flex flex-wrap align-items-center gap-2 mb-1">
-            <h1 class="h4 fw-bold text-white mb-0">Oyun Kataloğu</h1>
+            <h1 class="h4 fw-bold text-white mb-0">Oyun Kataloğu &amp; Çoklu Aktif Filtreleme</h1>
             <span id="liveApiStatusPill" class="text-secondary small" style="font-size:0.76rem;">
               Katalog Güncel
             </span>
           </div>
           <p class="small text-secondary mb-0">
-            Canlı oyun veritabanından binlerce yapımı ara, filtrele, detaylarını incele ve tek tıkla rafına ekle.
+            Birden fazla tür, platform, içerik tipi, puan veya çıkış dönemi etiketine aynı anda tıklayarak oyunları anlık daraltın.
           </p>
         </div>
 
         <div class="d-flex flex-wrap align-items-center gap-2">
-          <!-- Canlı Arama Kutusu -->
           <div class="gs-shelf-search-box" style="min-width: 260px;">
             <i class="fa fa-search"></i>
-            <input type="text" id="catalogSearchInput" class="gs-input" placeholder="API'de herhangi bir oyun ara..." />
+            <input type="text" id="catalogSearchInput" class="gs-input" placeholder="Oyun adı, stüdyo, tür veya tema..." />
           </div>
-          <button type="button" class="btn btn-sm gs-btn-outline" id="openApiConfigBtn" title="API Kaynağı & RAWG Anahtarı">
-            <i class="fa fa-plug me-1"></i>API Ayarları
+          <select id="catalogSortSelect" class="gs-select form-select-sm" style="width: auto; font-size: 0.8rem;" aria-label="Sıralama">
+            <option value="community">Sırala: Topluluk Puanı</option>
+            <option value="metacritic">Sırala: Metacritic Puanı</option>
+            <option value="newest">Sırala: En Yeni Çıkış</option>
+            <option value="title">Sırala: İsme Göre (A-Z)</option>
+          </select>
+          <button type="button" class="btn btn-sm gs-btn-outline" id="openApiConfigBtn" title="API Kaynağı &amp; RAWG Anahtarı">
+            <i class="fa fa-plug me-1"></i>API
           </button>
           <button type="button" class="btn btn-sm gs-btn-outline" id="refreshLiveFeedBtn" title="Canlı API akışını yenile">
             <i class="fa fa-sync-alt"></i>
@@ -115,57 +199,83 @@
         </div>
       </div>
 
-      <!-- İçerik Türü Sekmeleri + Platform & Sıralama -->
-      <div class="gs-shelf-toolbar">
-        <div class="gs-shelf-tabs" id="catalogTypeTabs">
-          <button type="button" class="gs-shelf-tab active" data-type="all">
-            Tümü <span class="gs-tab-count" id="typeCntAll">0</span>
-          </button>
-          <button type="button" class="gs-shelf-tab" data-type="base">
-            Ana Oyunlar <span class="gs-tab-count" id="typeCntBase">0</span>
-          </button>
-          <button type="button" class="gs-shelf-tab" data-type="dlc">
-            DLC & Genişleme <span class="gs-tab-count" id="typeCntDlc">0</span>
-          </button>
-          <button type="button" class="gs-shelf-tab" data-type="edition">
-            Özel Sürümler <span class="gs-tab-count" id="typeCntEdition">0</span>
-          </button>
+      <!-- ÇOKLU AKTİF FİLTRE GRUPLARI -->
+      <div class="d-flex flex-column gap-2 pt-2 border-top border-secondary border-opacity-15">
+        <!-- 1. İçerik Türü (Çoklu Seçim) -->
+        <div class="d-flex flex-wrap align-items-center gap-2">
+          <span class="gs-filter-group-label"><i class="fa fa-layer-group"></i>İçerik Tipi:</span>
+          <div id="filterTypesGroup" class="d-flex flex-wrap gap-1">
+            <button type="button" class="gs-filter-chip" data-filter-group="types" data-filter-val="base">
+              Ana Oyun <span class="gs-chip-cnt" id="cntTypeBase">0</span>
+            </button>
+            <button type="button" class="gs-filter-chip" data-filter-group="types" data-filter-val="dlc">
+              DLC &amp; Ek Paket <span class="gs-chip-cnt" id="cntTypeDlc">0</span>
+            </button>
+            <button type="button" class="gs-filter-chip" data-filter-group="types" data-filter-val="edition">
+              Özel Sürüm <span class="gs-chip-cnt" id="cntTypeEdition">0</span>
+            </button>
+          </div>
         </div>
 
+        <!-- 2. Türler / Genre (Çoklu Seçim) -->
         <div class="d-flex flex-wrap align-items-center gap-2">
-          <select id="catalogPlatformSelect" class="gs-select form-select-sm" style="width: auto; font-size: 0.8rem;">
-            <option value="all">Tüm Platformlar</option>
-            <option value="PC">PC</option>
-            <option value="PS5">PS5</option>
-            <option value="PS4">PS4</option>
-            <option value="Xbox Series X|S">Xbox Series X|S</option>
-            <option value="Xbox One">Xbox One</option>
-          </select>
+          <span class="gs-filter-group-label"><i class="fa fa-tags"></i>Türler:</span>
+          <div id="filterGenresGroup" class="d-flex flex-wrap gap-1"></div>
+        </div>
 
-          <select id="catalogSortSelect" class="gs-select form-select-sm" style="width: auto; font-size: 0.8rem;">
-            <option value="community">Topluluk Puanı</option>
-            <option value="metacritic">Metacritic Puanı</option>
-            <option value="newest">En Yeni Çıkış</option>
-            <option value="title">İsme Göre (A-Z)</option>
-          </select>
+        <!-- 3. Platformlar (Çoklu Seçim) -->
+        <div class="d-flex flex-wrap align-items-center gap-2">
+          <span class="gs-filter-group-label"><i class="fa fa-desktop"></i>Platform:</span>
+          <div id="filterPlatformsGroup" class="d-flex flex-wrap gap-1"></div>
+        </div>
+
+        <!-- 4. Puan, Yıl & Raf Durumu (Çoklu Seçim) -->
+        <div class="d-flex flex-wrap align-items-center gap-2">
+          <span class="gs-filter-group-label"><i class="fa fa-sliders-h"></i>Hızlı Kriter:</span>
+          <div id="filterQuickGroup" class="d-flex flex-wrap gap-1">
+            <button type="button" class="gs-filter-chip" data-filter-group="quick" data-filter-val="score45">
+              <i class="fa fa-star text-warning"></i> 4.5+ Topluluk Puanı
+            </button>
+            <button type="button" class="gs-filter-chip" data-filter-group="quick" data-filter-val="mc90">
+              <i class="fa fa-award"></i> 90+ Metacritic
+            </button>
+            <button type="button" class="gs-filter-chip" data-filter-group="quick" data-filter-val="recent2023">
+              <i class="fa fa-calendar-check"></i> 2023 ve Sonrası
+            </button>
+            <button type="button" class="gs-filter-chip" data-filter-group="quick" data-filter-val="inShelf">
+              <i class="fa fa-bookmark"></i> Rafımda Ekli
+            </button>
+            <button type="button" class="gs-filter-chip" data-filter-group="quick" data-filter-val="favorite">
+              <i class="fa fa-heart text-danger"></i> Favorilerim
+            </button>
+          </div>
         </div>
       </div>
 
-      <!-- Tür (Genre) Filtre Etiketleri -->
-      <div class="d-flex flex-wrap align-items-center gap-2">
-        <span class="small text-secondary me-1"><i class="fa fa-tags me-1"></i>Tür:</span>
-        <div id="catalogGenreChips" class="d-flex flex-wrap gap-2"></div>
+      <!-- Eşleşme Mantığı & Aktif Filtre Etiketleri Çubuğu -->
+      <div id="activeFiltersBar" class="gs-active-pill-bar mt-3 d-none">
+        <span class="small fw-semibold text-white me-1"><i class="fa fa-filter me-1"></i>Aktif Filtreler (<span id="activeFilterCount">0</span>):</span>
+        <div id="activeFilterTags" class="d-flex flex-wrap align-items-center gap-1 flex-grow-1"></div>
+        <div class="d-flex align-items-center gap-2 ms-auto">
+          <div class="btn-group btn-group-sm" role="group" aria-label="Çoklu seçim mantığı">
+            <button type="button" class="btn btn-sm gs-btn-primary" id="matchModeAndBtn" title="Seçilen tüm etiketleri aynı anda taşıyan oyunları getir">VE (Hepsi)</button>
+            <button type="button" class="btn btn-sm gs-btn-outline" id="matchModeOrBtn" title="Seçilen etiketlerden en az birini taşıyan oyunları getir">VEYA (Herhangi)</button>
+          </div>
+          <button type="button" class="btn btn-sm btn-outline-danger py-1 px-2" id="resetFiltersBtn" style="font-size: 0.75rem;">
+            <i class="fa fa-times me-1"></i>Tümünü Temizle
+          </button>
+        </div>
       </div>
     </section>
 
-    <!-- Sonuç Sayısı & Temizleme -->
-    <div class="d-flex justify-content-between align-items-center mb-3 px-1">
+    <!-- Sonuç Özeti -->
+    <div class="d-flex flex-wrap justify-content-between align-items-center mb-3 px-1 gap-2">
       <div class="small text-secondary">
-        <strong class="text-white" id="catalogResultCount">0</strong> yapım listeleniyor
+        Toplam <strong class="text-white" id="catalogTotalCount">0</strong> yapımdan <strong class="text-white" id="catalogResultCount">0</strong> tanesi aktif filtrelere uyuyor
       </div>
-      <button type="button" class="btn btn-sm btn-link text-secondary text-decoration-none p-0" id="resetFiltersBtn" style="display:none; font-size: 0.8rem;">
-        <i class="fa fa-times-circle me-1"></i>Filtreleri Sıfırla
-      </button>
+      <div class="small text-secondary" id="filterModeHint">
+        Filtre etiketlerine tıklayarak çoklu seçim yapabilirsiniz.
+      </div>
     </div>
 
     <!-- Katalog Izgarası -->
@@ -206,30 +316,71 @@
     </div>
   </section>
 
-  <!-- Alt Bilgi -->
-  <footer class="border-top border-secondary border-opacity-10 py-4 mt-5">
-    <div class="container d-flex flex-wrap justify-content-between align-items-center gap-2 small text-secondary">
-      <div>© 2026 <strong class="text-white">GameShelf</strong> — Kişisel Oyun Günlüğü ve Topluluk Platformu</div>
-      <div class="d-flex gap-3">
-        <a href="index.html" class="text-secondary text-decoration-none">Ana Sayfa</a>
-        <a href="details.html?id=1" class="text-secondary text-decoration-none">Oyun Detayı</a>
-        <a href="profile.html" class="text-secondary text-decoration-none">Profilim</a>
+  <!-- Tutarlı Kurumsal Alt Bilgi (Footer) -->
+  <footer class="border-top border-secondary border-opacity-15 py-4 mt-5" style="background: rgba(11, 13, 18, 0.72);">
+    <div class="container">
+      <div class="row g-4 small">
+        <div class="col-lg-4">
+          <div class="d-flex align-items-center gap-2 text-white fw-bold mb-2">
+            <img src="assets/images/logo.png" alt="GameShelf" style="height: 26px;" />
+            <span>GameShelf</span>
+          </div>
+          <p class="text-secondary mb-2" style="line-height: 1.6;">
+            Kişisel oyun günlüğü, koleksiyon rafı ve topluluk inceleme platformu. TBL303 Web Tasarımı Dersi kapsamında geliştirilmiştir.
+          </p>
+          <div class="text-secondary">
+            <strong class="text-light">Tasarımcı:</strong> Melih Çetin • Bilişim Sistemleri Mühendisliği (Kocaeli Üniversitesi)
+          </div>
+        </div>
+        <div class="col-lg-4">
+          <div class="fw-semibold text-white mb-2">Adres &amp; İletişim</div>
+          <div class="text-secondary mb-1"><i class="fa fa-map-marker-alt me-2 text-secondary"></i>Kabaoğlu Mah. Baki Komsuoğlu Cad. No:515, Umuttepe / İzmit, Kocaeli</div>
+          <div class="text-secondary mb-1"><i class="fa fa-envelope me-2 text-secondary"></i>iletisim@gameshelf.tr • musteri.iliskileri@gameshelf.tr</div>
+          <div class="text-secondary"><i class="fa fa-globe me-2 text-secondary"></i>https://gameshelf.tr</div>
+        </div>
+        <div class="col-lg-4">
+          <div class="fw-semibold text-white mb-2">Hızlı Bağlantılar &amp; Sosyal</div>
+          <div class="d-flex flex-wrap gap-3 mb-2">
+            <a href="index.html" class="text-secondary text-decoration-none">Ana Sayfa</a>
+            <a href="browse.html" class="text-secondary text-decoration-none">Ürünlerimiz</a>
+            <a href="announcements.html" class="text-secondary text-decoration-none">Duyurular</a>
+            <a href="about.html" class="text-secondary text-decoration-none">Hakkımızda</a>
+            <a href="contact.html" class="text-secondary text-decoration-none">İletişim</a>
+            <a href="admin.html" class="text-secondary text-decoration-none">Admin Paneli</a>
+          </div>
+          <div class="d-flex gap-3 fs-6">
+            <a href="https://store.steampowered.com" target="_blank" rel="noopener" class="text-secondary" title="Steam"><i class="fab fa-steam"></i></a>
+            <a href="https://github.com" target="_blank" rel="noopener" class="text-secondary" title="GitHub"><i class="fab fa-github"></i></a>
+            <a href="https://youtube.com" target="_blank" rel="noopener" class="text-secondary" title="YouTube"><i class="fab fa-youtube"></i></a>
+            <a href="https://x.com" target="_blank" rel="noopener" class="text-secondary" title="X / Twitter"><i class="fab fa-twitter"></i></a>
+          </div>
+        </div>
+      </div>
+      <hr class="border-secondary border-opacity-15 my-3" />
+      <div class="d-flex flex-wrap justify-content-between align-items-center gap-2 small text-secondary">
+        <div>© 2026 <strong class="text-white">GameShelf</strong> — Tüm hakları saklıdır.</div>
+        <div>Kocaeli Üniversitesi • TBL303 Web Tasarımı</div>
       </div>
     </div>
   </footer>
+
+
 
   <script src="vendor/bootstrap/js/bootstrap.min.js"></script>
   <script src="js/services/gameShelfService.js"></script>
   <script>
     (async function initBrowsePage() {
       const urlParams = new URLSearchParams(window.location.search);
-      let state = {
+      const initialType = urlParams.get("type");
+
+      // Çoklu aktif filtre durumu (Set tabanlı)
+      const state = {
         query: urlParams.get("q") || "",
-        type: ["all", "base", "dlc", "edition"].includes(urlParams.get("type"))
-          ? urlParams.get("type")
-          : "all",
-        genre: "all",
-        platform: "all",
+        types: new Set(["base", "dlc", "edition"].includes(initialType) ? [initialType] : []),
+        genres: new Set(),
+        platforms: new Set(),
+        quick: new Set(),
+        matchMode: "AND", // "AND": seçilen tüm kriterleri sağlasın, "OR": seçilenlerden en az birini sağlasın
         sort: "community"
       };
 
@@ -237,8 +388,16 @@
 
       const TYPE_LABELS = {
         base: "Ana Oyun",
-        dlc: "DLC",
-        edition: "Edition"
+        dlc: "DLC & Ek Paket",
+        edition: "Özel Sürüm"
+      };
+
+      const QUICK_LABELS = {
+        score45: "4.5+ Topluluk Puanı",
+        mc90: "90+ Metacritic",
+        recent2023: "2023 ve Sonrası",
+        inShelf: "Rafımda Ekli",
+        favorite: "Favorilerim"
       };
 
       const STATUS_LABELS = {
@@ -257,54 +416,129 @@
           .replace(/"/g, "&quot;");
       }
 
-      function buildGenreChips(games) {
-        const genresSet = new Set();
-        games.forEach((g) => (g.genres || []).forEach((gen) => genresSet.add(gen)));
-        const genres = ["all", ...Array.from(genresSet)];
-
-        const container = document.getElementById("catalogGenreChips");
-        container.innerHTML = genres
+      function buildDynamicFilterChips(games) {
+        // Türler (Genre) + sayıları
+        const genreCounts = new Map();
+        games.forEach((g) => {
+          (g.genres || []).forEach((gen) => {
+            genreCounts.set(gen, (genreCounts.get(gen) || 0) + 1);
+          });
+        });
+        const sortedGenres = Array.from(genreCounts.entries()).sort((a, b) => b[1] - a[1]);
+        document.getElementById("filterGenresGroup").innerHTML = sortedGenres
           .map(
-            (gen) => `
-            <button type="button" class="gs-genre-chip ${state.genre === gen ? "active" : ""}" data-genre="${escapeHtml(gen)}">
-              ${gen === "all" ? "Tümü" : escapeHtml(gen)}
+            ([gen, cnt]) => `
+            <button type="button"
+                    class="gs-filter-chip ${state.genres.has(gen) ? "active" : ""}"
+                    data-filter-group="genres"
+                    data-filter-val="${escapeHtml(gen)}">
+              ${escapeHtml(gen)} <span class="gs-chip-cnt">${cnt}</span>
             </button>
           `
           )
           .join("");
+
+        // Platformlar + sayıları
+        const platformCounts = new Map();
+        games.forEach((g) => {
+          (g.platforms || []).forEach((plat) => {
+            platformCounts.set(plat, (platformCounts.get(plat) || 0) + 1);
+          });
+        });
+        const sortedPlatforms = Array.from(platformCounts.entries()).sort((a, b) => b[1] - a[1]);
+        document.getElementById("filterPlatformsGroup").innerHTML = sortedPlatforms
+          .map(
+            ([plat, cnt]) => `
+            <button type="button"
+                    class="gs-filter-chip ${state.platforms.has(plat) ? "active" : ""}"
+                    data-filter-group="platforms"
+                    data-filter-val="${escapeHtml(plat)}">
+              ${escapeHtml(plat)} <span class="gs-chip-cnt">${cnt}</span>
+            </button>
+          `
+          )
+          .join("");
+
+        // İçerik tipi sayıları
+        document.getElementById("cntTypeBase").textContent = games.filter((g) => g.entryType === "base").length;
+        document.getElementById("cntTypeDlc").textContent = games.filter((g) => g.entryType === "dlc").length;
+        document.getElementById("cntTypeEdition").textContent = games.filter((g) => g.entryType === "edition").length;
       }
 
-      function updateTypeCounts(games) {
-        document.getElementById("typeCntAll").textContent = games.length;
-        document.getElementById("typeCntBase").textContent = games.filter((g) => g.entryType === "base").length;
-        document.getElementById("typeCntDlc").textContent = games.filter((g) => g.entryType === "dlc").length;
-        document.getElementById("typeCntEdition").textContent = games.filter((g) => g.entryType === "edition").length;
+      function syncChipActiveStates() {
+        document.querySelectorAll("[data-filter-group]").forEach((btn) => {
+          const grp = btn.dataset.filterGroup;
+          const val = btn.dataset.filterVal;
+          const isActive = state[grp] && state[grp].has(val);
+          btn.classList.toggle("active", Boolean(isActive));
+        });
+
+        const andBtn = document.getElementById("matchModeAndBtn");
+        const orBtn = document.getElementById("matchModeOrBtn");
+        if (andBtn && orBtn) {
+          andBtn.className = state.matchMode === "AND" ? "btn btn-sm gs-btn-primary" : "btn btn-sm gs-btn-outline";
+          orBtn.className = state.matchMode === "OR" ? "btn btn-sm gs-btn-primary" : "btn btn-sm gs-btn-outline";
+        }
       }
 
-      function hasActiveFilters() {
-        return (
-          state.query.trim() !== "" ||
-          state.type !== "all" ||
-          state.genre !== "all" ||
-          state.platform !== "all"
-        );
+      function matchesQuickRule(game, rule) {
+        if (rule === "score45") return Number(game.communityAverage || 0) >= 4.5;
+        if (rule === "mc90") return Number(game.metacritic || 0) >= 90;
+        if (rule === "recent2023") return Number(game.releaseYear || 0) >= 2023;
+        if (rule === "inShelf") return Boolean(game.collectionStatus);
+        if (rule === "favorite") return Boolean(game.isFavorite);
+        return true;
+      }
+
+      function renderActiveFilterBar() {
+        const tags = [];
+        if (state.query.trim()) {
+          tags.push({ group: "query", val: state.query.trim(), label: `Arama: "${state.query.trim()}"` });
+        }
+        state.types.forEach((v) => tags.push({ group: "types", val: v, label: `Tip: ${TYPE_LABELS[v] || v}` }));
+        state.genres.forEach((v) => tags.push({ group: "genres", val: v, label: `Tür: ${v}` }));
+        state.platforms.forEach((v) => tags.push({ group: "platforms", val: v, label: `Platform: ${v}` }));
+        state.quick.forEach((v) => tags.push({ group: "quick", val: v, label: QUICK_LABELS[v] || v }));
+
+        const bar = document.getElementById("activeFiltersBar");
+        const tagsEl = document.getElementById("activeFilterTags");
+        const countEl = document.getElementById("activeFilterCount");
+
+        countEl.textContent = tags.length;
+        if (tags.length === 0) {
+          bar.classList.add("d-none");
+          tagsEl.innerHTML = "";
+          document.getElementById("filterModeHint").textContent = "Filtre etiketlerine tıklayarak çoklu seçim yapabilirsiniz.";
+          return;
+        }
+
+        bar.classList.remove("d-none");
+        tagsEl.innerHTML = tags
+          .map(
+            (t) => `
+            <span class="gs-active-tag">
+              <span>${escapeHtml(t.label)}</span>
+              <button type="button" data-remove-filter="${escapeHtml(t.group)}" data-remove-val="${escapeHtml(t.val)}" aria-label="Filtreyi kaldır">
+                <i class="fa fa-times"></i>
+              </button>
+            </span>
+          `
+          )
+          .join("");
+
+        document.getElementById("filterModeHint").textContent =
+          state.matchMode === "AND"
+            ? "VE modu: Seçili tüm filtre kriterlerini aynı anda karşılayan oyunlar gösteriliyor."
+            : "VEYA modu: Seçili filtre kriterlerinden en az birini karşılayan oyunlar gösteriliyor.";
       }
 
       function renderCatalog() {
+        syncChipActiveStates();
+        renderActiveFilterBar();
+
         let list = [...allGames];
 
-        if (state.type !== "all") {
-          list = list.filter((g) => g.entryType === state.type);
-        }
-
-        if (state.genre !== "all") {
-          list = list.filter((g) => (g.genres || []).includes(state.genre));
-        }
-
-        if (state.platform !== "all") {
-          list = list.filter((g) => (g.platforms || []).includes(state.platform));
-        }
-
+        // 1. Metin araması (varsa her zaman uygulanır)
         if (state.query.trim()) {
           const q = state.query.trim().toLowerCase();
           list = list.filter(
@@ -316,6 +550,22 @@
           );
         }
 
+        // 2. Seçili çoklu filtre etiketlerini tek bir koşul havuzunda değerlendir
+        const activeChecks = [];
+        state.types.forEach((t) => activeChecks.push((g) => g.entryType === t));
+        state.genres.forEach((gen) => activeChecks.push((g) => (g.genres || []).includes(gen)));
+        state.platforms.forEach((plat) => activeChecks.push((g) => (g.platforms || []).includes(plat)));
+        state.quick.forEach((qRule) => activeChecks.push((g) => matchesQuickRule(g, qRule)));
+
+        if (activeChecks.length > 0) {
+          if (state.matchMode === "AND") {
+            list = list.filter((g) => activeChecks.every((fn) => fn(g)));
+          } else {
+            list = list.filter((g) => activeChecks.some((fn) => fn(g)));
+          }
+        }
+
+        // 3. Sıralama
         if (state.sort === "metacritic") {
           list.sort((a, b) => (b.metacritic || 0) - (a.metacritic || 0));
         } else if (state.sort === "newest") {
@@ -326,18 +576,21 @@
           list.sort((a, b) => (b.communityAverage || 0) - (a.communityAverage || 0));
         }
 
+        document.getElementById("catalogTotalCount").textContent = allGames.length;
         document.getElementById("catalogResultCount").textContent = list.length;
-        document.getElementById("resetFiltersBtn").style.display = hasActiveFilters() ? "" : "none";
 
         const grid = document.getElementById("catalogGamesGrid");
         if (list.length === 0) {
           grid.style.display = "block";
           grid.innerHTML = `
             <div class="gs-empty-shelf text-center py-5 px-3">
-              <div class="mb-2" style="font-size: 2rem; color: var(--gs-accent);"><i class="fa fa-search"></i></div>
-              <h2 class="h6 text-white mb-1">Arama kriterlerine uygun oyun bulunamadı</h2>
-              <p class="small text-secondary mb-3">Farklı bir tür, platform veya arama kelimesi deneyebilirsin.</p>
-              <button type="button" class="btn btn-sm gs-btn-primary" id="emptyResetBtn">Filtreleri Temizle</button>
+              <div class="mb-2" style="font-size: 2rem; color: var(--gs-accent);"><i class="fa fa-filter"></i></div>
+              <h2 class="h6 text-white mb-1">Seçili çoklu filtre kombinasyonuna uyan oyun bulunamadı</h2>
+              <p class="small text-secondary mb-3">Bazı etiketleri kaldırabilir veya eşleşme modunu <strong>VEYA (Herhangi)</strong> olarak değiştirebilirsiniz.</p>
+              <div class="d-flex justify-content-center gap-2">
+                <button type="button" class="btn btn-sm gs-btn-outline" id="emptySwitchOrBtn">VEYA Moduna Geç</button>
+                <button type="button" class="btn btn-sm gs-btn-primary" id="emptyResetBtn">Filtreleri Temizle</button>
+              </div>
             </div>
           `;
           return;
@@ -349,10 +602,10 @@
             const typeLabel = TYPE_LABELS[g.entryType] || "Oyun";
             const genresHtml = (g.genres || [])
               .slice(0, 3)
-              .map(
-                (gen) =>
-                  `<span class="gs-badge-neutral" style="font-size:0.67rem; padding:0.12rem 0.48rem;">${escapeHtml(gen)}</span>`
-              )
+              .map((gen) => {
+                const isMatched = state.genres.has(gen);
+                return `<span class="gs-badge-neutral" style="font-size:0.67rem; padding:0.12rem 0.48rem; ${isMatched ? "border-color: var(--gs-accent); color: #fff;" : ""}">${escapeHtml(gen)}</span>`;
+              })
               .join("");
 
             const shelfActionHtml = g.collectionStatus
@@ -403,23 +656,17 @@
         pill.textContent = `${apiInfo.providerLabel} • ${allGames.length} yapım`;
       }
 
-      async function reloadData(forceRefresh = false) {
-        const data = await GameShelfService.getCatalogData({ forceRefresh });
+      async function reloadData(forceRefresh = false, skipLiveFetch = false) {
+        const data = await GameShelfService.getCatalogData({ forceRefresh, skipLiveFetch });
         allGames = data.games;
         updateApiStatusBadge(data.apiInfo);
-        updateTypeCounts(allGames);
-        buildGenreChips(allGames);
+        buildDynamicFilterChips(allGames);
         renderCatalog();
       }
 
-      // Initialize UI state from URL params
       const searchInput = document.getElementById("catalogSearchInput");
       searchInput.value = state.query;
-      document.querySelectorAll("#catalogTypeTabs .gs-shelf-tab").forEach((t) => {
-        t.classList.toggle("active", t.dataset.type === state.type);
-      });
 
-      // Canlı API arama (420ms debounce)
       let liveSearchTimer = null;
       async function triggerLiveSearch(q) {
         const clean = (q || "").trim();
@@ -429,15 +676,13 @@
           pill.innerHTML = `<i class="fa fa-spinner fa-spin me-1"></i>Aranıyor...`;
         }
         await GameShelfService.searchLiveGames(clean);
-        const refreshed = await GameShelfService.getCatalogData();
+        const refreshed = await GameShelfService.getCatalogData({ skipLiveFetch: true });
         allGames = refreshed.games;
         updateApiStatusBadge(refreshed.apiInfo);
-        updateTypeCounts(allGames);
-        buildGenreChips(allGames);
+        buildDynamicFilterChips(allGames);
         renderCatalog();
       }
 
-      // Events
       searchInput.addEventListener("input", (e) => {
         state.query = e.target.value;
         renderCatalog();
@@ -445,6 +690,86 @@
         if (state.query.trim().length >= 2) {
           liveSearchTimer = setTimeout(() => triggerLiveSearch(state.query), 420);
         }
+      });
+
+      // Çoklu filtre chip tıklama (toggle)
+      document.addEventListener("click", (e) => {
+        const chip = e.target.closest("[data-filter-group]");
+        if (chip) {
+          const grp = chip.dataset.filterGroup;
+          const val = chip.dataset.filterVal;
+          if (state[grp]) {
+            if (state[grp].has(val)) state[grp].delete(val);
+            else state[grp].add(val);
+            renderCatalog();
+          }
+          return;
+        }
+
+        const remBtn = e.target.closest("[data-remove-filter]");
+        if (remBtn) {
+          const grp = remBtn.dataset.removeFilter;
+          const val = remBtn.dataset.removeVal;
+          if (grp === "query") {
+            state.query = "";
+            searchInput.value = "";
+          } else if (state[grp]) {
+            state[grp].delete(val);
+          }
+          renderCatalog();
+        }
+      });
+
+      document.getElementById("matchModeAndBtn").addEventListener("click", () => {
+        state.matchMode = "AND";
+        renderCatalog();
+      });
+
+      document.getElementById("matchModeOrBtn").addEventListener("click", () => {
+        state.matchMode = "OR";
+        renderCatalog();
+      });
+
+      document.getElementById("catalogSortSelect").addEventListener("change", (e) => {
+        state.sort = e.target.value;
+        renderCatalog();
+      });
+
+      function resetAllFilters() {
+        state.query = "";
+        state.types.clear();
+        state.genres.clear();
+        state.platforms.clear();
+        state.quick.clear();
+        state.matchMode = "AND";
+        state.sort = "community";
+        searchInput.value = "";
+        document.getElementById("catalogSortSelect").value = "community";
+        renderCatalog();
+      }
+
+      document.getElementById("resetFiltersBtn").addEventListener("click", resetAllFilters);
+
+      document.getElementById("catalogGamesGrid").addEventListener("click", async (e) => {
+        if (e.target.closest("#emptyResetBtn")) {
+          resetAllFilters();
+          return;
+        }
+        if (e.target.closest("#emptySwitchOrBtn")) {
+          state.matchMode = "OR";
+          renderCatalog();
+          return;
+        }
+        const addBtn = e.target.closest("[data-add-shelf]");
+        if (!addBtn) return;
+        const gameId = Number(addBtn.dataset.addShelf);
+        await GameShelfService.saveCollectionEntry(gameId, {
+          status: "backlog",
+          favorite: false,
+          visibility: "public",
+          notes: null
+        });
+        await reloadData(false, true);
       });
 
       // API Yapılandırma Modalı
@@ -470,106 +795,42 @@
       document.getElementById("saveRawgKeyBtn").addEventListener("click", async () => {
         GameShelfService.setRawgApiKey(rawgInput.value);
         closeApiModal();
-        await reloadData(true);
+        await reloadData(true, false);
       });
 
       document.getElementById("clearRawgKeyBtn").addEventListener("click", async () => {
         rawgInput.value = "";
         GameShelfService.setRawgApiKey("");
         closeApiModal();
-        await reloadData(true);
+        await reloadData(true, false);
       });
 
       document.getElementById("refreshLiveFeedBtn").addEventListener("click", async () => {
-        await reloadData(true);
+        await reloadData(true, false);
       });
 
-      document.getElementById("catalogTypeTabs").addEventListener("click", (e) => {
-        const btn = e.target.closest("[data-type]");
-        if (!btn) return;
-        document.querySelectorAll("#catalogTypeTabs .gs-shelf-tab").forEach((t) => t.classList.remove("active"));
-        btn.classList.add("active");
-        state.type = btn.dataset.type;
-        renderCatalog();
-      });
-
-      document.getElementById("catalogGenreChips").addEventListener("click", (e) => {
-        const chip = e.target.closest("[data-genre]");
-        if (!chip) return;
-        state.genre = chip.dataset.genre;
-        document.querySelectorAll("#catalogGenreChips .gs-genre-chip").forEach((c) => {
-          c.classList.toggle("active", c.dataset.genre === state.genre);
-        });
-        renderCatalog();
-      });
-
-      document.getElementById("catalogPlatformSelect").addEventListener("change", (e) => {
-        state.platform = e.target.value;
-        renderCatalog();
-      });
-
-      document.getElementById("catalogSortSelect").addEventListener("change", (e) => {
-        state.sort = e.target.value;
-        renderCatalog();
-      });
-
-      function resetAllFilters() {
-        state = { query: "", type: "all", genre: "all", platform: "all", sort: "community" };
-        searchInput.value = "";
-        document.getElementById("catalogPlatformSelect").value = "all";
-        document.getElementById("catalogSortSelect").value = "community";
-        document.querySelectorAll("#catalogTypeTabs .gs-shelf-tab").forEach((t) => {
-          t.classList.toggle("active", t.dataset.type === "all");
-        });
-        buildGenreChips(allGames);
-        renderCatalog();
-      }
-
-      document.getElementById("resetFiltersBtn").addEventListener("click", resetAllFilters);
-
-      document.getElementById("catalogGamesGrid").addEventListener("click", async (e) => {
-        if (e.target.closest("#emptyResetBtn")) {
-          resetAllFilters();
-          return;
-        }
-        const addBtn = e.target.closest("[data-add-shelf]");
-        if (!addBtn) return;
-        const gameId = Number(addBtn.dataset.addShelf);
-        await GameShelfService.saveCollectionEntry(gameId, {
-          status: "backlog",
-          favorite: false,
-          visibility: "public",
-          notes: null
-        });
-        await reloadData();
-      });
-
-      // Üst menüdeki Keşfet alt öğelerine aynı sayfadayken tıklanırsa türü anında değiştir
+      // Üst menüdeki Ürünlerimiz alt öğelerine aynı sayfadayken tıklanırsa tipi anında seç
       document.querySelectorAll('#gsMainNav a[href^="browse.html"]').forEach((link) => {
         link.addEventListener("click", (e) => {
           const targetUrl = new URL(link.href, window.location.href);
-          const nextType = targetUrl.searchParams.get("type") || "all";
-          if (["all", "base", "dlc", "edition"].includes(nextType)) {
-            e.preventDefault();
-            state.type = nextType;
-            document.querySelectorAll("#catalogTypeTabs .gs-shelf-tab").forEach((t) => {
-              t.classList.toggle("active", t.dataset.type === nextType);
-            });
-            renderCatalog();
-            window.history.replaceState({}, "", targetUrl.pathname + targetUrl.search);
+          const nextType = targetUrl.searchParams.get("type");
+          e.preventDefault();
+          state.types.clear();
+          if (["base", "dlc", "edition"].includes(nextType)) {
+            state.types.add(nextType);
           }
+          renderCatalog();
+          window.history.replaceState({}, "", targetUrl.pathname + targetUrl.search);
         });
       });
 
-      await reloadData();
+      // Önce yerel katalogla anında çiz, sonra canlı API ile tazele
+      await reloadData(false, true);
+      reloadData(false, false);
+
       if (state.query.trim().length >= 2) {
         await triggerLiveSearch(state.query);
       }
-      setInterval(() => {
-        if (!document.hidden && !state.query.trim()) {
-          reloadData(true);
-        }
-      }, 60000);
     })();
   </script>
 </body>
